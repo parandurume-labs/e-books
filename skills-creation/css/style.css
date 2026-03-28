@@ -1028,6 +1028,26 @@ button {
   text-decoration-color: var(--color-primary);
 }
 
+/* Illustration Placeholder */
+.illustration {
+  margin: var(--space-10) 0;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: 0 10px 40px var(--color-shadow);
+  border: 1px solid var(--color-border-light);
+  background: var(--color-surface);
+}
+
+.illustration img {
+  width: 100%;
+  height: auto;
+  transition: transform var(--transition-slow);
+}
+
+.illustration:hover img {
+  transform: scale(1.02);
+}
+
 /* Code Blocks */
 .chapter-content pre {
   background: var(--color-code-bg);
