@@ -7,14 +7,15 @@ AI와 오픈소스, 그리고 경기도 광명시에서 시작된 이야기들.
 ## e-Books
 
 | # | 제목 | 설명 | 상태 |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | 1 | [나만의 AI 스킬을 만들자](skills-creation/) | 완전 초보를 위한 AI 스킬 패키지 만들기 핸드북 | v1.0 |
+| 2 | [gstack 완전 초보자 가이드](gstack-introduction/) | AI로 혼자서 팀처럼 개발하기 — gstack 스킬 소개 | v1.0 |
 
 ## 읽는 방법
 
 웹 브라우저에서 바로 읽을 수 있습니다:
 
-**https://parandurume-labs.github.io/e-books/**
+**<https://parandurume-labs.github.io/e-books/>**
 
 또는 이 저장소를 클론해서 로컬에서 열어도 됩니다:
 
