@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>사회연대경제 — 함께 만드는 더 나은 세상</title>
+  <meta name="description" content="사회연대경제가 무엇인지, 왜 지금 중요한지, 실제 사례로 쉽게 배워보는 강의 교재.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Reading Progress Bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Mobile Header -->
+<header class="mobile-header" id="mobileHeader">
+  <button class="hamburger" id="hamburgerBtn" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+  <span class="mobile-title">사회연대경제</span>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" aria-label="다크모드 전환">
+    <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</header>
+
+<!-- Sidebar Navigation -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">🤝</div>
+    <h2 class="sidebar-title">목차</h2>
+    <button class="sidebar-close" id="sidebarClose" aria-label="닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="#hero" class="nav-link active" data-section="hero">🏠 표지</a></li>
+      <li><a href="#toc" class="nav-link" data-section="toc">📋 전체 목차</a></li>
+
+      <li class="nav-part">강의 시작</li>
+      <li><a href="chapters/ch00.html" class="nav-link">여는 이야기</a></li>
+
+      <li class="nav-part">본강의</li>
+      <li><a href="chapters/ch01.html" class="nav-link">1장 — 사회연대경제란?</a></li>
+      <li><a href="chapters/ch02.html" class="nav-link">2장 — 어디서 시작됐을까?</a></li>
+      <li><a href="chapters/ch03.html" class="nav-link">3장 — 왜 지금 중요한가?</a></li>
+      <li><a href="chapters/ch04.html" class="nav-link">4장 — 세상을 바꾼 사례들</a></li>
+      <li><a href="chapters/ch05.html" class="nav-link">5장 — 앞으로 나아갈 방향</a></li>
+
+      <li class="nav-part">부록</li>
+      <li><a href="chapters/appendix.html" class="nav-link">용어 사전 + 퀴즈</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" aria-label="다크모드 전환">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <span class="toggle-label">다크모드</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- Main Content -->
+<main class="main-content" id="mainContent">
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">강의 교재 · 중학생 이상 누구나 · 무료</div>
+      <h1 class="hero-title">
+        <span class="hero-title-sub">함께 만드는 더 나은 세상</span>
+        사회연대경제<br>완전 입문 강의
+      </h1>
+      <p class="hero-tagline">
+        경쟁만이 답일까요? <strong>함께 잘 사는 경제</strong>가 이미 존재합니다.<br>
+        우리 주변에 있었는데 몰랐던 이야기, 지금 시작합니다.
+      </p>
+      <div class="hero-actions">
+        <a href="#toc" class="btn btn-primary">목차 보기</a>
+        <a href="chapters/ch00.html" class="btn btn-secondary">강의 시작하기 →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">6</span>
+          <span class="stat-label">챕터</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">1h</span>
+          <span class="stat-label">강의 분량</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">7</span>
+          <span class="stat-label">실제 사례</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-decoration">
+      <div class="floating-shape shape-1"></div>
+      <div class="floating-shape shape-2"></div>
+      <div class="floating-shape shape-3"></div>
+    </div>
+  </section>
+
+  <!-- Table of Contents -->
+  <section class="toc-section" id="toc">
+    <h2 class="section-title">목차</h2>
+    <p class="section-subtitle">도입 + 본강의 5장 + 부록으로 구성된 완전 강의 교재</p>
+
+    <!-- 도입 -->
+    <div class="toc-part" id="part0">
+      <div class="part-header">
+        <span class="part-number">강의 시작</span>
+        <h3 class="part-title">여는 이야기 — 이미 알고 있었구나!</h3>
+        <p class="part-desc">본강의 전, 우리 일상 속에 사회연대경제가 이미 살아 숨쉬고 있다는 것을 함께 확인합니다.</p>
+      </div>
+      <div class="chapter-grid">
+        <a href="chapters/ch00.html" class="chapter-card" id="ch0">
+          <div class="chapter-illustration" aria-hidden="true">
+            <div class="illustration-placeholder">🌱</div>
+          </div>
+          <div class="chapter-info">
+            <span class="chapter-number">Introduction</span>
+            <h4 class="chapter-title">여는 이야기</h4>
+            <p class="chapter-excerpt">마트 vs 농협, 편의점 vs 신협… 우리 주변에 이미 있었던 "다른 경제"의 흔적을 찾아봅니다.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 본강의 -->
+    <div class="toc-part" id="part1">
+      <div class="part-header">
+        <span class="part-number">본 강의</span>
+        <h3 class="part-title">사회연대경제의 모든 것</h3>
+        <p class="part-desc">개념 → 역사 → 필요성 → 사례 → 미래 방향으로 이어지는 5장의 완전 강의.</p>
+      </div>
+      <div class="chapter-grid">
+        <a href="chapters/ch01.html" class="chapter-card" id="ch1">
+          <div class="chapter-illustration" aria-hidden="true">
+            <div class="illustration-placeholder">🤔</div>
+          </div>
+          <div class="chapter-info">
+            <span class="chapter-number">Chapter 1</span>
+            <h4 class="chapter-title">사회연대경제란 무엇인가?</h4>
+            <p class="chapter-excerpt">협동조합, 사회적기업, 공제조합… 낯선 단어들의 공통점은 무엇일까요? 핵심 개념을 쉽게 풀어드립니다.</p>
+          </div>
+        </a>
+        <a href="chapters/ch02.html" class="chapter-card" id="ch2">
+          <div class="chapter-illustration" aria-hidden="true">
+            <div class="illustration-placeholder">📜</div>
+          </div>
+          <div class="chapter-info">
+            <span class="chapter-number">Chapter 2</span>
+            <h4 class="chapter-title">어디서 시작됐을까?</h4>
+            <p class="chapter-excerpt">1844년 영국 로치데일의 28명 직조공부터, 한국의 두레·계·품앗이까지. 역사 속에서 만나는 연대의 흔적.</p>
+          </div>
+        </a>
+        <a href="chapters/ch03.html" class="chapter-card" id="ch3">
+          <div class="chapter-illustration" aria-hidden="true">
+            <div class="illustration-placeholder">⚡</div>
+          </div>
+          <div class="chapter-info">
+            <span class="chapter-number">Chapter 3</span>
+            <h4 class="chapter-title">왜 지금 중요한가?</h4>
+            <p class="chapter-excerpt">심화되는 불평등, 기후위기, AI로 인한 일자리 변화… 이 시대가 사회연대경제를 필요로 하는 이유.</p>
+          </div>
+        </a>
+        <a href="chapters/ch04.html" class="chapter-card" id="ch4">
+          <div class="chapter-illustration" aria-hidden="true">
+            <div class="illustration-placeholder">🌍</div>
+          </div>
+          <div class="chapter-info">
+            <span class="chapter-number">Chapter 4</span>
+            <h4 class="chapter-title">세상을 바꾼 사례들</h4>
+            <p class="chapter-excerpt">스페인 몬드라곤, 방글라데시 그라민 은행, 한국 아이쿱… 세계 곳곳에서 실제로 작동하는 연대경제의 모델들.</p>
+          </div>
+        </a>
+        <a href="chapters/ch05.html" class="chapter-card" id="ch5">
+          <div class="chapter-illustration" aria-hidden="true">
+            <div class="illustration-placeholder">🚀</div>
+          </div>
+          <div class="chapter-info">
+            <span class="chapter-number">Chapter 5</span>
+            <h4 class="chapter-title">우리가 나아갈 방향</h4>
+            <p class="chapter-excerpt">개인으로서, 청년으로서, 시민으로서 할 수 있는 것들. 사회연대경제의 미래와 나의 역할을 함께 생각해봅니다.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 부록 -->
+    <div class="toc-part toc-appendix" id="appendices">
+      <div class="part-header">
+        <span class="part-number">부록</span>
+        <h3 class="part-title">복습 & 심화</h3>
+        <p class="part-desc">용어 사전과 이해 확인 퀴즈로 배운 내용을 정리해보세요.</p>
+      </div>
+      <div class="appendix-grid">
+        <a href="chapters/appendix.html" class="appendix-card">
+          <span class="appendix-icon">📖</span>
+          <div>
+            <h4>부록 A</h4>
+            <p>용어 사전 (한-영 대조) + 이해 확인 퀴즈</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2>지금 바로 시작해볼까요?</h2>
+      <p>경쟁이 아닌 협력으로, 혼자가 아닌 함께.<br>우리가 이미 알고 있던 더 나은 경제의 이야기.</p>
+      <a href="chapters/ch00.html" class="btn btn-primary btn-large">여는 이야기부터 →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🤝</span>
+        <span>사회연대경제 완전 입문 강의</span>
+      </div>
+      <p class="footer-message">
+        이 교재는 <strong>파란두루미 e-book 컬렉션</strong>의 일부입니다.<br>
+        자유롭게 읽고, 공유하고, 강의에 활용할 수 있습니다.<br>
+        <span class="footer-highlight">경기도 광명시에서 시작된 이야기.</span>
+      </p>
+      <div class="footer-links">
+        <a href="https://github.com/parandurume-labs/e-books" target="_blank" rel="noopener">GitHub</a>
+        <span class="footer-divider">·</span>
+        <a href="../index.html">e-book 컬렉션으로</a>
+        <span class="footer-divider">·</span>
+        <a href="../LICENSE">GM-Social License</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 파란두루미 Labs. GM-Social License v2.0.</p>
+    </div>
+  </footer>
+
+</main>
+
+<script src="js/main.js"></script>
+</body>
+</html>
