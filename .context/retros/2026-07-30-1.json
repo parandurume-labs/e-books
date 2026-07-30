@@ -1,0 +1,90 @@
+{
+  "date": "2026-07-30",
+  "window": "7d",
+  "scope": "process-retro",
+  "_note": [
+    "git 기반 지표가 0 인 이유: 이번 세션 작업 전체가 미커밋이다.",
+    "origin/main 최신 커밋은 2026-04-10 (윈도우 밖).",
+    "그래서 세션 실측치로 회고했다. 날짜 착오가 아니다."
+  ],
+  "metrics": {
+    "commits": 0,
+    "contributors": 0,
+    "prs_merged": 0,
+    "insertions": 0,
+    "deletions": 0,
+    "net_loc": 0,
+    "active_days": 0,
+    "sessions": 0,
+    "uncommitted_modified": 39,
+    "uncommitted_untracked": 7,
+    "days_since_last_commit": 111
+  },
+  "session_work": {
+    "process_change": "3단계 → 4단계 (뜻 검수 신설)",
+    "trigger": "ch03 부정 뒤집힘 문장이 4개 관문을 통과",
+    "agents_used": {
+      "opus": 12,
+      "sonnet": 1,
+      "haiku": 1
+    },
+    "agent_tokens": {
+      "ko_copyedit": 456684,
+      "en_writing": 525865,
+      "en_index": 100281,
+      "structural_qa": 137621,
+      "semantic_review": 551931,
+      "total": 1772382
+    },
+    "defects_found_by_new_stage": {
+      "authoring_errors": 12,
+      "cross_chapter_contradictions": 3,
+      "introduced_by_copyedit": 0
+    },
+    "verification": {
+      "render_combos_passed": 80,
+      "hreflang_pairs": 20,
+      "tag_link_issues": 0,
+      "structural_parity_tags": 15
+    },
+    "artifacts_created": [
+      "STYLE.md",
+      "tools/invariants.json",
+      "tools/check-consistency.py",
+      "tools/LEARNINGS.md"
+    ]
+  },
+  "consistency_scan": {
+    "building-company-llm-wiki": {
+      "em_dash": 0,
+      "여러분": 0,
+      "files": 0,
+      "other": 2
+    },
+    "claude-100x": {
+      "em_dash": 257,
+      "여러분": 50,
+      "files": 19,
+      "other": 1
+    },
+    "gstack-introduction": {
+      "em_dash": 72,
+      "여러분": 53,
+      "files": 15,
+      "other": 0
+    },
+    "skills-creation": {
+      "em_dash": 220,
+      "여러분": 99,
+      "files": 22,
+      "other": 3
+    }
+  },
+  "next_batch_estimate": {
+    "books": 3,
+    "files": 56,
+    "em_dash_total": 549,
+    "yeoreobun_total": 202
+  },
+  "tweetable": "2026-07-30 process retro: QA 4단계로 재편. 세는 검증 4관문을 통과한 뜻 오류 1건에서 시작해 원저 오류 12건 + 장 사이 자기모순 3건 적출. 불변식 체커 신설. 미커밋 46개 파일"
+}
