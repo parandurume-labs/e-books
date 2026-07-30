@@ -1,0 +1,14 @@
+/* gstack 완전 초보자 가이드 — 책별 강조색. 구조와 조판은 ../../assets/css/book.css */
+:root {
+  --accent: #B8542B;
+  --accent-ink: #8E3F1F;
+  --accent-tint: #FAEBE2;
+  --accent-line: #EAC0A8;
+}
+
+[data-theme="dark"] {
+  --accent: #E89A70;
+  --accent-ink: #F0B694;
+  --accent-tint: #3A1F12;
+  --accent-line: #5A331F;
+}
