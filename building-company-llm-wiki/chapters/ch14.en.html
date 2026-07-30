@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 14: Scheduling: it runs even when people forget · Building a Company LLM Wiki</title>
+  <meta name="description" content="Claude Cowork scheduled tasks, the constraint that remote runs cannot reach a local folder, and four ways around it. Plus Windows Task Scheduler and Power Automate.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="alternate" hreflang="ko" href="ch14.html">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open contents"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Building a Company LLM Wiki</span>
+  <button class="search-trigger" type="button" aria-label="Search contents"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>Search</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="Toggle dark mode"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="Contents">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+    <span class="sidebar-title">Contents</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close contents">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.en.html" class="nav-link">Cover and contents</a></li>
+      <li class="nav-part">Part 1 · Why you need this</li>
+      <li><a href="ch01.en.html" class="nav-link">1. Where our knowledge lives</a></li>
+      <li><a href="ch02.en.html" class="nav-link">2. A wiki, not RAG</a></li>
+      <li><a href="ch03.en.html" class="nav-link">3. Ontology is not the wiki</a></li>
+      <li><a href="ch04.en.html" class="nav-link">4. Three tools, three jobs</a></li>
+      <li class="nav-part">Part 2 · Setup in 30 minutes</li>
+      <li><a href="coming-soon.en.html" class="nav-link">5. Obsidian and the vault</a></li>
+      <li><a href="coming-soon.en.html" class="nav-link">6. Sharing through Teams</a></li>
+      <li><a href="coming-soon.en.html" class="nav-link">7. Connecting the vault to Cowork</a></li>
+      <li class="nav-part">Part 3 · Designing the ontology</li>
+      <li><a href="coming-soon.en.html" class="nav-link">8. Six design principles</a></li>
+      <li><a href="coming-soon.en.html" class="nav-link">9. Choosing your classes</a></li>
+      <li><a href="coming-soon.en.html" class="nav-link">10. Relations and fields</a></li>
+      <li class="nav-part">Part 4 · Running it</li>
+      <li><a href="coming-soon.en.html" class="nav-link">11. CLAUDE.md</a></li>
+      <li><a href="coming-soon.en.html" class="nav-link">12. Templates and your first note</a></li>
+      <li><a href="coming-soon.en.html" class="nav-link">13. Automating with skills</a></li>
+      <li class="nav-part">Part 5 · Automation and visibility</li>
+      <li><a href="ch14.en.html" class="nav-link">14. Scheduling</a></li>
+      <li><a href="ch15.en.html" class="nav-link">15. Making progress visible</a></li>
+      <li><a href="ch16.en.html" class="nav-link">16. Twelve automation recipes</a></li>
+      <li class="nav-part">Part 6 · Keeping it alive</li>
+      <li><a href="coming-soon.en.html" class="nav-link">17. Quality as code</a></li>
+      <li><a href="coming-soon.en.html" class="nav-link">18. Intent versus execution</a></li>
+      <li class="nav-part">Part 7 · Scaling to AX</li>
+      <li><a href="ch19.en.html" class="nav-link">19. From wiki to AX</a></li>
+      <li class="nav-part">Appendices</li>
+      <li><a href="coming-soon.en.html" class="nav-link">Appendix A · Glossary</a></li>
+      <li><a href="coming-soon.en.html" class="nav-link">Appendix B · Copy-paste assets</a></li>
+      <li><a href="coming-soon.en.html" class="nav-link">Appendix C · Troubleshooting</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="Toggle dark mode"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">Dark mode</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 14</span>
+    <h1>Scheduling: it runs even when people forget</h1>
+    <p class="chapter-subtitle">One scheduled task outlives any weekly-review habit</p>
+    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>about 18 min</span>
+  </header>
+
+<article>
+    <p>Let's take stock of what you have built. You have a vault (Part 2), an ontology (Part 3), and rules, templates, and skills (Part 4). Quite a lot of work gets done now, <strong>as long as a person asks for it</strong>.</p>
+
+    <p>Here is the problem. <strong>Nobody asks.</strong></p>
+
+    <p>Chapter 1 put down "20 minutes of weekly review." Those 20 minutes hold through the first month, slip to every other week in the second, and vanish in the third. You are busy. When the review goes, rule violations pile up. When violations pile up, the quality of AI answers drops. When quality drops, nobody uses the thing.</p>
+
+    <div class="callout">
+      <p class="callout-title">What this chapter is for</p>
+      <p>The biggest reason a knowledge system dies three months in is that <strong>work that depends on remembering to do it is still sitting there</strong>. This chapter takes that work off human memory and <strong>bolts it to the clock.</strong></p>
+      <p>In the layer model from Chapter 3, what you build here is half of layer 3.</p>
+    </div>
+
+    <h2>Your default tool is a Cowork scheduled task</h2>
+
+    <p>Claude Cowork has <strong>scheduled tasks</strong>. Write the prompt once and it runs on a set rhythm and leaves its output behind. The feature arrived in February 2026, and it needs a paid plan (Pro, Max, Team, or Enterprise).</p>
+
+    <ol class="steps">
+      <li><strong>Click "Scheduled" in the left sidebar</strong>
+        <p>The list of scheduled tasks opens. The first time, it is empty.</p>
+      </li>
+      <li><strong>Click "New task" and pick how to set it up</strong>
+        <p><strong>Create with Claude</strong> lets you describe what you want in plain words, and Claude proposes a prompt and a frequency. <strong>Set up manually</strong> means you type it in yourself. For the first two or three, building them by hand teaches you the structure.</p>
+      </li>
+      <li><strong>Fill in the manual fields</strong>
+        <p>Task name, prompt, approval mode, frequency, and then optionally a model and a folder.</p>
+      </li>
+      <li><strong>Pick a frequency</strong>
+        <p>Hourly, daily, weekly, weekdays, or manual. There is nothing as fine-grained as "the last business day of the month." If you need that, set it weekly and let the prompt work out the date.</p>
+      </li>
+      <li><strong>Save, and you are done</strong>
+        <p>From then on you read the run history and the output from the list.</p>
+      </li>
+    </ol>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">How specs are dated here</p>
+      <p>The screens and frequency options in this chapter are <strong>as of July 2026</strong>. This feature still moves fast, so if a button has a different name, look for "Schedule" or "Scheduled." <strong>What matters in this chapter is not where a button sits but the constraint in the next section</strong>. That one is not changing any time soon.</p>
+    </div>
+
+    <h2>Remote runs and a local vault: this is where most people get stuck</h2>
+
+    <p>The best thing about a scheduled task is that <strong>it runs remotely</strong>. Close the laptop, quit the Claude app, and it still runs at the set time.</p>
+
+    <p>That is exactly what causes the trouble.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">The constraint that matters, so read this one twice</p>
+      <p>A scheduled task running remotely <strong>cannot reach a local folder on your PC.</strong> It only handles connectors and files stored in your Claude account.</p>
+      <p>Your vault, though, is a <strong>local folder</strong> like <code>C:\Users\...\OneDrive - Company\Solbit Tech Wiki\</code>. Chapter 4 called working on that folder directly the advantage of this combination. In a scheduled task, the same thing turns into the limit.</p>
+      <p>There is one exception. <strong>If a task needs local files, that task runs only locally.</strong> Which means the computer has to be awake at that hour with Claude Desktop open. If it is off, that run is simply skipped.</p>
+    </div>
+
+    <p>Set up "check the vault every Monday morning and write me a report" without knowing this, and nothing happens until you get to the office on Monday and turn the machine on. The worse case is <strong>a run that goes ahead, cannot read the vault, and hands you an empty report</strong>. Somebody really did trust a report that said "checked, no problems found" for three weeks.</p>
+
+    <h3>So you use four paths</h3>
+
+    <p>No single one covers everything. Each is good at something different.</p>
+
+    <table>
+      <thead>
+        <tr><th></th><th>Runs where</th><th>Vault access</th><th>PC can be off</th><th>AI judgment</th><th>Mainly used for</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>A. Local scheduled task</strong></td>
+          <td>Cowork (local)</td>
+          <td>reads and writes directly</td>
+          <td>❌ must stay on</td>
+          <td>yes</td>
+          <td>work that has to <strong>change</strong> the vault (structuring, checks, retrospectives)</td>
+        </tr>
+        <tr>
+          <td><strong>B. Remote scheduled task</strong></td>
+          <td>Cowork (cloud)</td>
+          <td>through a connector (SharePoint, OneDrive)</td>
+          <td>✅</td>
+          <td>yes</td>
+          <td>work that <strong>reads and tells you</strong> (briefings, summaries, watching)</td>
+        </tr>
+        <tr>
+          <td><strong>C. Task Scheduler</strong></td>
+          <td>Windows + Python</td>
+          <td>reads and writes directly</td>
+          <td>❌ must stay on</td>
+          <td>none (rules only)</td>
+          <td>work with the same result every time (format checks, dashboard generation)</td>
+        </tr>
+        <tr>
+          <td><strong>D. Power Automate</strong></td>
+          <td>Microsoft 365 cloud</td>
+          <td>reads through SharePoint</td>
+          <td>✅</td>
+          <td>none</td>
+          <td>work that <strong>pushes out to Teams</strong> (digests, reminders)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>You get the answer by asking the questions below in order.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="400" fill="#FFFDF9"/>
+        <defs>
+          <marker id="a14" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#6B5647"/>
+          </marker>
+        </defs>
+
+        <text x="360" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">Ask these three questions, in this order</text>
+
+        <!-- Q1 -->
+        <rect x="250" y="40" width="220" height="44" rx="8" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="360" y="60" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">Q1. Does it need AI judgment?</text>
+        <text x="360" y="76" text-anchor="middle" font-size="10" fill="#6B5647">Read, summarize, classify, write?</text>
+
+        <!-- no -> C -->
+        <line x1="250" y1="62" x2="150" y2="62" stroke="#6B5647" stroke-width="1.4" marker-end="url(#a14)"/>
+        <text x="200" y="54" text-anchor="middle" font-size="10" fill="#6B5647">No</text>
+        <rect x="24" y="90" width="200" height="62" rx="8" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.8"/>
+        <text x="124" y="112" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">C. Python + Task Scheduler</text>
+        <text x="124" y="130" text-anchor="middle" font-size="10" fill="#3D2B1F">Format checks, counts, dashboards</text>
+        <text x="124" y="145" text-anchor="middle" font-size="10" fill="#6B5647">Free · same result every time</text>
+        <path d="M150,62 L150,90" fill="none" stroke="#6B5647" stroke-width="1.4"/>
+
+        <!-- yes -> Q2 -->
+        <line x1="360" y1="84" x2="360" y2="112" stroke="#6B5647" stroke-width="1.4" marker-end="url(#a14)"/>
+        <text x="378" y="102" font-size="10" fill="#6B5647">Yes</text>
+        <rect x="250" y="116" width="220" height="44" rx="8" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="360" y="136" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">Q2. Must it write to the vault?</text>
+        <text x="360" y="152" text-anchor="middle" font-size="10" fill="#6B5647">Create or edit notes?</text>
+
+        <!-- yes -> A -->
+        <line x1="470" y1="138" x2="540" y2="138" stroke="#6B5647" stroke-width="1.4"/>
+        <text x="505" y="130" text-anchor="middle" font-size="10" fill="#6B5647">Yes</text>
+        <path d="M540,138 L540,168" fill="none" stroke="#6B5647" stroke-width="1.4" marker-end="url(#a14)"/>
+        <rect x="440" y="172" width="256" height="62" rx="8" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.8"/>
+        <text x="568" y="194" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">A. Local scheduled task</text>
+        <text x="568" y="212" text-anchor="middle" font-size="10" fill="#3D2B1F">Structuring, quality checks, retro drafts</text>
+        <text x="568" y="227" text-anchor="middle" font-size="10" fill="#C2703C">The PC must be awake at that hour</text>
+
+        <!-- no -> Q3 -->
+        <line x1="360" y1="160" x2="360" y2="188" stroke="#6B5647" stroke-width="1.4" marker-end="url(#a14)"/>
+        <text x="378" y="178" font-size="10" fill="#6B5647">No</text>
+        <rect x="228" y="192" width="196" height="44" rx="8" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="326" y="212" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">Q3. Can the PC stay on?</text>
+        <text x="326" y="228" text-anchor="middle" font-size="10" fill="#6B5647">Always awake at that hour?</text>
+
+        <!-- Q3 no -> B -->
+        <line x1="228" y1="214" x2="150" y2="214" stroke="#6B5647" stroke-width="1.4"/>
+        <text x="188" y="206" text-anchor="middle" font-size="10" fill="#6B5647">No</text>
+        <path d="M150,214 L150,248" fill="none" stroke="#6B5647" stroke-width="1.4" marker-end="url(#a14)"/>
+        <rect x="24" y="252" width="248" height="62" rx="8" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.8"/>
+        <text x="148" y="274" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">B. Remote task + connector</text>
+        <text x="148" y="292" text-anchor="middle" font-size="10" fill="#3D2B1F">Morning briefing, expiry watch, summaries</text>
+        <text x="148" y="307" text-anchor="middle" font-size="10" fill="#6B5647">Needs a SharePoint or OneDrive connector</text>
+
+        <!-- Q3 yes -> A -->
+        <line x1="424" y1="214" x2="470" y2="214" stroke="#6B5647" stroke-width="1.4"/>
+        <text x="447" y="206" text-anchor="middle" font-size="10" fill="#6B5647">Yes</text>
+        <path d="M470,214 L470,234" fill="none" stroke="#6B5647" stroke-width="1.4" marker-end="url(#a14)"/>
+        <text x="470" y="248" text-anchor="middle" font-size="10.5" fill="#0F766E">A works too</text>
+
+        <!-- D -->
+        <rect x="300" y="330" width="396" height="52" rx="8" fill="#FAEADF" stroke="#C2703C" stroke-width="1.8" stroke-dasharray="5 3"/>
+        <text x="498" y="350" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">D. Power Automate — layers on top of any of these</text>
+        <text x="498" y="368" text-anchor="middle" font-size="10" fill="#3D2B1F">Posts the result as a Teams card, so nobody has to go looking</text>
+
+        <text x="150" y="366" text-anchor="middle" font-size="10.5" fill="#6B5647">You end up using all three.</text>
+        <text x="150" y="382" text-anchor="middle" font-size="10.5" fill="#6B5647">Each solves a different problem</text>
+      </svg>
+      <figcaption>Three questions settle it: does it need AI, does it need to write, can the PC stay on?</figcaption>
+    </figure>
+
+    <h2>The first three scheduled tasks to build</h2>
+
+    <p>Do not build more than five. To start with, <strong>three</strong> is about right. The three below are a deliberate set, in this order. One helps you start the week, one nudges people to record, one protects quality.</p>
+
+    <h3>① Monday morning briefing (Path B · remote)</h3>
+
+    <p>Monday, 08:30. Before you get in, it lays out what you need to look at this week. <strong>It only reads, so run it remotely.</strong></p>
+
+    <pre><code>[Task name] Monday weekly briefing
+[Frequency] Every Monday 08:30 (KST)
+[Approval mode] Automatic
+[Prompt]
+
+Using the "Solbit Tech Wiki" folder on SharePoint, write this week's briefing.
+
+Include:
+1. Items due within 14 days — based on the due field in Sources/20-Projects/.
+   List projects and opportunities separately, and give the owner alongside each.
+2. Notes created or changed in the last 7 days (based on the updated field).
+3. Decisions recorded in the last 7 days — find them in Sources/40-Worklog/.
+4. Products with status 운영 that have had no update for 14 days or more — a stale signal.
+
+Rules:
+- Never infer a fact that is not in the vault. If it is missing, write "no record".
+- After each item, put the name of the source note in [[double brackets]].
+- Under 1000 characters. No tables, short lists only.
+- If every section is empty, write the single line "nothing unusual this week".</code></pre>
+
+    <h3>② Daily 6 pm work log check (Path B · remote)</h3>
+
+    <p>The retrospective in Chapter 18 only works if the work logs exist. And nobody writes work logs. So you tell <strong>only the people who skipped</strong>, quietly.</p>
+
+    <pre><code>[Task name] Missing work log check
+[Frequency] Weekdays 18:00 (KST)
+[Approval mode] Automatic
+[Prompt]
+
+In Sources/40-Worklog/, find the work log notes written with today's date (KST).
+
+- Take the team roster from Sources/00-Company/members.md.
+- List only the names with no log for today.
+- If everyone has written one, output the single line "all logs in" and stop.
+- Do not write a sentence that blames anyone. Names and numbers only.
+- Count yesterday and the day before too, and mark it like "2 days missing in a row".</code></pre>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">This task is not a surveillance tool</p>
+      <p><strong>Post the list of missing logs to the whole team channel and this system dies that day.</strong> People read recording as monitoring, and then you get logs that fill the form and say nothing. Logs like that are no use in a retrospective.</p>
+      <p>Send it to the person alone, or let one knowledge owner see it. <strong>Once everyone has logged for three weeks straight, delete the task.</strong> Once the habit is there, the alert is noise.</p>
+    </div>
+
+    <h3>③ Friday evening quality check (Path A · local)</h3>
+
+    <p>This one has to <strong>change the vault</strong>, so run it locally. Set it for Friday at 17:00, an hour when people are still at their desks.</p>
+
+    <pre><code>[Task name] Weekly vault check
+[Frequency] Every Friday 17:00 (KST)
+[Approval mode] Confirm before writing files
+[Folder] Solbit Tech Wiki
+[Prompt]
+
+1. Run _ops/scripts/validate.py.
+2. Sort the results into ERROR / WARN / INFO.
+3. Fix these kinds of ERROR yourself.
+   - a missing required updated field → fill it with the file's modification time
+   - a typo in a class value → check it against the list in _ops/01-ontology-design.md and fix it
+4. Leave the rest alone and only list it. In particular, do not touch anything that needs a judgment about the facts.
+5. Save the result as _reports/check-YYYY-MM-DD.md. Do not overwrite an existing file.
+6. Compare with last week's report (the newest file in _reports/) and put the change in ERROR count on the first line.
+
+Never do this:
+- do not edit the body of a note under Sources/ (anything below the frontmatter)
+- do not change any field on a note with confidence: reviewed
+- do not create new notes</code></pre>
+
+    <p>Put those three in place and a week looks like this.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="250" fill="#FFFDF9"/>
+        <text x="360" y="26" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">A week that runs itself</text>
+
+        <!-- day axis -->
+        <line x1="70" y1="150" x2="680" y2="150" stroke="#8A857C" stroke-width="1.5"/>
+        <text x="100" y="172" text-anchor="middle" font-size="11" font-weight="bold" fill="#6B5647">Mon</text>
+        <text x="216" y="172" text-anchor="middle" font-size="11" font-weight="bold" fill="#6B5647">Tue</text>
+        <text x="332" y="172" text-anchor="middle" font-size="11" font-weight="bold" fill="#6B5647">Wed</text>
+        <text x="448" y="172" text-anchor="middle" font-size="11" font-weight="bold" fill="#6B5647">Thu</text>
+        <text x="564" y="172" text-anchor="middle" font-size="11" font-weight="bold" fill="#6B5647">Fri</text>
+
+        <!-- morning briefing -->
+        <rect x="56" y="52" width="120" height="40" rx="7" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="116" y="70" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#0F766E">08:30 weekly brief</text>
+        <text x="116" y="85" text-anchor="middle" font-size="9.5" fill="#6B5647">Remote · read only</text>
+        <line x1="100" y1="92" x2="100" y2="146" stroke="#0F766E" stroke-width="1.2" stroke-dasharray="3 3"/>
+        <circle cx="100" cy="150" r="4.5" fill="#0F766E"/>
+
+        <!-- daily 18:00 -->
+        <rect x="160" y="102" width="112" height="34" rx="6" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="216" y="122" text-anchor="middle" font-size="10" fill="#C2703C">18:00 log check</text>
+        <circle cx="216" cy="150" r="4" fill="#C2703C"/>
+        <rect x="276" y="102" width="112" height="34" rx="6" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="332" y="122" text-anchor="middle" font-size="10" fill="#C2703C">18:00 log check</text>
+        <circle cx="332" cy="150" r="4" fill="#C2703C"/>
+        <rect x="392" y="102" width="112" height="34" rx="6" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="448" y="122" text-anchor="middle" font-size="10" fill="#C2703C">18:00 log check</text>
+        <circle cx="448" cy="150" r="4" fill="#C2703C"/>
+
+        <!-- Friday check -->
+        <rect x="500" y="52" width="128" height="40" rx="7" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="564" y="70" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#0F766E">17:00 quality check</text>
+        <text x="564" y="85" text-anchor="middle" font-size="9.5" fill="#6B5647">Local · writes files</text>
+        <line x1="564" y1="92" x2="564" y2="146" stroke="#0F766E" stroke-width="1.2" stroke-dasharray="3 3"/>
+        <circle cx="564" cy="150" r="4.5" fill="#0F766E"/>
+
+        <!-- footer -->
+        <rect x="56" y="196" width="608" height="38" rx="8" fill="#FAEADF" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="360" y="220" text-anchor="middle" font-size="11" fill="#3D2B1F">Things to remember: <tspan font-weight="bold">none.</tspan> Things to decide: the few ERRORs left in the report</text>
+      </svg>
+      <figcaption>Instead of fighting to keep a weekly habit, you make the check happen on its own</figcaption>
+    </figure>
+
+    <h2>A scheduled prompt is not a chat prompt</h2>
+
+    <p>For the same job, the prompt for a scheduled task runs longer. There is a reason. <strong>In a chat you say "no, not that" when the output looks off; in a scheduled task nobody is there to say it.</strong></p>
+
+    <p>So you always write six things.</p>
+
+    <table>
+      <thead>
+        <tr><th>Rule</th><th>Skip it and</th><th>Write it like this</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Exactly where the output goes</strong></td>
+          <td>the result stays in the chat window and disappears</td>
+          <td><code>save as _reports/check-YYYY-MM-DD.md</code></td>
+        </tr>
+        <tr>
+          <td><strong>2. What to do when the result is empty</strong></td>
+          <td>you collect weekly reports that say "nothing to report" at length</td>
+          <td><code>if empty, write one line and stop</code></td>
+        </tr>
+        <tr>
+          <td><strong>3. A list of things never to do</strong></td>
+          <td>it quietly edits a note a person had verified</td>
+          <td><code>do not touch reviewed notes</code></td>
+        </tr>
+        <tr>
+          <td><strong>4. Sourcing is mandatory</strong></td>
+          <td>you cannot tell where a number came from, so you check it again anyway</td>
+          <td><code>source note after each item in [[brackets]]</code></td>
+        </tr>
+        <tr>
+          <td><strong>5. Comparison with the last run</strong></td>
+          <td>you cannot tell whether things are getting better or worse</td>
+          <td><code>compare with the last report, change on line one</code></td>
+        </tr>
+        <tr>
+          <td><strong>6. A length cap</strong></td>
+          <td>nobody reads it three weeks later</td>
+          <td><code>under 1000 characters</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p class="callout-title">Number 2 matters most</p>
+      <p>Automation dies of <strong>noise</strong>, not of stopping. If a report arrives daily and daily says nothing much, people stop reading it within three weeks. They miss the run that mattered along with the rest.</p>
+      <p>Build it so that <strong>silence is the answer when nothing changed</strong>. The arrival of the alert should itself be information.</p>
+    </div>
+
+    <h3>How to pick the approval mode</h3>
+
+    <table>
+      <thead>
+        <tr><th>Kind of task</th><th>Approval mode</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Reads and summarizes only (briefings, alerts)</td><td>automatic</td><td>Nothing to undo. Ask for confirmation and the run just sits there</td></tr>
+        <tr><td>Creates new files only in a generated-output folder</td><td>automatic</td><td>It does not touch existing knowledge</td></tr>
+        <tr><td>Edits notes in <code>Sources/</code></td><td>needs confirmation</td><td>It changes knowledge a person verified</td></tr>
+        <tr><td>Deletes or moves files</td><td>needs confirmation (or ban it outright)</td><td>Sync conflicts and broken links arrive together</td></tr>
+      </tbody>
+    </table>
+
+    <div class="pitfall">
+      <p class="pitfall-title">The trap of stalling quietly on approval</p>
+      <p>A task set to "needs confirmation" that fires at 3 a.m. sits there waiting for approval. Nothing happens until you look in the morning. And when the next run comes around, <strong>you have forgotten that the last one is still stalled.</strong></p>
+      <p>Two ways out. <strong>Schedule tasks that need approval for hours when a person is at the screen</strong> (Friday at 17:00, say), or <strong>limit their writing to <code>_reports/</code> and run them automatically.</strong> This book recommends the second.</p>
+    </div>
+
+    <h2>Path C: Python plus Windows Task Scheduler</h2>
+
+    <p>Plenty of work needs no AI at all. <strong>"Is the required field there," "is this link broken," "how many notes are there" is arithmetic, not judgment.</strong> A script does that better. The result is the same every time, it costs nothing, and it spends no AI usage.</p>
+
+    <p>Here is how to run the <code>validate.py</code> you build in Chapter 17 automatically every morning. One line in an administrator command prompt.</p>
+
+    <pre><code>schtasks /create /tn "Wiki check" /tr "python \"C:\Users\hong\OneDrive - Solbit Tech\Solbit Tech Wiki\_ops\scripts\validate.py\"" /sc daily /st 08:00 /f</code></pre>
+
+    <p>The options look unfamiliar, but four of them are enough.</p>
+
+    <table>
+      <thead>
+        <tr><th>Option</th><th>What it means</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>/tn</code></td><td>Task name. You use it later to delete the task (<code>schtasks /delete /tn "Wiki check"</code>)</td></tr>
+        <tr><td><code>/tr</code></td><td>The command to run. If the path has spaces, escape the inner quotes as <code>\"</code></td></tr>
+        <tr><td><code>/sc</code></td><td>Frequency. <code>daily</code> / <code>weekly</code> / <code>hourly</code> / <code>onlogon</code></td></tr>
+        <tr><td><code>/st</code></td><td>Run time (24-hour clock)</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">onlogon may serve you better than 08:00</p>
+      <p>Set it for 08:00 and any day the PC is off at that moment gets skipped. With <code>/sc onlogon</code> it runs <strong>every time you log in</strong>, so it runs once a day even when your start time moves around.</p>
+      <p>Put "exit if it already ran today" in the first line of the script and several logins still give you one run.</p>
+    </div>
+
+    <p>Have the script leave a report and nobody has to read it. A Cowork scheduled task reads that report and puts it into human words. <strong>C calculates, A and B interpret</strong> — that split holds up best.</p>
+
+    <pre><code># the last part of _ops/scripts/validate.py
+# leave it for the next automation, not for a human
+
+report = ROOT / "_reports" / f"validate-{today}.md"
+report.write_text(rendered, encoding="utf-8")
+
+# append one summary line so the scheduled task can work out the change
+with (ROOT / "_reports" / "validate-history.csv").open("a", encoding="utf-8") as f:
+    f.write(f"{today},{n_error},{n_warn},{n_notes}\n")</code></pre>
+
+    <p>Those last two lines are the raw material for the trend chart in Chapter 15.</p>
+
+    <h2>Path D: pushing to Teams with Power Automate</h2>
+
+    <p>Even a report you generate <strong>might as well not exist if nobody opens that folder.</strong> So you push the result up into a Teams channel.</p>
+
+    <p>If you use Microsoft 365, Power Automate is already there. The flow has four steps.</p>
+
+    <ol class="steps">
+      <li><strong>Pick a trigger</strong>
+        <p>Use <code>Recurrence</code>, every Monday at 09:00, with the time zone set to <strong>Seoul</strong>. Leave the time zone alone and it runs on UTC, nine hours out.</p>
+      </li>
+      <li><strong>Read the file</strong>
+        <p><code>SharePoint - Get file content</code> pulls the newest report from <code>_reports/</code>. The vault lives in a Teams shared folder, so SharePoint sees it as it is.</p>
+      </li>
+      <li><strong>Pull out only the part you need</strong>
+        <p>The first ten lines of the report are plenty. Put the whole thing in a card and nobody reads it. Attach a link for "see details."</p>
+      </li>
+      <li><strong>Post it to Teams as a card</strong>
+        <p>Use the <code>Post your own adaptive card as the Flow bot to a channel</code> action. Aim it at the knowledge channel.</p>
+      </li>
+    </ol>
+
+    <p>For the card body (Adaptive Card JSON), this much is enough.</p>
+
+    <pre><code>{
+  "type": "AdaptiveCard",
+  "version": "1.4",
+  "body": [
+    { "type": "TextBlock", "text": "Weekly wiki check", "weight": "Bolder", "size": "Medium" },
+    { "type": "TextBlock", "text": "@{outputs('summary')}", "wrap": true },
+    { "type": "FactSet", "facts": [
+      { "title": "ERROR", "value": "@{variables('nError')}" },
+      { "title": "vs last week", "value": "@{variables('delta')}" },
+      { "title": "Total notes", "value": "@{variables('nNotes')}" }
+    ]}
+  ],
+  "actions": [
+    { "type": "Action.OpenUrl", "title": "Open the report", "url": "@{variables('reportUrl')}" }
+  ]
+}</code></pre>
+
+    <div class="pitfall">
+      <p class="pitfall-title">How many alerts can you build</p>
+      <p>Technically, no limit. Organizationally, <strong>three a week</strong> is the ceiling. Past that, people mute the channel. And once they mute it, they miss the announcements that really matter.</p>
+      <p>Every time you add an alert, <strong>look at an existing one as a candidate for deletion.</strong> That single rule doubles the life of an automation project.</p>
+    </div>
+
+    <h2>Three new problems automation creates</h2>
+
+    <h3>1. Sync conflicts go up</h3>
+
+    <p>The OneDrive conflict problem from Chapter 6 comes back here. <strong>When a scheduled task touches the same file as a person, you get a conflict copy.</strong> Scheduled tasks run overnight too, so you arrive one morning and there is a <code>filename 1.md</code> with no explanation.</p>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">One rule handles most of it</p>
+      <p><strong>Automation writes new files only in generated-output folders such as <code>_reports/</code> and <code>_moc/</code>.</strong> <code>Sources/</code> belongs to people.</p>
+      <p>If an automation has to edit notes, have it <strong>leave a "to fix" list as a report and let a person approve and apply it</strong> instead of editing. It costs one more step, and it beats quietly contaminating your knowledge assets.</p>
+    </div>
+
+    <h3>2. What AI wrote and what a person checked get mixed together</h3>
+
+    <p>If a scheduled task creates notes every week, a few months later half the vault is <strong>AI output nobody has read</strong>. And the next AI reads it as fact. Repeat that and quality collapses quietly.</p>
+
+    <p>So automations always use the <code>confidence</code> field from Chapter 12.</p>
+
+    <pre><code>confidence: draft      # AI made it, nobody has looked
+confidence: reviewed   # a person read it and confirmed it
+generated_by: schedule/weekly-briefing   # which automation made it</code></pre>
+
+    <p>Put one line in CLAUDE.md as well. <strong>"A note with <code>confidence: draft</code> is never a source for an external document."</strong> That one line closes the route by which unverified information gets into a proposal.</p>
+
+    <h3>3. Failure is quiet</h3>
+
+    <p>This is the dangerous one. When a scheduled task stops running, <strong>nobody knows.</strong> Nobody registers the fact that no alert arrived. Some weeks have no alerts anyway.</p>
+
+    <p>So you make sure <strong>one of them arrives every week without fail</strong>. That is why the Monday briefing is designed to send "nothing unusual this week" as a single line. <strong>One line arriving means the system is alive.</strong> Two weeks of silence is a signal that something broke.</p>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: deleting two of five scheduled tasks</p>
+      <p>Solbit Tech ran five scheduled tasks for three months. Here is how it came out.</p>
+      <table>
+        <thead><tr><th>Task</th><th>Three months later</th></tr></thead>
+        <tbody>
+          <tr><td>Monday weekly briefing</td><td><strong>Kept.</strong> Kim uses it as the material for the Monday meeting</td></tr>
+          <tr><td>Weekly vault check</td><td><strong>Kept.</strong> ERRORs fell from 19 to 3, then stayed there</td></tr>
+          <tr><td>Missing work log check</td><td><strong>Dropped.</strong> By week seven everyone was logging, so the alert had become noise</td></tr>
+          <tr><td>Daily news summary</td><td><strong>Dropped.</strong> General information unrelated to the vault, and nobody read it</td></tr>
+          <tr><td>Month-end numbers</td><td><strong>Kept, but moved.</strong> Letting AI count made them uneasy, so it went to Python (C)</td></tr>
+        </tbody>
+      </table>
+      <p>The part worth noticing is that <strong>dropping something is not a failure</strong>. The missing-log alert stopped being needed <strong>because it succeeded at building the habit</strong>. An automation that met its purpose should go.</p>
+      <p>The daily news summary, on the other hand, was the wrong automation from the start. <strong>It neither read the vault nor wrote to it.</strong> It got built because it was easy to build, and that kind rarely gets used.</p>
+    </div>
+
+    <h2>Once a quarter, clean up your automations</h2>
+
+    <p>Scheduled tasks only ever multiply. So every quarter you open the list and ask three things of each one.</p>
+
+    <div class="checklist">
+      <p class="checklist-title">Three questions for a cleanup</p>
+      <ul>
+        <li><strong>Has anyone actually opened any of its output in the last four weeks?</strong> If not, delete it. "We might need it someday" means you do not need it.</li>
+        <li><strong>Has anything it produced been quoted in another document?</strong> Then it stays. That is evidence it is in use.</li>
+        <li><strong>Has it met its purpose, so it is no longer needed?</strong> An alert meant to build a habit goes once the habit is there.</li>
+      </ul>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: build one scheduled task</p>
+      <p>Do not build all three. Building <strong>one</strong> and running it for two weeks goes much better.</p>
+      <ol>
+        <li>Use the decision tree above to pick the path for the task you build. <strong>For your first one, take B (remote, read only).</strong> If it fails, the vault survives.</li>
+        <li>Copy the "① Monday morning briefing" prompt and <strong>swap in your own folder names and field names.</strong> Used as it is, it will not run.</li>
+        <li>Before you set the frequency, <strong>run it manually once.</strong> If the output looks off, fix the prompt. Two or three rounds of that is normal.</li>
+        <li><strong>Find one wrong fact in the output.</strong> When you find it, it is a vault problem, not a prompt problem. Work out which note was empty and caused it.</li>
+        <li>Two weeks later, ask yourself: <strong>"Did I actually read this alert?"</strong> If not, delete it and build something else.</li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li>A knowledge system dies <strong>because of the work that depends on remembering.</strong> Bolting that work to the clock is what this chapter is for</li>
+        <li>A Cowork scheduled task <strong>runs remotely but cannot reach a local folder.</strong> A task that needs local files runs only while the PC is awake</li>
+        <li>Split the work across four paths. <strong>A local task (writes) · B remote task (reads) · C Python plus Task Scheduler (calculates) · D Power Automate (tells people)</strong></li>
+        <li>The order you ask in: <strong>does it need AI judgment → does it write to the vault → can the PC stay on</strong></li>
+        <li>A scheduled prompt always says six things. Where the output goes, <strong>what to do when the result is empty</strong>, what never to do, sourcing, comparison with the last run, and a length cap</li>
+        <li>Automation dies of <strong>noise</strong>, not of stopping. Build it to say nothing when nothing changed</li>
+        <li><strong>Automation writes only to generated-output folders (<code>_reports/</code>, <code>_moc/</code>).</strong> <code>Sources/</code> belongs to people</li>
+        <li>Leave <code>confidence: draft</code> and <code>generated_by</code> on AI output. It stops the unverified from leaking into external documents</li>
+        <li>Failure is quiet. Make <strong>one task arrive every week</strong> and use it as a sign of life</li>
+        <li>An automation that met its purpose <strong>gets deleted.</strong> Dropping it is not a failure</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>Coming up</h3>
+      <p>Once the automation runs, reports pile up. And <strong>a report made of prose stops being read in week three.</strong> So you make it visible instead. Status field design, Gantt charts drawn with no plugins, kanban boards, and a dashboard note that refreshes itself every week. The moment the benefit of recording becomes visible, people start recording.</p>
+    </div>
+  </article>
+
+
+  <nav class="chapter-nav">
+    <a href="coming-soon.en.html" class="back-to-toc">← Previous: Automating repeat work with skills</a>
+    <a href="ch15.en.html" class="next">Next: Making work in progress visible →</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="On this page"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Search contents">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="Find a chapter" aria-label="Search">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

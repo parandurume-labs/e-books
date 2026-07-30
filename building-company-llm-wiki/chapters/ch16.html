@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 16: 실무 자동화 레시피 12선 · 회사용 LLM Wiki 만들기</title>
+  <meta name="description" content="회의록 구조화부터 제안서 초안, 온보딩 팩, 계약 만료 감시까지 실무 레시피 12개. 첫 레시피는 입력·프롬프트·결과물·검증·실패까지 전 과정을 공개합니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="alternate" hreflang="en" href="ch16.en.html">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">회사용 LLM Wiki 만들기</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 필요한가</li>
+      <li><a href="ch01.html" class="nav-link">1장 우리 지식은 어디에</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 RAG가 아니라 위키다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 온톨로지와 위키의 구분</a></li>
+      <li><a href="ch04.html" class="nav-link">4장 도구 세 개의 역할</a></li>
+      <li class="nav-part">제2부: 준비 · 30분 셋업</li>
+      <li><a href="coming-soon.html" class="nav-link">5장 옵시디언과 볼트</a></li>
+      <li><a href="coming-soon.html" class="nav-link">6장 Teams로 팀 연결</a></li>
+      <li><a href="coming-soon.html" class="nav-link">7장 Cowork에 볼트 연결</a></li>
+      <li class="nav-part">제3부: 온톨로지 설계</li>
+      <li><a href="coming-soon.html" class="nav-link">8장 설계 원칙 여섯 개</a></li>
+      <li><a href="coming-soon.html" class="nav-link">9장 클래스 정하기</a></li>
+      <li><a href="coming-soon.html" class="nav-link">10장 관계와 필드 설계</a></li>
+      <li class="nav-part">제4부: 운영</li>
+      <li><a href="coming-soon.html" class="nav-link">11장 CLAUDE.md</a></li>
+      <li><a href="coming-soon.html" class="nav-link">12장 템플릿과 첫 노트</a></li>
+      <li><a href="coming-soon.html" class="nav-link">13장 스킬로 자동화</a></li>
+      <li class="nav-part">제5부: 자동화와 시각화</li>
+      <li><a href="ch14.html" class="nav-link">14장 스케줄링</a></li>
+      <li><a href="ch15.html" class="nav-link">15장 업무 진행 시각화</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 자동화 레시피 12선</a></li>
+      <li class="nav-part">제6부: 지속</li>
+      <li><a href="coming-soon.html" class="nav-link">17장 품질을 코드로</a></li>
+      <li><a href="coming-soon.html" class="nav-link">18장 의도와 실행의 대조</a></li>
+      <li class="nav-part">제7부: AX로 확장</li>
+      <li><a href="ch19.html" class="nav-link">19장 위키에서 AX로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="coming-soon.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="coming-soon.html" class="nav-link">부록 B: 복붙용 자산</a></li>
+      <li><a href="coming-soon.html" class="nav-link">부록 C: 트러블슈팅</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 16</span>
+    <h1>실무 자동화 레시피 12선</h1>
+    <p class="chapter-subtitle">첫 번째 레시피는 처음부터 끝까지 전부 따라갑니다</p>
+    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>약 22분</span>
+  </header>
+
+<article>
+    <p>여기까지 만든 것을 다 모으면 이런 재료가 있습니다. 볼트(2부), 온톨로지(3부), 규칙과 템플릿과 스킬(4부), 스케줄과 대시보드(14·15장).</p>
+
+    <p>이 장은 그 재료로 만드는 <strong>요리 열두 개</strong>입니다. 그중 첫 번째 요리는 <strong>전 과정을 하나도 빼지 않고</strong> 보여드립니다. 입력으로 넣은 지저분한 회의록, 프롬프트 전문, 나온 결과물 전문, 검증 방법, <strong>처음에 AI가 틀렸던 것과 프롬프트를 어떻게 고쳤는지</strong>까지요.</p>
+
+    <div class="callout">
+      <p class="callout-title">왜 하나를 끝까지 보여주나</p>
+      <p>이 시스템이 왜 유용한지는 설명으로 잘 전달되지 않습니다. <strong>지저분한 입력이 구조화된 지식으로 바뀌는 과정을 한 번 눈으로 보면</strong> 그 다음부터는 알아서 응용하게 됩니다.</p>
+      <p>그래서 레시피 1에 이 장의 절반을 씁니다. 나머지 열한 개는 짧습니다. 필요할 때 찾아 쓰는 목록입니다.</p>
+    </div>
+
+    <h2>레시피 1 · 회의록 구조화: 전 과정</h2>
+
+    <p>가장 자주 쓰고, 가장 효과가 큰 레시피입니다. 이걸 못 하면 나머지 열한 개가 다 안 됩니다. <strong>지식이 들어오는 입구</strong>이기 때문입니다.</p>
+
+    <h3>ⓐ 입력: 실제로 이렇게 생겼습니다</h3>
+
+    <p>회의 중에 노트북으로 급하게 받아 적었습니다. 예쁘게 다듬지 않았습니다. 실제 회의록은 이렇게 생겼습니다.</p>
+
+    <pre><code>7/15 주간회의
+
+- 대성물류 미팅 결과 공유 (박사업)
+  - 창고봇 관심 있음. 근데 냉동창고라서 인식률 걱정한다고
+  - 데이터 있냐고 물었는데 없다고 했음
+  - 8월 중순까지 자료 주기로 함
+- 지자체 공모 (김대표)
+  - 8/8 마감. 이번엔 넣기로 결정
+  - 작년 떨어진 이유가 실증 부족이었음 → 대성물류 건을 실증으로 쓸 수 있나?
+  - 이대표: 계약 전이라 못 쓴다. 창고봇 기존 3개 사이트로 가자
+- 픽뷰 (이CTO)
+  - 객체인식 모듈 재사용 확정. 새로 안 만듦
+  - 9월 베타 목표. 근데 인력이 없어서 밀릴 수도
+- 웨어트윈
+  - 일단 홀드. 실증 없이는 영업 못 함
+  - TRL 4 정도로 보는게 맞다 (기존 자료엔 6이라고 써있는데 그건 과장)</code></pre>
+
+    <p>이 메모에는 <strong>여섯 종류의 정보</strong>가 섞여 있습니다. 고객 정보, 결정 사항, 액션 아이템, 제품 상태 변경, 기술 재사용 관계, <strong>기존 기록의 정정</strong>. 마지막 줄이 특히 중요합니다. 「TRL 6이라고 쓴 건 과장」이라는 정정이 여기에만 있습니다. 이 메모가 개인 폴더에 남으면 그 정정은 사라지고, 다음 제안서에 또 TRL 6이 들어갑니다.</p>
+
+    <h3>ⓑ 프롬프트: 복사해서 쓰세요</h3>
+
+    <p>Cowork에서 볼트 폴더를 연결한 상태로 이렇게 지시합니다.</p>
+
+    <pre><code>아래 회의록을 볼트 규칙에 맞게 구조화한다.
+
+## 순서
+1. 원문을 Sources/40-Worklog/2026-07-15-주간회의.md 로 먼저 저장한다.
+   원문은 한 글자도 고치지 않는다. 오타도 그대로 둔다.
+2. 원문에서 아래를 추출한다.
+   - 결정(decision): 「~하기로 했다」에 해당하는 것. 대안과 이유를 함께 적는다
+   - 액션(action): 담당자와 기한이 있는 것
+   - 사실 변경: 기존 노트의 필드를 바꿔야 하는 것
+   - 신규 개체: 볼트에 아직 노트가 없는 조직·제품·기술
+3. 추출한 것을 표로 먼저 보여준다. 파일은 아직 만들지 않는다.
+4. 내가 승인하면 노트를 만들거나 수정한다.
+
+## 규칙
+- 회의록에 없는 내용을 추론하지 않는다. 모호하면 「확인 필요」로 남긴다
+- 「~같다」, 「~라고 함」처럼 불확실한 진술은 confidence: draft 로 표시한다
+- 기존 노트와 모순되는 내용을 발견하면 고치지 말고 「모순」으로 따로 보고한다
+- 사람 이름은 원문 표기를 그대로 쓴다. 직함을 추측해 붙이지 않는다
+- 계약 전 고객의 이름은 confidential: 대외비 로 표시한다</code></pre>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">3번과 4번이 이 프롬프트의 핵심입니다</p>
+      <p><strong>「표로 먼저 보여주고, 승인하면 쓴다.」</strong> 이 두 단계를 빼면 AI가 노트 여덟 개를 한 번에 만들어놓고, 그중 두 개가 틀렸는데 어느 것인지 찾기 어려워집니다.</p>
+      <p>익숙해지면 이 단계를 줄여도 됩니다. 다만 <strong>처음 스무 번은 반드시 확인하세요.</strong> 그 스무 번 동안 프롬프트를 고치게 되고, 고쳐진 프롬프트가 13장의 스킬이 됩니다.</p>
+    </div>
+
+    <h3>ⓒ 첫 결과: 표로 나온 것</h3>
+
+    <p>AI가 이렇게 보고했습니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>유형</th><th>내용</th><th>대상 노트</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>결정</td><td>지자체 공모 참여. 실증 근거는 대성물류 대신 창고봇 기존 3개 사이트 사용 <br><em>이유: 대성물류는 계약 전이라 실적으로 쓸 수 없음</em></td><td>신규 <code>40-Worklog/결정-2026-07-15-공모참여.md</code></td></tr>
+        <tr><td>결정</td><td>픽뷰는 객체인식 모듈을 재사용. 신규 개발하지 않음</td><td>기존 <code>10-Products/픽뷰.md</code> 에 <code>pdm_uses</code> 추가</td></tr>
+        <tr><td>결정</td><td>웨어트윈 영업 보류. 실증 확보 전까지</td><td>기존 <code>10-Products/웨어트윈.md</code> · <code>status: 보류</code></td></tr>
+        <tr><td>액션</td><td>냉동창고 인식률 자료 준비 (담당 박사업 · 기한 2026-08-15)</td><td>결정 노트 안의 액션 항목</td></tr>
+        <tr><td>사실 변경</td><td>픽뷰 베타 목표 9월. 인력 사유로 지연 가능</td><td><code>10-Products/픽뷰.md</code> · <code>due</code>, <code>risk</code></td></tr>
+        <tr><td><strong>모순</strong></td><td><strong>웨어트윈 TRL: 기존 노트 6, 회의록 4. 회의에서 「6은 과장」이라고 언급됨</strong></td><td><strong>사람 판단 필요</strong></td></tr>
+        <tr><td>신규 개체</td><td>대성물류 (조직 · 잠재고객)</td><td>신규 <code>30-Partners/대성물류.md</code> · 대외비</td></tr>
+        <tr><td>확인 필요</td><td>「이대표」와 「김대표」가 동일 인물인지 판단 불가</td><td>-</td></tr>
+      </tbody>
+    </table>
+
+    <p>여기서 <strong>마지막 세 줄이 이 시스템의 값어치</strong>입니다. 하나씩 보겠습니다.</p>
+
+    <h4>모순을 잡아냈습니다</h4>
+
+    <p>기존 노트에 TRL 6, 회의록에 TRL 4. AI가 <strong>아무 쪽도 고치지 않고 사람에게 물었습니다.</strong> 2장에서 RAG의 문제로 지적한 「모순이 조용히 남는다」가 여기서 반대로 작동합니다.</p>
+
+    <p>이게 왜 중요한지 계산해 보겠습니다. TRL 6으로 낸 제안서가 심사에서 걸리면 그 과제는 끝입니다. <strong>이 정정은 회의에서 말로 지나갔고, 아무도 기록하지 않았을 것</strong>입니다. 실제로 그렇게 사고가 납니다.</p>
+
+    <h4>계약 전 고객을 실적으로 쓰지 않게 막았습니다</h4>
+
+    <p>회의에서 이미 판단이 나왔고, 그 판단의 <strong>이유까지</strong> 결정 노트에 남았습니다. 6개월 뒤 다른 사람이 같은 고민을 할 때 이 노트를 찾습니다. 「대성물류를 실적으로 쓸 수 있나?」 → 이미 답이 있습니다.</p>
+
+    <h4>사람 이름을 추측하지 않았습니다</h4>
+
+    <p>「이대표」와 「김대표」. AI는 이걸 합치지 않고 물었습니다. 프롬프트에 <strong>「직함을 추측해 붙이지 않는다」</strong>고 썼기 때문입니다. 이 한 줄이 없으면 AI는 둘을 같은 사람으로 묶거나, 없는 사람을 만들어냅니다.</p>
+
+    <h3>ⓓ 생성된 노트: 실제 파일</h3>
+
+    <p>승인 후 만들어진 결정 노트입니다.</p>
+
+    <pre><code>---
+class: 결정
+id: DEC-2026-0715-01
+date: 2026-07-15
+source: "[[2026-07-15-주간회의]]"
+participants: ["김대표", "박사업", "이CTO"]
+related:
+  - "[[OPP-2026-지자체공모]]"
+  - "[[창고봇]]"
+  - "[[대성물류]]"
+confidence: reviewed
+updated: 2026-07-15
+---
+
+# 지자체 공모 참여 및 실증 근거 선정
+
+## 결정
+2026 지자체 공모에 참여한다. 마감 2026-08-08.
+실증 근거로 **창고봇 기존 3개 사이트**를 사용한다.
+
+## 검토했으나 채택하지 않은 안
+| 안 | 왜 채택하지 않았나 |
+|---|---|
+| 대성물류 사례를 실증으로 사용 | 계약 체결 전. 실적으로 표기할 수 없다 |
+
+## 배경
+작년 동일 공모 탈락 사유가 「실증 부족」이었다.
+
+## 액션
+- [ ] 냉동창고 인식률 자료 준비 · 박사업 · 2026-08-15
+</code></pre>
+
+    <div class="callout">
+      <p class="callout-title">「검토했으나 채택하지 않은 안」이 이 노트의 핵심입니다</p>
+      <p>1장에서 지식 파편화의 두 번째 증상으로 <strong>「결정의 이유가 사라진다」</strong>를 들었습니다. 일반 회의록에는 「창고봇 사이트로 가기로 함」만 적힙니다. <strong>대안이 뭐였고 왜 버렸는지는 안 적힙니다.</strong></p>
+      <p>그래서 6개월 뒤에 똑같은 논의를 처음부터 다시 합니다. 이 표 하나가 그 반복을 끊습니다. 템플릿에 이 칸을 넣어두면 <strong>AI가 매번 채웁니다.</strong> 사람이 기억해서 쓰는 게 아닙니다.</p>
+    </div>
+
+    <h3>ⓔ 검증: 무엇을 확인하나</h3>
+
+    <p>결과가 나왔다고 끝이 아닙니다. 처음 스무 번은 아래 네 가지를 봅니다. 1분이면 됩니다.</p>
+
+    <div class="checklist">
+      <p class="checklist-title">구조화 결과 확인 네 가지</p>
+      <ul>
+        <li><strong>원문에 없는 문장이 들어갔는지.</strong> 가장 흔한 사고입니다. 결정 노트의 문장을 원문에서 찾아보세요. 못 찾으면 AI가 만들어낸 문장입니다.</li>
+        <li><strong>「확인 필요」를 성실하게 남겼는지.</strong> 모호한 부분을 매끄럽게 정리해버렸다면 프롬프트가 약합니다. <strong>모호함이 사라진 결과물은 의심하세요.</strong></li>
+        <li><strong>링크가 실제 노트를 가리키는지.</strong> <code>[[대성물류]]</code>라고 써놨는데 그 노트가 없으면 깨진 링크입니다. 옵시디언에서 회색으로 보입니다.</li>
+        <li><strong>기밀 표기가 됐는지.</strong> 계약 전 고객, 미공개 수치, 인건비. 이건 사후에 찾기 어렵습니다.</li>
+      </ul>
+    </div>
+
+    <h3>ⓕ 처음에 틀렸던 것, 프롬프트를 어떻게 고쳤나</h3>
+
+    <p>위 프롬프트는 처음부터 저렇지 않았습니다. 네 번 고쳤습니다. 무엇이 틀렸고 어떻게 고쳤는지 그대로 적습니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>1차 시도에서 벌어진 일</th><th>추가한 한 줄</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>「대성물류는 대형 물류기업으로 전국 12개 센터를 운영한다」는 문장이 노트에 들어갔다. <strong>회의록에 없는 내용이었다.</strong> AI가 아는 일반 지식으로 채운 것</td>
+          <td><code>회의록에 없는 내용을 추론하지 않는다</code></td>
+        </tr>
+        <tr>
+          <td>웨어트윈 TRL을 <strong>말없이 4로 고쳐놨다.</strong> 회의록이 최신이니 맞는 판단 같지만, 「6」이라고 쓴 근거 문서가 따로 있을 수 있었다</td>
+          <td><code>기존 노트와 모순되면 고치지 말고 보고한다</code></td>
+        </tr>
+        <tr>
+          <td>「이CTO」를 「이철수 CTO」로 적었다. <strong>이름을 만들어냈다.</strong> 볼트의 다른 노트에서 유추한 것으로 보였다</td>
+          <td><code>사람 이름은 원문 표기를 그대로 쓴다</code></td>
+        </tr>
+        <tr>
+          <td>회의록 원문을 「읽기 좋게」 다듬어서 저장했다. 오타를 고치고 문장을 정리했다</td>
+          <td><code>원문은 한 글자도 고치지 않는다</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pitfall">
+      <p class="pitfall-title">네 가지 실수의 공통점</p>
+      <p>전부 <strong>「도와주려고」 한 일</strong>입니다. 배경을 채워주고, 오래된 값을 고쳐주고, 이름을 완성해주고, 문장을 다듬어줬습니다. 평범한 글쓰기 도우미라면 좋은 행동입니다.</p>
+      <p>그런데 <strong>회사의 사실을 기록하는 일에서는 전부 사고</strong>입니다. 그래서 이 작업의 프롬프트는 「잘 해줘」가 아니라 <strong>「하지 말아야 할 것」의 목록</strong>이 됩니다. 11장의 CLAUDE.md에 이 네 줄을 옮겨두면 매번 쓸 필요가 없습니다.</p>
+    </div>
+
+    <h3>ⓖ 그래서 얼마나 줄었나</h3>
+
+    <table>
+      <thead>
+        <tr><th></th><th>도입 전</th><th>도입 후</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>회의록 정리</td><td>15분 (또는 안 함)</td><td>원문 붙여넣기 30초</td></tr>
+        <tr><td>결정 사항 기록</td><td>대개 안 함</td><td>자동 추출 + 확인 2분</td></tr>
+        <tr><td>제품 상태 반영</td><td>안 함 → 3개월 뒤 낡음</td><td>같은 작업에 포함</td></tr>
+        <tr><td>모순 발견</td><td>제안서 쓸 때 발견 (또는 못 발견)</td><td><strong>회의 당일</strong></td></tr>
+        <tr><td>합계</td><td>15분 + 나중의 사고</td><td><strong>3분</strong></td></tr>
+      </tbody>
+    </table>
+
+    <p>3분이 중요한 게 아닙니다. <strong>「나중의 사고」 줄이 중요합니다.</strong> 이 레시피의 진짜 산출물은 시간 절약이 아니라 <strong>틀린 정보가 대외 문서로 나가지 않게 막는 일</strong>입니다.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">이게 왜 RAG로는 안 되는가: 3장을 다시</p>
+      <p>회의록을 벡터 DB에 넣어두면 「대성물류 미팅 어땠어?」에는 답합니다. 그런데 <strong>모순은 못 잡습니다.</strong> TRL 4와 TRL 6이 각각 다른 조각으로 저장되고, 둘 사이에 아무 관계가 없기 때문입니다.</p>
+      <p>여기서는 <strong>2층(지식 그래프)에 「웨어트윈」이라는 노트가 하나뿐이라서</strong> 새 정보가 들어올 때 반드시 부딪힙니다. 부딪히니까 발견됩니다. <strong>온톨로지가 개체를 하나로 모아둔 덕입니다.</strong></p>
+    </div>
+
+    <h2>레시피 2 · 제안서 초안: 1장의 금요일 오후를 다시</h2>
+
+    <p>1장을 이렇게 시작했습니다. <strong>"다음 주 화요일까지 지자체 공모 제안서 하나 써야 해요. 우리 실적 정리 좀 부탁해요."</strong></p>
+
+    <p>이제 그 금요일 오후가 어떻게 달라지는지 보겠습니다.</p>
+
+    <pre><code>OPP-2026-지자체공모 제안서의 「사업 수행 역량」 절 초안을 만든다.
+
+## 근거 수집 규칙
+1. Sources/ 에서 아래를 모은다.
+   - 운영 중인 제품과 그 도입 사이트 수
+   - 각 제품이 활용하는 기술역량, 그 기술의 TRL과 근거
+   - 정부·지자체 과제 수행 실적 (period, funder, 최종 결과)
+   - 보유 IP
+2. 각 문장 뒤에 근거 노트를 [[대괄호]]로 표시한다.
+3. confidence: draft 인 노트의 내용은 쓰지 않는다. 대신 「검증 필요」 목록에 적는다.
+4. 계약 전 고객(confidential: 대외비)은 이름을 쓰지 않고 「국내 물류기업」으로 쓴다.
+5. 근거가 없는 주장은 절대 쓰지 않는다. 대신 「근거 없음, 확인 필요」로 목록에 남긴다.
+
+## 산출물
+- _reports/제안서-역량절-초안-YYYY-MM-DD.md 로 저장
+- 본문 아래에 「검증 필요 목록」과 「볼트에 없는 정보 목록」을 반드시 붙인다</code></pre>
+
+    <p>결과물의 마지막 부분이 이렇게 나옵니다.</p>
+
+    <pre><code>## 볼트에 없는 정보 (사람이 확인해야 함)
+
+1. 냉동창고 환경 인식률 데이터. 대성물류가 요구. 담당 박사업 (액션 등록됨)
+2. 창고봇 3개 사이트의 정량 성과 (처리량 개선율 등). 노트에 수치 없음
+3. 2025 스마트물류 과제의 중간평가 결과. Sources/20-Projects/ 에 기록 없음
+
+## 검증 필요 (draft 상태여서 사용하지 않음)
+
+1. 웨어트윈 TRL. 노트에 4/6 모순 있음. DEC-2026-0715 참조</code></pre>
+
+    <div class="callout">
+      <p class="callout-title">이 목록이 제안서보다 값어치가 있습니다</p>
+      <p>AI가 <strong>빈칸을 그럴듯하게 채우는 대신 빈칸을 목록으로 넘겼습니다.</strong> 1장에서 「가장 위험한 실패」로 적었던 있지도 않은 수상 이력, 틀린 매출이 이 구조에서는 나오지 않습니다.</p>
+      <p>이 목록은 <strong>다음 2주의 할 일</strong>이 됩니다. 세 개를 채우면 다음 제안서는 더 쉬워집니다. <strong>제안서를 쓸 때마다 볼트가 자라는 구조</strong>입니다. 이게 이 시스템이 시간이 지나면서 좋아지는 이유입니다.</p>
+    </div>
+
+    <h2>레시피 3~12: 찾아 쓰는 목록</h2>
+
+    <p>나머지 열 개는 짧게 적습니다. 형식은 같습니다. <strong>언제 / 어느 경로(14장의 A~D) / 무엇이 나오나 / 어디서 실패하나.</strong></p>
+
+    <h3>3 · 주간보고 자동 생성</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>언제</strong></td><td>매주 금요일 16:00</td></tr>
+        <tr><td><strong>경로</strong></td><td>A (로컬 · 쓰기)</td></tr>
+        <tr><td><strong>산출물</strong></td><td><code>_reports/주간보고-YYYY-WW.md</code></td></tr>
+        <tr><td><strong>실패 지점</strong></td><td>업무로그가 비어 있으면 아무것도 안 나온다. 이게 정상 동작이다. 없는 것을 만들지 않는다</td></tr>
+      </tbody>
+    </table>
+
+    <pre><code>Sources/40-Worklog/ 에서 이번 주(월~금) 로그와 결정을 모아 주간보고를 만든다.
+- 「한 일」이 아니라 「진척과 막힌 것」 중심으로 쓴다
+- 각 항목에 관련 과제·제품 링크를 붙인다
+- 다음 주 마감 항목을 마지막에 붙인다
+- 로그가 없는 날은 「기록 없음」으로 표시하고 추측하지 않는다</code></pre>
+
+    <h3>4 · 신규 입사자 온보딩 팩</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>언제</strong></td><td>입사 확정 시 (수동)</td></tr>
+        <tr><td><strong>경로</strong></td><td>A (로컬 · 쓰기)</td></tr>
+        <tr><td><strong>산출물</strong></td><td><code>_moc/온보딩-직무명.md</code> (읽을 순서가 붙은 노트 목록)</td></tr>
+        <tr><td><strong>실패 지점</strong></td><td>기밀 등급을 안 걸면 신입에게 인건비·계약 조건이 노출된다. <strong>반드시 등급 필터를 프롬프트에 넣는다</strong></td></tr>
+      </tbody>
+    </table>
+
+    <pre><code>신규 개발자 온보딩 자료를 만든다.
+- 첫날/첫주/첫달로 나누어 읽을 노트 순서를 정한다
+- confidential 이 「대외비」 이상인 노트는 제외한다
+- 각 노트에 「이걸 왜 읽는가」를 한 줄씩 붙인다
+- 마지막에 「아직 문서화되지 않아 사람에게 물어야 할 것」 목록을 붙인다</code></pre>
+
+    <p>마지막 줄이 부수 효과를 냅니다. <strong>온보딩 팩을 만들 때마다 문서화 구멍이 목록으로 나옵니다.</strong> 1장의 「신입이 3개월을 헤맨다」가 여기서 측정 가능해집니다.</p>
+
+    <h3>5 · 미팅 전 상대방 히스토리 브리핑</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>언제</strong></td><td>미팅 전날 저녁 (B로 예약하거나 수동)</td></tr>
+        <tr><td><strong>경로</strong></td><td>B (원격 · 읽기)</td></tr>
+        <tr><td><strong>산출물</strong></td><td>1페이지 브리핑 (지난 접점, 약속한 것, 미이행 액션)</td></tr>
+        <tr><td><strong>실패 지점</strong></td><td>회의록이 구조화되어 있지 않으면 아무것도 안 나온다. 레시피 1이 전제다</td></tr>
+      </tbody>
+    </table>
+
+    <pre><code>[[대성물류]] 와의 지난 접점을 전부 찾아 미팅 브리핑을 만든다.
+- 시간 역순으로 접점 정리 (날짜 · 무슨 이야기 · 누가)
+- 우리가 약속한 것 중 아직 이행 안 된 것을 맨 위에 둔다
+- 상대가 우려로 표현한 것을 목록화한다
+- 500자 이내</code></pre>
+
+    <p>「우리가 약속했는데 아직 안 한 것」이 맨 위에 오는 게 핵심입니다. 미팅에서 가장 곤란한 상황이 그것이기 때문입니다.</p>
+
+    <h3>6 · 계약·과제 만료 감시</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>언제</strong></td><td>매주 월요일 (브리핑에 통합)</td></tr>
+        <tr><td><strong>경로</strong></td><td>C (파이썬) + D (Teams 알림)</td></tr>
+        <tr><td><strong>산출물</strong></td><td>D-60 / D-30 / D-14 시점의 채널 알림</td></tr>
+        <tr><td><strong>실패 지점</strong></td><td><code>due</code> 필드가 비어 있는 항목은 감시되지 않는다. <strong>15장의 「일정 미기재」 목록과 반드시 같이 본다</strong></td></tr>
+      </tbody>
+    </table>
+
+    <p>이건 AI가 아니라 파이썬으로 하세요. 날짜 계산에 판단이 필요 없고, <strong>결과가 항상 같아야</strong> 하는 일입니다.</p>
+
+    <h3>7 · 견적·단가 근거 조립</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>언제</strong></td><td>견적 요청 시 (수동)</td></tr>
+        <tr><td><strong>경로</strong></td><td>A</td></tr>
+        <tr><td><strong>산출물</strong></td><td>과거 유사 건의 범위·기간·단가 비교표</td></tr>
+        <tr><td><strong>실패 지점</strong></td><td>기밀 등급이 가장 민감한 레시피다. <strong>고객사별 단가는 서로 노출되면 안 된다.</strong> 노트에 등급을 안 걸었으면 이 레시피는 쓰지 마세요</td></tr>
+      </tbody>
+    </table>
+
+    <h3>8 · 채용 공고와 직무기술서</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>언제</strong></td><td>채용 시작 시 (수동)</td></tr>
+        <tr><td><strong>경로</strong></td><td>A</td></tr>
+        <tr><td><strong>산출물</strong></td><td>JD 초안 (실제 제품·기술 스택 기반)</td></tr>
+        <tr><td><strong>실패 지점</strong></td><td>과장하기 쉬운 문서다. 「근거 노트 표시」 규칙을 반드시 켜세요</td></tr>
+      </tbody>
+    </table>
+
+    <p>볼트를 기반으로 쓴 JD는 <strong>실제로 하게 될 일</strong>이 적힙니다. 그러면 입사 후 기대 불일치가 줄어듭니다. 부수 효과가 꽤 큽니다.</p>
+
+    <h3>9 · 리스크·모순 스캔</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>언제</strong></td><td>월 1회 (매월 첫 월요일)</td></tr>
+        <tr><td><strong>경로</strong></td><td>A (로컬 · 읽기 후 리포트만)</td></tr>
+        <tr><td><strong>산출물</strong></td><td><code>_reports/모순스캔-YYYY-MM.md</code></td></tr>
+        <tr><td><strong>실패 지점</strong></td><td>AI가 모순이 아닌 것을 모순으로 보고하는 경우가 많다. <strong>「확실한 것만」이라고 못 박고, 3건 이상이면 상위 3건만 보고하게 한다</strong></td></tr>
+      </tbody>
+    </table>
+
+    <pre><code>볼트 전체에서 서로 모순되는 사실을 찾는다.
+- 같은 개체에 대해 다른 값이 적힌 경우 (TRL, 날짜, 수치, 상태)
+- 완료된 과제에 미완료 액션이 남아 있는 경우
+- 「운영 중」인데 60일 이상 업데이트가 없는 제품
+확실한 것만 보고한다. 애매하면 보고하지 않는다. 최대 3건.
+각 건에 어느 노트의 몇 번째 줄인지 적는다.</code></pre>
+
+    <h3>10 · 용어 표준화 감사</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>언제</strong></td><td>분기 1회</td></tr>
+        <tr><td><strong>경로</strong></td><td>C (파이썬). 문자열 검색이므로 AI가 필요 없다</td></tr>
+        <tr><td><strong>산출물</strong></td><td>금칙 표기 사용 목록 (파일·줄 번호)</td></tr>
+        <tr><td><strong>실패 지점</strong></td><td>표준용어집(<code>_ops/02-표준용어집.md</code>)이 최신이 아니면 무의미하다</td></tr>
+      </tbody>
+    </table>
+
+    <p>「창고봇 / 창고 봇 / WarehouseBot / 창고로봇」이 섞여 있으면 검색이 안 되고 <strong>AI가 서로 다른 제품으로 인식합니다.</strong> 대외 문서 표기 통일 효과도 함께 옵니다.</p>
+
+    <h3>11 · 의도와 실행 대조 회고</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>언제</strong></td><td>분기 마지막 주</td></tr>
+        <tr><td><strong>경로</strong></td><td>A</td></tr>
+        <tr><td><strong>산출물</strong></td><td>계획과 실제의 차이, 그리고 <strong>차이의 이유</strong></td></tr>
+        <tr><td><strong>실패 지점</strong></td><td>업무로그에 <code>pdm_intent_of</code> 링크가 없으면 대조가 불가능하다. 18장이 이걸 다룬다</td></tr>
+      </tbody>
+    </table>
+
+    <p>이 레시피가 이 책의 종착점입니다. 자세한 설계는 18장에 있습니다.</p>
+
+    <h3>12 · 신규 기회 참여 판정</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>언제</strong></td><td>공고를 발견했을 때 (수동)</td></tr>
+        <tr><td><strong>경로</strong></td><td>A</td></tr>
+        <tr><td><strong>산출물</strong></td><td>참여 판단 근거 (요구 조건 대비 우리 보유 근거의 충족·미충족 표)</td></tr>
+        <tr><td><strong>실패 지점</strong></td><td>AI에게 「참여할까요?」를 묻지 마세요. <strong>「무엇이 충족되고 무엇이 비었는지」만 물으세요.</strong> 판단은 사람이 합니다</td></tr>
+      </tbody>
+    </table>
+
+    <pre><code>아래 공고 요구사항을 우리 볼트와 대조한다.
+각 요구사항에 대해 3열 표로: 요구사항 / 우리 근거(노트 링크) / 충족 여부
+- 근거가 없으면 「없음」이라고만 쓴다. 대체 가능한 것을 제안하지 않는다
+- 마지막에 「없음」 항목만 모아서 「준비 기간 추정에 필요한 것」으로 정리한다
+- 참여 여부를 판단하거나 권하지 않는다</code></pre>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">「AI에게 판단을 맡기지 않는다」가 12번의 핵심</p>
+      <p>AI는 요구사항 20개 중 어느 것이 비었는지 찾는 일을 사람보다 빠르고 정확하게 합니다. 그런데 <strong>「그래서 참여할 가치가 있나」는 회사의 전략·인력·현금흐름 판단</strong>입니다. 볼트에 없는 정보로 결정하는 일이고, AI는 그걸 모릅니다.</p>
+      <p>이 경계선을 지키는 것이 19장 AX의 핵심 원칙입니다. <strong>AI에게 판단을 위임하는 게 아니라, 판단에 필요한 재료를 완전하게 만드는 것</strong>이 목표입니다.</p>
+    </div>
+
+    <h2>레시피를 스킬로 굳히는 시점</h2>
+
+    <p>13장에서 스킬을 만들었습니다. 그런데 <strong>모든 레시피를 스킬로 만들 필요는 없습니다.</strong> 기준은 하나입니다.</p>
+
+    <div class="callout">
+      <p class="callout-title">세 번 쓰고 나서 스킬로 만듭니다</p>
+      <p>같은 프롬프트를 <strong>세 번</strong> 썼고, 그 세 번 사이에 프롬프트가 거의 안 바뀌었다면 스킬로 굳힐 때입니다. 아직 고치고 있다면 스킬로 만들지 마세요. 스킬을 고치는 일이 프롬프트를 고치는 일보다 번거롭습니다.</p>
+      <p>실제로 스킬이 될 만한 것은 12개 중 <strong>3~4개</strong>입니다. 레시피 1·3·9 정도입니다. 나머지는 프롬프트를 <code>_ops/prompts.md</code>에 모아두고 복사해 쓰는 것으로 충분합니다.</p>
+    </div>
+
+    <h2>열두 개를 다 하지 마세요</h2>
+
+    <p>이 목록을 보고 다 도입하고 싶어질 겁니다. 3주 뒤에 전부 안 쓰게 됩니다. 순서가 있습니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>기간</th><th>도입할 것</th><th>왜 이 순서인가</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1~2주</strong></td>
+          <td>레시피 1만</td>
+          <td>지식이 들어오는 입구다. 이게 안 되면 볼트가 비어 있고, 빈 볼트에서는 나머지 열한 개가 전부 「기록 없음」만 출력한다</td>
+        </tr>
+        <tr>
+          <td><strong>3~4주</strong></td>
+          <td>+ 레시피 2, 5</td>
+          <td>처음으로 <strong>이득을 체감</strong>하는 단계. 제안서와 미팅 브리핑은 효과가 바로 보인다</td>
+        </tr>
+        <tr>
+          <td><strong>2개월</strong></td>
+          <td>+ 레시피 3, 6과 15장 대시보드</td>
+          <td>자동화와 시각화를 붙인다. 이 시점에 팀이 이 시스템을 「우리 것」으로 느끼기 시작한다</td>
+        </tr>
+        <tr>
+          <td><strong>3개월 이후</strong></td>
+          <td>+ 9, 10, 11</td>
+          <td>품질 관리와 회고. 데이터가 쌓이지 않으면 이 셋은 할 것이 없다</td>
+        </tr>
+        <tr>
+          <td><strong>필요할 때</strong></td>
+          <td>4, 7, 8, 12</td>
+          <td>이벤트성 레시피다. 채용을 안 하면 8번은 필요 없다</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="case-box">
+      <p class="case-title">사례 · 솔빛테크가 순서를 어겼을 때</p>
+      <p>솔빛테크는 첫 주에 레시피 2(제안서 초안)를 먼저 시도했습니다. 가장 급했으니까요.</p>
+      <p>결과물이 이랬습니다. <strong>「볼트에 없는 정보」 목록이 17줄, 본문이 6줄.</strong></p>
+      <p>실망스러웠지만 정확한 결과였습니다. 볼트에 노트가 12개뿐이었으니 근거가 없는 게 당연했습니다. <strong>AI가 정직하게 「없다」고 말했습니다.</strong> 만약 그때 그 17줄을 그럴듯하게 채운 제안서가 나왔다면, 그게 훨씬 위험했습니다.</p>
+      <p>그래서 순서를 바꿨습니다. 3주 동안 레시피 1로 회의록과 기존 자료를 구조화해 노트를 <strong>71개</strong>로 만들었습니다. 그 다음에 레시피 2를 다시 돌렸습니다. <strong>본문 2페이지, 없는 정보 3줄.</strong></p>
+      <p><strong>레시피의 품질은 프롬프트가 아니라 볼트가 결정합니다.</strong> 이 문장이 이 책 전체의 결론에 가깝습니다.</p>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">직접 해보기: 레시피 1을 오늘 회의록으로</p>
+      <p>이 장에서 딱 하나만 해보신다면 이것입니다. 20분이면 됩니다.</p>
+      <ol>
+        <li><strong>최근 회의록이나 메모 하나를 찾으세요.</strong> 정리 안 된 것이 좋습니다. 예쁜 회의록은 연습이 안 됩니다.</li>
+        <li>레시피 1의 프롬프트를 복사하고, <strong>폴더 경로와 클래스 이름을 우리 볼트에 맞게 고치세요.</strong></li>
+        <li>실행하고 <strong>표까지만 받으세요.</strong> 파일은 아직 만들지 않습니다.</li>
+        <li>표를 원문과 대조하세요. <strong>원문에 없는 문장이 있는지 찾아보세요.</strong> 있으면 그게 앞으로 추가해야 할 금지 규칙입니다.</li>
+        <li>「확인 필요」가 몇 개 나왔는지 세어보세요. <strong>0개면 프롬프트가 너무 관대합니다.</strong> 실제 회의록에는 항상 모호한 부분이 있습니다.</li>
+        <li>승인하고 노트를 만든 뒤, <strong>옵시디언 그래프 뷰를 열어보세요.</strong> 회색 노드(아직 없는 노트)가 보일 겁니다. 그게 다음에 채울 것들입니다.</li>
+        <li>마지막으로 이 질문에 답해보세요. <strong>「이 회의록이 개인 폴더에만 남았다면, 6개월 뒤에 사라졌을 정보는 무엇인가?」</strong></li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>잠깐, 정리!</h3>
+      <ul>
+        <li><strong>레시피 1(회의록 구조화)이 전부의 전제다.</strong> 지식이 들어오는 입구이고, 이게 없으면 나머지는 「기록 없음」만 출력한다</li>
+        <li>구조화 프롬프트의 핵심은 <strong>「표로 먼저 보여주고 승인하면 쓴다」</strong></li>
+        <li>AI의 실수는 대개 <strong>「도와주려고」 한 일</strong>이다. 배경 추가, 값 정정, 이름 완성, 문장 다듬기. 그래서 프롬프트가 금지 목록이 된다</li>
+        <li>결정 노트에 <strong>「검토했으나 채택하지 않은 안」</strong> 칸을 두면 6개월 뒤 같은 논의를 반복하지 않는다</li>
+        <li>모순을 잡아내는 것은 <strong>2층에 개체가 하나뿐이기 때문</strong>이다. RAG로는 안 되는 일</li>
+        <li>제안서 초안의 진짜 산출물은 본문이 아니라 <strong>「볼트에 없는 정보 목록」</strong>이다. 그게 다음 2주의 할 일이 된다</li>
+        <li><strong>AI에게 판단을 맡기지 않는다.</strong> 무엇이 충족되고 무엇이 비었는지만 묻는다</li>
+        <li>스킬로 굳히는 시점은 <strong>같은 프롬프트를 세 번 쓴 뒤.</strong> 12개 중 실제로 스킬이 될 만한 것은 3~4개</li>
+        <li>도입 순서는 <strong>1 → 2·5 → 3·6·대시보드 → 9·10·11.</strong> 순서를 어기면 빈 결과만 보고 실망한다</li>
+        <li><strong>레시피의 품질은 프롬프트가 아니라 볼트가 결정한다</strong></li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>다음 장에서는...</h3>
+      <p>레시피가 돌기 시작하면 볼트가 빠르게 자랍니다. <strong>규칙 위반도 같이 자랍니다.</strong> 「잘 관리하세요」는 관리 방법이 아닙니다. 6부에서는 검증을 사람이 아니라 코드가 하게 만들고, 마지막으로 <strong>의도와 실행을 대조하는 회고</strong>까지 갑니다. 7부에서는 이 전체가 회사의 AX와 어떻게 연결되는지 정리합니다.</p>
+    </div>
+  </article>
+
+
+  <nav class="chapter-nav">
+    <a href="ch15.html" class="back-to-toc">← 이전: 업무 진행을 눈에 보이게</a>
+    <a href="coming-soon.html" class="next">다음: 품질을 코드로 지키기 →</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

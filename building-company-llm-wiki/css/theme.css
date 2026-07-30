@@ -1,0 +1,14 @@
+/* 회사용 LLM Wiki 만들기 — 책별 강조색. 구조와 조판은 ../../assets/css/book.css */
+:root {
+  --accent: #0F766E;
+  --accent-ink: #0B5A54;
+  --accent-tint: #E4F2EF;
+  --accent-line: #A8D8D0;
+}
+
+[data-theme="dark"] {
+  --accent: #5EEAD4;
+  --accent-ink: #9DF0E2;
+  --accent-tint: #10312D;
+  --accent-line: #1F4E48;
+}
