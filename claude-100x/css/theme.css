@@ -1,0 +1,14 @@
+/* Claude 100배 활용법 — 책별 강조색. 구조와 조판은 ../../assets/css/book.css */
+:root {
+  --accent: #6D4AC4;
+  --accent-ink: #55369E;
+  --accent-tint: #EDE8FA;
+  --accent-line: #C7B6EE;
+}
+
+[data-theme="dark"] {
+  --accent: #B79AF0;
+  --accent-ink: #CBB6F5;
+  --accent-tint: #2A1E4D;
+  --accent-line: #412F73;
+}

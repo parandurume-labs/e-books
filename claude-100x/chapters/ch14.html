@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="보안과 안전: Claude를 믿되, 검증하라 — 강력한 도구일수록 안전하게 써야 합니다">
+  <meta name="author" content="Claude 100배 활용법">
+  <title>Chapter 14: 보안과 안전: Claude를 믿되, 검증하라 — Claude 100배 활용법</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Claude 100배 활용법</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5 10.1 12 4.5 10l5.6-1.4z"/><path d="M18 16l.8 2.2L21 19l-2.2.8L18 22l-.8-2.2L15 19l2.2-.8z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 마인드 전환</li>
+      <li><a href="ch01.html" class="nav-link">1장 검색 vs 지시</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 Claude를 만나다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 프롬프트의 기술</a></li>
+      <li class="nav-part">제2부: Claude.ai & Desktop</li>
+      <li><a href="ch04.html" class="nav-link">4장 Claude.ai 200%</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 Claude Desktop</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 사무직의 하루</a></li>
+      <li class="nav-part">제3부: Claude Code</li>
+      <li><a href="ch07.html" class="nav-link">7장 Claude Code 시작</a></li>
+      <li><a href="ch08.html" class="nav-link">8장 CLAUDE.md와 컨텍스트</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 Skills</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 Hooks</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 MCP 서버</a></li>
+      <li class="nav-part">제4부: 실전 워크플로</li>
+      <li><a href="ch12.html" class="nav-link">12장 비개발자의 앱 만들기</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 멀티 에이전트 협업</a></li>
+      <li><a href="ch14.html" class="nav-link">14장 보안과 안전</a></li>
+      <li class="nav-part">제5부: 더 멀리 가기</li>
+      <li><a href="ch15.html" class="nav-link">15장 Claude 생태계</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 나만의 워크플로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 프롬프트 레시피</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+
+  <!-- ====== Chapter Header ====== -->
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 14</span>
+    <h1>보안과 안전: Claude를 믿되, 검증하라</h1>
+    <p class="chapter-subtitle">강력한 도구일수록 안전하게 써야 합니다</p>
+  </header>
+
+  <article>
+
+    <!-- ====== Opening Story ====== -->
+    <section>
+      <h2>칼은 요리사의 도구</h2>
+
+      <div class="scenario-box">
+        <p>요리사에게 칼은 없어서는 안 될 도구예요. 하지만 칼을 다룰 때는 조심해야 하죠. 칼날이 날카로울수록 더 좋은 요리를 만들 수 있지만, 동시에 더 조심해야 해요.</p>
+        <p>Claude도 마찬가지예요. 파일을 수정하고, 명령어를 실행하고, 코드를 배포할 수 있는 <strong>강력한 도구</strong>예요. 강력하기 때문에, <strong>안전하게 쓰는 방법</strong>도 알아야 해요.</p>
+      </div>
+
+      <p>이번 챕터는 Claude를 겁내라는 게 아니에요. <strong>제대로 쓰는 방법</strong>을 알아보는 거예요.</p>
+    </section>
+
+    <!-- ====== Permission System ====== -->
+    <section>
+      <h2>권한 시스템: Claude가 물어보는 이유</h2>
+
+      <p>Claude Code를 쓰다 보면, 가끔 이런 질문을 받아요:</p>
+
+      <div class="fun-box">
+        <p class="fun-box-title">Claude의 질문</p>
+        <p>"이 파일을 수정해도 될까요?"<br>
+        "이 명령어를 실행해도 될까요?"<br>
+        "이 패키지를 설치해도 될까요?"</p>
+      </div>
+
+      <p>Claude가 이렇게 물어보는 이유는, 여러분의 <strong>의도를 확인</strong>하기 위해서예요. 실수로 중요한 파일을 삭제하거나, 위험한 명령어를 실행하는 걸 방지하기 위한 안전장치예요.</p>
+
+      <p>이 권한 시스템에는 두 가지 선택이 있어요:</p>
+
+      <ul>
+        <li><strong>매번 확인</strong> — 더 안전하지만 번거로울 수 있어요</li>
+        <li><strong>Auto-allow (자동 허용)</strong> — 편리하지만 주의가 필요해요</li>
+      </ul>
+
+      <div class="callout">
+        <p class="callout-title">추천 설정</p>
+        <p><strong>초보자</strong>: 모든 권한을 매번 확인하세요. 어떤 작업이 이루어지는지 배울 수 있어요.<br>
+        <strong>중급자</strong>: 파일 읽기와 검색은 자동 허용, 수정과 실행은 확인.<br>
+        <strong>고급자</strong>: 신뢰하는 프로젝트에서는 대부분 자동 허용, 프로덕션 환경에서는 전부 확인.</p>
+      </div>
+    </section>
+
+    <!-- ====== Sensitive Information ====== -->
+    <section>
+      <h2>민감 정보: 절대 공유하면 안 되는 것들</h2>
+
+      <p>Claude는 여러분의 파일을 읽을 수 있어요. 그래서 민감한 정보가 포함된 파일은 <strong>미리 보호</strong>해야 해요.</p>
+
+      <div class="callout" style="border-left-color: #e74c3c;">
+        <p class="callout-title">절대로 하지 말아야 할 3가지</p>
+        <p><strong>1. API 키나 비밀번호를 프롬프트에 직접 입력하지 마세요</strong><br>
+        "이 API 키로 연결해줘: sk-abc123..." — 절대 안 돼요!<br><br>
+        <strong>2. .env 파일을 Claude가 읽게 두지 마세요</strong><br>
+        .env 파일에는 보통 비밀번호, API 키, 데이터베이스 접속 정보가 들어있어요.<br><br>
+        <strong>3. 개인정보가 포함된 데이터를 그대로 전달하지 마세요</strong><br>
+        고객 이름, 전화번호, 주민등록번호 등이 포함된 파일은 익명화한 후에 사용하세요.</p>
+      </div>
+
+      <h3>.claudeignore로 파일 보호하기</h3>
+
+      <p>프로젝트 루트에 <code>.claudeignore</code> 파일을 만들면, Claude가 특정 파일을 <strong>아예 보지 못하게</strong> 할 수 있어요.</p>
+
+<pre><code># .claudeignore 예시
+.env
+.env.local
+.env.production
+credentials.json
+secrets/
+*.pem
+*.key
+private/
+config/database.yml</code></pre>
+
+      <p><code>.gitignore</code>와 같은 문법이에요. 패턴을 적으면 해당 파일이나 폴더를 Claude의 시야에서 완전히 숨겨요.</p>
+
+      <h3>.env 파일 활용법</h3>
+
+      <p>비밀 정보는 <code>.env</code> 파일에 넣고, 코드에서는 환경 변수로 참조하세요:</p>
+
+      <div class="prompt-example">
+        <p class="label good-label">이렇게 하세요</p>
+        <p class="good">"API 연동 코드를 만들어줘. API 키는 환경 변수 OPENAI_API_KEY에서 가져오도록 해. .env 파일의 내용은 보여주지 않을게."</p>
+      </div>
+
+      <p>이렇게 하면 Claude는 API 키 자체를 모른 채로, 안전한 코드를 작성할 수 있어요.</p>
+    </section>
+
+    <!-- ====== Cost Management ====== -->
+    <section>
+      <h2>비용 관리: 현명하게 사용하기</h2>
+
+      <p>Claude는 "토큰"이라는 단위로 사용량을 측정해요. 토큰은 대략 한국어 기준으로 <strong>한 글자가 1-2 토큰</strong> 정도예요.</p>
+
+      <p>비용이 걱정된다면 이런 방법들이 있어요:</p>
+
+      <h3>/cost — 현재 비용 확인</h3>
+      <p>대화 중에 <code>/cost</code>를 입력하면 현재 세션에서 사용한 토큰과 비용을 확인할 수 있어요.</p>
+
+      <h3>비용 절약 팁</h3>
+
+      <ul>
+        <li><strong>compact 모드 활용</strong> — 대화가 길어지면 <code>/compact</code>를 입력해서 이전 대화를 요약하세요. 불필요한 컨텍스트를 줄여서 토큰을 절약해요</li>
+        <li><strong>불필요한 파일 제외</strong> — <code>.claudeignore</code>에 <code>node_modules/</code>, <code>dist/</code> 같은 큰 폴더를 추가하세요. Claude가 읽을 파일이 줄어들면 토큰도 절약돼요</li>
+        <li><strong>구체적으로 요청</strong> — "전체 코드를 검토해줘"보다 "src/auth.js의 login 함수만 검토해줘"가 토큰을 덜 써요</li>
+        <li><strong>새 세션 시작</strong> — 주제가 완전히 바뀌면 새 세션을 시작하세요. 이전 대화 맥락을 유지할 필요가 없으니까요</li>
+      </ul>
+    </section>
+
+    <!-- ====== Safety Guardrails ====== -->
+    <section>
+      <h2>안전 모드: 더 조심하고 싶을 때</h2>
+
+      <p>Claude Code에는 여러 안전 모드가 있어요. 상황에 따라 사용하세요:</p>
+
+      <div class="fun-box">
+        <p class="fun-box-title">안전 모드 가이드</p>
+        <p><strong>/careful</strong> — 주의 모드<br>
+        위험할 수 있는 명령어(rm -rf, DROP TABLE 등)를 실행하기 전에 경고해줘요. "이 명령어는 데이터를 삭제할 수 있어요. 정말 실행할까요?"<br><br>
+        <strong>/freeze [경로]</strong> — 파일 수정 범위 제한<br>
+        특정 폴더만 수정할 수 있게 제한해요. 예: <code>/freeze src/</code>이면 src 폴더 밖의 파일은 수정 불가.<br><br>
+        <strong>/guard</strong> — 최대 안전 모드<br>
+        /careful + /freeze를 합친 거예요. 프로덕션 환경에서 작업할 때 사용하면 좋아요.</p>
+      </div>
+
+      <div class="callout">
+        <p class="callout-title">언제 안전 모드를 쓸까?</p>
+        <p><strong>평상시</strong>: 기본 권한 확인으로 충분해요<br>
+        <strong>중요한 프로젝트</strong>: /careful 사용을 추천해요<br>
+        <strong>프로덕션 서버 작업</strong>: /guard 필수! 실수 한 번이 큰 사고로 이어질 수 있어요<br>
+        <strong>디버깅 중</strong>: /freeze로 수정 범위를 문제 파일로 제한하세요</p>
+      </div>
+    </section>
+
+    <!-- ====== Best Practices ====== -->
+    <section>
+      <h2>안전 사용 체크리스트</h2>
+
+      <div class="workflow-box">
+        <p class="workflow-title">Claude 안전 사용 Best Practices</p>
+        <ol>
+          <li><strong>.claudeignore 설정</strong> — 민감 파일을 미리 제외하세요</li>
+          <li><strong>API 키는 환경 변수로</strong> — 코드에 직접 넣지 마세요</li>
+          <li><strong>git commit 자주 하기</strong> — 문제가 생기면 이전으로 돌아갈 수 있게</li>
+          <li><strong>권한 요청 꼼꼼히 읽기</strong> — 특히 처음에는 "뭘 하려는 건지" 확인하세요</li>
+          <li><strong>프로덕션 환경에서는 /guard 사용</strong> — 안전이 최우선</li>
+          <li><strong>/cost로 비용 모니터링</strong> — 예상치 못한 과금 방지</li>
+          <li><strong>결과물 검증</strong> — Claude가 만든 코드를 배포 전에 반드시 확인하세요</li>
+          <li><strong>개인정보 익명화</strong> — 실제 데이터 대신 샘플 데이터를 사용하세요</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ====== Exercise ====== -->
+    <section>
+      <div class="exercise-box">
+        <p class="exercise-title">실습: .claudeignore 파일 만들기</p>
+        <ol>
+          <li>프로젝트 폴더의 루트(최상위)로 이동하세요</li>
+          <li>Claude Code에게 이렇게 말하세요:<br>
+          <em>".claudeignore 파일을 만들어줘. .env, credentials, secrets 폴더, 그리고 모든 .pem과 .key 파일을 무시하도록."</em></li>
+          <li>Claude가 생성한 .claudeignore 파일을 확인하세요</li>
+          <li>테스트: 임시로 test-secret.env 파일을 만들고, Claude에게 "test-secret.env 파일 내용을 읽어줘"라고 해보세요. 읽을 수 없다면 성공!</li>
+          <li>테스트 파일은 삭제하세요</li>
+        </ol>
+        <p>이 한 번의 설정으로, 앞으로 실수로 민감 정보가 노출되는 일을 예방할 수 있어요.</p>
+      </div>
+    </section>
+
+    <!-- ====== Recap ====== -->
+    <aside class="recap-box">
+      <h3>잠깐, 정리!</h3>
+      <ul>
+        <li>Claude의 <strong>권한 시스템</strong>은 실수를 방지하는 안전장치예요. 귀찮아도 초보자는 매번 확인하세요</li>
+        <li>API 키, 비밀번호, 개인정보는 <strong>절대로 직접 전달하지 마세요</strong></li>
+        <li><strong>.claudeignore</strong>로 민감 파일을 Claude의 시야에서 숨기세요</li>
+        <li><strong>/cost</strong>로 비용을 모니터링하고, <strong>/compact</strong>로 토큰을 절약하세요</li>
+        <li>위험한 작업에는 <strong>/careful, /freeze, /guard</strong> 안전 모드를 활용하세요</li>
+      </ul>
+    </aside>
+
+    <!-- ====== Next Teaser ====== -->
+    <div class="next-teaser">
+      <h3>다음 챕터에서는...</h3>
+      <p>Claude는 혼자가 아니에요. 방대한 <strong>생태계</strong>가 뒤에 있어요.<br>
+      공식 문서, API, 커뮤니티, 학습 자료...<br>
+      다음 챕터에서 <strong>Claude의 세계를 탐험</strong>해봅시다!</p>
+    </div>
+
+  </article>
+
+  <!-- ====== Navigation ====== -->
+  <nav class="chapter-nav">
+    <a href="ch13.html" class="prev">이전: 팀으로 일하기</a>
+    <a href="ch15.html" class="next">다음: Claude 생태계 탐험</a>
+  </nav>
+
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

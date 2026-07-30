@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 9: Skills: AI에게 전문성을 가르치다 — Claude 100배 활용법</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Claude 100배 활용법</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5 10.1 12 4.5 10l5.6-1.4z"/><path d="M18 16l.8 2.2L21 19l-2.2.8L18 22l-.8-2.2L15 19l2.2-.8z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 마인드 전환</li>
+      <li><a href="ch01.html" class="nav-link">1장 검색 vs 지시</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 Claude를 만나다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 프롬프트의 기술</a></li>
+      <li class="nav-part">제2부: Claude.ai & Desktop</li>
+      <li><a href="ch04.html" class="nav-link">4장 Claude.ai 200%</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 Claude Desktop</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 사무직의 하루</a></li>
+      <li class="nav-part">제3부: Claude Code</li>
+      <li><a href="ch07.html" class="nav-link">7장 Claude Code 시작</a></li>
+      <li><a href="ch08.html" class="nav-link">8장 CLAUDE.md와 컨텍스트</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 Skills</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 Hooks</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 MCP 서버</a></li>
+      <li class="nav-part">제4부: 실전 워크플로</li>
+      <li><a href="ch12.html" class="nav-link">12장 비개발자의 앱 만들기</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 멀티 에이전트 협업</a></li>
+      <li><a href="ch14.html" class="nav-link">14장 보안과 안전</a></li>
+      <li class="nav-part">제5부: 더 멀리 가기</li>
+      <li><a href="ch15.html" class="nav-link">15장 Claude 생태계</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 나만의 워크플로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 프롬프트 레시피</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+
+  <!-- ====== Chapter Header ====== -->
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 9</span>
+    <h1>Skills: AI에게 전문성을 가르치다</h1>
+    <p class="chapter-subtitle">슬래시 하나로 전문가를 소환하세요</p>
+  </header>
+
+  <article>
+
+    <!-- ====== Opening Story ====== -->
+    <section>
+      <h2>같은 Claude인데 왜 다를까?</h2>
+
+      <p>같은 Claude Code를 쓰는 두 사람이 있어요.</p>
+
+      <p><strong>A씨</strong>: "이 코드 좀 봐줘." → Claude가 코드를 읽고 "괜찮아 보입니다" 하고 끝.</p>
+
+      <p><strong>B씨</strong>: <code>/review</code> → Claude가 보안 취약점, 성능 문제, 코딩 컨벤션 위반, 테스트 커버리지까지 항목별로 분석한 리포트를 만들어줘요.</p>
+
+      <p>같은 Claude인데, 어떻게 이렇게 결과가 달라질까요?</p>
+
+      <p>비밀은 <strong>스킬(Skill)</strong>에 있어요.</p>
+
+      <p>B씨의 Claude에는 "코드 리뷰 전문가" 스킬이 설치되어 있었던 거예요. 이 스킬이 Claude에게 "코드 리뷰를 할 때는 이런 순서로, 이런 항목을 체크하고, 이런 형식으로 보고해"라는 <strong>전문적인 지시사항</strong>을 알려주거든요.</p>
+    </section>
+
+    <!-- ====== What is a Skill ====== -->
+    <section>
+      <h2>스킬이란 뭔가요?</h2>
+
+      <p>스킬은 Claude에게 <strong>특정 작업을 수행하는 방법</strong>을 알려주는 매뉴얼이에요.</p>
+
+      <div class="fun-box">
+        <p class="fun-box-title">셰프에게 레시피를 주는 것</p>
+        <p>Claude는 요리를 잘하는 셰프예요. 하지만 레시피 없이 "뭐 좀 만들어줘"라고 하면, 그냥 무난한 요리를 만들 거예요. 그런데 <strong>"미쉐린 3스타 레시피"</strong>를 주면? 같은 재료로 완전히 다른 수준의 요리를 만들어내요. 스킬이 바로 그 레시피예요.</p>
+      </div>
+
+      <p>기술적으로 보면, 스킬은 <code>SKILL.md</code>라는 마크다운 파일이에요. 이 파일에 Claude가 따라야 할 지시사항이 적혀 있고, 사용자가 슬래시 명령어(<code>/skill-name</code>)로 실행하면 Claude가 그 지시사항을 읽고 따라요.</p>
+    </section>
+
+    <!-- ====== SKILL.md Structure ====== -->
+    <section>
+      <h2>SKILL.md의 구조</h2>
+
+      <p>스킬 파일은 두 부분으로 나뉘어요:</p>
+
+      <h3>1. Frontmatter — 스킬의 이름표</h3>
+      <p>파일 맨 위에 <code>---</code>로 감싼 메타데이터가 있어요:</p>
+
+      <pre><code>---
+name: hello-world
+description: "인사를 건네는 간단한 스킬"
+---</code></pre>
+
+      <h3>2. Instructions — 실제 지시사항</h3>
+      <p>Frontmatter 아래에 Claude가 따라야 할 내용을 마크다운으로 적어요:</p>
+
+      <pre><code>---
+name: hello-world
+description: "인사를 건네는 간단한 스킬"
+---
+
+# Hello World 스킬
+
+사용자에게 한국어로 따뜻한 인사를 건네세요.
+
+## 규칙
+1. 반드시 한국어로 인사하세요
+2. 현재 시간대에 맞는 인사말을 사용하세요
+   - 아침: "좋은 아침이에요!"
+   - 낮: "안녕하세요!"
+   - 저녁: "좋은 저녁이에요!"
+3. 인사 후 오늘의 응원 메시지를 하나 추가하세요</code></pre>
+
+      <p>이게 전부예요! 이 파일 하나가 Claude를 "인사 전문가"로 만들어줘요.</p>
+    </section>
+
+    <!-- ====== Slash Commands ====== -->
+    <section>
+      <h2>슬래시 명령어로 스킬 실행하기</h2>
+
+      <p>스킬이 설치되면, 터미널에서 슬래시(<code>/</code>)와 스킬 이름을 입력해서 실행할 수 있어요:</p>
+
+      <pre><code># Claude Code 대화 중에...
+/hello-world          # 인사 스킬 실행
+/review               # 코드 리뷰 스킬
+/ship                 # 배포 준비 스킬
+/qa                   # QA 테스트 스킬
+/office-hours         # YC 오피스아워 스킬</code></pre>
+
+      <p>슬래시를 입력하면 사용 가능한 스킬 목록이 자동완성으로 나타나요. 마치 채팅 앱에서 이모지를 고르는 것처럼 편리하죠.</p>
+
+      <div class="callout">
+        <p class="callout-title">스킬의 힘</p>
+        <p>스킬 없이 "코드 리뷰해줘"라고 하면, Claude가 알아서 적당히 해줘요. 하지만 <code>/review</code> 스킬을 쓰면, <strong>보안 감사, 성능 분석, 코딩 컨벤션 체크, 테스트 커버리지 확인</strong>까지 체계적으로 해줘요. 같은 요청이라도 결과의 깊이가 완전히 달라요.</p>
+      </div>
+    </section>
+
+    <!-- ====== Installing Community Skills ====== -->
+    <section>
+      <h2>커뮤니티 스킬 설치하기</h2>
+
+      <p>스킬을 직접 만들 수도 있지만, 이미 잘 만들어진 스킬 패키지를 설치하는 게 더 빨라요. 요리를 배우기 전에 먼저 유명 셰프의 레시피를 써보는 것처럼요.</p>
+
+      <h3>gstack — Garry Tan의 스킬 패키지</h3>
+
+      <p><strong>gstack</strong>은 Y Combinator의 CEO Garry Tan이 공개한 스킬 패키지예요. 20개 이상의 전문가 역할이 들어 있어요:</p>
+
+      <ul>
+        <li><code>/review</code> — 전문적인 코드 리뷰</li>
+        <li><code>/ship</code> — 배포 준비 워크플로우</li>
+        <li><code>/qa</code> — QA 테스트</li>
+        <li><code>/office-hours</code> — 스타트업 멘토링</li>
+        <li><code>/design-review</code> — 디자인 리뷰</li>
+        <li><code>/investigate</code> — 버그 조사</li>
+        <li><code>/cso</code> — 보안 감사</li>
+        <li>그 외 다수...</li>
+      </ul>
+
+      <h3>설치 방법</h3>
+
+      <pre><code># 1. gstack 저장소를 클론합니다
+git clone https://github.com/anthropics/gstack.git ~/.claude/gstack
+
+# 2. CLAUDE.md에 gstack을 등록합니다 (또는 설정에서 추가)
+# 프로젝트의 CLAUDE.md에 다음을 추가:
+## Skills
+- gstack이 ~/.claude/gstack에 설치되어 있습니다</code></pre>
+
+      <h3>Awesome Agent Skills</h3>
+
+      <p>gstack 외에도 커뮤니티에서 만든 다양한 스킬들이 있어요. GitHub에서 "awesome claude skills"로 검색하면 유용한 스킬 모음을 찾을 수 있어요.</p>
+    </section>
+
+    <!-- ====== Creating Your Own Skill ====== -->
+    <section>
+      <h2>나만의 스킬 만들기</h2>
+
+      <p>커뮤니티 스킬도 좋지만, 여러분만의 업무에 딱 맞는 스킬을 직접 만들 수도 있어요.</p>
+
+      <div class="workflow-box">
+        <p class="workflow-title">Step by Step: 나만의 코드 리뷰 스킬 만들기</p>
+        <ol>
+          <li>
+            <strong>스킬 폴더 만들기</strong>
+            <pre><code>mkdir -p ~/.claude/skills/my-review</code></pre>
+          </li>
+          <li>
+            <strong>SKILL.md 파일 만들기</strong>
+            <pre><code># ~/.claude/skills/my-review/SKILL.md
+
+---
+name: my-review
+description: "우리 팀 스타일로 코드 리뷰하기"
+---
+
+# 코드 리뷰 스킬
+
+변경된 코드를 우리 팀의 기준으로 리뷰합니다.
+
+## 리뷰 순서
+1. **변경 사항 요약** — 무엇이 바뀌었는지 한 줄로
+2. **보안 체크** — SQL 인젝션, XSS 등 취약점 확인
+3. **성능 체크** — 불필요한 렌더링, N+1 쿼리 확인
+4. **코딩 스타일** — 팀 컨벤션 준수 여부
+5. **테스트** — 테스트가 충분한지 확인
+
+## 출력 형식
+- 각 항목은 통과/주의/문제 로 표시
+- 문제가 있으면 수정 제안 포함
+- 전체 점수를 10점 만점으로</code></pre>
+          </li>
+          <li>
+            <strong>Claude Code에서 테스트</strong>
+            <pre><code># Claude Code 대화에서
+/my-review</code></pre>
+          </li>
+        </ol>
+      </div>
+
+      <p>이게 전부예요! 파일 하나만 만들면, 여러분만의 전문가 스킬이 완성돼요.</p>
+
+      <div class="scenario-box">
+        <h3>시나리오: 비개발자를 위한 스킬 아이디어</h3>
+        <ul>
+          <li><strong>weekly-report</strong> — 이번 주 작업 내용을 정해진 양식으로 정리</li>
+          <li><strong>email-draft</strong> — 상황에 맞는 비즈니스 이메일 초안 작성</li>
+          <li><strong>meeting-notes</strong> — 회의록을 정해진 템플릿으로 정리</li>
+          <li><strong>data-summary</strong> — CSV 데이터를 읽고 핵심 지표 요약</li>
+        </ul>
+        <p>개발자가 아니어도 자신의 업무에 맞는 스킬을 만들 수 있어요!</p>
+      </div>
+    </section>
+
+    <!-- ====== Exercise ====== -->
+    <section>
+      <div class="exercise-box">
+        <p class="exercise-title">직접 해보기: 스킬 체험</p>
+        <p><strong>옵션 A: gstack 스킬 사용해보기</strong></p>
+        <ol>
+          <li>gstack을 설치하세요 (위의 설치 방법 참고)</li>
+          <li>아무 프로젝트 폴더에서 Claude Code를 실행하세요</li>
+          <li><code>/office-hours</code>를 입력하고, 여러분의 프로젝트나 아이디어에 대해 상담해보세요</li>
+        </ol>
+        <p><strong>옵션 B: 나만의 스킬 만들어보기</strong></p>
+        <ol>
+          <li><code>~/.claude/skills/greeting/</code> 폴더를 만드세요</li>
+          <li>SKILL.md를 만들고, Claude가 여러분만의 방식으로 인사하도록 지시사항을 적어보세요</li>
+          <li>Claude Code에서 <code>/greeting</code>을 실행해보세요</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ====== Recap ====== -->
+    <section>
+      <div class="recap-box">
+        <h3>이번 챕터 정리</h3>
+        <ul>
+          <li><strong>스킬</strong>은 Claude에게 특정 작업 방법을 가르치는 SKILL.md 파일이에요.</li>
+          <li><strong>슬래시 명령어</strong>(<code>/skill-name</code>)로 간편하게 스킬을 실행할 수 있어요.</li>
+          <li><strong>gstack</strong> 같은 커뮤니티 스킬 패키지로 20개 이상의 전문가 역할을 바로 쓸 수 있어요.</li>
+          <li>SKILL.md 파일 하나만 만들면 <strong>나만의 스킬</strong>을 만들 수 있어요.</li>
+          <li>같은 Claude라도 스킬에 따라 <strong>결과의 깊이가 완전히 달라져요</strong>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ====== Next Teaser ====== -->
+    <section>
+      <div class="next-teaser">
+        <h3>다음 챕터 미리보기</h3>
+        <p>스킬이 Claude에게 "무엇을 할지" 가르치는 거라면, <strong>Hooks</strong>는 "언제 자동으로 할지"를 설정하는 거예요. 파일을 저장할 때마다 자동 포맷팅, 커밋할 때마다 자동 테스트... 마치 마법처럼요.</p>
+      </div>
+    </section>
+
+  </article>
+
+  <nav class="chapter-nav">
+    <a href="ch08.html" class="prev">이전: 프로젝트 설정의 기술</a>
+    <a href="ch10.html" class="next">다음: Hooks: AI의 행동을 자동화하다</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

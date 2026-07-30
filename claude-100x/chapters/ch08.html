@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 8: 프로젝트 설정의 기술: CLAUDE.md와 컨텍스트 — Claude 100배 활용법</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Claude 100배 활용법</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5 10.1 12 4.5 10l5.6-1.4z"/><path d="M18 16l.8 2.2L21 19l-2.2.8L18 22l-.8-2.2L15 19l2.2-.8z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 마인드 전환</li>
+      <li><a href="ch01.html" class="nav-link">1장 검색 vs 지시</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 Claude를 만나다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 프롬프트의 기술</a></li>
+      <li class="nav-part">제2부: Claude.ai & Desktop</li>
+      <li><a href="ch04.html" class="nav-link">4장 Claude.ai 200%</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 Claude Desktop</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 사무직의 하루</a></li>
+      <li class="nav-part">제3부: Claude Code</li>
+      <li><a href="ch07.html" class="nav-link">7장 Claude Code 시작</a></li>
+      <li><a href="ch08.html" class="nav-link">8장 CLAUDE.md와 컨텍스트</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 Skills</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 Hooks</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 MCP 서버</a></li>
+      <li class="nav-part">제4부: 실전 워크플로</li>
+      <li><a href="ch12.html" class="nav-link">12장 비개발자의 앱 만들기</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 멀티 에이전트 협업</a></li>
+      <li><a href="ch14.html" class="nav-link">14장 보안과 안전</a></li>
+      <li class="nav-part">제5부: 더 멀리 가기</li>
+      <li><a href="ch15.html" class="nav-link">15장 Claude 생태계</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 나만의 워크플로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 프롬프트 레시피</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+
+  <!-- ====== Chapter Header ====== -->
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 8</span>
+    <h1>프로젝트 설정의 기술: CLAUDE.md와 컨텍스트</h1>
+    <p class="chapter-subtitle">Claude에게 '우리 프로젝트'를 이해시키는 법</p>
+  </header>
+
+  <article>
+
+    <!-- ====== Opening Story ====== -->
+    <section>
+      <h2>첫 출근한 신입사원의 고통</h2>
+
+      <p>회사에 새 팀원이 합류했어요. 똑똑하고 열정적인 사람이에요. 그런데 첫날, 이 사람이 마주한 현실은...</p>
+
+      <p>"프로젝트 문서? 그런 거 없어요. 코드 보면서 파악하세요."</p>
+
+      <p>폴더 구조도 모르고, 코딩 규칙도 모르고, 뭘 건드리면 안 되는지도 모르고. 결국 이 신입사원은 2주를 헤매다가 겨우 첫 번째 코드를 작성해요. 그것도 팀 규칙을 몰라서 세 번이나 다시 고쳐야 했고요.</p>
+
+      <p>Claude Code도 마찬가지예요. 아무런 안내 없이 프로젝트에 투입하면, Claude는 나름대로 최선을 다하지만 <strong>여러분이 원하는 방식</strong>으로 일하지는 못해요.</p>
+
+      <p>해결책은 간단해요. 프로젝트의 "안내서"를 만들어주면 돼요. 그게 바로 <strong>CLAUDE.md</strong>예요.</p>
+    </section>
+
+    <!-- ====== What is CLAUDE.md ====== -->
+    <section>
+      <h2>CLAUDE.md — 프로젝트의 안내서</h2>
+
+      <p>CLAUDE.md는 프로젝트 루트(최상위 폴더)에 놓는 특별한 파일이에요. Claude Code가 프로젝트를 열면 <strong>가장 먼저 읽는 파일</strong>이죠.</p>
+
+      <p>이 파일에 뭘 쓰느냐고요? 신입사원에게 알려줄 내용을 그대로 쓰면 돼요:</p>
+
+      <ul>
+        <li>이 프로젝트가 뭘 하는 건지 (프로젝트 설명)</li>
+        <li>코드를 어떤 스타일로 작성해야 하는지 (코딩 컨벤션)</li>
+        <li>어떤 기술을 사용하는지 (기술 스택)</li>
+        <li>절대 하면 안 되는 것들 (주의사항)</li>
+      </ul>
+
+      <h3>실제 CLAUDE.md 예시</h3>
+
+      <p>쇼핑몰 프로젝트의 CLAUDE.md를 한번 볼까요?</p>
+
+      <pre><code># 프로젝트: 온라인 쇼핑몰 "꿀샵"
+
+## 프로젝트 설명
+한국어 기반의 온라인 쇼핑몰 웹 애플리케이션입니다.
+React + TypeScript로 프론트엔드, Express로 백엔드를 구성합니다.
+
+## 기술 스택
+- 프론트엔드: React 18, TypeScript, Tailwind CSS
+- 백엔드: Express.js, Prisma ORM
+- 데이터베이스: PostgreSQL
+- 패키지 매니저: pnpm
+
+## 코딩 규칙
+- 컴포넌트는 함수형으로 작성 (class 컴포넌트 사용 금지)
+- 변수명, 함수명은 영어 camelCase
+- 주석은 한국어로 작성
+- 커밋 메시지는 한국어로, "feat:", "fix:", "docs:" 접두사 사용
+
+## 폴더 구조
+- src/components/ — React 컴포넌트
+- src/pages/ — 페이지 레벨 컴포넌트
+- src/api/ — API 호출 함수
+- server/ — 백엔드 코드
+
+## 주의사항
+- .env 파일은 절대 커밋하지 마세요
+- 결제 관련 코드는 수정 전 반드시 확인 요청하세요
+- 테스트 없이 main 브랜치에 직접 커밋하지 마세요</code></pre>
+
+      <p>이렇게 작성해두면, Claude Code가 프로젝트의 맥락을 정확히 이해하고 <strong>여러분의 규칙에 맞게</strong> 코드를 작성해요.</p>
+
+      <div class="fun-box">
+        <p class="fun-box-title">비유로 이해하기</p>
+        <p>CLAUDE.md는 요리사에게 주는 레시피 노트예요. "우리 가게는 설탕 대신 꿀을 써요", "고추는 청양고추만 써요" 같은 규칙을 적어두면, 요리사가 매번 물어보지 않아도 우리 가게 스타일로 요리해줘요.</p>
+      </div>
+    </section>
+
+    <!-- ====== .claudeignore ====== -->
+    <section>
+      <h2>.claudeignore — "이건 보지 마세요"</h2>
+
+      <p>프로젝트 폴더에는 Claude가 볼 필요 없는 파일들이 있어요. 거대한 라이브러리 폴더, 비밀번호가 담긴 환경 변수 파일 같은 것들이요.</p>
+
+      <p><code>.claudeignore</code> 파일을 만들면 Claude에게 "이 파일들은 무시해"라고 알려줄 수 있어요:</p>
+
+      <pre><code># 의존성 폴더 (너무 크니까 무시)
+node_modules/
+.venv/
+
+# 환경 변수 (비밀번호가 있으니까 무시)
+.env
+.env.local
+
+# 빌드 결과물 (생성된 파일이니까 무시)
+dist/
+build/
+.next/
+
+# 기타
+*.log
+coverage/</code></pre>
+
+      <p>이렇게 하면 Claude가 불필요한 파일을 읽느라 시간 낭비하지 않고, 보안에 민감한 파일에도 접근하지 않아요.</p>
+    </section>
+
+    <!-- ====== Memory System ====== -->
+    <section>
+      <h2>Memory 시스템 — Claude가 배운 걸 기억해요</h2>
+
+      <p>Claude Code는 대화 중에 배운 것들을 기억할 수 있어요. "아, 이 프로젝트에서는 이런 방식을 선호하는구나"를 메모해두는 거예요.</p>
+
+      <h3>메모리 타입</h3>
+      <ul>
+        <li><strong>User memory</strong> — 여러분의 개인 선호도 (모든 프로젝트에 적용)</li>
+        <li><strong>Project memory</strong> — 특정 프로젝트에 대한 기억</li>
+        <li><strong>Feedback memory</strong> — "이렇게 해줘" / "이건 하지 마" 같은 피드백</li>
+        <li><strong>Reference memory</strong> — 자주 참고하는 정보</li>
+      </ul>
+
+      <p>예를 들어 Claude에게 "나는 항상 한국어 주석을 선호해"라고 말하면, 다음부터는 자동으로 한국어로 주석을 달아줘요. 매번 말할 필요가 없어지는 거죠.</p>
+
+      <div class="callout">
+        <p class="callout-title">자동 메모리</p>
+        <p>Claude Code는 대화 중 중요한 선호도를 감지하면 자동으로 메모리에 저장할지 물어봐요. "이 프로젝트에서는 Tailwind CSS를 쓴다는 것을 기억할까요?" 같은 식이에요.</p>
+      </div>
+    </section>
+
+    <!-- ====== Context Hierarchy ====== -->
+    <section>
+      <h2>컨텍스트의 우선순위</h2>
+
+      <p>Claude Code가 참고하는 정보에는 우선순위가 있어요. 어떤 게 더 중요하냐는 거죠.</p>
+
+      <figure class="illustration">
+        <svg viewBox="0 0 600 350" xmlns="http://www.w3.org/2000/svg" style="max-width:600px;">
+          <rect x="0" y="0" width="600" height="350" rx="16" fill="#F8F6FF"/>
+
+          <!-- Title -->
+          <text x="300" y="30" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="15" fill="#1E1533">컨텍스트 우선순위 (위로 갈수록 높음)</text>
+
+          <!-- Level 1 - Highest -->
+          <rect x="100" y="50" width="400" height="55" rx="10" fill="#6B4EE6" stroke="#5A3DD4" stroke-width="2"/>
+          <text x="300" y="73" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="14" fill="#FFFFFF">1. 현재 대화</text>
+          <text x="300" y="93" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#EDE8FF">"이 파일에서 함수 이름을 바꿔줘"</text>
+
+          <!-- Level 2 -->
+          <rect x="100" y="115" width="400" height="55" rx="10" fill="#8B6BF0" stroke="#7A5ADF" stroke-width="2"/>
+          <text x="300" y="138" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="14" fill="#FFFFFF">2. Memory (저장된 선호도)</text>
+          <text x="300" y="158" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#EDE8FF">"이 사용자는 한국어 주석을 선호함"</text>
+
+          <!-- Level 3 -->
+          <rect x="100" y="180" width="400" height="55" rx="10" fill="#A990F5" stroke="#9880E5" stroke-width="2"/>
+          <text x="300" y="203" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="14" fill="#FFFFFF">3. .claude/settings.json</text>
+          <text x="300" y="223" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#EDE8FF">프로젝트별 설정 (허용 도구, Hooks 등)</text>
+
+          <!-- Level 4 -->
+          <rect x="100" y="245" width="400" height="55" rx="10" fill="#C4B3FA" stroke="#B3A2EA" stroke-width="2"/>
+          <text x="300" y="268" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="14" fill="#1E1533">4. CLAUDE.md</text>
+          <text x="300" y="288" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5A4F6B">프로젝트 규칙, 코딩 컨벤션, 기술 스택</text>
+
+          <!-- Arrow -->
+          <text x="70" y="130" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#6B4EE6">&#x2191;</text>
+          <text x="70" y="155" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#6B4EE6">높음</text>
+          <text x="70" y="260" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#8B82A0">&#x2193;</text>
+          <text x="70" y="285" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#8B82A0">낮음</text>
+        </svg>
+        <figcaption>Claude Code의 컨텍스트 우선순위</figcaption>
+      </figure>
+
+      <p>현재 대화에서 직접 말한 것이 가장 높은 우선순위를 가져요. CLAUDE.md에 "변수명은 영어로"라고 써있어도, 대화에서 "이번에는 한국어 변수명 써줘"라고 하면 대화 내용을 따라요.</p>
+    </section>
+
+    <!-- ====== Best Practices ====== -->
+    <section>
+      <h2>CLAUDE.md 작성 팁</h2>
+
+      <h3>1. 간결하게 쓰세요</h3>
+      <p>Claude는 CLAUDE.md를 <strong>매번</strong> 읽어요. 10페이지짜리 문서를 써놓으면 매번 10페이지를 읽는 거예요. 핵심만 담고, 세부 사항은 별도 문서로 분리하세요.</p>
+
+      <h3>2. 중요한 규칙은 CLAUDE.md에, 일시적인 건 대화로</h3>
+      <p>"항상 TypeScript를 쓴다" → CLAUDE.md에<br>
+      "이번에만 JavaScript로 해줘" → 대화에서 직접</p>
+
+      <h3>3. 구체적으로 쓰세요</h3>
+
+      <div class="prompt-example">
+        <p><span class="label bad-label">모호한 CLAUDE.md</span></p>
+        <p class="bad">"코드를 깔끔하게 작성하세요"</p>
+        <p><span class="label good-label">구체적인 CLAUDE.md</span></p>
+        <p class="good">"함수는 30줄을 넘지 않도록 작성. 한 함수는 한 가지 역할만 담당. ESLint 규칙을 반드시 통과할 것."</p>
+      </div>
+
+      <div class="scenario-box">
+        <h3>시나리오: React + TypeScript 프로젝트의 CLAUDE.md</h3>
+        <pre><code># 프로젝트: 꿀샵 프론트엔드
+
+## 핵심 규칙
+- React 18 + TypeScript strict mode
+- 컴포넌트: 함수형만 사용, Props는 interface로 정의
+- 스타일: Tailwind CSS (인라인 style 금지)
+- 상태관리: Zustand (Redux 사용 금지)
+- API 호출: React Query 사용
+
+## 파일 네이밍
+- 컴포넌트: PascalCase (ProductCard.tsx)
+- 유틸리티: camelCase (formatPrice.ts)
+- 테스트: [파일명].test.tsx
+
+## 절대 하지 말 것
+- any 타입 사용 금지
+- console.log 커밋 금지
+- 하드코딩된 API URL 금지</code></pre>
+      </div>
+    </section>
+
+    <!-- ====== Exercise ====== -->
+    <section>
+      <div class="exercise-box">
+        <p class="exercise-title">직접 해보기: 나의 CLAUDE.md 만들기</p>
+        <ol>
+          <li>자신의 프로젝트 폴더(또는 아무 폴더)로 이동하세요</li>
+          <li><code>CLAUDE.md</code> 파일을 만드세요</li>
+          <li>다음 내용을 채워보세요:
+            <ul>
+              <li>프로젝트 이름과 설명 (한 줄)</li>
+              <li>사용하는 기술 스택</li>
+              <li>코딩 규칙 3개 이상</li>
+              <li>"하지 말 것" 1개 이상</li>
+            </ul>
+          </li>
+          <li>Claude Code를 실행해서 "이 프로젝트에 대해 설명해줘"라고 물어보세요</li>
+          <li>Claude가 CLAUDE.md를 잘 이해했는지 확인하세요!</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ====== Recap ====== -->
+    <section>
+      <div class="recap-box">
+        <h3>이번 챕터 정리</h3>
+        <ul>
+          <li><strong>CLAUDE.md</strong>는 Claude가 프로젝트를 이해하는 "안내서"예요. 프로젝트 루트에 놓으면 자동으로 읽어요.</li>
+          <li><strong>.claudeignore</strong>로 Claude가 볼 필요 없는 파일을 지정할 수 있어요.</li>
+          <li><strong>Memory 시스템</strong>으로 Claude가 여러분의 선호도를 기억해요.</li>
+          <li>컨텍스트는 <strong>대화 > Memory > settings.json > CLAUDE.md</strong> 순으로 우선순위가 있어요.</li>
+          <li>CLAUDE.md는 <strong>간결하고 구체적으로</strong> 작성하세요.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ====== Next Teaser ====== -->
+    <section>
+      <div class="next-teaser">
+        <h3>다음 챕터 미리보기</h3>
+        <p>CLAUDE.md가 프로젝트의 규칙을 알려주는 거라면, <strong>Skills</strong>는 Claude에게 전문적인 능력을 가르치는 거예요. 슬래시 하나로 코드 리뷰 전문가, 보안 감사관, QA 테스터를 소환할 수 있어요.</p>
+      </div>
+    </section>
+
+  </article>
+
+  <nav class="chapter-nav">
+    <a href="ch07.html" class="prev">이전: Claude Code 시작하기</a>
+    <a href="ch09.html" class="next">다음: Skills: AI에게 전문성을 가르치다</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 7: Claude Code 시작하기 — Claude 100배 활용법</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Claude 100배 활용법</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5 10.1 12 4.5 10l5.6-1.4z"/><path d="M18 16l.8 2.2L21 19l-2.2.8L18 22l-.8-2.2L15 19l2.2-.8z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 마인드 전환</li>
+      <li><a href="ch01.html" class="nav-link">1장 검색 vs 지시</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 Claude를 만나다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 프롬프트의 기술</a></li>
+      <li class="nav-part">제2부: Claude.ai & Desktop</li>
+      <li><a href="ch04.html" class="nav-link">4장 Claude.ai 200%</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 Claude Desktop</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 사무직의 하루</a></li>
+      <li class="nav-part">제3부: Claude Code</li>
+      <li><a href="ch07.html" class="nav-link">7장 Claude Code 시작</a></li>
+      <li><a href="ch08.html" class="nav-link">8장 CLAUDE.md와 컨텍스트</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 Skills</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 Hooks</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 MCP 서버</a></li>
+      <li class="nav-part">제4부: 실전 워크플로</li>
+      <li><a href="ch12.html" class="nav-link">12장 비개발자의 앱 만들기</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 멀티 에이전트 협업</a></li>
+      <li><a href="ch14.html" class="nav-link">14장 보안과 안전</a></li>
+      <li class="nav-part">제5부: 더 멀리 가기</li>
+      <li><a href="ch15.html" class="nav-link">15장 Claude 생태계</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 나만의 워크플로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 프롬프트 레시피</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+
+  <!-- ====== Chapter Header ====== -->
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 7</span>
+    <h1>Claude Code 시작하기</h1>
+    <p class="chapter-subtitle">터미널이 무섭다고요? 괜찮아요, 같이 해봐요</p>
+  </header>
+
+  <article>
+
+    <!-- ====== Opening Story ====== -->
+    <section>
+      <h2>해커인 줄 알았어요</h2>
+
+      <p>얼마 전, 카페에서 옆자리에 앉은 개발자의 노트북 화면을 본 적이 있어요. 까만 화면에 알 수 없는 영어 글자들이 빠르게 지나가고, 간간이 형형색색의 텍스트가 번쩍번쩍 떴어요.</p>
+
+      <p>"저 사람 해킹하는 거 아냐...?"</p>
+
+      <p>솔직히 그렇게 생각했어요. 그런데 나중에 알고 보니, 그 사람은 그냥 터미널에서 코드를 실행하고 있었던 거예요. 파일을 만들고, 프로그램을 돌리고, 결과를 확인하는 — 아주 평범한 작업이었죠.</p>
+
+      <p>터미널은 영화에서 보는 것처럼 무서운 게 아니에요. 그냥 <strong>컴퓨터에게 글로 명령하는 창</strong>이에요. 마우스로 클릭하는 대신 키보드로 타이핑하는 것뿐이죠.</p>
+
+      <p>그리고 오늘 우리는 이 터미널에서 Claude를 만나볼 거예요. 바로 <strong>Claude Code</strong>를 통해서요.</p>
+    </section>
+
+    <!-- ====== What is Claude Code ====== -->
+    <section>
+      <h2>Claude Code가 뭔가요?</h2>
+
+      <p>지금까지 우리는 Claude.ai 웹사이트에서 Claude와 대화해왔어요. 질문하면 답해주고, 글을 써달라고 하면 써주고. 아주 똑똑한 대화 상대였죠.</p>
+
+      <p>그런데 Claude Code는 한 단계 더 나아가요. Claude.ai가 "대화만 하는 Claude"라면, Claude Code는 <strong>"직접 일하는 Claude"</strong>예요.</p>
+
+      <div class="fun-box">
+        <p class="fun-box-title">비유로 이해하기</p>
+        <p>Claude.ai = 전화 상담사. "이렇게 하시면 됩니다~" 하고 말로 알려줘요.<br>
+        Claude Code = 출장 기사. 직접 와서 작업해줘요. 파일도 만들고, 코드도 실행하고, 결과도 보여줘요.</p>
+      </div>
+
+      <p>구체적으로 Claude Code가 할 수 있는 걸 정리하면 이래요:</p>
+
+      <ul>
+        <li><strong>파일 생성과 수정</strong> — HTML, Python, 엑셀 데이터 처리 스크립트 등을 직접 만들어요</li>
+        <li><strong>코드 실행</strong> — 작성한 코드를 바로 실행하고 결과를 보여줘요</li>
+        <li><strong>프로젝트 이해</strong> — 폴더 구조를 파악하고, 기존 코드를 읽고 이해해요</li>
+        <li><strong>도구 사용</strong> — git, npm 같은 개발 도구를 직접 실행해요</li>
+        <li><strong>웹 검색</strong> — 필요한 정보를 인터넷에서 찾아와요</li>
+      </ul>
+
+      <p>한마디로, Claude Code는 여러분의 컴퓨터에서 <strong>직접 손발이 되어주는 AI 비서</strong>예요.</p>
+    </section>
+
+    <!-- ====== SVG Comparison ====== -->
+    <section>
+      <h2>Claude.ai vs Claude Code — 한눈에 비교</h2>
+
+      <figure class="illustration">
+        <svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" style="max-width:700px;">
+          <!-- Background -->
+          <rect x="0" y="0" width="700" height="380" rx="16" fill="#F8F6FF"/>
+
+          <!-- Claude.ai Box -->
+          <rect x="30" y="50" width="300" height="290" rx="12" fill="#FFFFFF" stroke="#DDD6EE" stroke-width="2"/>
+          <rect x="30" y="50" width="300" height="50" rx="12" fill="#EDE8FF"/>
+          <rect x="30" y="88" width="300" height="12" fill="#EDE8FF"/>
+          <text x="180" y="82" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="16" fill="#6B4EE6">Claude.ai</text>
+
+          <text x="55" y="135" font-family="sans-serif" font-size="13" fill="#1E1533">&#x2705; 대화 &amp; 질문 답변</text>
+          <text x="55" y="160" font-family="sans-serif" font-size="13" fill="#1E1533">&#x2705; 글쓰기 &amp; 번역</text>
+          <text x="55" y="185" font-family="sans-serif" font-size="13" fill="#1E1533">&#x2705; 코드 설명</text>
+          <text x="55" y="210" font-family="sans-serif" font-size="13" fill="#1E1533">&#x2705; 이미지 분석</text>
+          <text x="55" y="245" font-family="sans-serif" font-size="13" fill="#8B82A0">&#x274C; 파일 생성/수정</text>
+          <text x="55" y="270" font-family="sans-serif" font-size="13" fill="#8B82A0">&#x274C; 코드 실행</text>
+          <text x="55" y="295" font-family="sans-serif" font-size="13" fill="#8B82A0">&#x274C; 프로젝트 탐색</text>
+          <text x="55" y="320" font-family="sans-serif" font-size="13" fill="#8B82A0">&#x274C; 도구 연동</text>
+
+          <!-- Claude Code Box -->
+          <rect x="370" y="50" width="300" height="290" rx="12" fill="#FFFFFF" stroke="#6B4EE6" stroke-width="2"/>
+          <rect x="370" y="50" width="300" height="50" rx="12" fill="#6B4EE6"/>
+          <rect x="370" y="88" width="300" height="12" fill="#6B4EE6"/>
+          <text x="520" y="82" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="16" fill="#FFFFFF">Claude Code</text>
+
+          <text x="395" y="135" font-family="sans-serif" font-size="13" fill="#1E1533">&#x2705; 대화 &amp; 질문 답변</text>
+          <text x="395" y="160" font-family="sans-serif" font-size="13" fill="#1E1533">&#x2705; 글쓰기 &amp; 번역</text>
+          <text x="395" y="185" font-family="sans-serif" font-size="13" fill="#1E1533">&#x2705; 코드 설명</text>
+          <text x="395" y="210" font-family="sans-serif" font-size="13" fill="#1E1533">&#x2705; 이미지 분석</text>
+          <text x="395" y="245" font-family="sans-serif" font-size="13" fill="#6B4EE6" font-weight="700">&#x2705; 파일 생성/수정</text>
+          <text x="395" y="270" font-family="sans-serif" font-size="13" fill="#6B4EE6" font-weight="700">&#x2705; 코드 실행</text>
+          <text x="395" y="295" font-family="sans-serif" font-size="13" fill="#6B4EE6" font-weight="700">&#x2705; 프로젝트 탐색</text>
+          <text x="395" y="320" font-family="sans-serif" font-size="13" fill="#6B4EE6" font-weight="700">&#x2705; 도구 연동 (MCP)</text>
+
+          <!-- Title -->
+          <text x="350" y="28" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="15" fill="#1E1533">기능 비교</text>
+        </svg>
+        <figcaption>Claude.ai와 Claude Code의 기능 비교</figcaption>
+      </figure>
+    </section>
+
+    <!-- ====== Terminal Basics ====== -->
+    <section>
+      <h2>터미널 기초 — 3분이면 충분해요</h2>
+
+      <p>Claude Code를 쓰려면 터미널을 열어야 해요. 걱정 마세요, 딱 3가지만 알면 돼요.</p>
+
+      <h3>터미널 여는 법</h3>
+      <ul>
+        <li><strong>Windows</strong>: 시작 메뉴에서 "PowerShell" 또는 "명령 프롬프트" 검색, 또는 <code>Win + R</code> → <code>cmd</code> 입력</li>
+        <li><strong>Mac</strong>: Spotlight(<code>Cmd + Space</code>)에서 "터미널" 검색</li>
+        <li><strong>VS Code 사용자</strong>: <code>Ctrl + `</code> (백틱)으로 내장 터미널 열기</li>
+      </ul>
+
+      <h3>기본 명령어 3개</h3>
+      <p>터미널에서 쓸 수 있는 수백 개의 명령어가 있지만, 지금 당장은 3개만 알면 돼요:</p>
+
+      <pre><code># 1. 지금 어디에 있는지 확인
+pwd
+
+# 2. 이 폴더에 뭐가 있는지 보기
+ls
+
+# 3. 다른 폴더로 이동하기
+cd 폴더이름</code></pre>
+
+      <p>이 3개만 알면 Claude Code를 시작하기에 충분해요. 나머지는 Claude Code가 알아서 해줄 거예요!</p>
+
+      <div class="callout">
+        <p class="callout-title">잠깐, Node.js가 필요해요!</p>
+        <p>Claude Code를 설치하려면 <strong>Node.js</strong>가 컴퓨터에 있어야 해요. Node.js는 JavaScript를 실행하는 프로그램이에요. <a href="https://nodejs.org" target="_blank">nodejs.org</a>에서 LTS 버전을 다운로드하고 설치하세요. 설치 후 터미널에서 <code>node -v</code>를 입력하면 버전이 나와요.</p>
+      </div>
+    </section>
+
+    <!-- ====== Installation ====== -->
+    <section>
+      <h2>Claude Code 설치하기</h2>
+
+      <p>Node.js가 준비되었으면, 설치는 명령어 한 줄이면 끝이에요:</p>
+
+      <pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
+
+      <p>이 명령어의 의미를 풀어보면:</p>
+      <ul>
+        <li><code>npm</code> — Node.js의 패키지 관리자 (앱스토어 같은 거예요)</li>
+        <li><code>install</code> — 설치해줘</li>
+        <li><code>-g</code> — 컴퓨터 어디서든 쓸 수 있게 (global)</li>
+        <li><code>@anthropic-ai/claude-code</code> — 이 프로그램을 설치해줘</li>
+      </ul>
+
+      <p>설치가 끝나면 확인해볼까요?</p>
+
+      <pre><code>claude --version</code></pre>
+
+      <p>버전 번호가 나오면 성공이에요!</p>
+    </section>
+
+    <!-- ====== First Use ====== -->
+    <section>
+      <h2>처음 사용해보기</h2>
+
+      <p>이제 터미널에서 이렇게 입력해보세요:</p>
+
+      <pre><code>claude</code></pre>
+
+      <p>그러면 터미널 안에서 Claude와 대화할 수 있는 창이 열려요. 처음 실행하면 Anthropic 계정으로 로그인하라는 안내가 나올 거예요. 로그인하면 바로 대화를 시작할 수 있어요.</p>
+
+      <div class="prompt-example">
+        <p><span class="label good-label">첫 번째 대화</span></p>
+        <p class="good">"안녕! 이 폴더에 어떤 파일들이 있는지 알려줘."</p>
+      </div>
+
+      <p>Claude Code가 <code>ls</code> 명령어를 실행해서 파일 목록을 보여줄 거예요. 그런데 잠깐 — 실행하기 전에 뭔가 물어볼 거예요.</p>
+    </section>
+
+    <!-- ====== Permission System ====== -->
+    <section>
+      <h2>안전 장치: 허락 받고 실행해요</h2>
+
+      <p>Claude Code의 가장 중요한 특징 중 하나가 <strong>권한 시스템</strong>이에요.</p>
+
+      <p>Claude Code가 파일을 만들거나, 명령어를 실행하거나, 뭔가를 수정하려고 할 때 — 먼저 여러분에게 물어봐요.</p>
+
+      <pre><code>Claude wants to run: ls
+Allow? (y/n)</code></pre>
+
+      <p>"이거 실행해도 될까요?" 하고 허락을 구하는 거예요.</p>
+
+      <div class="fun-box">
+        <p class="fun-box-title">비유로 이해하기</p>
+        <p>집에 온 인테리어 기사가 벽에 못을 박기 전에 "여기 박아도 될까요?" 하고 물어보는 것과 같아요. 여러분이 "네"라고 해야 작업을 시작해요. 안전하죠?</p>
+      </div>
+
+      <p>매번 허락하는 게 귀찮다면, 자주 쓰는 명령어는 자동 허용으로 설정할 수도 있어요. 하지만 처음에는 하나하나 확인하면서 쓰는 걸 추천해요. Claude Code가 어떤 일을 하는지 이해하는 데 도움이 되거든요.</p>
+
+      <div class="callout">
+        <p class="callout-title">권한 수준 3가지</p>
+        <ul>
+          <li><strong>읽기</strong> — 파일 내용을 읽는 건 자동으로 허용돼요</li>
+          <li><strong>쓰기</strong> — 파일을 만들거나 수정할 때 물어봐요</li>
+          <li><strong>실행</strong> — 터미널 명령어를 실행할 때 물어봐요</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ====== Key Differences ====== -->
+    <section>
+      <h2>Claude.ai와 이렇게 달라요</h2>
+
+      <p>핵심 차이를 다시 정리해볼게요:</p>
+
+      <div class="scenario-box">
+        <h3>시나리오: "이력서 PDF 만들어줘"</h3>
+        <p><strong>Claude.ai에서</strong>: "이력서 내용은 이렇게 구성하시면 됩니다..." 하고 텍스트로 알려줘요. 여러분이 직접 워드나 한글에 붙여넣어야 해요.</p>
+        <p><strong>Claude Code에서</strong>: 이력서 HTML 파일을 직접 만들고, CSS로 스타일링하고, 브라우저에서 열어볼 수 있는 완성된 파일을 생성해요.</p>
+      </div>
+
+      <div class="scenario-box">
+        <h3>시나리오: "이 데이터 정리해줘"</h3>
+        <p><strong>Claude.ai에서</strong>: 데이터를 채팅창에 붙여넣으면 정리된 결과를 텍스트로 보여줘요.</p>
+        <p><strong>Claude Code에서</strong>: CSV 파일을 직접 읽고, Python 스크립트를 작성해서 실행하고, 정리된 결과를 새 파일로 저장해요.</p>
+      </div>
+
+      <p>이것이 바로 이 책의 핵심 메시지예요:</p>
+
+      <div class="callout">
+        <p class="callout-title">기억하세요</p>
+        <p><strong>AI는 검색 도구가 아니라, 지시를 통한 업무 달성 도구예요.</strong> Claude Code를 쓰면 "알려줘"에서 "해줘"로 바뀌어요. 질문하는 게 아니라, 일을 시키는 거예요.</p>
+      </div>
+    </section>
+
+    <!-- ====== Exercise ====== -->
+    <section>
+      <div class="exercise-box">
+        <p class="exercise-title">직접 해보기: 첫 Claude Code 체험</p>
+        <ol>
+          <li>Node.js가 설치되어 있는지 확인하세요: <code>node -v</code></li>
+          <li>Claude Code를 설치하세요: <code>npm install -g @anthropic-ai/claude-code</code></li>
+          <li>아무 폴더에서 <code>claude</code>를 실행하세요</li>
+          <li>"이 폴더에 있는 파일 목록을 보여줘"라고 말해보세요</li>
+          <li>Claude Code가 어떤 명령어를 실행하려고 하는지 확인하고, 허락해주세요</li>
+          <li>결과를 확인해보세요!</li>
+        </ol>
+        <p>어때요? Claude가 직접 컴퓨터에서 일하는 느낌이 나죠?</p>
+      </div>
+    </section>
+
+    <!-- ====== Recap ====== -->
+    <section>
+      <div class="recap-box">
+        <h3>이번 챕터 정리</h3>
+        <ul>
+          <li><strong>Claude Code</strong>는 Claude.ai의 "실행 버전"이에요. 대화만 하는 게 아니라 직접 파일을 만들고 코드를 실행해요.</li>
+          <li><strong>터미널</strong>은 무서운 게 아니에요. <code>pwd</code>, <code>ls</code>, <code>cd</code> 세 개만 알면 시작할 수 있어요.</li>
+          <li>설치는 <code>npm install -g @anthropic-ai/claude-code</code> 한 줄이면 끝이에요.</li>
+          <li>Claude Code는 중요한 작업 전에 항상 <strong>허락을 구해요</strong>. 안전하게 사용할 수 있어요.</li>
+          <li>AI는 검색 도구가 아니라 <strong>업무 달성 도구</strong>예요.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ====== Next Teaser ====== -->
+    <section>
+      <div class="next-teaser">
+        <h3>다음 챕터 미리보기</h3>
+        <p>Claude Code를 설치했으니, 이제 Claude에게 "우리 프로젝트"를 이해시켜야 해요. 새로 합류한 팀원에게 프로젝트를 설명하듯이요. 그 비밀은 <strong>CLAUDE.md</strong>라는 특별한 파일에 있어요.</p>
+      </div>
+    </section>
+
+  </article>
+
+  <nav class="chapter-nav">
+    <a href="ch06.html" class="prev">이전: Claude와 대화하는 기술</a>
+    <a href="ch08.html" class="next">다음: 프로젝트 설정의 기술</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>
