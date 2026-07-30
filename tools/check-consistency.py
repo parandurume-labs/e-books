@@ -147,6 +147,20 @@ def check_structure(book: Path) -> None:
         cards = len(re.findall(r'class="chapter-card"', html))
         if cards and cards != total:
             add("ERROR", rel(idx), f"챕터 카드 {cards}개 (불변식 {total})")
+        # 히어로 통계는 손으로 적혀 있어 카드 수와 어긋나기 쉽다.
+        # gstack-introduction 이 실제로 15 / 14 로 갈려 있었고 세 곳 중 한 곳만 틀렸다.
+        for num, label in re.findall(
+                r'<span class="stat-number">([^<]+)</span>\s*'
+                r'<span class="stat-label">([^<]+)</span>', html, re.S):
+            n = num.strip()
+            if "챕터" in label and n.isdigit() and int(n) != total:
+                add("ERROR", rel(idx), f"히어로 통계가 챕터 {n}개 (불변식 {total})")
+        # 사이드바 장 링크 수도 대조한다
+        nav = re.search(r'<ul class="nav-list">(.*?)</ul>', html, re.S)
+        if nav:
+            links = len(re.findall(r'class="nav-link">\s*(?:\d+장|\d+\.)', nav.group(1)))
+            if links and links != total:
+                add("ERROR", rel(idx), f"사이드바 장 링크 {links}개 (불변식 {total})")
     for ch in s.get("published_chapters", []):
         for lang in s.get("languages", ["ko"]):
             suffix = ".html" if lang == "ko" else f".{lang}.html"
