@@ -229,6 +229,32 @@ def check_structure(book: Path) -> None:
                 f"{lang} 판 {len(done)}/{len(done) + len(todo)}장. 남은 장: {', '.join(todo)}")
 
 
+def check_shelf(books: list[Path]) -> None:
+    """저장소 첫 화면의 책장 카드가 실제 파일 수와 맞는지.
+
+    아무도 안 보는 곳이라 조용히 틀어진다. 실제로 gstack 입문서가 「15장」으로 적혀
+    있었는데 파일은 14장이었고, LLM Wiki 는 전부 쓴 뒤에도 「8장 공개」가 남아 있었다.
+    """
+    shelf = ROOT / "index.html"
+    if not shelf.exists():
+        return
+    html = shelf.read_text(encoding="utf-8")
+    for m in re.finditer(r'<a href="([a-z0-9-]+)/" class="book-row">(.*?)</a>', html, re.S):
+        slug, card = m.group(1), m.group(2)
+        chapters = ROOT / slug / "chapters"
+        if not chapters.is_dir():
+            add("ERROR", "index.html", f"책장이 없는 책을 가리킴: {slug}/")
+            continue
+        ko = [p for p in chapters.glob("*.html") if ".en." not in p.name]
+        n_ch = len([p for p in ko if p.name.startswith("ch")])
+        n_ap = len([p for p in ko if p.name.startswith("appendix")])
+        want = f"{n_ch}장" + (f" · 부록 {n_ap}" if n_ap else "")
+        if want not in card:
+            claim = re.findall(r"<span>([^<]*장[^<]*)</span>", card)
+            add("ERROR", "index.html",
+                f"{slug} 책장 표기 {claim or ['없음']} ≠ 실제 「{want}」")
+
+
 def check_language_pairs(book: Path) -> None:
     """짝이 있는 파일은 hreflang 이 양방향이어야 한다. 짝이 없으면 hreflang 이 없어야 한다."""
     pages = sorted(book.glob("*.html")) + sorted((book / "chapters").glob("*.html"))
@@ -308,6 +334,8 @@ def main() -> int:
         d for d in sorted(ROOT.iterdir())
         if d.is_dir() and (d / "index.html").exists() and d.name not in ("assets", "tools")
     ]
+
+    check_shelf(books)
 
     files = 0
     for book in books:
