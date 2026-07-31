@@ -89,10 +89,15 @@ def check_prose_metrics(f: Path, html: str) -> None:
 def check_svg_labels(f: Path, html: str) -> None:
     """그림 안의 글자도 독자가 읽는다.
 
-    산문 지표는 SVG 를 빼고 세지만 em dash 는 조판 규칙이라 그림에도 적용된다.
-    이걸 안 봐서 여덟 파일의 레이블에 em dash 27개가 숨어 있었다.
-    영어판도 본다. 조판 규칙은 언어를 가리지 않는다.
+    산문 지표는 SVG 를 통째로 빼고 세기 때문에 그림 레이블이 사각지대였다.
+    실제로 여덟 파일의 레이블에 em dash 27개가 숨어 있었다.
+
+    영어판은 보지 않는다. STYLE.md 제2부 §1 이 「em dash 는 영어에서는 자연스럽다」이고,
+    이 규칙은 조판 규칙이 아니라 **한국어 번역투를 걷어내는 규칙**이기 때문이다.
+    처음에 영어판까지 검사하게 만들었다가 규약과 어긋나서 되돌렸다.
     """
+    if ".en." in f.name:
+        return
     labels = " ".join(
         t for svg in re.findall(r"<svg.*?</svg>", html, flags=re.S)
         for t in re.findall(r"<(?:text|tspan)[^>]*>([^<>]*)</(?:text|tspan)>", svg)
@@ -204,12 +209,24 @@ def check_structure(book: Path) -> None:
             links = len(re.findall(r'class="nav-link">\s*(?:\d+장|\d+\.)', nav.group(1)))
             if links and links != total:
                 add("ERROR", rel(idx), f"사이드바 장 링크 {links}개 (불변식 {total})")
+    # 한국어판은 있어야 한다. 없으면 목차가 가리키는 페이지가 없다는 뜻이다.
     for ch in s.get("published_chapters", []):
-        for lang in s.get("languages", ["ko"]):
-            suffix = ".html" if lang == "ko" else f".{lang}.html"
-            p = book / "chapters" / (ch + suffix)
-            if not p.exists():
-                add("ERROR", book.name, f"{lang} 장 누락: chapters/{ch}{suffix}")
+        p = book / "chapters" / f"{ch}.html"
+        if not p.exists():
+            add("ERROR", book.name, f"ko 장 누락: chapters/{ch}.html")
+
+    # 번역은 계획된 작업이지 결함이 아니다. ERROR 는 오늘 0으로 만들 수 있는 것만 담는다.
+    # (17장이 세운 기준이다. 못 지울 ERROR 가 쌓이면 목록 전체를 안 보게 된다)
+    # 그래서 번역 현황은 세어서 알리기만 하고, 빠진 짝은 목차가 알아서 준비 중으로 보낸다.
+    for lang in s.get("languages", ["ko"]):
+        if lang == "ko":
+            continue
+        done = [ch for ch in s.get("published_chapters", [])
+                if (book / "chapters" / f"{ch}.{lang}.html").exists()]
+        todo = [ch for ch in s.get("published_chapters", []) if ch not in done]
+        if todo:
+            add("INFO", book.name,
+                f"{lang} 판 {len(done)}/{len(done) + len(todo)}장. 남은 장: {', '.join(todo)}")
 
 
 def check_language_pairs(book: Path) -> None:

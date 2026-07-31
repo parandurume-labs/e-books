@@ -149,9 +149,11 @@ def check(path: Path) -> None:
         if n > limit:
             add("ERROR", where, f"{tok} {n}개 (허용 {limit})")
 
-    # SVG 안의 글자도 독자가 읽는다. 산문 지표에서는 빼지만 무관용 규칙은 적용한다.
+    # SVG 안의 글자도 독자가 읽는다. 산문 지표에서는 빼므로 여기서 따로 본다.
     # 이걸 안 봐서 그림 레이블에 em dash 27개가 숨어 있었다.
-    svg_text = " ".join(
+    # 영어 프래그먼트는 제외한다. em dash 금지는 한국어 번역투 규칙이고
+    # STYLE.md 제2부는 영어에서 em dash 를 허용한다.
+    svg_text = "" if ".en." in where else " ".join(
         t for svg in re.findall(r"<svg.*?</svg>", body, flags=re.S)
         for t in re.findall(r"<(?:text|tspan)[^>]*>([^<>]*)</(?:text|tspan)>", svg)
     )
