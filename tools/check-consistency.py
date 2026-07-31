@@ -63,8 +63,13 @@ def visible(html: str) -> str:
 
 # ---------------------------------------------------------------- 검사 항목
 
-def check_prose_metrics(f: Path, html: str) -> None:
-    """STYLE.md 지표. em dash 와 여러분은 0 이어야 한다."""
+def check_prose_metrics(f: Path, html: str, budgets: bool = True) -> None:
+    """STYLE.md 지표. em dash 와 여러분은 0 이어야 한다.
+
+    budgets=False 는 목록 쪽(서가)에 쓴다. 책 소개 문구를 늘어놓은 쪽이라
+    분량은 기준을 넘지만 흐르는 산문이 아니다. 밀도 예산을 그대로 대면
+    「수 있습니다」 두 번에 1만자당 13 이 나온다. 무관용 규칙만 본다.
+    """
     if ".en." in f.name:
         return
     p = prose_of(html)
@@ -77,7 +82,7 @@ def check_prose_metrics(f: Path, html: str) -> None:
             add("ERROR", rel(f), f"{tok} {n}개 (허용 {limit})")
     # 비율 예산은 분량이 충분한 문서에만 적용한다.
     # 짧은 페이지에서 1만자당 환산은 노이즈다 (coming-soon 은 1건이 17회로 잡혔다).
-    if chars < INV["prose_rules"]["budget_min_chars"]:
+    if not budgets or chars < INV["prose_rules"]["budget_min_chars"]:
         return
     for tok, per10k in INV["prose_rules"]["budget_per_10k_chars"].items():
         n = p.count(tok)
@@ -389,6 +394,16 @@ def main() -> int:
     check_shelf(books)
 
     files = 0
+
+    # 루트 서가는 책 폴더가 아니라서 아래 순회에 안 걸린다. 그런데 독자가
+    # 가장 먼저 보는 쪽이다. 실제로 문체 규약이 네 권을 훑는 동안 서가에는
+    # 한국어 em dash 두 개가 그대로 남아 있었다.
+    for f in sorted(ROOT.glob("index*.html")):
+        html = f.read_text(encoding="utf-8")
+        files += 1
+        check_prose_metrics(f, html, budgets=False)
+        check_en_korean_leftovers(f, html)
+
     for book in books:
         if not book.exists():
             add("ERROR", book.name, "폴더 없음")
