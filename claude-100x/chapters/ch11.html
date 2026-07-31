@@ -164,10 +164,11 @@
       <p>MCP 서버는 Claude Code와 Claude Desktop 모두에서 사용할 수 있지만, 설정 방법이 조금 달라요:</p>
 
       <h3>Claude Code에서</h3>
-      <p>프로젝트의 <code>.claude/settings.json</code> 파일에서 설정해요:</p>
+      <p>보통은 터미널에서 <code>claude mcp add</code> 명령으로 등록해요. 팀과 공유할 서버는 저장소 루트의 <code>.mcp.json</code>에, 나만 쓸 서버는 홈 폴더의 <code>~/.claude.json</code>에 기록돼요. <code>.claude/settings.json</code>은 MCP 서버 설정을 읽지 않으니 거기에 적으면 안 돼요 (2026년 7월 확인).</p>
 
-      <pre><code>// .claude/settings.json
-{
+      <p>저장소 루트의 <code>.mcp.json</code>은 이런 모양이에요:</p>
+
+      <pre><code>{
   "mcpServers": {
     "filesystem": {
       "command": "npx",
@@ -177,10 +178,9 @@
 }</code></pre>
 
       <h3>Claude Desktop에서</h3>
-      <p><code>claude_desktop_config.json</code> 파일에서 설정해요:</p>
+      <p><code>claude_desktop_config.json</code> 파일에서 설정해요. 내용은 아래와 같아요:</p>
 
-      <pre><code>// claude_desktop_config.json (Claude Desktop)
-{
+      <pre><code>{
   "mcpServers": {
     "filesystem": {
       "command": "npx",
@@ -189,7 +189,7 @@
   }
 }</code></pre>
 
-      <p>구조는 거의 같아요. 파일 위치만 다를 뿐이죠.</p>
+      <p>구조는 거의 같아요. 파일 위치와 등록하는 방법만 다를 뿐이죠.</p>
     </section>
 
     <!-- ====== Popular MCP Servers ====== -->
@@ -248,13 +248,18 @@
         <p class="workflow-title">Step by Step: Filesystem MCP 연결하기</p>
         <ol>
           <li>
-            <strong>프로젝트에 .claude 폴더 만들기</strong>
-            <pre><code>mkdir -p .claude</code></pre>
+            <strong>프로젝트 폴더로 이동하기</strong>
+            <p>MCP 서버를 붙이려는 저장소의 루트에서 작업하세요.</p>
           </li>
           <li>
-            <strong>settings.json 파일 만들기</strong>
-            <pre><code>// .claude/settings.json
-{
+            <strong>claude mcp add로 등록하기</strong>
+            <pre><code>claude mcp add filesystem --scope project -- npx -y @modelcontextprotocol/server-filesystem /Users/me/Documents</code></pre>
+            <p><code>/Users/me/Documents</code> 부분을 내 폴더 경로로 바꾸세요. <code>--scope project</code>를 주면 저장소 루트의 <code>.mcp.json</code>에 기록돼서 팀원과 공유돼요.</p>
+          </li>
+          <li>
+            <strong>기록된 .mcp.json 확인하기</strong>
+            <p>등록이 끝나면 저장소 루트에 <code>.mcp.json</code>이 생겨요. 내용은 이래요:</p>
+            <pre><code>{
   "mcpServers": {
     "filesystem": {
       "command": "npx",
@@ -266,7 +271,7 @@
     }
   }
 }</code></pre>
-            <p><code>/Users/me/Documents</code> 부분을 내 폴더 경로로 바꾸세요.</p>
+            <p>이 파일을 직접 손으로 만들어도 돼요. 다만 순수 JSON이라서 주석은 넣을 수 없어요.</p>
           </li>
           <li>
             <strong>Claude Code 실행</strong>
@@ -281,7 +286,7 @@
       </div>
 
       <h3>여러 MCP 서버 동시에 사용하기</h3>
-      <p><code>mcpServers</code> 안에 여러 서버를 추가할 수 있어요:</p>
+      <p>서버마다 <code>claude mcp add</code>를 한 번씩 실행하면 <code>mcpServers</code> 안에 항목이 하나씩 쌓여요:</p>
 
       <pre><code>{
   "mcpServers": {
@@ -289,17 +294,19 @@
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/docs"]
     },
-    "github": {
+    "notes": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_TOKEN": "ghp_your_token_here"
-      }
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/notes"]
     }
   }
 }</code></pre>
 
-      <p>이렇게 하면 Claude가 파일 시스템도 접근하고, GitHub도 접근할 수 있게 돼요. USB 허브에 장치를 여러 개 꽂는 것처럼요!</p>
+      <p>이렇게 하면 Claude가 여러 폴더와 여러 서비스에 동시에 손을 뻗을 수 있어요. USB 허브에 장치를 여러 개 꽂는 것처럼요!</p>
+
+      <div class="callout">
+        <p class="callout-title">토큰이 필요한 서버라면</p>
+        <p>GitHub처럼 접근 토큰이 필요한 서버도 있어요. 이때 토큰 값을 <code>.mcp.json</code>에 그대로 적으면 저장소에 비밀이 그대로 올라가요. 토큰은 셸 환경 변수에 두고, 그 변수를 참조하는 방법을 해당 서버의 공식 문서에서 확인하세요.</p>
+      </div>
     </section>
 
     <!-- ====== Building Custom MCP ====== -->
@@ -351,7 +358,7 @@ await server.connect(transport);</code></pre>
         <ul>
           <li><strong>신뢰할 수 있는 MCP 서버만 사용하세요.</strong> 공식 패키지이거나, 소스 코드를 확인한 서버만 연결하세요</li>
           <li><strong>접근 범위를 최소화하세요.</strong> Filesystem MCP에 전체 하드디스크를 연결하지 말고, 필요한 폴더만 지정하세요</li>
-          <li><strong>토큰과 비밀번호를 관리하세요.</strong> API 토큰은 환경 변수로 관리하고, settings.json에 직접 쓰지 마세요</li>
+          <li><strong>토큰과 비밀번호를 관리하세요.</strong> API 토큰은 환경 변수로 관리하고, <code>.mcp.json</code>에 직접 쓰지 마세요</li>
           <li><strong>프로덕션 환경은 조심하세요.</strong> 실서비스 DB에 연결할 때는 읽기 전용 권한만 주세요</li>
         </ul>
       </div>
@@ -364,9 +371,9 @@ await server.connect(transport);</code></pre>
       <div class="exercise-box">
         <p class="exercise-title">직접 해보기: Filesystem MCP 연결하기</p>
         <ol>
-          <li>프로젝트 폴더에 <code>.claude/settings.json</code> 파일을 만드세요</li>
-          <li>Filesystem MCP 서버를 설정하세요 (위의 Step by Step 가이드 참고)</li>
-          <li>접근할 폴더 경로를 내 문서 폴더로 설정하세요</li>
+          <li>프로젝트 폴더의 루트로 이동하세요</li>
+          <li><code>claude mcp add</code>로 Filesystem MCP 서버를 등록하세요 (위의 Step by Step 가이드 참고)</li>
+          <li>접근할 폴더 경로를 내 문서 폴더로 지정하고, 저장소 루트에 <code>.mcp.json</code>이 생겼는지 확인하세요</li>
           <li>Claude Code를 실행하고 "이 폴더에 있는 파일 목록을 보여줘"라고 요청해보세요</li>
           <li>"가장 최근에 수정된 파일 3개를 알려줘" 같은 요청도 해보세요</li>
         </ol>
@@ -381,7 +388,7 @@ await server.connect(transport);</code></pre>
         <ul>
           <li><strong>MCP(Model Context Protocol)</strong>는 Claude와 외부 서비스를 연결하는 표준 규격이에요.</li>
           <li>USB 허브처럼, MCP를 통해 GitHub, Microsoft Teams, DB, 파일 시스템 등 <strong>다양한 서비스</strong>에 접근할 수 있어요.</li>
-          <li><code>.claude/settings.json</code>에서 MCP 서버를 설정하고, 여러 서버를 동시에 사용할 수 있어요.</li>
+          <li>Claude Code에서는 <code>claude mcp add</code>로 등록해요. 팀 공유용은 저장소 루트의 <code>.mcp.json</code>, 개인용은 <code>~/.claude.json</code>에 기록돼요 (2026년 7월 확인).</li>
           <li>기존 MCP 서버를 설치하거나, <strong>SDK로 직접 만들</strong> 수도 있어요.</li>
           <li>보안에 주의하세요: 신뢰할 수 있는 서버만 사용하고, 접근 범위를 최소화하세요.</li>
         </ul>

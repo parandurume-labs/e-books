@@ -213,7 +213,10 @@ description: "사용자에게 따뜻한 한국어 인사와 오늘의 재미있�
       <p><strong>해결법:</strong></p>
 <pre><code># 파일을 읽어야 하는 스킬인데 Read가 없으면 에러!
 # 이렇게 추가:
-allowed-tools: ["Read", "Glob", "Grep"]</code></pre>
+allowed-tools:
+  - Read
+  - Glob
+  - Grep</code></pre>
 
       <p>에러 메시지를 잘 읽어보면, 어떤 도구가 필요한지 힌트가 있어요.</p>
 
@@ -361,10 +364,10 @@ allowed-tools: ["Read", "Glob", "Grep"]</code></pre>
       <p>챕터 3에서 오픈소스 이야기 기억나시죠? "만든 걸 공유하면, 한 사람의 해결이 만 명의 해결이 된다"고요.</p>
 
       <div class="scenario-box">
-        지금 이 스킬은 아직 내 컴퓨터 안에만 있어요. 세상에 공유하면 전 세계 누구나 쓰게 돼요. 그게 4부의 이야기예요.
+        지금 이 스킬은 아직 내 컴퓨터 안에만 있어요. 잘 정리해서 세상에 내보내면 전 세계 누구나 쓰게 돼요. 그 정리와 공유가 4부의 이야기예요.
       </div>
 
-      <p>준비되셨나요? 이제 그 스킬을 세상에 내보낼 시간이에요.</p>
+      <p>준비되셨나요? 먼저 늘어난 스킬들을 한 지붕 아래 정리하는 것부터 시작해요.</p>
     </section>
 
     <!-- ====== Recap ====== -->
@@ -389,10 +392,10 @@ allowed-tools: ["Read", "Glob", "Grep"]</code></pre>
     <!-- ====== Next Teaser ====== -->
     <div class="next-teaser">
       <h3>다음 챕터에서는...</h3>
-      <p>3부가 끝났습니다! 이제 스킬을 <strong>만들고, 다듬고, 완성</strong>할 줄 아시죠.<br>
-      4부에서는 드디어 이 스킬을 <strong>세상과 공유</strong>하는 방법을 배워요.<br>
-      GitHub에 올리고, 다른 사람이 설치할 수 있게 패키징하고, 피드백을 받는 법까지.<br>
-      <strong>"Your skill is ready. Now let the world use it."</strong></p>
+      <p>3부가 끝났어요! 이제 스킬을 <strong>만들고, 다듬고, 완성</strong>할 줄 아시죠.<br>
+      그런데 스킬이 하나둘 늘어나면 관리가 문제가 돼요. 세 개, 다섯 개가 되면 폴더가 여기저기 흩어지거든요.<br>
+      다음 챕터에서는 관련된 스킬을 하나의 저장소에 모으는 <strong>모노레포 패턴</strong>을 배워요.<br>
+      공유 참조 파일을 한 번만 고치면 전부에 반영되는, 푸드코트 같은 구조예요!</p>
     </div>
 
   </article>
@@ -400,7 +403,7 @@ allowed-tools: ["Read", "Glob", "Grep"]</code></pre>
   <!-- ====== Navigation ====== -->
   <nav class="chapter-nav">
     <a href="ch12.html" class="prev">이전: 템플릿과 변수</a>
-    <a href="ch14.html" class="next">다음: 스킬 공유하기</a>
+    <a href="ch14.html" class="next">다음: 여러 스킬을 하나로</a>
   </nav>
 
 </div>

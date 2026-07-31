@@ -88,8 +88,8 @@
     <section>
       <h2>Anthropic 공식 리소스</h2>
 
-      <h3>docs.anthropic.com: 공식 문서</h3>
-      <p>모든 것의 시작점이에요. Claude의 기능, API 사용법, 모범 사례가 정리되어 있어요. 영어가 기본이지만, 번역 도구와 함께 사용하면 충분히 이해할 수 있어요.</p>
+      <h3>platform.claude.com/docs: API 공식 문서</h3>
+      <p>모든 것의 시작점이에요. Claude API 사용법, 모델 정보, 모범 사례가 정리되어 있어요. 영어가 기본이지만, 번역 도구와 함께 사용하면 충분히 이해할 수 있어요 (2026년 7월 확인).</p>
 
       <h3>Anthropic Cookbook: 실전 레시피</h3>
       <p><code>github.com/anthropics/anthropic-cookbook</code>에 있어요. "레시피"라는 이름처럼, 실제로 따라 할 수 있는 예제 코드 모음이에요.</p>
@@ -105,14 +105,11 @@
         각 레시피는 코드와 설명이 함께 있어서, 복사-붙여넣기로 바로 테스트해볼 수 있어요.</p>
       </div>
 
-      <h3>Claude Code 공식 문서</h3>
-      <p>Claude Code의 모든 기능, 설정, 슬래시 명령어가 정리되어 있어요. 이 책에서 다룬 것보다 더 자세한 내용이 있으니, 궁금한 기능이 있으면 찾아보세요.</p>
+      <h3>code.claude.com/docs: Claude Code 공식 문서</h3>
+      <p>Claude Code의 모든 기능, 설정, 슬래시 명령어가 정리되어 있어요. 이 책에서 다룬 것보다 더 자세한 내용이 있으니, 궁금한 기능이 있으면 찾아보세요 (2026년 7월 확인).</p>
 
       <h3>Prompt Engineering Interactive Tutorial</h3>
       <p>Anthropic이 만든 프롬프트 엔지니어링 튜토리얼이에요. 단순히 읽는 게 아니라 <strong>직접 해보면서</strong> 배우는 인터랙티브 형식이에요. 프롬프트 실력을 한 단계 올리고 싶다면 꼭 해보세요.</p>
-
-      <h3>claude.ai/explore: 프롬프트 탐색</h3>
-      <p>다른 사람들이 만든 프롬프트를 구경하는 곳이에요. "이런 것도 가능하구나!"하는 영감을 여기서 얻어요.</p>
     </section>
 
     <!-- ====== Claude API ====== -->
@@ -139,12 +136,14 @@
         <p class="good">import anthropic<br>
 client = anthropic.Anthropic()<br>
 message = client.messages.create(<br>
-&nbsp;&nbsp;model="claude-sonnet-4-20250514",<br>
+&nbsp;&nbsp;model="여기에 최신 모델 ID",<br>
 &nbsp;&nbsp;max_tokens=1024,<br>
 &nbsp;&nbsp;messages=[{"role": "user", "content": "안녕하세요!"}]<br>
 )<br>
 print(message.content[0].text)</p>
       </div>
+
+      <p>모델 ID는 자주 바뀌니까 여기에 적지 않을게요. <code>platform.claude.com/docs</code>의 모델 목록에서 최신 모델 ID를 확인해서 쓰세요.</p>
 
       <p>이 몇 줄로 Claude가 내 프로그램 안에서 동작해요. 마법 같죠?</p>
     </section>
@@ -247,7 +246,7 @@ print(message.content[0].text)</p>
     <aside class="recap-box">
       <h3>잠깐, 정리!</h3>
       <ul>
-        <li><strong>docs.anthropic.com</strong>은 모든 공식 문서의 시작점이에요</li>
+        <li>공식 문서는 API가 <strong>platform.claude.com/docs</strong>, Claude Code가 <strong>code.claude.com/docs</strong>예요</li>
         <li><strong>Anthropic Cookbook</strong>은 실전 예제 모음이에요. 따라 하면서 배워요</li>
         <li><strong>Claude API</strong>로 내 앱에 Claude를 통합할 수 있어요</li>
         <li><strong>Agent SDK</strong>로 자율적으로 행동하는 AI 에이전트를 만들 수 있어요</li>

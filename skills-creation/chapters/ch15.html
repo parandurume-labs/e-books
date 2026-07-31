@@ -145,7 +145,7 @@
 
       <ol>
         <li>GitHub.com에 로그인</li>
-        <li>오른쪽 위 "+" 버튼 → "New repository" 클릭</li>
+        <li>오른쪽 위 "+" 버튼 → "New repository" 클릭 (2026년 7월 기준)</li>
         <li>이름 입력 (예: <code>my-awesome-skill</code>)</li>
         <li>"Public"으로 설정 (누구나 볼 수 있게)</li>
         <li>"Create repository" 클릭</li>
@@ -169,13 +169,18 @@ git add .
 # 커밋 (변경 기록 저장)
 git commit -m "첫 번째 스킬 업로드"
 
+# 기본 브랜치 이름을 main으로 맞추기
+git branch -M main
+
 # GitHub 저장소와 연결
 git remote add origin https://github.com/내아이디/my-awesome-skill.git
 
 # 올리기!
 git push -u origin main</code></pre>
 
-      <p>Git 명령어가 처음이라 무서울 수 있는데, 걱정 마세요. 이 6줄만 따라 치면 돼요. 한 번 해보면 "아, 별거 아니네" 하실 거예요.</p>
+      <p>Git 명령어가 처음이라 무서울 수 있는데, 걱정 마세요. 이 7줄만 따라 치면 돼요. 한 번 해보면 "아, 별거 아니네" 하실 거예요.</p>
+
+      <p><code>git branch -M main</code> 줄은 왜 있을까요? <code>git init</code>이 만드는 브랜치 이름이 컴퓨터마다 달라서예요. 어떤 환경은 <code>main</code>, 어떤 환경은 <code>master</code>로 시작하거든요. <code>master</code>인 상태에서 <code>git push -u origin main</code>을 하면 "그런 브랜치 없다"는 에러가 나요. 이 한 줄이 이름을 <code>main</code>으로 맞춰줘서 그 에러를 막아줘요.</p>
 
       <div class="callout">
         <p class="callout-title">Git이 처음이라면</p>
@@ -232,7 +237,7 @@ git pull</code></pre>
 
       <ol>
         <li>GitHub 저장소 페이지로 이동</li>
-        <li>초록색 "Code" 버튼 클릭</li>
+        <li>초록색 "Code" 버튼 클릭 (2026년 7월 기준)</li>
         <li>"Download ZIP" 클릭</li>
         <li>다운받은 ZIP 파일을 <code>~/.claude/skills/</code>에 압축 해제</li>
       </ol>

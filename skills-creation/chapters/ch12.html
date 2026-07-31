@@ -131,6 +131,7 @@
       <p>실제로 보면 이렇게 생겼어요:</p>
 
 <pre><code>---
+name: {{SKILL_NAME}}
 description: "{{LANGUAGE}} 코드 리뷰를 해주는 스킬"
 ---
 
@@ -140,7 +141,7 @@ description: "{{LANGUAGE}} 코드 리뷰를 해주는 스킬"
 {{LANGUAGE}}의 베스트 프랙티스와 일반적인 실수 패턴을
 잘 알고 있으며, 건설적인 코드 리뷰를 제공합니다.</code></pre>
 
-      <p><code>{{LANGUAGE}}</code>가 빈칸이에요. 여기에 "JavaScript"를 넣으면 JavaScript 코드 리뷰 스킬이 되고, "Python"을 넣으면 Python 코드 리뷰 스킬이 돼요.</p>
+      <p><code>{{LANGUAGE}}</code>와 <code>{{SKILL_NAME}}</code>이 빈칸이에요. <code>{{LANGUAGE}}</code>에 "JavaScript"를 넣으면 JavaScript 코드 리뷰 스킬이 되고, "Python"을 넣으면 Python 코드 리뷰 스킬이 돼요. <code>{{SKILL_NAME}}</code>에는 <code>javascript-code-review</code>처럼 만들어질 스킬 폴더 이름이 들어가요.</p>
     </section>
 
     <!-- ====== Practical Example ====== -->
@@ -152,8 +153,12 @@ description: "{{LANGUAGE}} 코드 리뷰를 해주는 스킬"
       <p><strong>SKILL.md.tmpl:</strong></p>
 
 <pre><code>---
+name: {{SKILL_NAME}}
 description: "{{LANGUAGE}} 코드를 리뷰하고 개선점을 제안하는 스킬"
-allowed-tools: ["Read", "Glob", "Grep"]
+allowed-tools:
+  - Read
+  - Glob
+  - Grep
 ---
 
 # {{LANGUAGE}} 코드 리뷰 스킬
@@ -198,6 +203,7 @@ allowed-tools: ["Read", "Glob", "Grep"]
       <p>이 템플릿에서 변수는 다음과 같아요:</p>
 
       <ul>
+        <li><code>{{SKILL_NAME}}</code>: 만들어질 스킬의 이름 (케밥 케이스)</li>
         <li><code>{{LANGUAGE}}</code>: 프로그래밍 언어 이름</li>
         <li><code>{{EXPERIENCE_YEARS}}</code>: 경력 연수</li>
         <li><code>{{STYLE_GUIDE}}</code>: 해당 언어의 스타일 가이드</li>
@@ -206,7 +212,8 @@ allowed-tools: ["Read", "Glob", "Grep"]
 
       <h3>JavaScript 버전으로 변환하면:</h3>
 
-<pre><code>{{LANGUAGE}} → JavaScript
+<pre><code>{{SKILL_NAME}} → javascript-code-review
+{{LANGUAGE}} → JavaScript
 {{EXPERIENCE_YEARS}} → 10
 {{STYLE_GUIDE}} → Airbnb JavaScript Style Guide
 {{LANGUAGE_SPECIFIC_CHECKS}} →
@@ -218,7 +225,8 @@ allowed-tools: ["Read", "Glob", "Grep"]
 
       <h3>Python 버전으로 변환하면:</h3>
 
-<pre><code>{{LANGUAGE}} → Python
+<pre><code>{{SKILL_NAME}} → python-code-review
+{{LANGUAGE}} → Python
 {{EXPERIENCE_YEARS}} → 10
 {{STYLE_GUIDE}} → PEP 8
 {{LANGUAGE_SPECIFIC_CHECKS}} →
@@ -237,21 +245,37 @@ allowed-tools: ["Read", "Glob", "Grep"]
 
     <!-- ====== Built-in Variables ====== -->
     <section>
-      <h2>시스템이 제공하는 변수들</h2>
+      <h2>생성 스크립트가 채워 넣는 변수들</h2>
 
-      <p>직접 정의한 변수 외에, 시스템이 자동으로 제공하는 변수들도 있어요. 이 변수들은 스킬이 실행되는 환경에 따라 자동으로 값이 채워져요.</p>
+      <p>여기서 꼭 짚고 갈 게 하나 있어요. <code>SKILL.md.tmpl</code>과 <code>{{VAR}}</code> 문법은 <strong>Claude Code가 제공하는 기능이 아니에요.</strong> 스킬을 여러 개 관리하는 프로젝트가 자기 생성 스크립트를 돌리려고 정해둔 빌드 규약이에요.</p>
+
+      <p>그래서 변수는 스킬이 실행될 때 채워지는 게 아니에요. <strong>빌드할 때 값이 확장돼서 <code>SKILL.md</code>에 구워져요.</strong> Claude가 읽는 건 언제나 확장이 끝난 <code>SKILL.md</code>고, <code>.tmpl</code> 파일은 쳐다보지도 않아요.</p>
+
+      <div class="callout">
+        <p class="callout-title">중요: .tmpl만 만들면 아무 일도 안 일어나요</p>
+        <p><code>.tmpl</code>을 <code>SKILL.md</code>로 바꿔주는 <strong>생성기가 따로 있어야</strong> 해요. 이 생성기는 프로젝트가 직접 만들어 두는 것이지, 스킬을 쓰면 자동으로 딸려오는 게 아니에요. 생성기 없이 <code>.tmpl</code> 파일만 폴더에 넣어두면, <code>{{LANGUAGE}}</code>는 그냥 글자 그대로 남아 있고 스킬은 만들어지지 않아요.</p>
+      </div>
+
+      <p>실물로 확인해볼까요? 설치된 gstack의 <code>qa</code> 스킬 <code>SKILL.md</code>를 열어보면 프론트매터 바로 아래에 "이 파일은 <code>SKILL.md.tmpl</code>에서 자동 생성됐으니 직접 고치지 말라"는 주석과, 다시 생성하는 명령인 <code>bun run gen:skill-docs</code>가 나란히 적혀 있어요 (2026년 7월 확인). 사람이 손으로 쓴 파일이 아니라 <strong>생성기가 찍어낸 결과물</strong>이라는 표시죠.</p>
+
+      <p>이렇게 생성기를 갖춘 프로젝트에서는, 직접 정의한 변수 말고 <strong>생성기가 알아서 값을 넣어주는 변수</strong>도 쓸 수 있어요.</p>
 
       <div class="fun-box">
-        <p class="fun-box-title">유용한 시스템 변수</p>
-        <p><strong>{{PREAMBLE}}</strong>: 기본 시스템 프리앰블. Claude Code가 기본으로 쓰는 설정이에요. 이걸 포함하면 스킬이 기본 동작을 유지하면서 추가 기능만 얹어요.<br><br>
-        <strong>{{BASE_BRANCH_DETECT}}</strong>: Git의 기본 브랜치를 자동 감지해요. main인지 master인지 develop인지는 프로젝트마다 다르니까, 자동 감지가 편하죠.</p>
+        <p class="fun-box-title">생성기가 채워주는 변수 예시</p>
+        <p><strong>{{PREAMBLE}}</strong>: 그 프로젝트의 스킬들이 공통으로 쓰는 머리말이에요. 이걸 넣어두면 스킬마다 같은 문구를 복사해 붙일 필요가 없어요.<br><br>
+        <strong>{{BASE_BRANCH_DETECT}}</strong>: Git의 기본 브랜치를 알아내는 방법이 들어가요. main인지 master인지 develop인지는 프로젝트마다 다르니까요.</p>
       </div>
 
       <p>예를 들어, Git 작업을 하는 스킬에서:</p>
 
 <pre><code>---
+name: pr-review-merge
 description: "PR을 리뷰하고 머지하는 스킬"
-allowed-tools: ["Bash", "Read", "Glob", "Grep"]
+allowed-tools:
+  - Bash
+  - Read
+  - Glob
+  - Grep
 ---
 
 {{PREAMBLE}}
@@ -263,7 +287,7 @@ allowed-tools: ["Bash", "Read", "Glob", "Grep"]
 PR을 리뷰할 때는 {{BASE_BRANCH_DETECT}} 브랜치와의
 차이를 비교하여 분석하세요.</code></pre>
 
-      <p><code>{{BASE_BRANCH_DETECT}}</code> 덕분에, 프로젝트의 기본 브랜치가 <code>main</code>이든 <code>master</code>이든 상관없이 자동으로 맞춰져요.</p>
+      <p>생성기가 <code>{{BASE_BRANCH_DETECT}}</code> 자리를 채워주니까, 프로젝트의 기본 브랜치가 <code>main</code>이든 <code>master</code>이든 템플릿 하나로 다 커버돼요.</p>
     </section>
 
     <!-- ====== When to Use ====== -->
@@ -277,9 +301,9 @@ PR을 리뷰할 때는 {{BASE_BRANCH_DETECT}} 브랜치와의
       <p>SKILL.md 직접 작성하는 것만으로 충분해요. 템플릿은 다음과 같은 상황에서 진가를 발휘해요:</p>
 
       <ul>
-        <li>비슷한 구조의 스킬을 <strong>5개 이상</strong> 만들어야 할 때</li>
+        <li>비슷한 구조의 스킬을 <strong>3개 이상</strong> 만들어야 할 때</li>
         <li>팀에서 스킬을 <strong>표준화</strong>하고 싶을 때</li>
-        <li>환경에 따라 스킬이 <strong>자동으로 달라져야</strong> 할 때 (예: 브랜치 이름)</li>
+        <li>빌드할 때 환경에 맞춰 스킬 내용이 <strong>달라져야</strong> 할 때 (예: 브랜치 이름)</li>
       </ul>
 
       <p>그러니까 지금 당장 "템플릿을 써야 해!"라고 부담 갖지 마세요. "아, 이런 게 있구나. 나중에 필요하면 쓰면 되겠다" 정도면 충분해요.</p>
@@ -303,7 +327,7 @@ PR을 리뷰할 때는 {{BASE_BRANCH_DETECT}} 브랜치와의
         <strong>SKILL.md.tmpl 사용:</strong><br>
         - 같은 구조의 스킬이 3개 이상 필요할 때<br>
         - 팀에서 스킬 구조를 통일하고 싶을 때<br>
-        - 환경 변수(브랜치 이름 등)를 자동으로 넣고 싶을 때</p>
+        - 빌드할 때 환경 값(브랜치 이름 등)을 넣고 싶을 때</p>
       </div>
     </section>
 
@@ -313,7 +337,7 @@ PR을 리뷰할 때는 {{BASE_BRANCH_DETECT}} 브랜치와의
       <ul>
         <li><strong>SKILL.md.tmpl</strong>은 SKILL.md를 자동 생성하는 템플릿이에요. 쿠키 커터 같은 거!</li>
         <li><code>{{VARIABLE_NAME}}</code> 형태의 <strong>변수</strong>가 핵심이에요. "나중에 채울 빈칸"이죠</li>
-        <li>시스템 변수 <code>{{PREAMBLE}}</code>, <code>{{BASE_BRANCH_DETECT}}</code>는 자동으로 값이 채워져요</li>
+        <li><code>.tmpl</code>은 Claude Code 기능이 아니라 프로젝트의 빌드 규약이에요. 값은 <strong>빌드할 때</strong> 확장돼 <code>SKILL.md</code>에 구워지고, 그러려면 <strong>생성기가 필요해요</strong></li>
         <li>같은 구조의 스킬이 여러 개 필요할 때 템플릿이 빛을 발해요</li>
         <li><strong>초보자는 SKILL.md 직접 작성으로 충분해요!</strong> 필요를 느낄 때 도입하세요</li>
       </ul>

@@ -142,8 +142,11 @@
       <p>스킬을 만들 때 <strong>"이 스킬은 이 도구들만 쓸 수 있어"</strong>라고 직접 허가해줘야 해요. 그게 바로 <code>allowed-tools</code> 필드예요.</p>
 
 <pre><code>---
+name: code-counter
 description: "프로젝트의 코드 줄 수를 세는 스킬"
-allowed-tools: ["Bash", "Glob"]
+allowed-tools:
+  - Bash
+  - Glob
 ---</code></pre>
 
       <p>이 스킬은 <code>Bash</code>와 <code>Glob</code>만 쓸 수 있어요. <code>Write</code>나 <code>Edit</code>은 못 써요. 파일을 수정하는 건 이 스킬의 역할이 아니니까.</p>
@@ -166,7 +169,10 @@ allowed-tools: ["Bash", "Glob"]
 
       <h3>읽기 전용 스킬: 보기만 해요</h3>
 
-<pre><code>allowed-tools: ["Read", "Glob", "Grep"]</code></pre>
+<pre><code>allowed-tools:
+  - Read
+  - Glob
+  - Grep</code></pre>
 
       <p>파일을 찾고, 읽고, 검색할 수 있지만 <strong>절대 수정하지 않아요</strong>. 코드 분석, 리뷰, 감사(audit) 같은 스킬에 적합해요.</p>
 
@@ -174,7 +180,11 @@ allowed-tools: ["Bash", "Glob"]
 
       <h3>빌더 스킬: 만들고 고쳐요</h3>
 
-<pre><code>allowed-tools: ["Read", "Write", "Edit", "Bash"]</code></pre>
+<pre><code>allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash</code></pre>
 
       <p>파일을 읽고, 새로 만들고, 수정하고, 명령어도 실행해요. 코드 생성, 프로젝트 설정 같은 스킬에 적합해요.</p>
 
@@ -182,7 +192,13 @@ allowed-tools: ["Bash", "Glob"]
 
       <h3>풀 파워 스킬: 다 할 수 있어요</h3>
 
-<pre><code>allowed-tools: ["Read", "Write", "Edit", "Bash", "Glob", "Grep"]</code></pre>
+<pre><code>allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Bash
+  - Glob
+  - Grep</code></pre>
 
       <p>모든 도구를 써요. 강력한 만큼 <strong>신중하게</strong> 만들어야 해요.</p>
 
@@ -217,8 +233,12 @@ allowed-tools: ["Bash", "Glob"]
       <p>SKILL.md 전체 내용:</p>
 
 <pre><code>---
+name: code-counter
 description: "프로젝트의 코드 줄 수를 언어별로 세서 보고서를 만들어주는 스킬"
-allowed-tools: ["Bash", "Glob", "Grep"]
+allowed-tools:
+  - Bash
+  - Glob
+  - Grep
 ---
 
 # 코드 카운터 스킬
@@ -269,7 +289,10 @@ allowed-tools: ["Bash", "Glob", "Grep"]
 
       <p>주목할 부분:</p>
 
-      <p><strong><code>allowed-tools: ["Bash", "Glob", "Grep"]</code></strong></p>
+<pre><code>allowed-tools:
+  - Bash
+  - Glob
+  - Grep</code></pre>
 
       <p>이 스킬은 <code>Bash</code>(줄 수를 세는 명령어 실행), <code>Glob</code>(파일 찾기), <code>Grep</code>(내용 검색)만 사용해요. <code>Write</code>나 <code>Edit</code>은 없어요. 이 스킬은 분석만 하지, 파일을 건드리지 않으니까!</p>
 

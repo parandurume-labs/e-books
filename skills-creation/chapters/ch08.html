@@ -98,7 +98,7 @@
 
       <p>모든 것은 <strong>"Hello, World!"</strong>에서 시작한다는 것.</p>
 
-      <p>1972년, 프로그래밍 언어 C를 만든 브라이언 커니핸이 교재에 "Hello, World!"를 화면에 출력하는 예제를 처음 넣었어요. 그 이후 50년 동안, 새로운 기술을 배울 때는 항상 가장 간단한 것부터 만들어보는 게 전통이 됐죠.</p>
+      <p>1972년 브라이언 커니핸이 B 언어 교재에 "Hello, World!"를 화면에 출력하는 예제를 처음 넣었고, 1978년 데니스 리치와 함께 쓴 C 언어 교재로 이어지며 전통이 됐어요. 그 뒤 50년 넘게, 새로운 기술을 배울 때는 항상 가장 간단한 것부터 만들어보는 관례가 이어지고 있죠.</p>
 
       <p>우리도 그 전통을 따릅니다. 가장 간단하고, 가장 쉽고, 가장 빨리 결과를 볼 수 있는 스킬부터 만들어볼 거예요.</p>
 
@@ -162,6 +162,7 @@ cd hello-skill</code></pre>
       <p><code>hello-skill</code> 폴더 안에 <code>SKILL.md</code> 파일을 만들고, 다음 내용을 <strong>그대로</strong> 입력하세요:</p>
 
 <pre><code>---
+name: hello-skill
 description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
 ---
 
@@ -187,7 +188,7 @@ description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
 ## 예시 응답
 "좋은 아침이에요! ☀️
 
-오늘은 3월 27일인데요, 1845년에 뢴트겐이 X선을 발견한 날이에요!
+오늘은 3월 27일인데요, 1845년에 X선을 발견한 뢴트겐이 태어난 날이에요!
 눈에 보이지 않는 것도 발견할 수 있다니, 오늘 하루도 새로운 발견이
 있는 멋진 날이 되길 바랄게요! 💪"</code></pre>
 
@@ -209,10 +210,15 @@ description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
       <p><strong>1. 프론트매터 (맨 위 --- 사이 부분)</strong></p>
 
 <pre><code>---
+name: hello-skill
 description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
 ---</code></pre>
 
-      <p>이건 스킬의 "명찰"이에요. Claude Code가 "이 스킬이 뭘 하는 거지?"를 빠르게 파악하는 데 사용해요. 사용자가 인사를 하면, Claude Code가 이 description을 보고 "아, 인사하기 스킬을 쓰면 되겠다!"라고 판단하는 거예요.</p>
+      <p>이건 스킬의 "명찰"이에요. Claude Code가 "이 스킬이 뭘 하는 거지?"를 빠르게 파악하는 데 사용해요.</p>
+
+      <p><code>name</code>은 스킬을 부르는 이름이에요. 6장에서 배운 대로 케밥 케이스로 씁니다. 이게 없으면 스킬이 제대로 등록되지 않으니 꼭 넣으세요.</p>
+
+      <p><code>description</code>은 스킬의 자기소개예요. 사용자가 인사를 하면, Claude Code가 이 description을 보고 "아, 인사하기 스킬을 쓰면 되겠다!"라고 판단하는 거예요.</p>
 
       <p><strong>2. 제목과 역할 (# 인사하기 스킬)</strong></p>
 
@@ -281,7 +287,7 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
       <p>그러면... 두근두근...</p>
 
       <div class="scenario-box">
-        "좋은 오후예요! 😊<br><br>
+        "안녕하세요! 좋은 하루 보내고 계신가요? 😊<br><br>
         오늘은 3월 27일인데요, 1886년에 아파치 족의 전설적인 지도자 제로니모가 항복한 날이래요. 포기하지 않는 정신은 정말 대단하죠!<br><br>
         오늘 하루도 포기하지 않고 멋지게 보내세요! 💪"
       </div>
@@ -377,6 +383,7 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
 
       <p><strong>"스킬이 적용되는 것 같지 않아요"</strong></p>
       <ul>
+        <li><code>name</code> 필드가 있는지 확인. 이게 빠지면 스킬이 등록조차 안 돼요</li>
         <li><code>description</code> 필드가 있는지 확인. 이게 없으면 Claude Code가 스킬을 찾지 못해요</li>
         <li>프론트매터의 <code>---</code>가 정확히 두 줄 있는지 확인</li>
       </ul>
@@ -393,7 +400,7 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
       <h3>잠깐, 정리!</h3>
       <ul>
         <li>AI 스킬 만들기는 <strong>딱 3단계</strong>: 폴더 만들기 → SKILL.md 작성 → 설치/테스트</li>
-        <li><code>SKILL.md</code>는 프론트매터(description)와 본문(지시사항)으로 구성돼요</li>
+        <li><code>SKILL.md</code>는 프론트매터(name, description)와 본문(지시사항)으로 구성돼요</li>
         <li>스킬의 본문은 <strong>한국어로 쓰는 지시문</strong>이에요. 코딩이 아니에요!</li>
         <li>톤과 스타일 부분만 바꿔도 <strong>완전히 다른 성격의 스킬</strong>이 돼요</li>
         <li>안 되면 당황하지 말고, 파일명과 경로를 차근차근 확인하세요</li>
@@ -413,7 +420,7 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
 
   <!-- ====== Navigation ====== -->
   <nav class="chapter-nav">
-    <a href="ch07.html" class="prev">이전: 스킬의 구성 요소</a>
+    <a href="ch07.html" class="prev">이전: references/ 폴더</a>
     <a href="ch09.html" class="next">다음: 프롬프트 엔지니어링 기초</a>
   </nav>
 

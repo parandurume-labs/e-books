@@ -121,25 +121,30 @@
 
       <p>예를 들어 스타일 가이드를 수정하려고 SKILL.md를 열었는데, 실수로 위에 있는 핵심 지시사항의 줄바꿈을 하나 지워버린 거예요. 눈에 안 보이는 작은 실수인데, 스킬이 갑자기 이상하게 작동하기 시작해요.</p>
 
-      <p>파일을 나누면 이런 위험이 줄어들어요. 스타일 가이드를 고칠 때는 <code>STYLE-GUIDE.md</code>만 열면 되니까요.</p>
+      <p>파일을 나누면 이런 위험이 줄어들어요. 스타일 가이드를 고칠 때는 <code>style-guide.md</code>만 열면 되니까요.</p>
 
-      <h3>문제 3: 여러 스킬이 같은 자료를 못 쓴다</h3>
+      <h3>문제 3: 같은 자료를 여기저기 베껴 쓰게 된다</h3>
 
       <p>이게 가장 큰 이유예요.</p>
 
-      <p>회사에서 3개의 스킬을 만들었다고 해봐요:</p>
+      <p>보고서 작성 스킬 하나를 만들었다고 해봐요. 그 안에는 이런 지시가 여러 개 들어가요:</p>
 
       <ul>
-        <li><code>weekly-report-writer</code> (주간 보고서 작성)</li>
-        <li><code>meeting-note-taker</code> (회의록 작성)</li>
-        <li><code>email-drafter</code> (이메일 초안 작성)</li>
+        <li>주간 보고서를 작성하는 지시</li>
+        <li>월간 요약을 작성하는 지시</li>
+        <li>보고 메일 초안을 작성하는 지시</li>
       </ul>
 
-      <p>이 세 스킬 모두 "우리 회사 문체 가이드"를 따라야 해요. 존댓말 쓰기, 간결하게 쓰기, 특정 용어 사용하기 같은 규칙이요.</p>
+      <p>이 세 지시 모두 "우리 회사 문체 가이드"를 따라야 해요. 존댓말 쓰기, 간결하게 쓰기, 특정 용어 사용하기 같은 규칙이요.</p>
 
-      <p>만약 문체 가이드를 각 SKILL.md 안에 복사-붙여넣기 해뒀다면? 가이드가 바뀔 때마다 <strong>세 파일을 모두 수정</strong>해야 해요. 귀찮고, 실수할 가능성도 높아요.</p>
+      <p>만약 문체 가이드를 SKILL.md 안 세 군데에 복사-붙여넣기 해뒀다면? 가이드가 바뀔 때마다 <strong>세 군데를 모두 수정</strong>해야 해요. 귀찮고, 한 군데 빠뜨리기도 쉬워요.</p>
 
-      <p>하지만 문체 가이드가 <code>references/STYLE-GUIDE.md</code>에 따로 있고, 세 스킬 모두 이 파일을 참고하게 하면? <strong>하나만 수정하면 세 스킬 모두 업데이트돼요.</strong></p>
+      <p>하지만 문체 가이드가 <code>references/style-guide.md</code>에 따로 있고, 세 지시가 모두 이 파일을 가리키게 하면? <strong>파일 하나만 고치면 세 지시가 같이 바뀌어요.</strong></p>
+
+      <div class="callout">
+        <p class="callout-title">스킬끼리 자료를 공유하려면?</p>
+        <p><code>references/</code>는 <strong>스킬 패키지 폴더 안에 있는 하위 폴더</strong>예요. 그래서 스킬이 10개면 <code>references/</code>도 10벌이고, 한 스킬의 참고 파일을 고쳐도 다른 스킬은 그대로예요. 여러 스킬이 정말 같은 자료를 봐야 한다면 스킬 바깥에 공용 폴더를 두고 각 SKILL.md가 그 경로를 가리키게 하는 별개의 기법이 필요해요.</p>
+      </div>
 
       <div class="fun-box">
         <p class="fun-box-title">왜 파일을 나눌까? 한 줄 요약</p>
@@ -155,7 +160,7 @@
 
       <p>그럼 references/에는 어떤 파일들이 들어갈까요? 자주 쓰는 것들을 소개할게요.</p>
 
-      <h3>1. SHARED-PREAMBLE.md: 공유 서문</h3>
+      <h3>1. shared-preamble.md: 공유 서문</h3>
 
       <p>"preamble"은 "서문", "전문"이라는 뜻이에요. 여러 스킬이 공통으로 지켜야 할 규칙을 적어놓는 파일이에요.</p>
 
@@ -175,7 +180,7 @@
 
       <p>이 파일 하나를 여러 스킬이 참고하면, <strong>모든 스킬이 같은 기본 규칙을 따르게 돼요.</strong></p>
 
-      <h3>2. TEMPLATES.md: 재사용 가능한 양식 모음</h3>
+      <h3>2. templates.md: 재사용 가능한 양식 모음</h3>
 
       <p>스킬이 자주 사용하는 양식을 모아놓는 파일이에요.</p>
 
@@ -199,9 +204,9 @@
 ### 4. 도움이 필요한 사항
 - </code></pre>
 
-      <p>SKILL.md에서 "보고서를 작성할 때는 references/TEMPLATES.md의 양식을 사용하세요"라고 쓰면, AI가 이 템플릿을 참고해서 일관된 양식의 보고서를 만들어줘요.</p>
+      <p>SKILL.md에서 "보고서를 작성할 때는 references/templates.md의 양식을 사용하세요"라고 쓰면, AI가 이 템플릿을 참고해서 일관된 양식의 보고서를 만들어줘요.</p>
 
-      <h3>3. EXAMPLES.md: 예시 모음</h3>
+      <h3>3. examples.md: 예시 모음</h3>
 
       <p>"이런 식으로 만들어줘"라는 예시를 모아놓는 파일이에요. AI는 <strong>예시가 있으면 훨씬 더 정확하게</strong> 일해요.</p>
 
@@ -239,10 +244,10 @@
       <p>특정 분야의 전문 지식을 담아놓는 파일이에요. 예를 들어:</p>
 
       <ul>
-        <li><code>PRODUCT-INFO.md</code>: 우리 회사 제품 정보</li>
-        <li><code>COMPETITOR-ANALYSIS.md</code>: 경쟁사 분석 자료</li>
-        <li><code>INDUSTRY-TERMS.md</code>: 업계 전문 용어 사전</li>
-        <li><code>BRAND-VOICE.md</code>: 브랜드 톤앤매너 가이드</li>
+        <li><code>product-info.md</code>: 우리 회사 제품 정보</li>
+        <li><code>competitor-analysis.md</code>: 경쟁사 분석 자료</li>
+        <li><code>industry-terms.md</code>: 업계 전문 용어 사전</li>
+        <li><code>brand-voice.md</code>: 브랜드 톤앤매너 가이드</li>
       </ul>
 
       <p>이런 파일들이 있으면 AI가 우리 회사, 우리 업계의 맥락을 이해하고 더 적절한 결과물을 만들어줘요.</p>
@@ -259,29 +264,29 @@
       <pre><code>marketing-content-writer/
 ├── SKILL.md
 └── references/
-    ├── BRAND-VOICE.md
-    ├── TEMPLATES.md
-    ├── EXAMPLES.md
-    └── PRODUCT-INFO.md</code></pre>
+    ├── brand-voice.md
+    ├── templates.md
+    ├── examples.md
+    └── product-info.md</code></pre>
 
       <p>각 파일의 역할:</p>
 
       <ul>
         <li><code>SKILL.md</code>: "마케팅 콘텐츠를 작성하는 방법. 블로그 글, SNS 포스트, 뉴스레터를 만들 수 있음. references/의 가이드를 참고할 것."</li>
-        <li><code>BRAND-VOICE.md</code>: "우리 브랜드는 친근하고 유머러스한 톤을 사용합니다. '귀하' 같은 딱딱한 호칭 대신 편안한 말투를 쓰세요..."</li>
-        <li><code>TEMPLATES.md</code>: 블로그 글 양식, SNS 포스트 양식, 뉴스레터 양식</li>
-        <li><code>EXAMPLES.md</code>: 실제로 잘 쓴 콘텐츠 예시 3-5개</li>
-        <li><code>PRODUCT-INFO.md</code>: 우리 제품의 이름, 특징, 가격, 타겟 고객 정보</li>
+        <li><code>brand-voice.md</code>: "우리 브랜드는 친근하고 유머러스한 톤을 사용합니다. '귀하' 같은 딱딱한 호칭 대신 편안한 말투를 쓰세요..."</li>
+        <li><code>templates.md</code>: 블로그 글 양식, SNS 포스트 양식, 뉴스레터 양식</li>
+        <li><code>examples.md</code>: 실제로 잘 쓴 콘텐츠 예시 3-5개</li>
+        <li><code>product-info.md</code>: 우리 제품의 이름, 특징, 가격, 타겟 고객 정보</li>
       </ul>
 
       <p>이제 "블로그 글 써줘"라고 하면, AI가:</p>
 
       <ol>
         <li>SKILL.md를 읽고 → "아, 마케팅 콘텐츠를 만드는 스킬이구나"</li>
-        <li>BRAND-VOICE.md를 참고하고 → "친근한 톤으로 써야 하네"</li>
-        <li>TEMPLATES.md의 블로그 양식을 따르고 → "이 구조로 쓰면 되겠다"</li>
-        <li>EXAMPLES.md를 참고하고 → "이런 느낌으로 쓰면 되는구나"</li>
-        <li>PRODUCT-INFO.md에서 제품 정보를 가져와서 → "이 내용을 포함시키자"</li>
+        <li>brand-voice.md를 참고하고 → "친근한 톤으로 써야 하네"</li>
+        <li>templates.md의 블로그 양식을 따르고 → "이 구조로 쓰면 되겠다"</li>
+        <li>examples.md를 참고하고 → "이런 느낌으로 쓰면 되는구나"</li>
+        <li>product-info.md에서 제품 정보를 가져와서 → "이 내용을 포함시키자"</li>
       </ol>
 
       <p>결과: 우리 브랜드 톤에 맞고, 양식도 지킨, 제품 정보가 정확한 블로그 글이 뚝딱 나와요.</p>
@@ -307,13 +312,13 @@
 
 콘텐츠를 작성할 때 다음 파일들을 참고하세요:
 
-- **브랜드 톤앤매너**: `references/BRAND-VOICE.md`를 읽고
+- **브랜드 톤앤매너**: `references/brand-voice.md`를 읽고
   해당 가이드를 준수하세요.
-- **양식**: `references/TEMPLATES.md`에서 적절한 템플릿을
+- **양식**: `references/templates.md`에서 적절한 템플릿을
   선택하여 사용하세요.
-- **예시**: `references/EXAMPLES.md`의 좋은 예시를 참고하여
+- **예시**: `references/examples.md`의 좋은 예시를 참고하여
   비슷한 품질로 작성하세요.
-- **제품 정보**: `references/PRODUCT-INFO.md`에서 정확한
+- **제품 정보**: `references/product-info.md`에서 정확한
   제품 정보를 가져다 사용하세요.</code></pre>
 
       <p>네, 이게 전부예요. 특별한 문법이 필요 없어요. 파일 경로를 적어주면, AI가 알아서 찾아서 읽어요.</p>
@@ -335,17 +340,17 @@
 
       <div class="scenario-box">
         <strong>시나리오:</strong> 회사 브랜드 톤이 "친근한 말투"에서 "전문적인 말투"로 바뀌었어요.<br><br>
-        <strong>references/ 없이:</strong> 10개 스킬의 SKILL.md를 하나하나 열어서 문체 가이드 부분을 수정해야 해요. 시간도 오래 걸리고, 빠뜨리는 스킬도 나와요.<br><br>
-        <strong>references/ 있으면:</strong> <code>references/BRAND-VOICE.md</code> 파일 하나만 수정하면 끝! 10개 스킬 모두 자동으로 새로운 톤을 따라요.
+        <strong>references/ 없이:</strong> 마케팅 스킬의 SKILL.md 안에 블로그·SNS·뉴스레터 지시가 각각 톤 설명을 품고 있어요. 세 군데를 하나하나 찾아서 고쳐야 하고, 한 군데는 꼭 빠뜨려요.<br><br>
+        <strong>references/ 있으면:</strong> <code>references/brand-voice.md</code> 파일 하나만 수정하면 끝! 이 파일을 가리키는 지시가 모두 새로운 톤을 따라요.
       </div>
 
-      <p>이 한 가지 변경으로 <strong>10개 스킬이 동시에 업데이트</strong>되는 거예요. 이게 모듈화의 마법이에요.</p>
+      <p>참고 파일 하나를 고치면 <strong>그 파일을 가리키는 모든 지시가 한꺼번에 바뀌는</strong> 거예요. 이게 모듈화의 마법이에요.</p>
 
       <div class="fun-box">
         <p class="fun-box-title">모듈화의 힘, 일상 비유</p>
         <p><strong>스마트폰 앱 업데이트</strong>를 생각해보세요.<br><br>
         카카오톡이 업데이트되면, 그걸 쓰는 모든 사람에게 적용되잖아요. 5000만 명이 각각 앱을 새로 설치하는 게 아니라, 한 번의 업데이트로 모두가 새 버전을 써요.<br><br>
-        references/ 파일 하나를 업데이트하면, 그걸 참고하는 모든 스킬이 새 버전의 지식을 써요. 같은 원리!</p>
+        references/ 파일 하나를 업데이트하면, 그걸 가리키는 모든 지시가 새 버전의 지식을 써요. 같은 원리!</p>
       </div>
     </section>
 
@@ -359,9 +364,9 @@
 
       <ul>
         <li><strong>본문</strong>: 핵심 개념을 설명하는 부분 → <code>SKILL.md</code></li>
-        <li><strong>부록 A: 용어 사전</strong>: 전문 용어 정리 → <code>references/TERMS.md</code></li>
-        <li><strong>부록 B: 참고 표</strong>: 자주 쓰는 데이터 → <code>references/DATA.md</code></li>
-        <li><strong>부록 C: 예제 모음</strong>: 연습 문제와 풀이 → <code>references/EXAMPLES.md</code></li>
+        <li><strong>부록 A: 용어 사전</strong>: 전문 용어 정리 → <code>references/terms.md</code></li>
+        <li><strong>부록 B: 참고 표</strong>: 자주 쓰는 데이터 → <code>references/data.md</code></li>
+        <li><strong>부록 C: 예제 모음</strong>: 연습 문제와 풀이 → <code>references/examples.md</code></li>
       </ul>
 
       <p>본문이 "이야기"를 들려준다면, 부록은 "자세한 데이터"를 제공해요.</p>
@@ -383,7 +388,7 @@
         <li><strong>챕터 4:</strong> 스킬은 SKILL.md 파일 하나에서 시작한다. 코딩이 아니라 글쓰기다.</li>
         <li><strong>챕터 5:</strong> 스킬은 얇은/보통/두꺼운 세 레벨이 있다. 무조건 얇은 것부터 시작하자.</li>
         <li><strong>챕터 6:</strong> 프론트매터(YAML 헤더)는 스킬의 신분증이다. description이 가장 중요하다.</li>
-        <li><strong>챕터 7 (지금):</strong> references/는 참고 자료 폴더다. 모듈화의 마법으로 여러 스킬을 효율적으로 관리할 수 있다.</li>
+        <li><strong>챕터 7 (지금):</strong> references/는 스킬 폴더 안의 참고 자료 폴더다. 모듈화의 마법으로 한 스킬의 지식을 효율적으로 관리할 수 있다.</li>
       </ol>
 
       <p>이제 <strong>아무 스킬 패키지나 열어봐도 읽힙니다.</strong> 구조를 알고 있으니까요.</p>
@@ -408,10 +413,11 @@
       <h3>잠깐, 정리!</h3>
       <ul>
         <li><strong>references/</strong>는 스킬의 참고 자료를 담는 폴더예요. SKILL.md가 교과서 본문이면, references/는 부록이에요.</li>
-        <li>모든 걸 SKILL.md에 넣으면 안 되는 이유: <strong>너무 길어지고, 수정이 어렵고, 공유가 안 돼요.</strong></li>
+        <li>모든 걸 SKILL.md에 넣으면 안 되는 이유: <strong>너무 길어지고, 수정이 어렵고, 같은 자료를 여기저기 베끼게 돼요.</strong></li>
         <li>references/에 들어가는 것들: <strong>공유 서문, 템플릿, 예시, 도메인 지식, 스타일 가이드</strong> 등</li>
         <li>SKILL.md에서 참고 파일을 언급할 때는 <strong>그냥 파일 경로를 글로 쓰면 돼요.</strong></li>
-        <li><strong>모듈화의 마법:</strong> 참고 파일 하나를 수정하면, 그걸 쓰는 모든 스킬이 업데이트돼요.</li>
+        <li><strong>모듈화의 마법:</strong> 참고 파일 하나를 수정하면, 그걸 가리키는 한 스킬 안의 모든 지시가 같이 바뀌어요.</li>
+        <li><code>references/</code>는 <strong>스킬 폴더 안</strong>에 있어요. 스킬끼리 자료를 공유하려면 스킬 바깥에 공용 폴더를 두는 별개의 기법이 필요해요.</li>
         <li>제2부 완료! 이제 스킬 패키지의 <strong>전체 구조를 이해</strong>하게 됐어요.</li>
       </ul>
     </aside>

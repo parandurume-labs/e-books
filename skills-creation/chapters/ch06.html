@@ -159,6 +159,11 @@ allowed-tools:
   - Read
   - Write
   - Edit
+version: 1.0.0
+triggers:
+  - 주간 보고서 써줘
+  - 이번 주 현황 정리해줘
+  - 주간 보고 이메일
 ---
 
 # 주간 보고서 작성 스킬
@@ -255,34 +260,124 @@ allowed-tools:
         <p><strong>안전 때문이에요.</strong> 모든 스킬이 모든 도구를 자유롭게 쓸 수 있으면, 실수로 중요한 파일을 삭제하거나 위험한 명령어를 실행할 수도 있거든요. allowed-tools는 "이 스킬은 이것만 해도 돼"라는 울타리 역할을 해요.</p>
       </div>
 
-      <h3>4. 그 외 선택 항목들</h3>
+      <h3>4. version: 스킬의 버전</h3>
 
-      <p>이 세 가지(name, description, allowed-tools)가 핵심이지만, 필요하면 더 추가해도 돼요:</p>
+      <pre><code>version: 1.0.0</code></pre>
+
+      <p>앱 업데이트처럼 <code>1.0.0</code> → <code>1.1.0</code> → <code>2.0.0</code>으로 올려가는 번호예요. 스킬을 고칠 때마다 번호를 올려두면 "지금 쓰는 게 어느 판인지"를 바로 알 수 있죠.</p>
+
+      <p>이름만 보면 있어도 그만 없어도 그만인 항목 같지만, 실제로 쓰이는 스킬들은 거의 예외 없이 이 필드를 갖고 있어요. 처음 만들 때 <code>1.0.0</code>이라고 적어두고 시작하세요.</p>
+
+      <h3>5. triggers: 어떤 말이 나오면 불려 나올지</h3>
+
+      <pre><code>triggers:
+  - 주간 보고서 써줘
+  - 이번 주 현황 정리해줘
+  - 주간 보고 이메일</code></pre>
+
+      <p><code>triggers</code>(트리거)는 <strong>어떤 말이 나오면 이 스킬이 불려 나오는지</strong>를 적는 곳이에요. "방아쇠"라는 뜻인데, 이 말이 들리면 스킬이 튀어나온다는 느낌으로 붙은 이름이에요.</p>
+
+      <p>description이 "저는 이런 일을 해요"라는 자기소개라면, triggers는 "이런 말이 들리면 저를 불러주세요"라는 호출 신호예요. 자기소개는 길고 부드럽게 쓰지만, 호출 신호는 사용자가 실제로 입력할 법한 짧은 표현을 그대로 적는 게 요령이에요.</p>
+
+      <p>실물 스킬을 하나 볼까요? Claude Code에 설치된 <code>qa</code> 스킬의 프론트매터에는 이렇게 적혀 있어요:</p>
 
       <pre><code>---
-name: weekly-report-writer
-description: >-
-  매주 월요일 주간 현황 보고 이메일을 작성해주는 스킬입니다.
+name: qa
+version: 2.0.0
+description: Systematically QA test a web application and fix bugs found.
 allowed-tools:
+  - Bash
   - Read
   - Write
-version: 1.0.0
-author: hong-gildong
-license: MIT
-tags:
-  - productivity
-  - email
-  - korean
+triggers:
+  - qa test this
+  - find bugs on site
+  - test the site
 ---</code></pre>
 
+      <p>"test the site"라고 말하면 이 스킬이 반응한다는 뜻이에요. 어렵게 생각할 것 없이, 내가 이 스킬을 부를 때 뭐라고 말할지를 두세 개 적어두면 돼요.</p>
+
+      <h3>6. 실물은 어떤 필드를 쓰고 있을까?</h3>
+
+      <p>이론만 들으면 감이 잘 안 오죠. 실제로 설치되어 있는 스킬 52개의 프론트매터를 하나하나 세어봤어요 (2026년 7월 확인):</p>
+
+      <table style="width:100%; border-collapse:collapse; margin-bottom:var(--space-6);">
+        <thead>
+          <tr style="border-bottom:2px solid var(--color-border);">
+            <th style="text-align:left; padding:var(--space-3); width:40%;">필드</th>
+            <th style="text-align:left; padding:var(--space-3); width:30%;">쓰는 스킬 수</th>
+            <th style="text-align:left; padding:var(--space-3); width:30%;">비율</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>name</code></td>
+            <td style="padding:var(--space-3);">52개</td>
+            <td style="padding:var(--space-3);">100%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>description</code></td>
+            <td style="padding:var(--space-3);">52개</td>
+            <td style="padding:var(--space-3);">100%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>allowed-tools</code></td>
+            <td style="padding:var(--space-3);">52개</td>
+            <td style="padding:var(--space-3);">100%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>version</code></td>
+            <td style="padding:var(--space-3);">52개</td>
+            <td style="padding:var(--space-3);">100%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>triggers</code></td>
+            <td style="padding:var(--space-3);">52개</td>
+            <td style="padding:var(--space-3);">100%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>preamble-tier</code></td>
+            <td style="padding:var(--space-3);">41개</td>
+            <td style="padding:var(--space-3);">78%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>voice-triggers</code></td>
+            <td style="padding:var(--space-3);">8개</td>
+            <td style="padding:var(--space-3);">15%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>author</code></td>
+            <td style="padding:var(--space-3);">0개</td>
+            <td style="padding:var(--space-3);">0%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>license</code></td>
+            <td style="padding:var(--space-3);">0개</td>
+            <td style="padding:var(--space-3);">0%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>tags</code></td>
+            <td style="padding:var(--space-3);">0개</td>
+            <td style="padding:var(--space-3);">0%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>위 다섯 개, 그러니까 <code>name</code> · <code>description</code> · <code>allowed-tools</code> · <code>version</code> · <code>triggers</code>는 52개가 전부 갖고 있어요. 이걸 기본 다섯 개로 외워두면 돼요.</p>
+
+      <h3>7. 도구에 따라 지원 여부가 다른 확장 항목</h3>
+
+      <p>책이나 블로그에서 이런 항목들을 본 적이 있을 거예요:</p>
+
       <ul>
-        <li><code>version</code>: 스킬의 버전 (앱 업데이트처럼, 1.0 → 1.1 → 2.0)</li>
         <li><code>author</code>: 누가 만들었는지</li>
         <li><code>license</code>: 다른 사람이 이 스킬을 어떻게 쓸 수 있는지 (챕터 3에서 배운 오픈소스 라이선스!)</li>
         <li><code>tags</code>: 검색할 때 찾기 쉽게 해주는 키워드</li>
       </ul>
 
-      <p>이것들은 선택사항이에요. 없어도 스킬은 작동해요. 하지만 있으면 스킬을 관리하고 공유할 때 편해요. 마치 책에 ISBN 번호가 없어도 읽을 수 있지만, 있으면 도서관에서 찾기 쉬운 것처럼요.</p>
+      <p>그런데 위에서 센 52개 중에 이 셋을 쓰는 스킬은 <strong>한 건도 없었어요.</strong> 도구에 따라 아예 인식하지 않기도 하고요.</p>
+
+      <p>그러니 이건 "넣으면 좋은 기본 항목"이 아니라 <strong>확장 항목</strong>으로 알아두세요. 쓰려는 도구가 그 항목을 읽어주는지 먼저 확인하고 넣으면 돼요. 반대로 <code>preamble-tier</code>나 <code>voice-triggers</code>처럼 특정 도구에만 있는 항목도 있어요. 표에 보이듯 쓰는 스킬만 쓰죠.</p>
     </section>
 
     <!-- ====== Common Mistakes ====== -->
@@ -353,7 +448,8 @@ name:weekly-report-writer</code></pre>
       <ul>
         <li><strong>제목</strong>을 보고 → "아, 이런 주제구나" (= name)</li>
         <li><strong>뒷표지 소개글</strong>을 읽고 → "아, 이런 내용이구나" (= description)</li>
-        <li><strong>저자, 출판사</strong>를 확인하고 → "아, 이 사람이 썼구나" (= author, version)</li>
+        <li><strong>띠지의 홍보 문구</strong>를 보고 → "아, 이럴 때 집어들면 되는구나" (= triggers)</li>
+        <li><strong>판차 표시</strong>를 확인하고 → "아, 이게 몇 번째 판이구나" (= version)</li>
       </ul>
 
       <p>표지만 보고 "이 책 읽어볼까 말까"를 결정하잖아요?</p>
@@ -369,8 +465,9 @@ name:weekly-report-writer</code></pre>
       <ul>
         <li><strong>프론트매터</strong>는 SKILL.md 맨 위에 <code>---</code>로 감싸진 영역이에요. 스킬의 "신분증"이에요.</li>
         <li><strong>YAML</strong>은 <code>키: 값</code> 형태의 간단한 데이터 형식이에요. 설문조사 응답지와 비슷해요.</li>
-        <li>핵심 3개 항목: <strong>name</strong>(이름), <strong>description</strong>(설명), <strong>allowed-tools</strong>(사용 가능 도구)</li>
+        <li>기본 5개 항목: <strong>name</strong>(이름), <strong>description</strong>(설명), <strong>allowed-tools</strong>(사용 가능 도구), <strong>version</strong>(버전), <strong>triggers</strong>(호출 신호). 실제 스킬 52개가 전부 갖고 있는 것들이에요.</li>
         <li><strong>description이 가장 중요해요!</strong> Claude가 스킬을 쓸지 말지 판단하는 기준이에요.</li>
+        <li><code>author</code> · <code>license</code> · <code>tags</code>는 기본 항목이 아니라 <strong>확장 항목</strong>이에요. 쓰는 도구가 인식하는지 먼저 확인하세요.</li>
         <li>YAML 실수 방지: <strong>탭 금지, 들여쓰기 맞추기, 콜론 뒤 공백</strong>. 이 세 가지만 기억하세요!</li>
       </ul>
     </aside>

@@ -189,7 +189,14 @@
         <li><code>team-conventions.md</code>: 팀 내 약속들 (커밋 메시지 형식, 브랜치 전략 등)</li>
       </ul>
 
-      <p>이 파일들이 변경되면, 모든 스킬에 자동으로 반영돼요. <strong>한 번 고치면, 전부 업데이트.</strong> 이걸 폴리레포로 하면? 저장소 3개에 같은 수정을 3번 해야 하죠. 끔찍해요.</p>
+      <p>그러면 각 스킬은 이 공유 파일을 어떻게 가리킬까요? <code>SKILL.md</code> 본문에 <strong>저장소 루트를 기준으로</strong> 경로를 적어요. <code>skill-review/SKILL.md</code> 안에서도 <code>../shared-references/</code>가 아니라 이렇게 적어요.</p>
+
+      <pre><code>리뷰를 시작하기 전에 shared-references/coding-standards.md를 읽고,
+거기 적힌 규칙을 기준으로 판단하세요.</code></pre>
+
+      <p>스킬 전용 참조 파일도 같은 기준이에요. <code>skill-review/references/review-checklist.md</code>처럼 저장소 루트에서 출발하는 경로로 적어요. 실제로 gstack의 <code>qa</code> 스킬도 자기 참조 파일을 <code>qa/references/issue-taxonomy.md</code>라고 적지, <code>references/issue-taxonomy.md</code>라고 적지 않아요.</p>
+
+      <p>이렇게 해두면 공유 파일 하나만 고쳐도 그걸 가리키는 스킬 전부가 같이 바뀌어요. <strong>한 번 고치면, 전부 업데이트.</strong> 이걸 폴리레포로 하면? 저장소 3개에 같은 수정을 3번 해야 하죠. 끔찍해요.</p>
 
       <h3>3. 각 스킬 폴더 = 개별 주방</h3>
 
@@ -356,7 +363,7 @@ mkdir -p skill-report/references</code></pre>
 
       <p><strong>실수 3: 한 스킬이 너무 많은 걸 하기</strong></p>
 
-      <p>모노레포 안의 각 스킬은 여전히 "한 가지 일을 잘하는" 원칙을 지켜야 해요. "리뷰도 하고 배포도 하고 모니터링도 하는" 스킬 하나보다, 각각 분리된 3개의 스킬이 낫습니다.</p>
+      <p>모노레포 안의 각 스킬은 여전히 "한 가지 일을 잘하는" 원칙을 지켜야 해요. "리뷰도 하고 배포도 하고 모니터링도 하는" 스킬 하나보다, 각각 분리된 3개의 스킬이 나아요.</p>
 
       <div class="fun-box">
         <p class="fun-box-title">기억하세요</p>

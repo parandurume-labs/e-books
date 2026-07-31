@@ -114,7 +114,9 @@
 
     <!-- ====== Hook Types ====== -->
     <section>
-      <h2>Hook의 3가지 타입</h2>
+      <h2>가장 많이 쓰는 Hook 3가지</h2>
+
+      <p>Hook이 걸리는 이벤트는 이 셋 말고도 더 있어요. <code>UserPromptSubmit</code>, <code>Stop</code>, <code>SessionStart</code>, <code>PreCompact</code> 같은 것들이죠. 여기서는 처음 쓰기 좋은 세 가지만 볼게요.</p>
 
       <h3>1. PreToolUse: 도구 사용 전에 실행</h3>
       <p>Claude가 어떤 도구(파일 쓰기, 명령어 실행 등)를 사용하려고 할 때, <strong>그 전에</strong> 실행돼요.</p>
@@ -230,12 +232,33 @@
       </div>
     </section>
 
+    <!-- ====== Hook stdin contract ====== -->
+    <section>
+      <h2>Hook 명령어는 stdin으로 정보를 받아요</h2>
+
+      <p>예시로 넘어가기 전에 하나만 짚고 갈게요. Hook 명령어는 어떤 파일이 저장됐는지, 어떤 명령어가 실행될 참인지를 <strong>표준 입력(stdin)으로 들어오는 JSON</strong>으로 받아요. 대략 이런 모양이에요:</p>
+
+      <pre><code>{
+  "tool_name": "Bash",
+  "tool_input": {
+    "command": "rm -rf build"
+  }
+}</code></pre>
+
+      <p>그래서 Hook 스크립트는 <code>INPUT=$(cat)</code>으로 이 JSON을 읽고, 그 안에서 필요한 값을 꺼내 써요. 한 줄짜리 명령어로 쓰기엔 길어지니까, 앞으로의 예시는 <code>.claude/hooks/</code> 폴더에 셸 스크립트를 두고 settings.json이 그 스크립트를 가리키게 할게요.</p>
+
+      <div class="callout">
+        <p class="callout-title">스크립트를 만들면 실행 권한을 주세요</p>
+        <p>스크립트 파일을 만든 다음에는 <code>chmod +x .claude/hooks/스크립트이름.sh</code>를 한 번 실행하세요. 실행 권한이 없으면 Hook이 조용히 실패해요.</p>
+      </div>
+    </section>
+
     <!-- ====== Practical Examples ====== -->
     <section>
       <h2>실전 Hook 예시들</h2>
 
       <h3>예시 1: 파일 저장 후 자동 포맷팅</h3>
-      <p>Prettier로 코드를 자동 정리해요:</p>
+      <p>Prettier로 코드를 자동 정리해요. 먼저 settings.json에서 스크립트를 가리켜요:</p>
 
       <pre><code>{
   "hooks": {
@@ -245,16 +268,25 @@
         "hooks": [
           {
             "type": "command",
-            "command": "npx prettier --write \"$CLAUDE_FILE_PATH\""
+            "command": ".claude/hooks/format.sh"
           }
         ]
       }
     ]
   }
 }</code></pre>
+
+      <p>그리고 <code>.claude/hooks/format.sh</code>를 이렇게 만들어요:</p>
+
+      <pre><code>#!/bin/bash
+INPUT=$(cat)
+FILE=$(printf '%s' "$INPUT" | python3 -c 'import sys,json; print(json.loads(sys.stdin.read()).get("tool_input",{}).get("file_path",""))')
+if [ -n "$FILE" ]; then
+  npx prettier --write "$FILE"
+fi</code></pre>
 
       <h3>예시 2: 위험한 명령어 차단</h3>
-      <p><code>rm -rf</code> 같은 위험한 명령어를 막아요:</p>
+      <p><code>rm -rf</code> 같은 위험한 명령어를 막아요. settings.json은 이렇게 써요:</p>
 
       <pre><code>{
   "hooks": {
@@ -264,50 +296,50 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if echo \"$CLAUDE_TOOL_INPUT\" | grep -q 'rm -rf'; then echo 'BLOCK: 위험한 명령어입니다!' >&2; exit 1; fi"
+            "command": ".claude/hooks/block-danger.sh"
           }
         ]
       }
     ]
   }
 }</code></pre>
+
+      <p><code>.claude/hooks/block-danger.sh</code>의 내용이에요:</p>
+
+      <pre><code>#!/bin/bash
+INPUT=$(cat)
+CMD=$(printf '%s' "$INPUT" | python3 -c 'import sys,json; print(json.loads(sys.stdin.read()).get("tool_input",{}).get("command",""))')
+if echo "$CMD" | grep -q 'rm -rf'; then
+  echo "위험한 명령입니다" >&2
+  exit 2
+fi</code></pre>
+
+      <p>여기서 <code>exit 2</code>가 핵심이에요. 이 종료 코드가 도구 실행을 실제로 차단해요.</p>
 
       <h3>예시 3: 커밋 전 테스트 자동 실행</h3>
+      <p>settings.json은 예시 2와 같은 모양이고, <code>command</code>만 <code>.claude/hooks/test-before-commit.sh</code>로 바꿔요. 스크립트는 이렇게 써요:</p>
 
-      <pre><code>{
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if echo \"$CLAUDE_TOOL_INPUT\" | grep -q 'git commit'; then npm test; fi"
-          }
-        ]
-      }
-    ]
-  }
-}</code></pre>
+      <pre><code>#!/bin/bash
+INPUT=$(cat)
+CMD=$(printf '%s' "$INPUT" | python3 -c 'import sys,json; print(json.loads(sys.stdin.read()).get("tool_input",{}).get("command",""))')
+if echo "$CMD" | grep -q 'git commit'; then
+  npm test
+  if [ $? -ne 0 ]; then
+    echo "테스트가 실패해서 커밋을 막았어요" >&2
+    exit 2
+  fi
+fi</code></pre>
 
       <div class="scenario-box">
         <h3>시나리오: 프로덕션 DB 접근 차단 Hook</h3>
-        <p>실수로 프로덕션 데이터베이스에 손대는 걸 막아주는 Hook이에요:</p>
-        <pre><code>{
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if echo \"$CLAUDE_TOOL_INPUT\" | grep -qE 'prod|production'; then echo 'BLOCK: 프로덕션 환경 접근이 차단되었습니다. 개발 환경을 사용하세요.' >&2; exit 1; fi"
-          }
-        ]
-      }
-    ]
-  }
-}</code></pre>
+        <p>실수로 프로덕션 데이터베이스에 손대는 걸 막아주는 Hook이에요. <code>.claude/hooks/block-prod.sh</code>를 만들고, PreToolUse의 Bash matcher에 연결하세요:</p>
+        <pre><code>#!/bin/bash
+INPUT=$(cat)
+CMD=$(printf '%s' "$INPUT" | python3 -c 'import sys,json; print(json.loads(sys.stdin.read()).get("tool_input",{}).get("command",""))')
+if echo "$CMD" | grep -qE 'prod|production'; then
+  echo "프로덕션 환경 접근이 차단되었어요. 개발 환경을 쓰세요" >&2
+  exit 2
+fi</code></pre>
         <p>이 Hook이 있으면, Claude가 실수로 프로덕션 서버에 명령어를 실행하려고 해도 자동으로 차단돼요. 안전하죠!</p>
       </div>
     </section>
@@ -323,7 +355,7 @@
       <p>PostToolUse는 "이미 실행된 후"예요. 실수를 막으려면 <strong>PreToolUse</strong>를 쓰세요. 잘못된 명령어가 실행되기 전에 차단하는 게 훨씬 안전해요.</p>
 
       <h3>exit 코드로 차단하세요</h3>
-      <p>PreToolUse Hook에서 <code>exit 1</code>을 반환하면 Claude의 도구 실행이 차단돼요. <code>exit 0</code>이면 통과예요.</p>
+      <p>PreToolUse Hook에서 <code>exit 2</code>를 반환하면 차단, <code>exit 0</code>이면 통과예요. <code>exit 1</code>은 "차단하지 않는 오류"라서 도구가 그대로 실행되니 조심하세요.</p>
 
       <div class="fun-box">
         <p class="fun-box-title">Hook = 자동 품질 관리</p>
