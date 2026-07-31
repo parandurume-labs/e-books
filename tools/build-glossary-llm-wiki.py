@@ -100,7 +100,7 @@ GROUPS = [
   ("moc", "MOC · 지도 노트", "Map of Content",
    "여러 노트로 들어가는 <strong>입구 역할을 하는 노트</strong>입니다. 「제품 전체 보기」 같은 노트가 그렇습니다. "
    "폴더가 서랍이라면 MOC는 목차입니다. 하나의 노트가 여러 MOC에 동시에 등장할 수 있어서 폴더의 한계를 메웁니다.",
-   "12장, 15장"),
+   "15장, 16장"),
  ]),
 
  ("tools", "도구와 파일", "실제로 손으로 만지는 것들입니다.", [
@@ -169,9 +169,10 @@ GROUPS = [
    "11장, 19장"),
   ("confidence", "confidence 필드", "confidence",
    "이 노트를 <strong>얼마나 믿어도 되는지</strong> 적는 칸입니다. "
+   "<strong>값은 <code>draft</code> 와 <code>reviewed</code> 둘뿐입니다.</strong> "
    "사람이 확인한 것과 AI가 초벌로 적어둔 것을 구분합니다. "
    "이 칸이 없으면 검토받은 사실과 아직 안 받은 사실이 섞여서, 결국 전부 못 믿게 됩니다.",
-   "11장, 17장"),
+   "3장, 11장, 17장"),
   ("context-window", "컨텍스트 윈도우", "Context window",
    "AI가 <strong>한 번에 볼 수 있는 분량</strong>입니다. 볼트 전체를 통째로 넣을 수는 없습니다. "
    "그래서 필요한 노트만 골라서 넣는 일이 중요해지고, 잘 붙은 링크와 필드가 그 고르는 일을 쉽게 만듭니다.",
@@ -295,7 +296,7 @@ def main():
     old_nav = re.search(r'  <nav class="chapter-nav">.*?</nav>', src, re.S).group(0)
     new_nav = '''  <nav class="chapter-nav">
     <a href="ch19.html" class="back-to-toc">← 이전: LLM Wiki에서 시작하는 AX</a>
-    <a href="coming-soon.html" class="next">다음: 부록 B 복붙용 자산 →</a>
+    <a href="appendix-b.html" class="next">다음: 부록 B 복붙용 자산 →</a>
   </nav>'''
     src = src.replace(old_nav, new_nav)
 

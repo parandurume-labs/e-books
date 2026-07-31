@@ -212,14 +212,19 @@
 
     <h3>③ 빈 폴더 골격 만들기</h3>
 
-    <pre><code>Sources/ 아래에 아래 폴더를 만들어줘.
+    <pre><code>볼트 최상위에 아래 폴더를 만들어줘.
+_ops, _ops/templates, _ops/scripts, _moc, _reports
+
+그리고 Sources/ 아래에 아래 폴더를 만들어줘.
 00-Company, 10-Products, 20-Projects, 30-Partners, 40-Worklog, 90-Reference
 
 - 이미 있는 폴더는 건드리지 마.
-- 각 폴더에 README.md 를 하나씩 만들고, 그 폴더에 무엇을 넣는지 한 줄로 적어줘.
+- Sources/ 의 각 폴더에 README.md 를 하나씩 만들고, 그 폴더에 무엇을 넣는지 한 줄로 적어줘.
 - 기존 파일은 옮기지 마. 이번에는 만들기만 한다.</code></pre>
 
     <p>첫 쓰기 작업입니다. 일부러 <strong>지식이 아닌 것</strong>을 쓰게 합니다. 잘못돼도 폴더를 지우면 끝나기 때문입니다. 마지막 줄이 중요합니다. 「옮기지 마」를 안 적으면 AI가 친절하게 기존 파일을 재배치하는데, 그 순간 6장의 링크가 우수수 끊깁니다.</p>
+
+    <p>앞의 다섯 개가 4장 폴더 그림에서 <code>Sources/</code> 밖에 있던 것들입니다. 지금은 전부 비어 있습니다. <code>_ops/</code>는 3부에서 설계서와 표준용어집이 들어가고, <code>_ops/templates/</code>는 12장, <code>_ops/scripts/</code>는 17장에서 채웁니다. <code>_moc/</code>와 <code>_reports/</code>는 자동화가 알아서 채웁니다. <strong>지금 만들어 두는 이유는 뒤 장들이 이 경로를 그대로 적어둔 채 시작하기 때문</strong>입니다. 폴더가 없으면 그 장들이 조용히 안 돕니다.</p>
 
     <h3>④ 노트 한 개 채우기</h3>
 

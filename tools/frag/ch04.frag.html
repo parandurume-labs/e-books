@@ -273,15 +273,17 @@
     <div class="file-tree">솔빛테크 위키/
 ├── 000-홈.md              <span class="comment">진입점. 여기서 시작</span>
 ├── CLAUDE.md              <span class="comment">AI 작업 규칙 (11장)</span>
+├── .claude/
+│   └── skills/            <span class="comment">AI 스킬 원본 (13장)</span>
 ├── _ops/                  <span class="comment">운영 규약</span>
 │   ├── 00-시작하기.md       <span class="comment">신규 인원 온보딩</span>
 │   ├── 01-온톨로지-설계서.md <span class="comment">지식 체계 정의 (3부)</span>
-│   ├── 02-표준용어집.md      <span class="comment">명칭·금칙 표기</span>
+│   ├── 02-표준용어집.md      <span class="comment">명칭·금칙 표기 (서식은 부록 B)</span>
 │   ├── 03-운영가이드.md      <span class="comment">일상 규칙</span>
-│   ├── skills/            <span class="comment">AI 스킬 원본 (13장)</span>
+│   ├── templates/         <span class="comment">노트 템플릿 7종 (12장)</span>
 │   └── scripts/           <span class="comment">품질 점검 스크립트 (17장)</span>
-├── _templates/            <span class="comment">노트 템플릿 7종 (12장)</span>
-├── _moc/                  <span class="comment">축별 허브 노트</span>
+├── _moc/                  <span class="comment">대시보드·축별 허브 (15장)</span>
+├── _reports/              <span class="comment">점검·회고 결과 (17장)</span>
 └── Sources/               <span class="comment">지식 본문</span>
     ├── 00-Company/        <span class="comment">회사·조직·역량·IP</span>
     ├── 10-Products/       <span class="comment">제품</span>
@@ -291,6 +293,10 @@
     └── 90-Reference/      <span class="comment">외부 참고자료·법령</span></div>
 
     <p>복잡해 보이지만 대부분은 한 번 만들고 안 건드립니다. 매일 쓰는 건 <code>Sources/</code> 안의 축 폴더들입니다.</p>
+
+    <p>밑에서 두 번째와 세 번째 줄이 헷갈리기 쉬워서 미리 갈라 둡니다. 이 둘은 자동화가 파일을 만들어도 되는 자리이고, 나누는 기준은 하나입니다. <strong><code>_reports/</code>는 날짜가 붙어 쌓이는 것, <code>_moc/</code>는 늘 최신 하나만 남는 것</strong>입니다. 점검 결과는 앞쪽, 대시보드는 뒤쪽입니다. 17장에서 이 규칙을 다시 씁니다.</p>
+
+    <p><code>.claude/</code>는 점으로 시작해서 옵시디언 목록에 안 보입니다. 5장의 <code>.obsidian</code>과 같은 종류이고, 없어도 사람이 노트를 읽고 쓰는 데는 지장이 없습니다. 13장에서 만듭니다.</p>
 
     <div class="exercise-box">
       <p class="exercise-title">직접 해보기: 우리 환경 점검</p>
