@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chapter 11: MCP 서버: Claude의 능력을 확장하다 — Claude 100배 활용법</title>
+  <title>Chapter 11: MCP 서버: Claude의 능력을 확장하다 · Claude 100배 활용법</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -198,49 +198,49 @@
 
       <p>이미 수많은 MCP 서버가 만들어져 있어요. 대표적인 것들을 살펴볼까요?</p>
 
-      <h3>1. Filesystem — 로컬 파일 관리</h3>
-      <p>컴퓨터의 파일을 읽고, 쓰고, 정리할 수 있어요.</p>
+      <h3>1. Filesystem: 로컬 파일 관리</h3>
+      <p>컴퓨터의 파일을 직접 읽고, 쓰고, 정리해요.</p>
       <div class="scenario-box">
         <h3>실무 활용: 대량 파일 이름 변경</h3>
         <p>"Downloads 폴더에 있는 사진 파일들을 날짜별로 이름 변경하고 정리해줘"</p>
         <p>수백 개의 파일을 일일이 이름 바꾸는 대신, Claude에게 시키면 몇 초 만에 끝나요.</p>
       </div>
 
-      <h3>2. GitHub — 이슈/PR 관리</h3>
-      <p>GitHub의 이슈를 만들고, PR을 관리하고, 코드를 검토할 수 있어요.</p>
+      <h3>2. GitHub: 이슈/PR 관리</h3>
+      <p>GitHub 이슈를 만들고, PR을 관리하고, 코드를 검토해요.</p>
       <div class="scenario-box">
         <h3>실무 활용: 이슈 자동 생성</h3>
         <p>"이번 스프린트에서 해야 할 작업 5개를 GitHub 이슈로 등록해줘. 각 이슈에 라벨과 마일스톤도 붙여줘."</p>
       </div>
 
-      <h3>3. Microsoft Teams — 메시지 보내기</h3>
-      <p>Teams 채널에 메시지를 보내거나, 채널의 대화를 읽을 수 있어요. Slack이나 Discord를 쓰는 팀은 해당 MCP 서버로 그대로 바꿔 쓰면 됩니다.</p>
+      <h3>3. Microsoft Teams: 메시지 보내기</h3>
+      <p>Teams 채널에 메시지를 보내고, 채널의 대화를 읽어요. Slack이나 Discord를 쓰는 팀은 해당 MCP 서버로 그대로 바꿔 쓰면 됩니다.</p>
       <div class="scenario-box">
         <h3>실무 활용: 일일 보고 자동 전송</h3>
         <p>"오늘 커밋한 내용을 정리해서 #daily-standup 채널에 보고 메시지로 보내줘"</p>
       </div>
 
-      <h3>4. Database — DB 조회</h3>
-      <p>데이터베이스에 연결해서 쿼리를 실행하고 결과를 분석할 수 있어요.</p>
+      <h3>4. Database: DB 조회</h3>
+      <p>데이터베이스에 연결해서 쿼리를 실행하고 결과를 분석해요.</p>
       <div class="scenario-box">
         <h3>실무 활용: 매출 데이터 분석</h3>
         <p>"이번 달 매출 데이터를 조회하고, 전월 대비 성장률과 Top 10 상품을 정리해줘"</p>
       </div>
 
-      <h3>5. Browser — 웹 크롤링</h3>
-      <p>웹 페이지를 방문하고, 내용을 읽고, 스크린샷을 찍을 수 있어요.</p>
+      <h3>5. Browser: 웹 크롤링</h3>
+      <p>웹 페이지를 방문하고, 내용을 읽고, 스크린샷을 찍어요.</p>
       <div class="scenario-box">
         <h3>실무 활용: 경쟁사 가격 모니터링</h3>
         <p>"경쟁사 3곳의 주요 상품 가격을 확인하고, 우리 가격과 비교 표를 만들어줘"</p>
       </div>
 
-      <h3>6. Cloudflare — 배포 관리</h3>
-      <p>Cloudflare Workers, D1 데이터베이스, R2 스토리지 등을 관리할 수 있어요.</p>
+      <h3>6. Cloudflare: 배포 관리</h3>
+      <p>Cloudflare Workers, D1 데이터베이스, R2 스토리지 등을 관리해요.</p>
     </section>
 
     <!-- ====== Setting Up ====== -->
     <section>
-      <h2>MCP 서버 설정하기 — 단계별 가이드</h2>
+      <h2>MCP 서버 설정하기: 단계별 가이드</h2>
 
       <p>Filesystem MCP 서버를 예시로 설정해볼게요:</p>
 
@@ -266,7 +266,7 @@
     }
   }
 }</code></pre>
-            <p><code>/Users/me/Documents</code> 부분을 여러분의 폴더 경로로 바꾸세요.</p>
+            <p><code>/Users/me/Documents</code> 부분을 내 폴더 경로로 바꾸세요.</p>
           </li>
           <li>
             <strong>Claude Code 실행</strong>
@@ -313,7 +313,7 @@
       <pre><code># TypeScript MCP SDK 설치
 npm install @modelcontextprotocol/sdk</code></pre>
 
-      <p>간단한 예시 — 현재 날씨를 알려주는 MCP 서버:</p>
+      <p>간단한 예시로, 현재 날씨를 알려주는 MCP 서버를 볼게요:</p>
 
       <pre><code>import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -337,7 +337,7 @@ server.tool("get-weather", { city: "string" }, async ({ city }) => {
 const transport = new StdioServerTransport();
 await server.connect(transport);</code></pre>
 
-      <p>이 정도면 기본 구조는 이해하셨죠? 자세한 내용은 <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">MCP 공식 문서</a>에서 확인할 수 있어요.</p>
+      <p>이 정도면 기본 구조는 이해하셨죠? 자세한 내용은 <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">MCP 공식 문서</a>에 있어요.</p>
     </section>
 
     <!-- ====== Security ====== -->
@@ -349,14 +349,14 @@ await server.connect(transport);</code></pre>
       <div class="callout">
         <p class="callout-title">MCP 보안 체크리스트</p>
         <ul>
-          <li><strong>신뢰할 수 있는 MCP 서버만 사용하세요</strong> — 공식 패키지이거나, 소스 코드를 확인한 서버만 연결하세요</li>
-          <li><strong>접근 범위를 최소화하세요</strong> — Filesystem MCP에 전체 하드디스크를 연결하지 말고, 필요한 폴더만 지정하세요</li>
-          <li><strong>토큰과 비밀번호 관리</strong> — API 토큰은 환경 변수로 관리하고, settings.json에 직접 쓰지 마세요</li>
-          <li><strong>프로덕션 환경 주의</strong> — 실서비스 DB에 연결할 때는 읽기 전용 권한만 부여하세요</li>
+          <li><strong>신뢰할 수 있는 MCP 서버만 사용하세요.</strong> 공식 패키지이거나, 소스 코드를 확인한 서버만 연결하세요</li>
+          <li><strong>접근 범위를 최소화하세요.</strong> Filesystem MCP에 전체 하드디스크를 연결하지 말고, 필요한 폴더만 지정하세요</li>
+          <li><strong>토큰과 비밀번호를 관리하세요.</strong> API 토큰은 환경 변수로 관리하고, settings.json에 직접 쓰지 마세요</li>
+          <li><strong>프로덕션 환경은 조심하세요.</strong> 실서비스 DB에 연결할 때는 읽기 전용 권한만 주세요</li>
         </ul>
       </div>
 
-      <p>MCP 서버는 여러분의 컴퓨터에서 실행되고, 외부 서비스에 접근할 수 있어요. 무턱대고 아무 서버나 설치하면 위험할 수 있으니, 항상 <strong>어떤 데이터에 접근하는지</strong> 확인하세요.</p>
+      <p>MCP 서버는 내 컴퓨터에서 돌아가고, 외부 서비스에도 손을 뻗어요. 무턱대고 아무 서버나 설치하면 위험할 수 있으니, 항상 <strong>어떤 데이터에 접근하는지</strong> 확인하세요.</p>
     </section>
 
     <!-- ====== Exercise ====== -->
@@ -366,11 +366,11 @@ await server.connect(transport);</code></pre>
         <ol>
           <li>프로젝트 폴더에 <code>.claude/settings.json</code> 파일을 만드세요</li>
           <li>Filesystem MCP 서버를 설정하세요 (위의 Step by Step 가이드 참고)</li>
-          <li>접근할 폴더 경로를 여러분의 문서 폴더로 설정하세요</li>
+          <li>접근할 폴더 경로를 내 문서 폴더로 설정하세요</li>
           <li>Claude Code를 실행하고 "이 폴더에 있는 파일 목록을 보여줘"라고 요청해보세요</li>
           <li>"가장 최근에 수정된 파일 3개를 알려줘" 같은 요청도 해보세요</li>
         </ol>
-        <p>Claude가 여러분의 파일 시스템에 접근해서 일하는 걸 체험해보세요!</p>
+        <p>Claude가 내 파일 시스템에 직접 손을 대고 일하는 걸 체험해보세요!</p>
       </div>
     </section>
 
@@ -392,7 +392,7 @@ await server.connect(transport);</code></pre>
     <section>
       <div class="next-teaser">
         <h3>다음 챕터 미리보기</h3>
-        <p>Part 3에서 Claude Code의 핵심 기능들을 배웠어요. 다음 Part에서는 이 모든 도구를 결합해서 <strong>실제 업무 시나리오</strong>에 적용하는 방법을 알아볼 거예요. 마케팅, 데이터 분석, 자동화... 진짜 "100배 활용"이 시작돼요!</p>
+        <p>Part 3에서 Claude Code의 핵심 기능들을 배웠어요. 다음 Part에서는 이 도구들을 실제로 써 봐요. 코딩을 몰라도 앱을 만들고, 여러 에이전트를 팀처럼 굴리고, 그걸 안전하게 지키는 법까지. 진짜 "100배 활용"이 시작돼요!</p>
       </div>
     </section>
 
@@ -400,7 +400,7 @@ await server.connect(transport);</code></pre>
 
   <nav class="chapter-nav">
     <a href="ch10.html" class="prev">이전: Hooks: AI의 행동을 자동화하다</a>
-    <a href="ch12.html" class="next">다음: 실전 활용 시나리오</a>
+    <a href="ch12.html" class="next">다음: 코딩을 모르는 사람의 앱 만들기</a>
   </nav>
 </div>
     <aside class="rail" id="rail" aria-label="이 장에서"></aside>

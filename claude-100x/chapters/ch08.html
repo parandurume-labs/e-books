@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chapter 8: 프로젝트 설정의 기술: CLAUDE.md와 컨텍스트 — Claude 100배 활용법</title>
+  <title>Chapter 8: 프로젝트 설정의 기술: CLAUDE.md와 컨텍스트 · Claude 100배 활용법</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -83,14 +83,14 @@
 
       <p>폴더 구조도 모르고, 코딩 규칙도 모르고, 뭘 건드리면 안 되는지도 모르고. 결국 이 신입사원은 2주를 헤매다가 겨우 첫 번째 코드를 작성해요. 그것도 팀 규칙을 몰라서 세 번이나 다시 고쳐야 했고요.</p>
 
-      <p>Claude Code도 마찬가지예요. 아무런 안내 없이 프로젝트에 투입하면, Claude는 나름대로 최선을 다하지만 <strong>여러분이 원하는 방식</strong>으로 일하지는 못해요.</p>
+      <p>Claude Code도 마찬가지예요. 아무런 안내 없이 프로젝트에 투입하면, Claude는 나름대로 최선을 다하지만 <strong>내가 원하는 방식</strong>으로 일하지는 못해요.</p>
 
       <p>해결책은 간단해요. 프로젝트의 "안내서"를 만들어주면 돼요. 그게 바로 <strong>CLAUDE.md</strong>예요.</p>
     </section>
 
     <!-- ====== What is CLAUDE.md ====== -->
     <section>
-      <h2>CLAUDE.md — 프로젝트의 안내서</h2>
+      <h2>CLAUDE.md: 프로젝트의 안내서</h2>
 
       <p>CLAUDE.md는 프로젝트 루트(최상위 폴더)에 놓는 특별한 파일이에요. Claude Code가 프로젝트를 열면 <strong>가장 먼저 읽는 파일</strong>이죠.</p>
 
@@ -126,17 +126,17 @@ React + TypeScript로 프론트엔드, Express로 백엔드를 구성합니다.
 - 커밋 메시지는 한국어로, "feat:", "fix:", "docs:" 접두사 사용
 
 ## 폴더 구조
-- src/components/ — React 컴포넌트
-- src/pages/ — 페이지 레벨 컴포넌트
-- src/api/ — API 호출 함수
-- server/ — 백엔드 코드
+- src/components/ : React 컴포넌트
+- src/pages/ : 페이지 레벨 컴포넌트
+- src/api/ : API 호출 함수
+- server/ : 백엔드 코드
 
 ## 주의사항
 - .env 파일은 절대 커밋하지 마세요
 - 결제 관련 코드는 수정 전 반드시 확인 요청하세요
 - 테스트 없이 main 브랜치에 직접 커밋하지 마세요</code></pre>
 
-      <p>이렇게 작성해두면, Claude Code가 프로젝트의 맥락을 정확히 이해하고 <strong>여러분의 규칙에 맞게</strong> 코드를 작성해요.</p>
+      <p>이렇게 작성해두면, Claude Code가 프로젝트의 맥락을 정확히 이해하고 <strong>우리 규칙에 맞게</strong> 코드를 작성해요.</p>
 
       <div class="fun-box">
         <p class="fun-box-title">비유로 이해하기</p>
@@ -146,11 +146,11 @@ React + TypeScript로 프론트엔드, Express로 백엔드를 구성합니다.
 
     <!-- ====== .claudeignore ====== -->
     <section>
-      <h2>.claudeignore — "이건 보지 마세요"</h2>
+      <h2>.claudeignore: "이건 보지 마세요"</h2>
 
       <p>프로젝트 폴더에는 Claude가 볼 필요 없는 파일들이 있어요. 거대한 라이브러리 폴더, 비밀번호가 담긴 환경 변수 파일 같은 것들이요.</p>
 
-      <p><code>.claudeignore</code> 파일을 만들면 Claude에게 "이 파일들은 무시해"라고 알려줄 수 있어요:</p>
+      <p><code>.claudeignore</code> 파일을 만들면 Claude에게 "이 파일들은 무시해"라고 알려줍니다:</p>
 
       <pre><code># 의존성 폴더 (너무 크니까 무시)
 node_modules/
@@ -174,16 +174,16 @@ coverage/</code></pre>
 
     <!-- ====== Memory System ====== -->
     <section>
-      <h2>Memory 시스템 — Claude가 배운 걸 기억해요</h2>
+      <h2>Memory 시스템: Claude가 배운 걸 기억해요</h2>
 
       <p>Claude Code는 대화 중에 배운 것들을 기억할 수 있어요. "아, 이 프로젝트에서는 이런 방식을 선호하는구나"를 메모해두는 거예요.</p>
 
       <h3>메모리 타입</h3>
       <ul>
-        <li><strong>User memory</strong> — 여러분의 개인 선호도 (모든 프로젝트에 적용)</li>
-        <li><strong>Project memory</strong> — 특정 프로젝트에 대한 기억</li>
-        <li><strong>Feedback memory</strong> — "이렇게 해줘" / "이건 하지 마" 같은 피드백</li>
-        <li><strong>Reference memory</strong> — 자주 참고하는 정보</li>
+        <li><strong>User memory</strong>: 내 개인 선호도 (모든 프로젝트에 적용)</li>
+        <li><strong>Project memory</strong>: 특정 프로젝트에만 적용되는 기억</li>
+        <li><strong>Feedback memory</strong>: "이렇게 해줘" / "이건 하지 마" 같은 피드백</li>
+        <li><strong>Reference memory</strong>: 자주 참고하는 정보</li>
       </ul>
 
       <p>예를 들어 Claude에게 "나는 항상 한국어 주석을 선호해"라고 말하면, 다음부터는 자동으로 한국어로 주석을 달아줘요. 매번 말할 필요가 없어지는 거죠.</p>
@@ -309,8 +309,8 @@ coverage/</code></pre>
         <h3>이번 챕터 정리</h3>
         <ul>
           <li><strong>CLAUDE.md</strong>는 Claude가 프로젝트를 이해하는 "안내서"예요. 프로젝트 루트에 놓으면 자동으로 읽어요.</li>
-          <li><strong>.claudeignore</strong>로 Claude가 볼 필요 없는 파일을 지정할 수 있어요.</li>
-          <li><strong>Memory 시스템</strong>으로 Claude가 여러분의 선호도를 기억해요.</li>
+          <li><strong>.claudeignore</strong>로 Claude가 볼 필요 없는 파일을 지정해요.</li>
+          <li><strong>Memory 시스템</strong>으로 Claude가 내 선호도를 기억해요.</li>
           <li>컨텍스트는 <strong>대화 > Memory > settings.json > CLAUDE.md</strong> 순으로 우선순위가 있어요.</li>
           <li>CLAUDE.md는 <strong>간결하고 구체적으로</strong> 작성하세요.</li>
         </ul>

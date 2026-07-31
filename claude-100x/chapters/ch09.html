@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chapter 9: Skills: AI에게 전문성을 가르치다 — Claude 100배 활용법</title>
+  <title>Chapter 9: Skills: AI에게 전문성을 가르치다 · Claude 100배 활용법</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -110,7 +110,7 @@
 
       <p>스킬 파일은 두 부분으로 나뉘어요:</p>
 
-      <h3>1. Frontmatter — 스킬의 이름표</h3>
+      <h3>1. Frontmatter: 스킬의 이름표</h3>
       <p>파일 맨 위에 <code>---</code>로 감싼 메타데이터가 있어요:</p>
 
       <pre><code>---
@@ -118,7 +118,7 @@ name: hello-world
 description: "인사를 건네는 간단한 스킬"
 ---</code></pre>
 
-      <h3>2. Instructions — 실제 지시사항</h3>
+      <h3>2. Instructions: 실제 지시사항</h3>
       <p>Frontmatter 아래에 Claude가 따라야 할 내용을 마크다운으로 적어요:</p>
 
       <pre><code>---
@@ -145,7 +145,7 @@ description: "인사를 건네는 간단한 스킬"
     <section>
       <h2>슬래시 명령어로 스킬 실행하기</h2>
 
-      <p>스킬이 설치되면, 터미널에서 슬래시(<code>/</code>)와 스킬 이름을 입력해서 실행할 수 있어요:</p>
+      <p>스킬이 설치되면, 터미널에서 슬래시(<code>/</code>)와 스킬 이름을 입력하면 바로 실행돼요:</p>
 
       <pre><code># Claude Code 대화 중에...
 /hello-world          # 인사 스킬 실행
@@ -168,41 +168,45 @@ description: "인사를 건네는 간단한 스킬"
 
       <p>스킬을 직접 만들 수도 있지만, 이미 잘 만들어진 스킬 패키지를 설치하는 게 더 빨라요. 요리를 배우기 전에 먼저 유명 셰프의 레시피를 써보는 것처럼요.</p>
 
-      <h3>gstack — Garry Tan의 스킬 패키지</h3>
+      <h3>gstack: Garry Tan의 스킬 패키지</h3>
 
       <p><strong>gstack</strong>은 Y Combinator의 CEO Garry Tan이 공개한 스킬 패키지예요. 20개 이상의 전문가 역할이 들어 있어요:</p>
 
       <ul>
-        <li><code>/review</code> — 전문적인 코드 리뷰</li>
-        <li><code>/ship</code> — 배포 준비 워크플로우</li>
-        <li><code>/qa</code> — QA 테스트</li>
-        <li><code>/office-hours</code> — 스타트업 멘토링</li>
-        <li><code>/design-review</code> — 디자인 리뷰</li>
-        <li><code>/investigate</code> — 버그 조사</li>
-        <li><code>/cso</code> — 보안 감사</li>
+        <li><code>/review</code>: 전문가 수준의 코드 리뷰</li>
+        <li><code>/ship</code>: 배포 준비 워크플로우</li>
+        <li><code>/qa</code>: QA 테스트</li>
+        <li><code>/office-hours</code>: 스타트업 멘토링</li>
+        <li><code>/design-review</code>: 디자인 리뷰</li>
+        <li><code>/investigate</code>: 버그 조사</li>
+        <li><code>/cso</code>: 보안 감사</li>
         <li>그 외 다수...</li>
       </ul>
 
       <h3>설치 방법</h3>
 
-      <pre><code># 1. gstack 저장소를 클론합니다
-git clone https://github.com/anthropics/gstack.git ~/.claude/gstack
+      <pre><code># 1. 저장소를 클론하고 설치 스크립트를 돌립니다
+#    (2026년 7월 확인 · 공식 저장소는 garrytan/gstack 입니다)
+git clone --single-branch --depth 1   https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
+cd ~/.claude/skills/gstack &amp;&amp; ./setup
 
-# 2. CLAUDE.md에 gstack을 등록합니다 (또는 설정에서 추가)
-# 프로젝트의 CLAUDE.md에 다음을 추가:
+# 2. 잘 깔렸는지 확인합니다
+#    Claude Code에서 /gstack-upgrade 를 쳐 보면 버전이 나와요
+
+# 3. 프로젝트의 CLAUDE.md에 등록합니다
 ## Skills
-- gstack이 ~/.claude/gstack에 설치되어 있습니다</code></pre>
+- gstack이 ~/.claude/skills/gstack 에 설치되어 있습니다</code></pre>
 
       <h3>Awesome Agent Skills</h3>
 
-      <p>gstack 외에도 커뮤니티에서 만든 다양한 스킬들이 있어요. GitHub에서 "awesome claude skills"로 검색하면 유용한 스킬 모음을 찾을 수 있어요.</p>
+      <p>gstack 외에도 커뮤니티에서 만든 다양한 스킬들이 있어요. GitHub에서 "awesome claude skills"로 검색하면 유용한 스킬 모음이 줄줄이 나와요.</p>
     </section>
 
     <!-- ====== Creating Your Own Skill ====== -->
     <section>
       <h2>나만의 스킬 만들기</h2>
 
-      <p>커뮤니티 스킬도 좋지만, 여러분만의 업무에 딱 맞는 스킬을 직접 만들 수도 있어요.</p>
+      <p>커뮤니티 스킬도 좋지만, 내 업무에 딱 맞는 스킬을 직접 만들 수도 있어요.</p>
 
       <div class="workflow-box">
         <p class="workflow-title">Step by Step: 나만의 코드 리뷰 스킬 만들기</p>
@@ -244,15 +248,15 @@ description: "우리 팀 스타일로 코드 리뷰하기"
         </ol>
       </div>
 
-      <p>이게 전부예요! 파일 하나만 만들면, 여러분만의 전문가 스킬이 완성돼요.</p>
+      <p>이게 전부예요! 파일 하나만 만들면, 나만의 전문가 스킬이 완성돼요.</p>
 
       <div class="scenario-box">
         <h3>시나리오: 비개발자를 위한 스킬 아이디어</h3>
         <ul>
-          <li><strong>weekly-report</strong> — 이번 주 작업 내용을 정해진 양식으로 정리</li>
-          <li><strong>email-draft</strong> — 상황에 맞는 비즈니스 이메일 초안 작성</li>
-          <li><strong>meeting-notes</strong> — 회의록을 정해진 템플릿으로 정리</li>
-          <li><strong>data-summary</strong> — CSV 데이터를 읽고 핵심 지표 요약</li>
+          <li><strong>weekly-report</strong>: 이번 주 작업 내용을 정해진 양식으로 정리</li>
+          <li><strong>email-draft</strong>: 상황에 맞는 비즈니스 이메일 초안 작성</li>
+          <li><strong>meeting-notes</strong>: 회의록을 정해진 템플릿으로 정리</li>
+          <li><strong>data-summary</strong>: CSV 데이터를 읽고 핵심 지표 요약</li>
         </ul>
         <p>개발자가 아니어도 자신의 업무에 맞는 스킬을 만들 수 있어요!</p>
       </div>
@@ -266,12 +270,12 @@ description: "우리 팀 스타일로 코드 리뷰하기"
         <ol>
           <li>gstack을 설치하세요 (위의 설치 방법 참고)</li>
           <li>아무 프로젝트 폴더에서 Claude Code를 실행하세요</li>
-          <li><code>/office-hours</code>를 입력하고, 여러분의 프로젝트나 아이디어에 대해 상담해보세요</li>
+          <li><code>/office-hours</code>를 입력하고, 지금 하고 있는 프로젝트나 아이디어를 상담해보세요</li>
         </ol>
         <p><strong>옵션 B: 나만의 스킬 만들어보기</strong></p>
         <ol>
           <li><code>~/.claude/skills/greeting/</code> 폴더를 만드세요</li>
-          <li>SKILL.md를 만들고, Claude가 여러분만의 방식으로 인사하도록 지시사항을 적어보세요</li>
+          <li>SKILL.md를 만들고, Claude가 나만의 방식으로 인사하도록 지시사항을 적어보세요</li>
           <li>Claude Code에서 <code>/greeting</code>을 실행해보세요</li>
         </ol>
       </div>
@@ -283,9 +287,9 @@ description: "우리 팀 스타일로 코드 리뷰하기"
         <h3>이번 챕터 정리</h3>
         <ul>
           <li><strong>스킬</strong>은 Claude에게 특정 작업 방법을 가르치는 SKILL.md 파일이에요.</li>
-          <li><strong>슬래시 명령어</strong>(<code>/skill-name</code>)로 간편하게 스킬을 실행할 수 있어요.</li>
-          <li><strong>gstack</strong> 같은 커뮤니티 스킬 패키지로 20개 이상의 전문가 역할을 바로 쓸 수 있어요.</li>
-          <li>SKILL.md 파일 하나만 만들면 <strong>나만의 스킬</strong>을 만들 수 있어요.</li>
+          <li><strong>슬래시 명령어</strong>(<code>/skill-name</code>)로 스킬을 간편하게 실행해요.</li>
+          <li><strong>gstack</strong> 같은 커뮤니티 스킬 패키지로 20개 이상의 전문가 역할을 바로 써요.</li>
+          <li>SKILL.md 파일 하나만 만들면 <strong>나만의 스킬</strong>이 완성돼요.</li>
           <li>같은 Claude라도 스킬에 따라 <strong>결과의 깊이가 완전히 달라져요</strong>.</li>
         </ul>
       </div>

@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="보안과 안전: Claude를 믿되, 검증하라 — 강력한 도구일수록 안전하게 써야 합니다">
+  <meta name="description" content="보안과 안전: Claude를 믿되, 검증하라 · 강력한 도구일수록 안전하게 써야 합니다">
   <meta name="author" content="Claude 100배 활용법">
-  <title>Chapter 14: 보안과 안전: Claude를 믿되, 검증하라 — Claude 100배 활용법</title>
+  <title>Chapter 14: 보안과 안전: Claude를 믿되, 검증하라 · Claude 100배 활용법</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -100,18 +100,18 @@
         "이 패키지를 설치해도 될까요?"</p>
       </div>
 
-      <p>Claude가 이렇게 물어보는 이유는, 여러분의 <strong>의도를 확인</strong>하기 위해서예요. 실수로 중요한 파일을 삭제하거나, 위험한 명령어를 실행하는 걸 방지하기 위한 안전장치예요.</p>
+      <p>Claude가 이렇게 물어보는 이유는, 쓰는 사람의 <strong>의도를 확인</strong>하기 위해서예요. 실수로 중요한 파일을 삭제하거나, 위험한 명령어를 실행하는 걸 막아주는 안전장치죠.</p>
 
       <p>이 권한 시스템에는 두 가지 선택이 있어요:</p>
 
       <ul>
-        <li><strong>매번 확인</strong> — 더 안전하지만 번거로울 수 있어요</li>
-        <li><strong>Auto-allow (자동 허용)</strong> — 편리하지만 주의가 필요해요</li>
+        <li><strong>매번 확인</strong>: 더 안전하지만 번거로울 수 있어요</li>
+        <li><strong>Auto-allow (자동 허용)</strong>: 편리하지만 주의가 필요해요</li>
       </ul>
 
       <div class="callout">
         <p class="callout-title">추천 설정</p>
-        <p><strong>초보자</strong>: 모든 권한을 매번 확인하세요. 어떤 작업이 이루어지는지 배울 수 있어요.<br>
+        <p><strong>초보자</strong>: 모든 권한을 매번 확인하세요. 어떤 작업이 벌어지는지 자연스럽게 배우게 돼요.<br>
         <strong>중급자</strong>: 파일 읽기와 검색은 자동 허용, 수정과 실행은 확인.<br>
         <strong>고급자</strong>: 신뢰하는 프로젝트에서는 대부분 자동 허용, 프로덕션 환경에서는 전부 확인.</p>
       </div>
@@ -121,12 +121,12 @@
     <section>
       <h2>민감 정보: 절대 공유하면 안 되는 것들</h2>
 
-      <p>Claude는 여러분의 파일을 읽을 수 있어요. 그래서 민감한 정보가 포함된 파일은 <strong>미리 보호</strong>해야 해요.</p>
+      <p>Claude는 내 컴퓨터의 파일을 그대로 읽어요. 그래서 민감한 정보가 든 파일은 <strong>미리 보호</strong>해야 해요.</p>
 
       <div class="callout" style="border-left-color: #e74c3c;">
         <p class="callout-title">절대로 하지 말아야 할 3가지</p>
         <p><strong>1. API 키나 비밀번호를 프롬프트에 직접 입력하지 마세요</strong><br>
-        "이 API 키로 연결해줘: sk-abc123..." — 절대 안 돼요!<br><br>
+        "이 API 키로 연결해줘: sk-abc123..." 이렇게는 절대 안 돼요!<br><br>
         <strong>2. .env 파일을 Claude가 읽게 두지 마세요</strong><br>
         .env 파일에는 보통 비밀번호, API 키, 데이터베이스 접속 정보가 들어있어요.<br><br>
         <strong>3. 개인정보가 포함된 데이터를 그대로 전달하지 마세요</strong><br>
@@ -135,7 +135,7 @@
 
       <h3>.claudeignore로 파일 보호하기</h3>
 
-      <p>프로젝트 루트에 <code>.claudeignore</code> 파일을 만들면, Claude가 특정 파일을 <strong>아예 보지 못하게</strong> 할 수 있어요.</p>
+      <p>프로젝트 루트에 <code>.claudeignore</code> 파일을 만들면, Claude가 특정 파일을 <strong>아예 보지 못하게</strong> 막아요.</p>
 
 <pre><code># .claudeignore 예시
 .env
@@ -159,7 +159,7 @@ config/database.yml</code></pre>
         <p class="good">"API 연동 코드를 만들어줘. API 키는 환경 변수 OPENAI_API_KEY에서 가져오도록 해. .env 파일의 내용은 보여주지 않을게."</p>
       </div>
 
-      <p>이렇게 하면 Claude는 API 키 자체를 모른 채로, 안전한 코드를 작성할 수 있어요.</p>
+      <p>이렇게 하면 Claude는 API 키 자체를 모른 채로 안전한 코드를 써줘요.</p>
     </section>
 
     <!-- ====== Cost Management ====== -->
@@ -170,16 +170,16 @@ config/database.yml</code></pre>
 
       <p>비용이 걱정된다면 이런 방법들이 있어요:</p>
 
-      <h3>/cost — 현재 비용 확인</h3>
-      <p>대화 중에 <code>/cost</code>를 입력하면 현재 세션에서 사용한 토큰과 비용을 확인할 수 있어요.</p>
+      <h3>/cost: 현재 비용 확인</h3>
+      <p>대화 중에 <code>/cost</code>를 입력하면 현재 세션에서 쓴 토큰과 비용이 바로 나와요.</p>
 
       <h3>비용 절약 팁</h3>
 
       <ul>
-        <li><strong>compact 모드 활용</strong> — 대화가 길어지면 <code>/compact</code>를 입력해서 이전 대화를 요약하세요. 불필요한 컨텍스트를 줄여서 토큰을 절약해요</li>
-        <li><strong>불필요한 파일 제외</strong> — <code>.claudeignore</code>에 <code>node_modules/</code>, <code>dist/</code> 같은 큰 폴더를 추가하세요. Claude가 읽을 파일이 줄어들면 토큰도 절약돼요</li>
-        <li><strong>구체적으로 요청</strong> — "전체 코드를 검토해줘"보다 "src/auth.js의 login 함수만 검토해줘"가 토큰을 덜 써요</li>
-        <li><strong>새 세션 시작</strong> — 주제가 완전히 바뀌면 새 세션을 시작하세요. 이전 대화 맥락을 유지할 필요가 없으니까요</li>
+        <li><strong>compact 모드 활용</strong>: 대화가 길어지면 <code>/compact</code>를 입력해서 이전 대화를 요약하세요. 불필요한 컨텍스트를 줄여서 토큰을 절약해요</li>
+        <li><strong>불필요한 파일 제외</strong>: <code>.claudeignore</code>에 <code>node_modules/</code>, <code>dist/</code> 같은 큰 폴더를 추가하세요. Claude가 읽을 파일이 줄어들면 토큰도 절약돼요</li>
+        <li><strong>구체적으로 요청</strong>: "전체 코드를 검토해줘"보다 "src/auth.js의 login 함수만 검토해줘"가 토큰을 덜 써요</li>
+        <li><strong>새 세션 시작</strong>: 주제가 완전히 바뀌면 새 세션을 시작하세요. 이전 대화 맥락을 유지할 필요가 없으니까요</li>
       </ul>
     </section>
 
@@ -191,11 +191,11 @@ config/database.yml</code></pre>
 
       <div class="fun-box">
         <p class="fun-box-title">안전 모드 가이드</p>
-        <p><strong>/careful</strong> — 주의 모드<br>
+        <p><strong>/careful</strong>: 주의 모드<br>
         위험할 수 있는 명령어(rm -rf, DROP TABLE 등)를 실행하기 전에 경고해줘요. "이 명령어는 데이터를 삭제할 수 있어요. 정말 실행할까요?"<br><br>
-        <strong>/freeze [경로]</strong> — 파일 수정 범위 제한<br>
+        <strong>/freeze [경로]</strong>: 파일 수정 범위 제한<br>
         특정 폴더만 수정할 수 있게 제한해요. 예: <code>/freeze src/</code>이면 src 폴더 밖의 파일은 수정 불가.<br><br>
-        <strong>/guard</strong> — 최대 안전 모드<br>
+        <strong>/guard</strong>: 최대 안전 모드<br>
         /careful + /freeze를 합친 거예요. 프로덕션 환경에서 작업할 때 사용하면 좋아요.</p>
       </div>
 
@@ -215,14 +215,14 @@ config/database.yml</code></pre>
       <div class="workflow-box">
         <p class="workflow-title">Claude 안전 사용 Best Practices</p>
         <ol>
-          <li><strong>.claudeignore 설정</strong> — 민감 파일을 미리 제외하세요</li>
-          <li><strong>API 키는 환경 변수로</strong> — 코드에 직접 넣지 마세요</li>
-          <li><strong>git commit 자주 하기</strong> — 문제가 생기면 이전으로 돌아갈 수 있게</li>
-          <li><strong>권한 요청 꼼꼼히 읽기</strong> — 특히 처음에는 "뭘 하려는 건지" 확인하세요</li>
-          <li><strong>프로덕션 환경에서는 /guard 사용</strong> — 안전이 최우선</li>
-          <li><strong>/cost로 비용 모니터링</strong> — 예상치 못한 과금 방지</li>
-          <li><strong>결과물 검증</strong> — Claude가 만든 코드를 배포 전에 반드시 확인하세요</li>
-          <li><strong>개인정보 익명화</strong> — 실제 데이터 대신 샘플 데이터를 사용하세요</li>
+          <li><strong>.claudeignore 설정</strong>: 민감 파일을 미리 제외하세요</li>
+          <li><strong>API 키는 환경 변수로</strong>: 코드에 직접 넣지 마세요</li>
+          <li><strong>git commit 자주 하기</strong>: 문제가 생기면 이전으로 돌아갈 수 있게</li>
+          <li><strong>권한 요청 꼼꼼히 읽기</strong>: 특히 처음에는 "뭘 하려는 건지" 확인하세요</li>
+          <li><strong>프로덕션 환경에서는 /guard 사용</strong>: 안전이 최우선</li>
+          <li><strong>/cost로 비용 모니터링</strong>: 예상치 못한 과금 방지</li>
+          <li><strong>결과물 검증</strong>: Claude가 만든 코드를 배포 전에 반드시 확인하세요</li>
+          <li><strong>개인정보 익명화</strong>: 실제 데이터 대신 샘플 데이터를 사용하세요</li>
         </ol>
       </div>
     </section>

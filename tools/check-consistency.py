@@ -258,6 +258,40 @@ def check_shelf(books: list[Path]) -> None:
                 f"{slug} 책장 표기 {claim or ['없음']} ≠ 실제 「{want}」")
 
 
+def check_sidebar_identical(book: Path) -> None:
+    """한 책의 사이드바 목차는 모든 페이지에서 같아야 한다.
+
+    페이지마다 손으로 들어 있어서 일부만 고치면 두 벌이 된다.
+    실제로 skills-creation 에서 아홉 파일만 라벨을 고치는 바람에
+    나머지 열두 파일이 옛 목차를 들고 있었다. 독자는 장을 넘길 때마다
+    목차가 바뀌는 걸 본다.
+
+    현재 링크 표시(nav-link-active 같은 것)는 페이지마다 달라야 하므로 빼고 본다.
+    언어가 다르면 목차도 다르므로 판본별로 나눠 본다.
+    """
+    groups: dict[str, list[tuple[Path, str]]] = {}
+    for p in sorted(book.glob("*.html")) + sorted((book / "chapters").glob("*.html")):
+        html = p.read_text(encoding="utf-8")
+        m = re.search(r'<ul class="nav-list">(.*?)</ul>', html, re.S)
+        if not m:
+            continue
+        # 라벨만 뽑는다. href 는 index 와 chapters 가 다를 수밖에 없다.
+        labels = tuple(re.findall(r'class="nav-(?:link|part)"[^>]*>([^<]*)<', m.group(1))) \
+            or tuple(re.findall(r'>([^<>]+)</(?:a|li)>', m.group(1)))
+        lang = "en" if ".en." in p.name else "ko"
+        groups.setdefault(lang, []).append((p, "".join(labels)))
+
+    for lang, rows in groups.items():
+        counts = Counter(sig for _, sig in rows)
+        if len(counts) <= 1:
+            continue
+        major, _ = counts.most_common(1)[0]
+        odd = [p for p, sig in rows if sig != major]
+        add("ERROR", book.name,
+            f"{lang} 사이드바가 {len(counts)}벌이다. 다수와 다른 파일 {len(odd)}개: "
+            + ", ".join(p.name for p in odd[:6]))
+
+
 def check_language_pairs(book: Path) -> None:
     """짝이 있는 파일은 hreflang 이 양방향이어야 한다. 짝이 없으면 hreflang 이 없어야 한다."""
     pages = sorted(book.glob("*.html")) + sorted((book / "chapters").glob("*.html"))
@@ -346,6 +380,7 @@ def main() -> int:
             add("ERROR", book.name, "폴더 없음")
             continue
         check_structure(book)
+        check_sidebar_identical(book)
         check_language_pairs(book)
         for f in sorted(book.rglob("*.html")):
             html = f.read_text(encoding="utf-8")

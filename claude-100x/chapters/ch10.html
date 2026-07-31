@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chapter 10: Hooks: AI의 행동을 자동화하다 — Claude 100배 활용법</title>
+  <title>Chapter 10: Hooks: AI의 행동을 자동화하다 · Claude 100배 활용법</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -101,7 +101,7 @@
 
       <div class="fun-box">
         <p class="fun-box-title">자동문 센서를 생각해보세요</p>
-        <p>마트의 자동문 있잖아요. 센서가 사람을 감지하면 문이 열리고(PreToolUse), 사람이 지나가면 문이 닫혀요(PostToolUse). 여러분이 매번 문을 열 필요 없이, <strong>특정 상황이 되면 자동으로</strong> 실행되는 거예요. Hooks도 같은 원리예요.</p>
+        <p>마트의 자동문 있잖아요. 센서가 사람을 감지하면 문이 열리고(PreToolUse), 사람이 지나가면 문이 닫혀요(PostToolUse). 매번 손으로 문을 열 필요 없이, <strong>특정 상황이 되면 자동으로</strong> 실행되는 거예요. Hooks도 같은 원리예요.</p>
       </div>
 
       <p>예를 들어:</p>
@@ -116,7 +116,7 @@
     <section>
       <h2>Hook의 3가지 타입</h2>
 
-      <h3>1. PreToolUse — 도구 사용 전에 실행</h3>
+      <h3>1. PreToolUse: 도구 사용 전에 실행</h3>
       <p>Claude가 어떤 도구(파일 쓰기, 명령어 실행 등)를 사용하려고 할 때, <strong>그 전에</strong> 실행돼요.</p>
       <ul>
         <li>위험한 명령어를 차단할 때 사용</li>
@@ -124,7 +124,7 @@
         <li>입력값을 검증할 때 사용</li>
       </ul>
 
-      <h3>2. PostToolUse — 도구 사용 후에 실행</h3>
+      <h3>2. PostToolUse: 도구 사용 후에 실행</h3>
       <p>Claude가 도구를 사용한 <strong>직후에</strong> 실행돼요.</p>
       <ul>
         <li>저장된 파일을 자동 포맷팅할 때 사용</li>
@@ -132,7 +132,7 @@
         <li>결과를 로그에 기록할 때 사용</li>
       </ul>
 
-      <h3>3. Notification — 알림이 필요할 때</h3>
+      <h3>3. Notification: 알림이 필요할 때</h3>
       <p>Claude가 사용자에게 승인을 요청할 때 실행돼요.</p>
       <ul>
         <li>모바일 알림 보내기</li>
@@ -213,19 +213,19 @@
 
       <p>이 설정을 풀어보면:</p>
       <ul>
-        <li><code>"PostToolUse"</code> — 도구 사용 후에 실행</li>
-        <li><code>"matcher": "Write"</code> — "Write(파일 쓰기)" 도구가 사용되었을 때</li>
-        <li><code>"command"</code> — 이 명령어를 자동으로 실행해줘</li>
+        <li><code>"PostToolUse"</code>는 도구를 쓴 다음에 실행하라는 뜻이에요</li>
+        <li><code>"matcher": "Write"</code>는 "Write(파일 쓰기)" 도구가 걸렸을 때라는 조건이에요</li>
+        <li><code>"command"</code>는 그때 자동으로 실행할 명령어예요</li>
       </ul>
 
       <div class="callout">
         <p class="callout-title">matcher 종류</p>
         <p>matcher에는 Claude가 사용하는 도구 이름을 넣어요:</p>
         <ul>
-          <li><code>Write</code> — 파일 쓰기</li>
-          <li><code>Edit</code> — 파일 수정</li>
-          <li><code>Bash</code> — 터미널 명령어 실행</li>
-          <li><code>Read</code> — 파일 읽기</li>
+          <li><code>Write</code>: 파일 쓰기</li>
+          <li><code>Edit</code>: 파일 수정</li>
+          <li><code>Bash</code>: 터미널 명령어 실행</li>
+          <li><code>Read</code>: 파일 읽기</li>
         </ul>
       </div>
     </section>
@@ -292,7 +292,7 @@
 
       <div class="scenario-box">
         <h3>시나리오: 프로덕션 DB 접근 차단 Hook</h3>
-        <p>실수로 프로덕션 데이터베이스에 접근하는 것을 방지하는 Hook이에요:</p>
+        <p>실수로 프로덕션 데이터베이스에 손대는 걸 막아주는 Hook이에요:</p>
         <pre><code>{
   "hooks": {
     "PreToolUse": [
@@ -379,7 +379,7 @@
     <section>
       <div class="next-teaser">
         <h3>다음 챕터 미리보기</h3>
-        <p>Hooks가 Claude의 행동을 자동화하는 거라면, <strong>MCP 서버</strong>는 Claude의 능력 자체를 확장하는 거예요. 이메일 보내기, 데이터베이스 조회, 웹 크롤링까지 — Claude에게 새로운 초능력을 부여할 수 있어요.</p>
+        <p>Hooks가 Claude의 행동을 자동화하는 거라면, <strong>MCP 서버</strong>는 Claude의 능력 자체를 확장하는 거예요. 이메일 보내기, 데이터베이스 조회, 웹 크롤링까지. Claude에게 새 초능력을 하나씩 붙여주는 거죠.</p>
       </div>
     </section>
 

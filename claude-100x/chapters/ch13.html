@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="팀으로 일하기: 멀티 에이전트 협업 — Claude 하나로 부족하면, 여러 개를 동시에 돌리세요">
+  <meta name="description" content="팀으로 일하기: 멀티 에이전트 협업 · Claude 하나로 부족하면, 여러 개를 동시에 돌리세요">
   <meta name="author" content="Claude 100배 활용법">
-  <title>Chapter 13: 팀으로 일하기: 멀티 에이전트 협업 — Claude 100배 활용법</title>
+  <title>Chapter 13: 팀으로 일하기: 멀티 에이전트 협업 · Claude 100배 활용법</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -90,17 +90,17 @@
 
     <!-- ====== Parallel Sessions ====== -->
     <section>
-      <h2>전략 1: 병렬 세션 — 여러 터미널에서 동시에</h2>
+      <h2>전략 1: 병렬 세션 · 여러 터미널에서 동시에</h2>
 
       <p>가장 간단한 방법이에요. 터미널을 여러 개 열고, 각각 Claude Code를 실행하면 돼요.</p>
 
       <div class="fun-box">
         <p class="fun-box-title">세 명의 Claude</p>
-        <p><strong>터미널 1 — 기획자 Claude</strong><br>
+        <p><strong>터미널 1: 기획자 Claude</strong><br>
         "우리 서비스의 사용자 플로우를 설계해줘. 로그인 → 대시보드 → 기능 사용 → 결과 확인 순서로."<br><br>
-        <strong>터미널 2 — 개발자 Claude</strong><br>
+        <strong>터미널 2: 개발자 Claude</strong><br>
         "로그인 페이지를 React로 구현해줘. 이메일/비밀번호 방식으로."<br><br>
-        <strong>터미널 3 — QA Claude</strong><br>
+        <strong>터미널 3: QA Claude</strong><br>
         "기존에 만든 API 엔드포인트들을 테스트해줘. 모든 경우의 수를 커버하는 테스트 코드를 작성해."</p>
       </div>
 
@@ -118,15 +118,15 @@
       <p>병렬 세션에서 유용한 슬래시 명령어들도 있어요:</p>
 
       <ul>
-        <li><code>/office-hours</code> — 기획 모드. 아이디어를 구체화하고 전략을 세울 때</li>
-        <li><code>/qa</code> — QA 모드. 체계적으로 버그를 찾고 테스트할 때</li>
-        <li><code>/review</code> — 코드 리뷰 모드. 다른 세션에서 작성한 코드를 검토할 때</li>
+        <li><code>/office-hours</code>: 기획 모드. 아이디어를 구체화하고 전략을 세울 때</li>
+        <li><code>/qa</code>: QA 모드. 체계적으로 버그를 찾고 테스트할 때</li>
+        <li><code>/review</code>: 코드 리뷰 모드. 다른 세션에서 작성한 코드를 검토할 때</li>
       </ul>
     </section>
 
     <!-- ====== Worktree ====== -->
     <section>
-      <h2>전략 2: Git Worktree — 독립적인 작업 공간</h2>
+      <h2>전략 2: Git Worktree · 독립된 작업 공간</h2>
 
       <p>Git Worktree는 같은 프로젝트를 <strong>여러 폴더에 복사</strong>하는 것과 비슷해요. 하지만 진짜 복사가 아니라, Git이 똑똑하게 관리해줘요.</p>
 
@@ -145,15 +145,15 @@
 
       <div class="fun-box">
         <p class="fun-box-title">Worktree를 쉽게 이해하기</p>
-        <p>여러분의 프로젝트가 "집"이라고 상상해보세요.<br><br>
-        일반적인 방법: 한 집에서 주방 리모델링과 욕실 리모델링을 동시에 하면 → 혼란!<br><br>
+        <p>내 프로젝트가 "집"이라고 상상해보세요.<br><br>
+        보통 하는 방법: 한 집에서 주방 리모델링과 욕실 리모델링을 동시에 하면 → 혼란!<br><br>
         Worktree 방법: 주방 리모델링용 "가상의 집"과 욕실 리모델링용 "가상의 집"을 따로 만들어서, 각각 완성한 후에 원래 집에 반영해요. 깔끔하죠?</p>
       </div>
     </section>
 
     <!-- ====== Subagents ====== -->
     <section>
-      <h2>전략 3: 서브에이전트 — Claude가 Claude를 호출</h2>
+      <h2>전략 3: 서브에이전트 · Claude가 Claude를 호출</h2>
 
       <p>이건 좀 더 고급 기능이에요. Claude Code 안에서 <strong>Agent 도구</strong>를 사용하면, Claude가 다른 Claude를 불러서 일을 시킬 수 있어요.</p>
 
@@ -167,7 +167,7 @@
         <p>메인 Claude가 결과를 취합해서 최종 보고</p>
       </div>
 
-      <p>서브에이전트는 복잡한 작업을 자동으로 분할하고 처리해요. 여러분이 직접 터미널을 여러 개 관리할 필요가 없어서 편하지만, 설정이 좀 더 복잡해요.</p>
+      <p>서브에이전트는 복잡한 작업을 자동으로 분할하고 처리해요. 터미널을 여러 개 직접 관리할 필요가 없어서 편하지만, 설정이 좀 더 복잡해요.</p>
     </section>
 
     <!-- ====== Collaboration Strategies ====== -->
@@ -200,9 +200,9 @@
       <div class="callout">
         <p class="callout-title">브랜치 전략</p>
         <p>멀티 에이전트로 일할 때는 <strong>각 Claude에게 별도 브랜치</strong>를 만들어주세요:<br>
-        - <code>feature/login</code> — Claude A 담당<br>
-        - <code>feature/dashboard</code> — Claude B 담당<br>
-        - <code>feature/notifications</code> — Claude C 담당<br><br>
+        - <code>feature/login</code>: Claude A 담당<br>
+        - <code>feature/dashboard</code>: Claude B 담당<br>
+        - <code>feature/notifications</code>: Claude C 담당<br><br>
         다 완성되면 PR(Pull Request)로 메인 브랜치에 합치면 돼요.</p>
       </div>
     </section>
@@ -230,7 +230,7 @@
         <li><strong>병렬 세션</strong>: 터미널 여러 개에서 Claude Code를 동시에 실행하는 가장 간단한 방법</li>
         <li><strong>Git Worktree</strong>: 같은 프로젝트를 독립된 작업 공간에서 동시에 개발</li>
         <li><strong>서브에이전트</strong>: Claude가 자동으로 작업을 분할하고 다른 Claude에게 위임</li>
-        <li>핵심은 <strong>역할 분담</strong>과 <strong>충돌 방지</strong> — 각 Claude가 다른 파일/폴더를 담당하게 하세요</li>
+        <li>핵심은 <strong>역할 분담</strong>과 <strong>충돌 방지</strong>예요. 각 Claude가 다른 파일/폴더를 담당하게 하세요</li>
         <li><strong>브랜치 전략</strong>으로 안전하게 병합하세요</li>
       </ul>
     </aside>
@@ -240,7 +240,7 @@
       <h3>다음 챕터에서는...</h3>
       <p>강력한 도구에는 <strong>안전 장치</strong>가 필요해요.<br>
       Claude에게 모든 걸 맡겨도 될까요? 어디까지 믿고, 어디서 검증해야 할까요?<br>
-      다음 챕터에서 <strong>보안과 안전</strong>에 대해 이야기해봅시다.</p>
+      다음 챕터에서 <strong>보안과 안전</strong>을 이야기해봅시다.</p>
     </div>
 
   </article>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chapter 5: Claude Desktop으로 내 컴퓨터와 연결하기 — Claude 100배 활용법</title>
+  <title>Chapter 5: Claude Desktop으로 내 컴퓨터와 연결하기 · Claude 100배 활용법</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -70,7 +70,7 @@
   </header>
 
   <article>
-    <p>Claude.ai에서 "내 바탕화면의 Excel 파일을 분석해줘"라고 하면... 당연히 안 됩니다. 웹 브라우저 안에 갇혀 있으니까요. 파일을 일일이 업로드해야 하죠. 하지만 만약 Claude가 여러분의 컴퓨터에 직접 앉아서, 파일을 열어보고, 데이터베이스를 조회하고, 심지어 Teams 메시지까지 보낼 수 있다면?</p>
+    <p>Claude.ai에서 "내 바탕화면의 Excel 파일을 분석해줘"라고 하면... 당연히 안 됩니다. 웹 브라우저 안에 갇혀 있으니까요. 파일을 일일이 업로드해야 하죠. 하지만 만약 Claude가 내 컴퓨터에 직접 앉아서, 파일을 열어보고, 데이터베이스를 조회하고, 심지어 Teams 메시지까지 보낼 수 있다면?</p>
 
     <p>그게 바로 <strong>Claude Desktop</strong>이에요.</p>
 
@@ -93,14 +93,14 @@
 
     <p>여기까지는 그냥 "데스크톱 버전의 Claude.ai"예요. 진짜 마법은 MCP를 연결할 때 시작돼요.</p>
 
-    <h2>MCP 서버 — Claude의 능력 확장</h2>
+    <h2>MCP 서버: Claude의 능력 확장</h2>
 
     <h3>MCP란?</h3>
-    <p><strong>MCP(Model Context Protocol)</strong>는 Anthropic이 만든 개방형 프로토콜이에요. 쉽게 말해서, Claude에게 새로운 능력을 추가할 수 있는 규격이에요.</p>
+    <p><strong>MCP(Model Context Protocol)</strong>는 Anthropic이 만든 개방형 프로토콜이에요. 쉽게 말해서, Claude에게 새로운 능력을 더해주는 규격이에요.</p>
 
     <div class="fun-box">
       <p class="fun-box-title">쉬운 비유</p>
-      <p>스마트폰에 앱을 설치하면 새로운 기능이 생기잖아요? 카카오맵 설치하면 길 찾기가 되고, 배달의민족 설치하면 음식 주문이 되고. MCP는 Claude에게 설치하는 "앱"이라고 생각하시면 돼요. <strong>Filesystem MCP를 설치하면 파일을 다룰 수 있게 되고, GitHub MCP를 설치하면 코드 저장소를 관리할 수 있게 돼요.</strong></p>
+      <p>스마트폰에 앱을 설치하면 새로운 기능이 생기잖아요? 카카오맵 설치하면 길 찾기가 되고, 배달의민족 설치하면 음식 주문이 되고. MCP는 Claude에게 설치하는 "앱"이라고 생각하시면 돼요. <strong>Filesystem MCP를 설치하면 파일을 다루게 되고, GitHub MCP를 설치하면 코드 저장소를 관리하게 돼요.</strong></p>
     </div>
 
     <figure class="illustration">
@@ -153,31 +153,31 @@
         <text x="510" y="345" text-anchor="middle" font-size="10" fill="#666">팀 채널</text>
         <line x1="510" y1="300" x2="510" y2="320" stroke="#CCC" stroke-width="1" stroke-dasharray="4,3"/>
       </svg>
-      <figcaption>Claude Desktop은 MCP를 통해 다양한 외부 도구와 연결할 수 있어요</figcaption>
+      <figcaption>Claude Desktop은 MCP로 다양한 외부 도구와 이어져요</figcaption>
     </figure>
 
     <h2>자주 쓰는 MCP 서버들</h2>
 
     <p>MCP 서버는 이미 수백 개가 만들어져 있어요. 그중에서 가장 실용적인 것들을 소개할게요.</p>
 
-    <h3>Filesystem — 로컬 파일 읽기/쓰기</h3>
-    <p>가장 기본이면서 가장 강력한 MCP 서버예요. 지정한 폴더 안의 파일을 Claude가 직접 읽고, 수정하고, 새로 만들 수 있어요.</p>
+    <h3>Filesystem: 로컬 파일 읽기/쓰기</h3>
+    <p>가장 기본이면서 가장 강력한 MCP 서버예요. 지정한 폴더 안의 파일을 Claude가 직접 읽고, 수정하고, 새로 만들어요.</p>
     <div class="scenario-box">
       <p><strong>활용 예시:</strong> "바탕화면의 '매출데이터.csv'를 읽어서 월별 매출 추이를 분석하고, 요약 보고서를 '매출분석.md'로 저장해줘."</p>
     </div>
 
-    <h3>Database (SQLite, PostgreSQL) — DB 조회</h3>
-    <p>데이터베이스에 직접 연결해서 SQL 쿼리를 실행할 수 있어요. "지난달 가입한 유저 수 알려줘"라고 자연어로 물어보면, Claude가 알아서 SQL을 짜서 실행해요.</p>
+    <h3>Database (SQLite, PostgreSQL): DB 조회</h3>
+    <p>데이터베이스에 직접 연결해서 SQL 쿼리를 실행해요. "지난달 가입한 유저 수 알려줘"라고 자연어로 물어보면, Claude가 알아서 SQL을 짜서 실행해요.</p>
 
-    <h3>GitHub — 이슈/PR 관리</h3>
-    <p>GitHub 저장소의 이슈를 확인하고, Pull Request를 검토하고, 코드 변경 사항을 요약할 수 있어요.</p>
+    <h3>GitHub: 이슈/PR 관리</h3>
+    <p>GitHub 저장소의 이슈를 확인하고, Pull Request를 검토하고, 코드 변경 사항을 요약해요.</p>
 
-    <h3>Microsoft Teams — 메시지 보내기</h3>
-    <p>Teams 채널의 메시지를 읽거나, Claude가 직접 메시지를 보낼 수 있어요. "오늘 공지 채널에서 논의된 내용 요약해줘" 같은 것도 가능해요.</p>
+    <h3>Microsoft Teams: 메시지 보내기</h3>
+    <p>Teams 채널의 메시지를 읽거나, Claude가 직접 메시지를 보내요. "오늘 공지 채널에서 논의된 내용 요약해줘" 같은 것도 가능해요.</p>
     <p>Slack, Discord를 쓰는 팀이라면 그쪽 MCP 서버로 <strong>그대로 대체</strong>됩니다. 도구만 바뀌고 쓰는 방식은 같아요.</p>
 
-    <h3>Google Drive — 문서 접근</h3>
-    <p>Google Drive의 문서, 스프레드시트, 프레젠테이션에 접근해서 내용을 분석하거나 수정할 수 있어요.</p>
+    <h3>Google Drive: 문서 접근</h3>
+    <p>Google Drive의 문서, 스프레드시트, 프레젠테이션에 접근해서 내용을 분석하거나 수정해요.</p>
 
     <h2>MCP 서버 설정하기</h2>
 
@@ -204,7 +204,7 @@
   }
 }</code></pre>
 
-    <p>이 설정을 하면 Claude Desktop이 바탕화면과 문서 폴더의 파일을 읽고 쓸 수 있게 돼요.</p>
+    <p>이 설정을 하면 Claude Desktop이 바탕화면과 문서 폴더의 파일을 읽고 쓰게 돼요.</p>
 
     <div class="callout">
       <p class="callout-title">보안 주의!</p>
@@ -226,7 +226,7 @@
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-github"],
       "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_여러분의토큰"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_발급받은토큰"
       }
     }
   }
@@ -259,8 +259,8 @@
       <ul>
         <li><strong>Claude Desktop</strong> = Claude.ai + 로컬 시스템 접근 능력</li>
         <li><strong>MCP</strong>는 Claude에게 새 능력을 추가하는 "앱 스토어" 같은 것</li>
-        <li><strong>Filesystem MCP</strong>로 로컬 파일을 읽고 쓸 수 있다</li>
-        <li>GitHub, Microsoft Teams, DB 등 다양한 MCP 서버를 연결할 수 있다</li>
+        <li><strong>Filesystem MCP</strong>로 로컬 파일을 읽고 쓴다</li>
+        <li>GitHub, Microsoft Teams, DB 등 다양한 MCP 서버를 연결한다</li>
         <li>설정은 <code>claude_desktop_config.json</code>에서 JSON으로 간단하게</li>
         <li>보안을 위해 필요한 폴더만 지정하자</li>
       </ul>
