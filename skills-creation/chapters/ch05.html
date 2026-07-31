@@ -156,7 +156,7 @@
     ├── templates.md
     └── examples.md</code></pre>
 
-      <p><code>references/</code>는 이름 그대로 <strong>"참고 자료" 폴더</strong>예요.</p>
+      <p><code>references/</code>는 이름 그대로 <strong>"참고 자료" 폴더</strong>예요. 스킬 폴더 <strong>안에 있는 하위 폴더</strong>라서, 그 스킬만 쓰는 자료를 담아요. 스킬끼리 자료를 나눠 쓰는 방법은 챕터 14의 <code>shared-references/</code>에서 따로 다뤄요.</p>
 
       <p>SKILL.md가 "메인 설명서"라면, references/ 안의 파일들은 "부록"이에요. 교과서의 본문과 부록의 관계라고 생각하면 돼요.</p>
 
@@ -170,7 +170,7 @@
 
       <ul>
         <li>SKILL.md가 너무 길어져서 읽기 어려울 때</li>
-        <li>여러 스킬이 같은 참고 자료를 공유해야 할 때</li>
+        <li>한 스킬 안에서 여러 지시가 같은 자료를 봐야 할 때 (예: 3단계와 5단계가 같은 문체 가이드를 참고)</li>
         <li>참고 자료를 따로 관리하고 싶을 때</li>
       </ul>
 
@@ -304,10 +304,12 @@ weeklyreportwriter     (읽기 어려워요)</code></pre>
 
       <pre><code>references/issue-taxonomy.md      (이슈 분류표)
 references/style-guide.md         (문체 가이드)
-templates/qa-report-template.md   (보고서 양식)
-specialists/security.md           (보안 전문 지침)</code></pre>
+references/qa-report-template.md  (보고서 양식)
+references/security.md            (보안 전문 지침)</code></pre>
 
       <p>정문 간판만 크게 써 붙이고, 안쪽 방들은 조용한 소문자로. 이렇게 기억하면 헷갈리지 않아요.</p>
+
+      <p>참고로 <code>SKILL.md</code> 말고는 <strong>폴더 이름을 자유롭게 만들어도 돼요.</strong> 위에서 소개한 <code>references/</code>, <code>bin/</code>, <code>src/</code>는 많이 쓰이는 이름일 뿐 강제 규칙이 아니에요. 자료가 많아지면 <code>templates/</code>든 <code>specialists/</code>든 내가 알아보기 좋은 이름으로 나누면 되고, <code>SKILL.md</code>에서 그 경로를 가리켜주기만 하면 돼요. 파일명 대소문자도 마찬가지로 취향이에요. 한 스킬 안에서만 일관되면 충분해요.</p>
     </section>
 
     <!-- ====== The Golden Rule ====== -->

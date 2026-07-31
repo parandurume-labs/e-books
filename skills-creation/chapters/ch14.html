@@ -311,9 +311,19 @@ cd marketing-skills</code></pre>
 
       <h3>3단계: 개별 스킬 폴더 만들기</h3>
 
-      <pre><code>mkdir -p skill-copy-write/references
-mkdir -p skill-social-post/references
-mkdir -p skill-report/references</code></pre>
+      <pre><code>mkdir skill-copy-write
+mkdir skill-copy-write/references
+mkdir skill-social-post
+mkdir skill-social-post/references
+mkdir skill-report
+mkdir skill-report/references</code></pre>
+
+      <p>Mac이나 Linux 터미널이라면 <code>mkdir -p skill-copy-write/references</code>처럼 <code>-p</code> 옵션으로 한 줄에 끝낼 수 있어요. 다만 <strong>Windows PowerShell에서는 <code>-p</code>가 에러</strong>가 나니까, 위처럼 한 단계씩 나눠서 만드세요.</p>
+
+      <div class="callout">
+        <p class="callout-title">여기도 마우스로 됩니다</p>
+        <p>명령어 대신 탐색기나 Finder에서 폴더를 하나씩 만들어도 결과는 똑같아요. 폴더 구조만 맞으면 어떻게 만들었는지는 아무도 신경 쓰지 않아요.</p>
+      </div>
 
       <p>각 스킬의 <code>SKILL.md</code>를 만들면 끝이에요. 우리가 이전 챕터에서 배운 것 그대로요.</p>
 
@@ -373,6 +383,47 @@ mkdir -p skill-report/references</code></pre>
       </div>
     </section>
 
+    <!-- ====== Installing a monorepo ====== -->
+    <section>
+      <h2>모노레포는 통째로 설치해야 해요</h2>
+
+      <p>여기서 아주 중요한 이야기를 하나 해야 해요. 안 하면 이 챕터 전체가 따라 할 수 없는 챕터가 되거든요.</p>
+
+      <p>챕터 8에서 배운 설치는 <strong>"스킬 폴더 하나를 <code>.claude/skills/</code> 안에 넣기"</strong>였죠. 그런데 모노레포에서 <code>skill-review/</code> 폴더 하나만 복사하면 어떻게 될까요?</p>
+
+      <div class="scenario-box">
+        <code>shared-references/</code>가 안 따라옵니다.<br><br>
+        <code>SKILL.md</code>에는 "shared-references/coding-standards.md를 읽고"라고 적혀 있는데, 그 파일이 없어요. 스킬이 반쪽만 온 거예요.
+      </div>
+
+      <p>그래서 규칙은 이거예요.</p>
+
+      <div class="callout">
+        <p class="callout-title">모노레포 설치 규칙</p>
+        <p><strong>모노레포는 저장소 전체를 <code>.claude/skills/</code> 아래에 통째로 두어야 <code>shared-references/</code> 경로가 맞아요.</strong><br><br>
+        스킬 폴더 하나만 뽑아 오면 공유 참조 파일이 따라오지 않아서, 저장소 루트 기준으로 적어둔 경로가 전부 어긋나요.</p>
+      </div>
+
+      <h3>방법 1: 폴더째 복사하기</h3>
+
+      <p><code>marketing-skills</code> 폴더 전체를 <code>.claude/skills/</code> 안으로 옮기면 돼요. 탐색기나 Finder로 폴더를 끌어다 놓아도 똑같아요.</p>
+
+      <pre><code>cp -r marketing-skills ~/.claude/skills/</code></pre>
+
+      <p>이렇게 하면 최종 경로가 <code>~/.claude/skills/marketing-skills/shared-references/</code>가 되고, 저장소 루트를 기준으로 적어둔 경로가 그대로 맞아떨어져요.</p>
+
+      <h3>방법 2: 저장소를 통째로 clone 하기</h3>
+
+      <p>모노레포가 GitHub에 올라가 있다면, 스킬 폴더 안에서 저장소 전체를 받아오면 돼요.</p>
+
+      <pre><code>cd ~/.claude/skills/
+git clone https://github.com/내아이디/marketing-skills.git</code></pre>
+
+      <p>이 방법의 좋은 점은 나중에 <code>git pull</code> 한 줄로 스킬 전부를 한꺼번에 업데이트할 수 있다는 거예요. 모노레포의 장점이 설치 이후에도 이어지는 거죠.</p>
+
+      <p>실제로 이 책에서 계속 언급한 gstack도 이렇게 설치돼 있어요. <code>~/.claude/skills/gstack/</code> 아래에 저장소 전체가 들어가 있고, 그 안에 <code>qa/</code>, <code>browse/</code>, <code>review/</code> 같은 스킬 폴더들이 나란히 있어요 (2026년 7월 확인). <code>qa</code> 스킬만 따로 뽑아 온 게 아니라 저장소를 통째로 둔 거예요.</p>
+    </section>
+
     <!-- ====== Recap ====== -->
     <aside class="recap-box">
       <h3>잠깐, 정리!</h3>
@@ -382,6 +433,7 @@ mkdir -p skill-report/references</code></pre>
         <li><strong>3개 이상</strong>의 관련 스킬이 있고, 공통 자원을 공유할 때 쓰면 좋아요.</li>
         <li>구조: 최상위 폴더 안에 <code>shared-references/</code>와 개별 스킬 폴더들을 배치해요.</li>
         <li>실제 사례: gstack은 browse, benchmark, canary, review 등 여러 스킬을 하나의 모노레포로 관리해요.</li>
+        <li><strong>설치는 통째로.</strong> 스킬 폴더 하나만 복사하면 <code>shared-references/</code>가 안 따라와서 경로가 깨져요. 저장소 전체를 <code>.claude/skills/</code> 아래에 두세요.</li>
         <li>주의: 관련 없는 스킬을 억지로 모으지 마세요. <strong>"관련된 것만 모으기"</strong>가 핵심!</li>
       </ul>
     </aside>

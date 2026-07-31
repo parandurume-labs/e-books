@@ -88,6 +88,21 @@
       <p>Claude Code는 하나만 실행할 수 있는 게 아니에요. 여러 터미널에서 동시에 실행하면, 마치 여러 명의 전문가가 동시에 일하는 것과 같아요.</p>
     </section>
 
+    <!-- ====== git threshold ====== -->
+    <section>
+      <div class="callout callout-warning">
+        <p class="callout-title">이 장부터는 git을 조금 알아야 해요</p>
+        <p>12장까지는 Claude와 대화만 하면 됐는데, 이 장에는 <strong>git</strong>이라는 도구의 말이 섞여 나와요. 여럿이 같은 코드를 동시에 고칠 때 서로 밟지 않게 해주는 도구예요. 여기서는 그 「여럿」이 여러 개의 Claude죠. 아직 안 깔았다면 <a href="https://git-scm.com" target="_blank" rel="noopener">git-scm.com</a>에서 받아 설치하세요.</p>
+        <p>깊이 알 필요는 없어요. 세 단어만 알면 이 장을 끝까지 따라올 수 있어요.</p>
+        <ul>
+          <li><strong>커밋(commit) = 세이브 포인트.</strong> 지금 상태를 저장해 두는 거예요. 나중에 이 지점으로 돌아올 수 있죠</li>
+          <li><strong>브랜치(branch) = 평행 세계.</strong> 원래 코드는 그대로 두고 갈라져 나온 사본이에요. 여기서 마음껏 부숴도 원래 쪽은 멀쩡해요</li>
+          <li><strong>PR(Pull Request) = 합치기 요청.</strong> 평행 세계에서 한 일을 원래 세계에 합쳐 달라고 내는 요청서예요. 합치기 전에 한 번 확인할 자리를 만들어 주죠</li>
+        </ul>
+        <p>이 셋은 전부 Claude에게 시켜도 돼요. 「지금까지 한 거 커밋해줘」, 「feature/login 브랜치 만들어줘」처럼 말하면 Claude가 명령어를 대신 쳐요. 직접 외울 필요는 없고, 말이 나왔을 때 무슨 뜻인지만 알면 충분해요.</p>
+      </div>
+    </section>
+
     <!-- ====== Parallel Sessions ====== -->
     <section>
       <h2>전략 1: 병렬 세션 · 여러 터미널에서 동시에</h2>
@@ -214,12 +229,13 @@
         <ol>
           <li>터미널 두 개를 열어요 (VS Code에서 터미널 분할하면 쉬워요)</li>
           <li>같은 프로젝트 폴더로 이동하세요</li>
-          <li><strong>터미널 1</strong>에서: "index.html을 만들어줘. 간단한 할 일 목록 앱이야. UI만 먼저 만들어줘."</li>
-          <li><strong>터미널 2</strong>에서: "style.css를 만들어줘. 할 일 목록 앱을 위한 깔끔한 스타일이야. 파란색 테마로."</li>
+          <li><strong>터미널 1</strong>에서: "index.html을 만들어줘. 간단한 할 일 목록 앱이야. UI만 먼저 만들어줘. <code>style.css</code>를 불러오는 <code>&lt;link&gt;</code> 태그를 넣어주고, 클래스 이름은 <code>.todo-list</code>와 <code>.todo-item</code>으로 해줘."</li>
+          <li><strong>터미널 2</strong>에서: "style.css를 만들어줘. 할 일 목록 앱을 위한 깔끔한 스타일이야. 파란색 테마로. <code>.todo-list</code>와 <code>.todo-item</code> 두 클래스에 스타일을 넣어줘."</li>
           <li>두 Claude가 동시에 일하는 걸 지켜보세요!</li>
-          <li>두 결과물을 합쳐서 브라우저에서 확인해보세요</li>
+          <li>브라우저에서 <code>index.html</code>을 열어 보세요. 파란 스타일이 입혀져 있으면 성공이에요</li>
         </ol>
-        <p>각자 다른 파일을 담당하게 하면 충돌 없이 깔끔하게 동시 작업이 가능해요.</p>
+        <p>3번과 4번에서 <strong>파일 이름과 클래스 이름을 미리 못 박은 게 이 실습의 전부</strong>예요. 앞에서 말한 「연결 규칙을 미리 정해두면 충돌 없이 동시 작업」의 가장 작은 실물이 이거죠.</p>
+        <p>정해주지 않으면 어떻게 되냐면, 두 세션은 서로의 대화를 모르니까 각자 다른 클래스 이름을 지어내요. <code>index.html</code>이 <code>style.css</code>를 불러오지도 않고요. 브라우저에서 열면 스타일이 하나도 안 먹은 맨 페이지가 나와요. 같은 파일을 안 건드리는 것만으로는 부족하고, <strong>둘이 만나는 지점을 먼저 정해줘야</strong> 해요.</p>
       </div>
     </section>
 

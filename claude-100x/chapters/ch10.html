@@ -141,6 +141,8 @@
         <li>소리 알림 울리기</li>
       </ul>
 
+      <p>Notification은 <strong>소개만 하고 설정 예시는 생략할게요.</strong> <code>matcher</code>에 무엇을 넣어야 하는지가 앞의 둘과 달라서, 확실하지 않은 걸 적어두는 것보다 공식 문서를 보시는 편이 나아요. 이 장의 예시는 PreToolUse와 PostToolUse 둘로만 갈게요. 이 둘만으로도 할 수 있는 일이 충분히 많아요.</p>
+
       <!-- SVG Diagram -->
       <figure class="illustration">
         <svg viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg" style="max-width:700px;">
@@ -247,9 +249,17 @@
 
       <p>그래서 Hook 스크립트는 <code>INPUT=$(cat)</code>으로 이 JSON을 읽고, 그 안에서 필요한 값을 꺼내 써요. 한 줄짜리 명령어로 쓰기엔 길어지니까, 앞으로의 예시는 <code>.claude/hooks/</code> 폴더에 셸 스크립트를 두고 settings.json이 그 스크립트를 가리키게 할게요.</p>
 
+      <div class="callout callout-warning">
+        <p class="callout-title">여기서부터의 예시는 맥·리눅스 기준이에요</p>
+        <p>이 절부터 나오는 스크립트는 맥과 리눅스의 셸을 기준으로 썼어요. <strong>윈도우라면 PowerShell 말고 Git Bash나 WSL에서 하세요.</strong> Git Bash는 <a href="https://git-scm.com" target="_blank" rel="noopener">git-scm.com</a>에서 Git을 설치할 때 함께 깔려요. PowerShell에는 <code>chmod</code>가 없고 <code>.sh</code> 파일도 그냥은 실행되지 않아서, 7장에서 안내한 대로 PowerShell을 열어둔 채로는 여기 예시가 하나도 안 돌아가요.</p>
+        <p>준비물이 하나 더 있어요. 아래 스크립트들은 stdin으로 들어온 JSON을 읽는 데 <strong><code>python3</code></strong>을 써요. 터미널에서 <code>python3 --version</code>을 먼저 쳐보세요. 버전이 안 나오면 <a href="https://www.python.org" target="_blank" rel="noopener">python.org</a>에서 받아 설치하고 오세요.</p>
+        <p><strong>이건 그냥 넘어가도 되는 잔소리가 아니에요.</strong> <code>python3</code>이 없으면 스크립트가 실패하는데, 바로 다음 절에서 볼 것처럼 <strong>실패한 Hook은 도구를 막지 못하고 그대로 통과시켜요.</strong> 막았다고 믿고 있는데 실은 아무것도 안 막히는 상태가 되는 거죠. 그래서 설치 확인을 먼저 하는 거예요.</p>
+      </div>
+
       <div class="callout">
-        <p class="callout-title">스크립트를 만들면 실행 권한을 주세요</p>
-        <p>스크립트 파일을 만든 다음에는 <code>chmod +x .claude/hooks/스크립트이름.sh</code>를 한 번 실행하세요. 실행 권한이 없으면 Hook이 조용히 실패해요.</p>
+        <p class="callout-title">스크립트를 만들면 실행 권한을 주세요 (맥·리눅스에서만)</p>
+        <p>맥·리눅스에서는 스크립트 파일을 만든 다음에 <code>chmod +x .claude/hooks/스크립트이름.sh</code>를 한 번 실행하세요. 실행 권한이 없으면 Hook이 조용히 실패해요.</p>
+        <p>윈도우에는 <code>chmod</code>라는 명령 자체가 없어요. 위에서 안내한 Git Bash를 쓰고 있다면 같은 명령을 그대로 치면 돼요.</p>
       </div>
     </section>
 
@@ -418,8 +428,9 @@ fi</code></pre>
     <section>
       <div class="exercise-box">
         <p class="exercise-title">직접 해보기: 첫 번째 Hook 설정</p>
+        <p>이 실습에는 준비물이 없어요. 앞의 예시들과 달리 셸 스크립트도 <code>python3</code>도 안 쓰거든요.</p>
         <ol>
-          <li>프로젝트 폴더에 <code>.claude</code> 폴더를 만드세요 (없으면)</li>
+          <li>프로젝트 폴더에 <code>.claude</code> 폴더를 만드세요 (없으면). <strong>탐색기가 점으로 시작하는 폴더 이름을 거부하면, Claude Code를 켜고 「<code>.claude/settings.json</code> 만들어줘」라고 시키세요.</strong> 사실 이게 가장 쉬운 길이에요. 폴더와 빈 파일을 한 번에 만들어줘요</li>
           <li><code>.claude/settings.json</code> 파일을 만드세요</li>
           <li>아래 내용을 넣어보세요:
             <pre><code>{
@@ -430,7 +441,7 @@ fi</code></pre>
         "hooks": [
           {
             "type": "command",
-            "command": "echo '파일이 저장됨: 확인 완료!'"
+            "command": "echo '파일이 저장됨' &gt;&gt; .claude/hook-log.txt"
           }
         ]
       }
@@ -439,8 +450,9 @@ fi</code></pre>
 }</code></pre>
           </li>
           <li>Claude Code를 실행하고 "hello.txt 파일을 만들어줘"라고 요청하세요</li>
-          <li>파일이 저장된 후 자동으로 메시지가 출력되는지 확인하세요!</li>
+          <li><code>.claude/hook-log.txt</code> 파일을 열어 보세요. 「파일이 저장됨」이 한 줄 적혀 있으면 Hook이 제대로 돈 거예요</li>
         </ol>
+        <p>화면에는 아무것도 안 뜨는 게 정상이에요. 놀라지 마세요. Hook이 화면에 찍는 글자는 어디로 가는지 알기 어려워서, <strong>일부러 파일에 남기게 했어요.</strong> <code>&gt;&gt;</code>가 「앞의 결과를 이 파일 끝에 덧붙여라」는 뜻이에요. 눈으로 확인할 수 있는 흔적을 만드는 게 첫 Hook에서는 제일 중요해요.</p>
       </div>
     </section>
 

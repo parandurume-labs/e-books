@@ -112,8 +112,9 @@
       <p><strong>1. SKILL.md가 100줄을 넘어갈 때</strong></p>
       <p>너무 길면 AI도 핵심을 놓칠 수 있어요. 핵심 지시는 SKILL.md에, 부가 지식은 references/에.</p>
 
-      <p><strong>2. 여러 스킬이 같은 지식을 공유할 때</strong></p>
-      <p>"격식체 가이드"를 이메일 스킬, 보고서 스킬, 공지사항 스킬이 모두 참고한다면? 한 곳에 적어두고 세 스킬이 모두 참조하면 돼요.</p>
+      <p><strong>2. 한 스킬 안에서 여러 지시가 같은 자료를 볼 때</strong></p>
+      <p>"격식체 가이드"를 미팅 요청 절차에서도 보고, 감사 메일 절차에서도 보고, 마무리 점검에서도 본다면? 같은 내용을 세 번 적는 대신 <code>references/</code>에 한 번 적어두고 세 군데에서 가리키면 돼요.</p>
+      <p><code>references/</code>는 스킬 폴더 안의 하위 폴더라서, 다른 스킬은 이 파일을 보지 못해요. <strong>여러 스킬이 같은 자료를 봐야 한다면 챕터 14의 <code>shared-references/</code></strong>를 보세요. 그건 별개의 기법이에요.</p>
 
       <p><strong>3. 지식이 자주 업데이트될 때</strong></p>
       <p>이메일 템플릿 모음이 매달 바뀐다면? SKILL.md를 통째로 고칠 필요 없이, references/ 안의 템플릿 파일만 업데이트하면 돼요.</p>
@@ -149,7 +150,10 @@
 
       <p>부록부터 만들어볼게요. 먼저 폴더를 만드세요:</p>
 
-<pre><code>mkdir -p korean-email-writer/references</code></pre>
+<pre><code>mkdir korean-email-writer
+mkdir korean-email-writer/references</code></pre>
+
+      <p>Mac이나 Linux라면 <code>mkdir -p korean-email-writer/references</code>로 한 줄에 끝낼 수 있는데, Windows PowerShell에서는 <code>-p</code>가 에러라서 위처럼 두 줄로 나눴어요. 탐색기나 Finder로 폴더 두 개를 만들어도 똑같고요.</p>
 
       <p><strong>references/TONE-GUIDE.md (격식/비격식 가이드):</strong></p>
 
@@ -294,11 +298,13 @@
 
       <h3>2단계: SKILL.md 작성하기</h3>
 
-      <p>이제 메인 레시피, SKILL.md를 만들어요:</p>
+      <p>이제 메인 레시피, SKILL.md를 만들어요. 이 스킬은 <code>references/</code> 안의 파일 셋을 읽어야 하니까, 챕터 10에서 배운 대로 <code>allowed-tools</code>에 <code>Read</code>를 넣어줘요:</p>
 
 <pre><code>---
 name: korean-email-writer
 description: "상황에 맞는 한국어 비즈니스 이메일을 작성해주는 스킬"
+allowed-tools:
+  - Read
 ---
 
 # 한국어 이메일 작성기
@@ -359,15 +365,16 @@ description: "상황에 맞는 한국어 비즈니스 이메일을 작성해주�
       <p><strong>1. 업데이트가 쉬워요</strong></p>
       <p>새로운 이메일 템플릿을 추가하고 싶으면? <code>TEMPLATES.md</code>만 수정하면 돼요. SKILL.md는 건드릴 필요 없어요. 마치 요리책의 부록에 새 도구 설명을 추가하는 것처럼요.</p>
 
-      <p><strong>2. 재사용할 수 있어요</strong></p>
-      <p><code>TONE-GUIDE.md</code>를 다른 스킬에서도 쓸 수 있어요. "한국어 보고서 작성기" 스킬을 만들 때, 같은 톤 가이드를 참조하면 되니까요.</p>
+      <p><strong>2. 스킬 안에서 재사용할 수 있어요</strong></p>
+      <p><code>TONE-GUIDE.md</code> 하나를 이 스킬의 여러 절차가 돌려 쓸 수 있어요. 미팅 요청도, 감사 메일도, 진행 상황 공유도 같은 톤 가이드를 가리키면 되니까요. 나중에 "한국어 보고서 작성기" 같은 <strong>다른 스킬</strong>과 이 가이드를 나눠 쓰고 싶어지면, 그때는 챕터 14의 <code>shared-references/</code>로 옮기는 게 답이에요.</p>
 
       <p><strong>3. 읽기 쉬워요</strong></p>
       <p>SKILL.md가 300줄짜리 한 파일이면 누가 읽고 싶겠어요? 각 파일이 30-50줄이면 훨씬 관리하기 편하죠.</p>
 
       <div class="callout">
         <p class="callout-title">실제 사용 팁</p>
-        <p>references/ 파일은 마크다운(.md) 형식으로 작성하세요. AI가 마크다운을 가장 잘 이해해요. 그리고 파일명은 영어 대문자로, 내용을 바로 알 수 있게 지으세요. <code>ref1.md</code>보다 <code>TONE-GUIDE.md</code>가 훨씬 명확하죠.</p>
+        <p>references/ 파일은 마크다운(.md) 형식으로 작성하세요. AI가 마크다운을 가장 잘 이해해요. 그리고 파일명은 내용을 바로 알 수 있게 지으세요. <code>ref1.md</code>보다 <code>TONE-GUIDE.md</code>가 훨씬 명확하죠.</p>
+        <p>대소문자는 규칙이 아니라 취향이에요. 한 스킬 안에서만 일관되면 돼요. 챕터 5에서 본 <code>style-guide.md</code>처럼 소문자로 가도 되고, 여기처럼 <code>TONE-GUIDE.md</code>로 가도 돼요. 둘을 섞어 쓰는 것만 피하세요. 딱 하나 예외가 <code>SKILL.md</code>인데, 이건 취향이 아니라 규칙이라 반드시 대문자예요.</p>
       </div>
     </section>
 
@@ -399,7 +406,9 @@ description: "상황에 맞는 한국어 비즈니스 이메일을 작성해주�
       <ul>
         <li><strong>references/</strong>는 스킬의 "부록"이에요. 배경 지식, 데이터, 템플릿을 분리해서 보관하는 곳.</li>
         <li><strong>SKILL.md</strong> = "뭘 해야 하는지" (행동 지시), <strong>references/</strong> = "뭘 알아야 하는지" (참고 자료)</li>
-        <li>references 사용이 필요한 때: SKILL.md가 너무 길어질 때, 여러 스킬이 같은 지식을 공유할 때, 지식이 자주 바뀔 때</li>
+        <li>references 사용이 필요한 때: SKILL.md가 너무 길어질 때, 한 스킬 안에서 여러 지시가 같은 자료를 볼 때, 지식이 자주 바뀔 때</li>
+        <li>스킬끼리 자료를 나눠 쓰는 건 <code>references/</code>로 안 돼요. <strong>챕터 14의 <code>shared-references/</code></strong>가 그 역할이에요</li>
+        <li><code>references/</code> 파일을 읽는 스킬은 <code>allowed-tools</code>에 <code>Read</code>를 넣어주세요</li>
         <li><strong>한 파일 한 주제</strong>, <strong>명확한 파일명</strong>, <strong>3-5개 이내</strong>가 베스트 프랙티스</li>
         <li>references/ 파일을 수정하면 스킬이 <strong>즉시 새 지식을 반영</strong>해요</li>
       </ul>

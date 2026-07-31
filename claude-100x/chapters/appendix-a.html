@@ -94,9 +94,19 @@
         </thead>
         <tbody>
           <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>~</strong> (물결표)</td>
+            <td style="padding:var(--space-3);">tilde / home directory</td>
+            <td style="padding:var(--space-3);">내 홈 폴더를 가리키는 기호. 윈도우면 <code>C:\Users\내이름</code>, 맥이면 <code>/Users/내이름</code>이에요. 그래서 <code>~/.claude/CLAUDE.md</code>는 홈 폴더 안의 <code>.claude</code> 폴더에 있는 파일이라는 뜻이죠.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
             <td style="padding:var(--space-3);"><strong>.claude/settings.json</strong></td>
             <td style="padding:var(--space-3);">.claude/settings.json</td>
             <td style="padding:var(--space-3);">프로젝트의 Claude Code 설정 파일. <code>permissions.deny</code>에 <code>Read(./.env)</code>처럼 적으면 민감한 정보(API 키, 비밀번호 등)를 Claude가 읽지 못하게 막아요. Hook 설정도 이 파일에 넣어요.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>.env</strong></td>
+            <td style="padding:var(--space-3);">.env</td>
+            <td style="padding:var(--space-3);">환경 변수를 모아 적어두는 파일. API 키나 비밀번호처럼 코드에 그대로 적으면 안 되는 값을 여기에 두고, 코드는 이 파일에서 값을 읽어요. 서버에서 도는 프로그램이 쓰는 방식이라, 브라우저에서만 도는 페이지는 이 파일을 읽지 못해요.</td>
           </tr>
           <tr style="border-bottom:1px solid var(--color-border-light);">
             <td style="padding:var(--space-3);"><strong>.mcp.json</strong></td>
@@ -161,6 +171,33 @@
       </table>
     </section>
 
+    <!-- ====== ㅂ ====== -->
+    <section>
+      <h2>ㅂ</h2>
+
+      <table style="width:100%; border-collapse:collapse; margin-bottom:var(--space-6);">
+        <thead>
+          <tr style="border-bottom:2px solid var(--color-border);">
+            <th style="text-align:left; padding:var(--space-3); width:25%;">용어</th>
+            <th style="text-align:left; padding:var(--space-3); width:25%;">영어</th>
+            <th style="text-align:left; padding:var(--space-3); width:50%;">설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>배포</strong></td>
+            <td style="padding:var(--space-3);">Deploy</td>
+            <td style="padding:var(--space-3);">내 컴퓨터에서만 돌던 것을 인터넷에 올려서 누구나 볼 수 있게 하는 일. 12장에서 GitHub Pages, Vercel 같은 무료 방법을 다뤘어요.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>브랜치</strong></td>
+            <td style="padding:var(--space-3);">Branch</td>
+            <td style="padding:var(--space-3);">git에서 원래 코드를 건드리지 않고 갈라져 나온 사본. 평행 세계라고 생각하면 돼요. 여기서 마음껏 고쳐도 원래 쪽은 그대로예요.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
     <!-- ====== ㅅ ====== -->
     <section>
       <h2>ㅅ</h2>
@@ -178,6 +215,16 @@
             <td style="padding:var(--space-3);"><strong>생성형 AI</strong></td>
             <td style="padding:var(--space-3);">Generative AI</td>
             <td style="padding:var(--space-3);">기존 데이터를 학습해서 새로운 텍스트, 이미지, 코드를 만들어내는 AI. Claude가 바로 생성형 AI예요.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>서브에이전트</strong></td>
+            <td style="padding:var(--space-3);">Subagent</td>
+            <td style="padding:var(--space-3);">Claude가 세부 작업을 맡기려고 불러내는 또 다른 Claude. 팀장이 대리에게 일을 나눠주는 것과 비슷해요. 13장에서 다뤘어요.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>셸 스크립트</strong></td>
+            <td style="padding:var(--space-3);">Shell Script</td>
+            <td style="padding:var(--space-3);">터미널에 한 줄씩 칠 명령어를 파일에 미리 적어둔 것. 보통 <code>.sh</code>로 끝나요. 맥·리눅스에서 그대로 돌고, 윈도우에서는 Git Bash나 WSL이 있어야 해요. 10장의 Hook 예시가 셸 스크립트예요.</td>
           </tr>
           <tr style="border-bottom:1px solid var(--color-border-light);">
             <td style="padding:var(--space-3);"><strong>스킬</strong></td>
@@ -220,6 +267,33 @@
       </table>
     </section>
 
+    <!-- ====== ㅈ ====== -->
+    <section>
+      <h2>ㅈ</h2>
+
+      <table style="width:100%; border-collapse:collapse; margin-bottom:var(--space-6);">
+        <thead>
+          <tr style="border-bottom:2px solid var(--color-border);">
+            <th style="text-align:left; padding:var(--space-3); width:25%;">용어</th>
+            <th style="text-align:left; padding:var(--space-3); width:25%;">영어</th>
+            <th style="text-align:left; padding:var(--space-3); width:50%;">설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>저장소</strong></td>
+            <td style="padding:var(--space-3);">Repository (repo)</td>
+            <td style="padding:var(--space-3);">git이 변경 이력을 관리하는 프로젝트 폴더 하나. GitHub에 올라와 있는 것도 저장소예요. 「저장소 루트」는 그 폴더의 최상위를 뜻해요.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>종료 코드</strong></td>
+            <td style="padding:var(--space-3);">Exit Code</td>
+            <td style="padding:var(--space-3);">프로그램이 끝나면서 남기고 가는 숫자 하나. <code>0</code>은 「잘 끝났다」, 0이 아니면 「문제가 있었다」예요. Claude Code의 Hook은 <code>exit 2</code>일 때만 도구를 차단해요. 10장에서 자세히 다뤘어요.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
     <!-- ====== ㅋ ====== -->
     <section>
       <h2>ㅋ</h2>
@@ -234,9 +308,36 @@
         </thead>
         <tbody>
           <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>커밋</strong></td>
+            <td style="padding:var(--space-3);">Commit</td>
+            <td style="padding:var(--space-3);">git으로 지금 상태를 저장해 두는 일. 게임의 세이브 포인트예요. 나중에 이 지점으로 돌아올 수 있어요.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
             <td style="padding:var(--space-3);"><strong>컨텍스트 윈도우</strong></td>
             <td style="padding:var(--space-3);">Context Window</td>
             <td style="padding:var(--space-3);">Claude가 한 번에 기억하는 대화의 양. 책상 위 공간과 비슷해요. 공간이 한정돼 있어서, 대화가 길어지면 앞부분을 잊어요.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ====== ㅌ ====== -->
+    <section>
+      <h2>ㅌ</h2>
+
+      <table style="width:100%; border-collapse:collapse; margin-bottom:var(--space-6);">
+        <thead>
+          <tr style="border-bottom:2px solid var(--color-border);">
+            <th style="text-align:left; padding:var(--space-3); width:25%;">용어</th>
+            <th style="text-align:left; padding:var(--space-3); width:25%;">영어</th>
+            <th style="text-align:left; padding:var(--space-3); width:50%;">설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>터미널</strong></td>
+            <td style="padding:var(--space-3);">Terminal</td>
+            <td style="padding:var(--space-3);">컴퓨터에게 글로 명령하는 까만 창. 마우스로 클릭하는 대신 키보드로 타이핑해요. 윈도우는 PowerShell, 맥은 터미널 앱이에요. 여는 법은 7장에 있어요.</td>
           </tr>
         </tbody>
       </table>
@@ -293,6 +394,11 @@
             <td style="padding:var(--space-3);">Claude가 답변하기 전에 깊이 생각하는 기능. 복잡한 문제에서 더 정확한 답을 얻을 수 있어요.</td>
           </tr>
           <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>환경 변수</strong></td>
+            <td style="padding:var(--space-3);">Environment Variable</td>
+            <td style="padding:var(--space-3);">프로그램이 실행될 때 바깥에서 넘겨받는 값. 비밀번호나 API 키를 코드에 직접 적지 않고 이 자리에 두면, 코드를 남에게 보여줘도 비밀은 새지 않아요. 보통 <code>.env</code> 파일에 적어둬요.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
             <td style="padding:var(--space-3);"><strong>훅</strong></td>
             <td style="padding:var(--space-3);">Hooks</td>
             <td style="padding:var(--space-3);">Claude가 도구를 사용하기 전이나 후에 자동으로 실행되는 명령어. "파일 저장 시 자동 포맷팅" 같은 자동화를 만들어요.</td>
@@ -320,6 +426,11 @@
             <td style="padding:var(--space-3);">프로그램과 프로그램이 대화하는 방법. 식당의 주문 시스템처럼, 정해진 방식으로 요청하면 결과를 받아요.</td>
           </tr>
           <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>CI</strong></td>
+            <td style="padding:var(--space-3);">Continuous Integration</td>
+            <td style="padding:var(--space-3);">코드를 올릴 때마다 서버가 자동으로 테스트를 돌려주는 장치. 사람이 깜빡해도 기계가 대신 확인해줘요. 「지속적 통합」이라고 번역해요.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
             <td style="padding:var(--space-3);"><strong>CLI</strong></td>
             <td style="padding:var(--space-3);">Command Line Interface</td>
             <td style="padding:var(--space-3);">키보드로 명령어를 입력해서 컴퓨터를 제어하는 방식. 터미널, 명령 프롬프트가 CLI예요. Claude Code가 CLI로 동작해요.</td>
@@ -338,6 +449,38 @@
             <td style="padding:var(--space-3);"><strong>Claude Desktop</strong></td>
             <td style="padding:var(--space-3);">Claude Desktop</td>
             <td style="padding:var(--space-3);">데스크톱 앱으로 설치하는 Claude. MCP 서버를 연결해서 내 컴퓨터의 파일, DB 등과 직접 소통해요.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ====== 영문 G-L ====== -->
+    <section>
+      <h2>G~L</h2>
+
+      <table style="width:100%; border-collapse:collapse; margin-bottom:var(--space-6);">
+        <thead>
+          <tr style="border-bottom:2px solid var(--color-border);">
+            <th style="text-align:left; padding:var(--space-3); width:25%;">용어</th>
+            <th style="text-align:left; padding:var(--space-3); width:25%;">영어</th>
+            <th style="text-align:left; padding:var(--space-3); width:50%;">설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>git</strong></td>
+            <td style="padding:var(--space-3);">git</td>
+            <td style="padding:var(--space-3);">코드의 변경 이력을 관리하는 도구. 언제 누가 뭘 고쳤는지 남기고, 이전 상태로 돌아갈 수 있게 해줘요. 인터넷에 공개된 저장소를 통째로 받아올 때도 써요. <a href="https://git-scm.com" target="_blank" rel="noopener">git-scm.com</a>에서 받아요. 9장, 13장에 나와요.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>Git Bash</strong></td>
+            <td style="padding:var(--space-3);">Git Bash</td>
+            <td style="padding:var(--space-3);">윈도우에서 맥·리눅스식 명령어를 쓸 수 있게 해주는 터미널. Git을 설치하면 함께 깔려요. 이 책의 셸 스크립트 예시는 PowerShell 대신 여기서 실행하면 돼요.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>JSON</strong></td>
+            <td style="padding:var(--space-3);">JavaScript Object Notation</td>
+            <td style="padding:var(--space-3);">설정값을 적는 표준 형식. 중괄호와 큰따옴표로 「이름: 값」을 짝지어 적어요. 규칙이 엄격해서 쉼표 하나만 틀려도 파일 전체가 안 읽혀요. 주석은 넣을 수 없고, 경로의 역슬래시는 <code>\\</code>처럼 두 번 써야 해요.</td>
           </tr>
         </tbody>
       </table>
@@ -365,6 +508,26 @@
             <td style="padding:var(--space-3);"><strong>MCP 서버</strong></td>
             <td style="padding:var(--space-3);">MCP Server</td>
             <td style="padding:var(--space-3);">MCP 규격에 맞게 만들어진 외부 서비스 연결 프로그램. GitHub MCP 서버, PostgreSQL MCP 서버 등이 있어요.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>Node.js</strong></td>
+            <td style="padding:var(--space-3);">Node.js</td>
+            <td style="padding:var(--space-3);">JavaScript를 브라우저 밖에서 실행해주는 프로그램. Claude Code와 MCP 서버가 이걸 필요로 해요. <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a>에서 LTS 버전을 받아 설치하고, <code>node -v</code>로 확인해요.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>npm</strong></td>
+            <td style="padding:var(--space-3);">Node Package Manager</td>
+            <td style="padding:var(--space-3);">Node.js의 패키지 관리자. 앱스토어처럼 프로그램을 받아 <strong>설치</strong>해요. Node.js를 깔면 함께 들어와요. <code>npm install -g ...</code>의 <code>-g</code>는 컴퓨터 어디서든 쓰게 한다는 뜻이에요.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>npx</strong></td>
+            <td style="padding:var(--space-3);">npx</td>
+            <td style="padding:var(--space-3);">npm의 짝. 미리 설치해두지 않은 패키지를 <strong>그때그때 받아서 바로 실행</strong>해요. MCP 서버 설정에 <code>npx</code>가 나오는 이유예요. 설치는 npm, 즉석 실행은 npx라고 기억하면 돼요.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><strong>PR</strong></td>
+            <td style="padding:var(--space-3);">Pull Request</td>
+            <td style="padding:var(--space-3);">브랜치에서 한 일을 원래 브랜치에 합쳐 달라고 내는 요청서. 합치기 전에 사람이 한 번 확인할 자리를 만들어줘요. 13장에 나와요.</td>
           </tr>
           <tr style="border-bottom:1px solid var(--color-border-light);">
             <td style="padding:var(--space-3);"><strong>SDK</strong></td>

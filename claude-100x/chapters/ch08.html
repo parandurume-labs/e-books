@@ -150,10 +150,9 @@ React + TypeScript로 프론트엔드, Express로 백엔드를 구성합니다.
 
       <p>프로젝트 폴더에는 Claude가 보면 안 되는 파일들이 있어요. 비밀번호가 담긴 환경 변수 파일, 열쇠를 모아둔 폴더 같은 것들이요.</p>
 
-      <p>이걸 막는 자리는 <code>.claude/settings.json</code>이에요. 이 파일의 최상위 키 중 하나가 <code>permissions</code>이고, 그 아래 <code>deny</code>에 규칙을 적어요:</p>
+      <p>이걸 막는 자리는 <code>.claude/settings.json</code>이에요. 이 파일의 최상위 키 중 하나가 <code>permissions</code>이고, 그 아래 <code>deny</code>에 규칙을 적어요. <code>.claude/settings.json</code>의 내용을 이렇게 쓰면 돼요:</p>
 
-      <pre><code>// .claude/settings.json
-{
+      <pre><code>{
   "permissions": {
     "deny": [
       "Read(./.env)",
@@ -179,6 +178,9 @@ React + TypeScript로 프론트엔드, Express로 백엔드를 구성합니다.
       <p>메모리라고 하면 뭔가 따로 있는 것 같지만, 실체는 방금 배운 그 CLAUDE.md예요. 놓는 위치에 따라 적용 범위만 달라져요.</p>
 
       <h3>메모리 두 곳</h3>
+
+      <p>바로 아래에 <code>~</code>라는 기호가 나와요. <strong><code>~</code>는 내 홈 폴더예요.</strong> 윈도우면 <code>C:\Users\내이름</code>, 맥이면 <code>/Users/내이름</code>을 뜻해요. 앞으로 이 책에 <code>~/</code>로 시작하는 경로가 나오면 전부 그 자리를 가리키는 거예요.</p>
+
       <ul>
         <li><strong>사용자 범위</strong> (<code>~/.claude/CLAUDE.md</code>): 내 개인 선호도. 어느 프로젝트에서 일하든 따라와요</li>
         <li><strong>프로젝트 범위</strong> (<code>./CLAUDE.md</code>): 이 프로젝트에서만 적용되는 규칙. 팀과 함께 쓰는 자리죠</li>
@@ -189,7 +191,7 @@ React + TypeScript로 프론트엔드, Express로 백엔드를 구성합니다.
       <div class="callout">
         <p class="callout-title">기억은 내가 넣어요</p>
         <p>Claude Code가 대화를 엿보다가 "이거 기억할까요?" 하고 먼저 물어보지는 않아요. 기억시키고 싶은 게 생기면 <strong><code>#</code>으로 시작하는 줄</strong>을 입력하거나 <strong><code>/memory</code></strong>를 실행해서 직접 넣습니다. <code>#</code>을 쓰면 어느 범위에 저장할지 고르게 돼요.</p>
-        <p>여기에 더해 Claude Code가 스스로 남기는 <strong>auto memory</strong>도 있어요. 내가 손으로 적지 않아도 쌓이는 기록이니, 메모리가 위 두 CLAUDE.md뿐이라고 생각하면 안 돼요.</p>
+        <p>지금 무엇이 기억돼 있는지 궁금하면 <code>/memory</code>를 실행해 보세요. 어떤 메모리 파일이 읽히고 있는지 보여주고, 그 자리에서 열어 고칠 수도 있어요.</p>
       </div>
     </section>
 
@@ -219,7 +221,7 @@ React + TypeScript로 프론트엔드, Express로 백엔드를 구성합니다.
           <!-- Level 3 -->
           <rect x="100" y="190" width="400" height="55" rx="10" fill="#A990F5" stroke="#9880E5" stroke-width="2"/>
           <text x="300" y="213" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="14" fill="#FFFFFF">3. CLAUDE.md 메모리</text>
-          <text x="300" y="233" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#EDE8FF">사용자 범위 + 프로젝트 범위 + auto memory</text>
+          <text x="300" y="233" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#EDE8FF">사용자 범위 + 프로젝트 범위</text>
 
           <!-- Arrow -->
           <text x="70" y="105" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#6B4EE6">&#x2191;</text>

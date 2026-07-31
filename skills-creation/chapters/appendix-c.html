@@ -108,6 +108,8 @@
     <section>
       <h2>2단계: 프론트매터 작성</h2>
 
+      <p><strong>최소 둘</strong>은 없으면 스킬이 동작하지 않아요. 반드시 채우세요.</p>
+
       <ul style="list-style:none; padding-left:0;">
         <li style="margin-bottom:var(--space-3); padding-left:var(--space-6); position:relative;">
           <span style="position:absolute; left:0;">&#9744;</span>
@@ -121,6 +123,11 @@
           <span style="position:absolute; left:0;">&#9744;</span>
           <strong>description이 충분히 구체적인가?</strong> Claude가 다른 스킬과 구분할 만큼?
         </li>
+      </ul>
+
+      <p><strong>표준 다섯</strong>은 남에게 나눠줄 스킬로 다듬을 때 채우세요. 실습용 스킬이라면 비워둬도 동작해요 (챕터 6 참고).</p>
+
+      <ul style="list-style:none; padding-left:0;">
         <li style="margin-bottom:var(--space-3); padding-left:var(--space-6); position:relative;">
           <span style="position:absolute; left:0;">&#9744;</span>
           <strong>allowed-tools 작성</strong>: 필요한 도구만 최소한으로 나열
@@ -128,6 +135,14 @@
         <li style="margin-bottom:var(--space-3); padding-left:var(--space-6); position:relative;">
           <span style="position:absolute; left:0;">&#9744;</span>
           <strong>allowed-tools가 최소 권한인가?</strong> 불필요한 도구가 포함되지 않았는지 확인
+        </li>
+        <li style="margin-bottom:var(--space-3); padding-left:var(--space-6); position:relative;">
+          <span style="position:absolute; left:0;">&#9744;</span>
+          <strong>version 작성</strong>: 처음이면 <code>1.0.0</code>으로 시작
+        </li>
+        <li style="margin-bottom:var(--space-3); padding-left:var(--space-6); position:relative;">
+          <span style="position:absolute; left:0;">&#9744;</span>
+          <strong>triggers 작성</strong>: 내가 이 스킬을 부를 때 실제로 칠 법한 말을 두세 개
         </li>
       </ul>
     </section>
@@ -239,15 +254,35 @@
     <section>
       <h2>빠른 참조: 프론트매터 템플릿</h2>
 
+      <p>먼저 <strong>최소 형태</strong>예요. 이 둘만 있어도 스킬은 동작해요. 실습할 때는 여기서 시작하세요.</p>
+
       <pre><code>---
 name: my-skill-name
-description: |
+description: "이 스킬이 무엇을 하는지 한 줄로 적어주세요"
+---
+
+# 역할
+당신은 [역할]입니다.
+
+# 프로세스
+1. [첫 번째 단계]
+2. [두 번째 단계]</code></pre>
+
+      <p>다음은 <strong>표준 형태</strong>예요. 남에게 나눠줄 스킬이라면 여기까지 채우면 좋아요.</p>
+
+      <pre><code>---
+name: my-skill-name
+description: >-
   이 스킬이 무엇을 하는지 구체적으로 적어주세요.
   Claude가 이 설명을 보고 스킬을 활성화할지 판단합니다.
 allowed-tools:
   - Read
   - Edit
   - Bash
+version: 1.0.0
+triggers:
+  - 이 스킬을 부를 때 칠 법한 말
+  - 다른 표현도 하나
 ---
 
 # 역할

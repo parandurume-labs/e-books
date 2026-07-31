@@ -254,7 +254,9 @@
           <li>
             <strong>claude mcp add로 등록하기</strong>
             <pre><code>claude mcp add filesystem --scope project -- npx -y @modelcontextprotocol/server-filesystem /Users/me/Documents</code></pre>
-            <p><code>/Users/me/Documents</code> 부분을 내 폴더 경로로 바꾸세요. <code>--scope project</code>를 주면 저장소 루트의 <code>.mcp.json</code>에 기록돼서 팀원과 공유돼요.</p>
+            <p>가운데 홀로 서 있는 <code>--</code>는 오타가 아니에요. <strong>「여기부터는 MCP 서버를 띄울 명령이야」라고 갈라 주는 구분자</strong>예요. 이게 없으면 뒤에 오는 <code>-y</code>를 <code>claude mcp add</code>가 자기 옵션으로 착각해요. 지우지 마세요.</p>
+            <p><code>/Users/me/Documents</code>는 맥 경로예요. 내 폴더 경로로 바꾸세요. 맥이면 <code>/Users/내이름/Documents</code>, 윈도우면 <code>C:\Users\내이름\Documents</code>처럼 적으면 돼요. 윈도우 경로에 띄어쓰기가 들어 있으면 <code>"C:\Users\내 이름\Documents"</code>처럼 큰따옴표로 감싸세요.</p>
+            <p><code>--scope project</code>를 주면 저장소 루트의 <code>.mcp.json</code>에 기록돼서 팀원과 공유돼요.</p>
           </li>
           <li>
             <strong>기록된 .mcp.json 확인하기</strong>
@@ -271,7 +273,7 @@
     }
   }
 }</code></pre>
-            <p>이 파일을 직접 손으로 만들어도 돼요. 다만 순수 JSON이라서 주석은 넣을 수 없어요.</p>
+            <p>이 파일을 직접 손으로 만들어도 돼요. 다만 순수 JSON이라서 주석은 넣을 수 없어요. 윈도우 경로를 손으로 적을 때는 5장에서 본 대로 <code>"C:\\Users\\내이름\\Documents"</code>처럼 <strong>역슬래시를 두 번씩</strong> 쓰세요.</p>
           </li>
           <li>
             <strong>Claude Code 실행</strong>

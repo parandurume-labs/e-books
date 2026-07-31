@@ -185,6 +185,12 @@ description: "인사를 건네는 간단한 스킬"
 
       <h3>설치 방법</h3>
 
+      <div class="callout callout-warning">
+        <p class="callout-title">먼저 git이 있어야 해요</p>
+        <p>gstack은 <strong>git</strong>이라는 프로그램으로 내려받아요. git은 코드의 변경 이력을 관리하고, 인터넷에 공개된 저장소를 통째로 받아오는 도구예요. 이 책에서 git을 설치한 적이 없으니 아마 지금이 처음일 거예요. <a href="https://git-scm.com" target="_blank" rel="noopener">git-scm.com</a>에서 받아 설치하고, 터미널에서 <code>git --version</code>으로 확인하세요.</p>
+        <p><strong>윈도우라면 PowerShell 말고 「Git Bash」에서 아래 명령을 실행하세요.</strong> Git을 설치할 때 함께 깔리는 프로그램이라 따로 받을 건 없어요. 시작 메뉴에서 「Git Bash」를 검색하면 나와요. 아래 명령의 마지막 줄 <code>./setup</code>은 맥·리눅스용 셸 스크립트여서 PowerShell에서는 돌지 않거든요.</p>
+      </div>
+
       <pre><code># 1. 저장소를 클론하고 설치 스크립트를 돌립니다
 #    (2026년 7월 확인 · 공식 저장소는 garrytan/gstack 입니다)
 git clone --single-branch --depth 1   https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
@@ -214,6 +220,7 @@ cat ~/.claude/skills/gstack/VERSION
           <li>
             <strong>스킬 폴더 만들기</strong>
             <pre><code>mkdir -p ~/.claude/skills/my-review</code></pre>
+            <p>맥·리눅스와 윈도우의 Git Bash에서는 이 명령이 그대로 돼요. 윈도우 PowerShell에는 <code>-p</code> 옵션이 없어서 에러가 나니, 대신 <code>New-Item -ItemType Directory -Force ~/.claude/skills/my-review</code>를 입력하세요. 폴더를 만드는 같은 일이에요. <code>~</code>는 내 홈 폴더를 뜻해요.</p>
           </li>
           <li>
             <strong>SKILL.md 파일 만들기</strong>

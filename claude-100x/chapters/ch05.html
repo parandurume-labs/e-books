@@ -179,6 +179,11 @@
     <h3>Google Drive: 문서 접근</h3>
     <p>Google Drive의 문서, 스프레드시트, 프레젠테이션에 접근해서 내용을 분석하거나 수정해요.</p>
 
+    <div class="callout callout-warning">
+      <p class="callout-title">여기서부터는 준비물이 필요해요</p>
+      <p>지금까지는 설치하고 클릭하는 것만으로 됐는데, 여기서부터는 <strong>터미널</strong>과 <strong>Node.js</strong>가 있어야 해요. 둘 다 처음 듣는 말이라면 7장의 「터미널 기초」와 Node.js 안내를 먼저 보고 오세요. 터미널 여는 법부터 차근차근 나와요. 그거 하나 보고 오면 이 절이 훨씬 쉬워져요.</p>
+    </div>
+
     <h2>MCP 서버 설정하기</h2>
 
     <p>MCP 서버를 연결하는 건 생각보다 간단해요. <code>claude_desktop_config.json</code>이라는 설정 파일에 원하는 MCP 서버 정보를 적어주면 돼요.</p>
@@ -188,6 +193,20 @@
       <li><strong>Mac:</strong> <code>~/Library/Application Support/Claude/claude_desktop_config.json</code></li>
       <li><strong>Windows:</strong> <code>%APPDATA%\Claude\claude_desktop_config.json</code></li>
     </ul>
+
+    <p>맥 경로 앞의 <code>~</code>는 <strong>내 홈 폴더</strong>를 가리키는 기호예요. 맥이면 <code>/Users/내이름</code>이죠. 윈도우의 <code>%APPDATA%</code>는 프로그램 설정이 모이는 숨은 폴더인데, 글자 그대로 붙여넣으면 컴퓨터가 알아서 찾아가요.</p>
+
+    <h3>설정 파일을 실제로 만드는 법</h3>
+
+    <p>"파일을 만들라"는 말이 제일 막막하죠. 윈도우 기준으로 하나씩 짚어볼게요.</p>
+
+    <ol>
+      <li>탐색기를 열고 <strong>위쪽 주소창</strong>에 <code>%APPDATA%\Claude</code>를 그대로 붙여넣은 다음 엔터를 누르세요. Claude Desktop의 설정 폴더로 바로 들어가요.</li>
+      <li>거기에 <code>claude_desktop_config.json</code>이 이미 있으면, 오른쪽 클릭 → 「연결 프로그램」 → <strong>메모장</strong>으로 여세요.</li>
+      <li>없으면 <strong>메모장</strong>을 새로 열어 내용을 적고, 「파일 → 다른 이름으로 저장」에서 <strong>「파일 형식」을 「모든 파일」로 바꾼 다음</strong> 이름을 <code>claude_desktop_config.json</code>으로 적어 이 폴더에 저장하세요.</li>
+    </ol>
+
+    <p>3번의 「모든 파일」이 중요해요. 그냥 저장하면 뒤에 <code>.txt</code>가 몰래 붙어서 Claude가 파일을 못 찾아요. 그리고 워드나 한글로 열면 글꼴과 서식이 섞여 들어가 파일이 깨져요. <strong>메모장처럼 글자만 저장하는 편집기를 쓰세요.</strong> 맥이라면 텍스트편집기를 열고 「포맷 → 일반 텍스트 만들기」를 고른 뒤 위에 적힌 맥 경로에 저장하면 돼요.</p>
 
     <h3>Filesystem MCP 서버 설정 예시</h3>
     <pre><code>{
@@ -205,6 +224,10 @@
 }</code></pre>
 
     <p>이 설정을 하면 Claude Desktop이 바탕화면과 문서 폴더의 파일을 읽고 쓰게 돼요.</p>
+
+    <p>낯선 게 두 개 보일 거예요. 하나는 <code>npx</code>인데, <strong>미리 설치해두지 않은 패키지를 그때그때 받아서 바로 실행하는 명령</strong>이에요. Node.js를 설치하면 함께 깔리니까 따로 준비할 건 없어요.</p>
+
+    <p>다른 하나는 경로의 역슬래시가 <code>\\</code>처럼 두 번씩 적혀 있다는 점이에요. 오타가 아니에요. <strong>JSON에서는 역슬래시를 두 번 써야 한 번으로 읽혀요.</strong> 한 번만 쓰면 파일 전체가 깨지니 보이는 대로 두 번 적으세요. 맥 경로는 <code>/Users/사용자이름/Desktop</code>처럼 슬래시라서 이 문제가 없어요.</p>
 
     <div class="callout">
       <p class="callout-title">보안 주의!</p>
@@ -249,8 +272,8 @@
       <p class="exercise-title">실습: Claude Desktop + Filesystem MCP 연결하기</p>
       <ol>
         <li><strong>Claude Desktop을 설치</strong>하세요 (아직 안 했다면)</li>
-        <li><strong>Node.js가 설치되어 있는지 확인</strong>하세요 (터미널에서 <code>node --version</code> 입력)</li>
-        <li>위에서 안내한 경로의 <strong><code>claude_desktop_config.json</code></strong> 파일을 만들고 Filesystem 설정을 입력하세요</li>
+        <li><strong>Node.js가 설치되어 있는지 확인</strong>하세요. 터미널을 열고 <code>node --version</code>을 입력하면 돼요. 터미널을 여는 법과 Node.js 설치는 7장에 있으니, 처음이라면 거기부터 보고 오세요</li>
+        <li>위의 「설정 파일을 실제로 만드는 법」대로 <strong><code>claude_desktop_config.json</code></strong>을 만들고 Filesystem 설정을 입력하세요</li>
         <li>Claude Desktop을 <strong>재시작</strong>하세요</li>
         <li>대화창에 "내 바탕화면에 어떤 파일들이 있는지 보여줘"라고 입력하세요</li>
         <li>파일 목록이 나오면 성공! 이제 "그중에서 가장 최근 파일의 내용을 요약해줘"도 시도해 보세요</li>

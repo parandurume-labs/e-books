@@ -79,7 +79,7 @@
         "나는 60일 동안 60만 줄의 코드를 AI와 함께 작성했다. 혼자였으면 600일 걸렸을 일이다."
       </div>
 
-      <p>60만 줄이요. 그것도 장난감 코드가 아니라, 실제 서비스에 들어가는 프로덕션 코드. 이게 가능한 이유가 뭘까요?</p>
+      <p>60만 줄이요. 그것도 장난감 코드가 아니라, 실제 서비스에 들어가는 <a href="appendix-a.html#production" class="term-link">프로덕션</a> 코드. 이게 가능한 이유가 뭘까요?</p>
 
       <p>바로 <strong>AI 에이전트를 제대로 활용하는 워크플로우</strong>를 갖췄기 때문이에요. gstack은 그 워크플로우를 누구나 쓸 수 있게 패키징한 도구예요.</p>
     </section>
@@ -124,7 +124,7 @@
 
       <h3>4단계: 빌드 + 출시 (Build & Ship)</h3>
 
-      <p>이제 진짜 만드는 단계예요. gstack의 <code>/conductor</code> 스킬로 작업을 쪼개고, 하나씩 실행해나가요. 코딩, 테스트, 디자인까지 AI가 옆에서 계속 도와줍니다.</p>
+      <p>이제 진짜 만드는 단계예요. gstack의 <code>/spec</code> 스킬로 할 일을 실행할 수 있는 명세로 쪼개고, 하나씩 실행해나가요. 코딩, 테스트, 디자인까지 AI가 옆에서 계속 도와줍니다.</p>
 
       <p>여기서 중요한 건 <strong>"완벽하게 만들고 출시하자"가 아니라 "빨리 출시하고 개선하자"</strong>예요. 스타트업의 생명은 속도니까요.</p>
 
@@ -137,7 +137,7 @@
     <section>
       <h2>Conductor로 병렬 스프린트 돌리기</h2>
 
-      <p>창업자에게 가장 강력한 무기는 <code>/conductor</code> 스킬이에요.</p>
+      <p>창업자에게 가장 강력한 무기는 <strong>Conductor</strong>예요. 여기서 말하는 Conductor는 스킬이 아니라 <a href="https://conductor.build" target="_blank" rel="noopener">conductor.build</a>라는 <strong>별도 프로그램</strong>이에요. Claude Code 세션 여러 개를 각각 다른 작업 공간에서 동시에 돌려줍니다. 7장에 나오는 <code>/conductor</code> 스킬과는 이름만 같고 다른 것이니 헷갈리지 마세요.</p>
 
       <p>보통 개발할 때 이런 순서로 하잖아요:</p>
 
@@ -166,7 +166,7 @@
 
       <div class="callout">
         <p class="callout-title">필수! 출시 전 보안 점검</p>
-        <p>서비스를 출시하기 전에 반드시 <code>/cso</code> 스킬을 실행하세요. OWASP Top 10 보안 취약점 점검, STRIDE 위협 모델링, 시크릿(비밀번호·API키) 노출 여부까지 자동으로 검사해줍니다.</p>
+        <p>서비스를 출시하기 전에 반드시 <code>/cso</code> 스킬을 실행하세요. <a href="appendix-a.html#owasp" class="term-link">OWASP</a> Top 10 보안 취약점 점검, <a href="appendix-a.html#stride" class="term-link">STRIDE</a> 위협 모델링, 시크릿(비밀번호·API키) 노출 여부까지 자동으로 검사해줍니다.</p>
         <p>스타트업이라고 보안을 나중으로 미루면 안 돼요. 사용자 데이터가 유출되면 신뢰는 한 순간에 무너지니까요. <strong>10분 투자로 며칠의 위기를 예방</strong>할 수 있어요.</p>
       </div>
 
@@ -178,7 +178,7 @@
       <h3>잠깐, 정리!</h3>
       <ul>
         <li>창업자 워크플로우 5단계: <strong>검증 → 리뷰 → 설계 → 빌드 → 반복</strong></li>
-        <li><code>/office-hours</code>로 아이디어를 검증하고, <code>/conductor</code>로 병렬 개발하세요</li>
+        <li><code>/office-hours</code>로 아이디어를 검증하고, <code>/spec</code>으로 할 일을 명세로 쪼개세요</li>
         <li>Garry Tan의 비결: AI와 함께 <strong>병렬로 빠르게</strong> 빌드하는 것</li>
         <li>출시 전 <code>/cso</code>로 보안 점검은 필수!</li>
         <li>완벽한 제품보다 <strong>빠른 출시 + 빠른 개선</strong>이 스타트업의 핵심이에요</li>

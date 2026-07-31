@@ -85,83 +85,95 @@
 
       <div class="glossary-grid">
 
-        <div class="glossary-item">
+        <div class="glossary-item" id="ai-agent">
           <h3>AI 에이전트 (AI Agent)</h3>
           <p>단순히 질문에 답하는 것을 넘어, <strong>스스로 계획을 세우고, 도구를 사용하고, 작업을 실행하는 AI 프로그램</strong>이에요. ChatGPT가 "비서"라면, AI 에이전트는 "팀원"에 가까워요. 시키면 알아서 단계를 나눠서 일을 해요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="api-key">
+          <h3>API 키 (API Key)</h3>
+          <p>어떤 서비스를 프로그램으로 부를 때 쓰는 <strong>긴 비밀번호 문자열</strong>이에요. 사람이 아이디와 비밀번호로 로그인하듯, 프로그램은 API 키로 자기가 누구인지 밝혀요. 이 책의 4장에서 한 Claude Code 로그인은 계정 로그인 방식이라 API 키를 따로 만들 일이 없어요. 다만 API 키를 쓰는 경우라면, 남에게 보이지 않게 조심해야 해요. 노출되면 다른 사람이 내 요금으로 쓸 수 있거든요.</p>
+        </div>
+        <div class="glossary-item" id="architecture">
           <h3>아키텍처 (Architecture)</h3>
           <p>소프트웨어의 <strong>전체 구조와 설계도</strong>예요. 건물을 짓기 전에 설계도를 그리듯, 프로그램을 만들기 전에 어떤 부분이 어떻게 연결되는지 정하는 거예요. "이 앱은 어떤 구조로 만들까?"가 아키텍처 결정이에요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="branch">
+          <h3>브랜치 (Branch)</h3>
+          <p>Git에서 <strong>원본을 건드리지 않고 따로 작업하는 갈래</strong>예요. 문서를 고칠 때 "사본을 하나 떠 놓고 거기서 고치는 것"과 같아요. 갈래에서 마음껏 고쳐 보고, 마음에 들면 원본에 합치고(머지), 아니면 갈래째 버리면 돼요. 원본은 그동안 안전해요.</p>
+        </div>
+        <div class="glossary-item" id="cli">
           <h3>CLI (Command Line Interface)</h3>
           <p><strong>글자로 컴퓨터와 대화하는 방식</strong>이에요. 마우스 클릭 대신 키보드로 명령어를 입력하는 거예요. gstack은 CLI 도구예요. 까만 화면에 글자를 입력하면 AI가 작업을 수행합니다.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="ci">
           <h3>CI (Continuous Integration, 지속적 통합)</h3>
           <p>여러 사람이 함께 코드를 작성할 때, <strong>코드를 합칠 때마다 자동으로 테스트하는 시스템</strong>이에요. 여러 명이 같은 문서를 수정할 때, 저장할 때마다 자동으로 맞춤법 검사가 돌아간다고 생각하면 돼요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="debugging">
           <h3>디버깅 (Debugging)</h3>
           <p>프로그램에서 <strong>오류(버그)를 찾아서 고치는 과정</strong>이에요. "디버그"는 "벌레(bug)를 제거한다(de-)"는 뜻이에요. 옛날에 진짜 나방이 컴퓨터 안에 들어가서 고장을 일으킨 데서 유래했어요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="edge-case">
           <h3>엣지케이스 (Edge Case)</h3>
           <p>보통은 안 일어나지만, <strong>가끔 발생하는 특수한 상황</strong>이에요. 예를 들어, 이름 입력 칸에 이모지를 넣거나, 생년월일에 미래 날짜를 넣는 것처럼 "설마 이렇게 하겠어?"라는 상황이 엣지케이스예요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="env-var">
+          <h3>환경 변수 (Environment Variable)</h3>
+          <p>컴퓨터가 프로그램들에게 <strong>공통으로 알려 주는 설정값</strong>이에요. 사무실 게시판에 "오늘 회의실은 3층"이라고 붙여 두면 누구나 보고 따르는 것과 비슷해요. 프로그램은 실행될 때 이 게시판을 읽어요. API 키처럼 코드에 직접 적기 곤란한 값을 여기에 넣어 두는 경우가 많아요.</p>
+        </div>
+        <div class="glossary-item" id="generative-ai">
           <h3>생성형 AI (Generative AI)</h3>
           <p><strong>새로운 콘텐츠를 만들어내는 AI</strong>예요. 글, 코드, 이미지, 음악 등을 "없던 것"에서 새로 만들어요. "다음에 올 단어를 예측하는" 원리로 작동하는데, 그 예측 능력이 엄청나게 뛰어나서 사람처럼 자연스러운 결과물을 만들어냅니다.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="git">
           <h3>Git</h3>
           <p>파일의 <strong>변경 이력을 추적하는 도구</strong>예요. "저장" 버튼을 누를 때마다 이전 버전을 남겨두니까, 언제든 과거로 돌아갈 수 있어요. 게임의 세이브 포인트 같은 거예요. 개발자들이 협업할 때 필수로 사용해요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="merge">
           <h3>머지 (Merge)</h3>
           <p>여러 사람이 각자 수정한 코드를 <strong>하나로 합치는 것</strong>이에요. 학교 조별 과제에서 각자 맡은 부분을 하나의 문서로 합치는 것과 같아요. 가끔 같은 부분을 서로 다르게 수정하면 "충돌"이 발생하기도 해요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="mvp">
           <h3>MVP (Minimum Viable Product, 최소 기능 제품)</h3>
           <p>제품의 핵심 기능만 넣어서 <strong>가장 빠르게 만들어 출시하는 버전</strong>이에요. 100가지 기능이 있는 완벽한 앱 대신, 핵심 기능 3개만 넣은 앱을 먼저 내놓고 사용자 반응을 보는 거예요. 스타트업의 생존 전략이에요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="owasp">
           <h3>OWASP</h3>
           <p><strong>웹 보안 취약점을 연구하고 가이드를 제공하는 국제 단체</strong>예요. "OWASP Top 10"은 가장 흔한 보안 취약점 10가지 목록이에요. gstack의 <code>/cso</code> 스킬이 이 목록을 기준으로 보안 점검을 해줘요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="production">
           <h3>프로덕션 (Production)</h3>
           <p>실제 사용자가 쓰는 <strong>진짜 서비스 환경</strong>이에요. 개발하고 테스트하는 환경과 구분돼요. "프로덕션에 배포한다"는 건 "진짜 사용자한테 공개한다"는 뜻이에요. 여기서 문제가 생기면 실제 사용자가 영향을 받아요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="prompt">
           <h3>프롬프트 (Prompt)</h3>
           <p>AI에게 보내는 <strong>메시지, 요청, 지시</strong>예요. 카카오톡 메시지를 보내듯 AI에게 하고 싶은 말을 적는 거예요. "이메일 써줘"도 프롬프트이고, "이 코드의 버그를 찾아줘"도 프롬프트예요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="pull-request">
           <h3>PR (Pull Request)</h3>
           <p>"내가 수정한 코드를 합쳐주세요"라고 <strong>요청하는 것</strong>이에요. 조별 과제에서 "내 부분 다 썼으니 확인하고 합쳐주세요"라고 하는 것과 같아요. 다른 사람이 코드를 검토(리뷰)한 후 합쳐요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="qa">
           <h3>QA (Quality Assurance, 품질 보증)</h3>
           <p>소프트웨어가 <strong>제대로 작동하는지 검사하는 과정</strong>이에요. 공장에서 제품을 출하하기 전에 불량품을 걸러내는 것처럼, 서비스를 출시하기 전에 버그나 문제가 없는지 확인하는 거예요. gstack의 <code>/qa</code> 스킬이 이걸 자동으로 해줘요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="sre">
           <h3>SRE (Site Reliability Engineering, 사이트 신뢰성 엔지니어링)</h3>
           <p>서비스가 <strong>24시간 안정적으로 돌아가도록 관리하는 분야</strong>예요. 건물 관리인이 엘리베이터, 전기, 수도를 관리하듯, SRE 엔지니어는 서버, 네트워크, 데이터베이스가 잘 작동하도록 관리해요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="skill">
           <h3>스킬 (Skill)</h3>
           <p>AI에게 특정 작업을 시키는 <strong>레시피(SKILL.md 파일)</strong>예요. 요리 레시피처럼 "이런 재료로 이렇게 만들어"라고 정해놓으면, AI가 그대로 따라해요. gstack에는 수십 개의 기본 스킬이 있고, 직접 만들 수도 있어요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="sprint">
           <h3>스프린트 (Sprint)</h3>
           <p>정해진 짧은 기간(보통 1~2주) 동안 <strong>집중해서 작업하는 단위</strong>예요. 마라톤처럼 길게 달리는 대신, 100미터씩 전력 질주하고 쉬고를 반복하는 방식이에요. "이번 스프린트에서는 로그인 기능을 완성하자" 같은 식으로 목표를 정해요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="stride">
           <h3>STRIDE</h3>
           <p>보안 위협을 <strong>6가지 카테고리로 분류하는 분석 방법</strong>이에요. Spoofing(위장), Tampering(변조), Repudiation(부인), Information Disclosure(정보 유출), Denial of Service(서비스 거부), Elevation of Privilege(권한 상승)의 약자예요. <code>/cso</code> 스킬이 이 방법론을 사용해요.</p>
         </div>
-        <div class="glossary-item">
+        <div class="glossary-item" id="terminal">
           <h3>터미널 (Terminal)</h3>
           <p>컴퓨터에게 <strong>글자로 명령을 내리는 프로그램</strong>이에요. 까만 배경에 하얀 글자가 나오는 그 화면이요. Windows에서는 PowerShell이나 명령 프롬프트, Mac에서는 터미널 앱이에요. gstack은 이 터미널 안에서 작동합니다.</p>
         </div>

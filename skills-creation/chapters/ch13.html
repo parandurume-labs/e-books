@@ -111,11 +111,24 @@
 
       <p>가장 먼저, 스킬이 제대로 설치됐는지 확인해요.</p>
 
-<pre><code># 스킬 폴더 확인
+<pre><code># 스킬 폴더 확인 (Mac / Linux)
 ls -la .claude/skills/your-skill-name/
 
 # 필수 파일 존재 확인
 cat .claude/skills/your-skill-name/SKILL.md</code></pre>
+
+      <p>Windows PowerShell에서는 <code>-la</code> 옵션이 없어서 에러가 나요. 이렇게 쓰세요:</p>
+
+<pre><code># 스킬 폴더 확인 (Windows PowerShell)
+dir .claude\skills\your-skill-name\
+
+# 필수 파일 존재 확인
+type .claude\skills\your-skill-name\SKILL.md</code></pre>
+
+      <div class="callout">
+        <p class="callout-title">명령어가 부담스러우면</p>
+        <p>탐색기나 Finder로 <code>.claude/skills/</code> 폴더를 직접 열어보세요. 폴더가 거기 있고 안에 <code>SKILL.md</code>가 보이면 그게 확인 끝이에요. 파일은 더블클릭해서 메모장이나 편집기로 열어보면 되고요. 명령어로 하든 마우스로 하든 확인하는 내용은 똑같아요.</p>
+      </div>
 
       <p>확인할 것:</p>
       <ul>

@@ -39,11 +39,22 @@ SKIP_TAGS = {"pre", "code", "a", "h1", "h2", "h3", "h4", "h5", "h6",
              "svg", "title", "script", "style", "figcaption"}
 
 
+# 조사. 명사 뒤에 이것들이 붙는 건 같은 낱말이고, 다른 한글이 붙으면 다른 낱말이다.
+# 뒤에 한글이 오면 무조건 막았더니 「환경 변수를」·「볼트가」처럼
+# 조사가 붙은 형태를 통째로 놓쳤다. 한국어에서 명사가 문장에 나오는 가장 흔한 모습인데도.
+# 반대로 뒤 경계를 아예 없애면 「볼트제어」 같은 다른 낱말을 잡는다.
+PARTICLE = "은는이가을를의에와과도만로으랑나며서한할하였됩입예"
+
+
 def make_pattern(term):
     if re.match(r"^[A-Za-z]", term):          # 영문 약어는 낱말 경계로
         return re.compile(r"(?<![A-Za-z0-9_-])" + re.escape(term) + r"(?![A-Za-z0-9_-])")
-    # 한글은 앞뒤에 한글이 붙으면 다른 낱말이다 (예: 「볼트」 vs 「볼트제어」)
-    return re.compile(r"(?<![" + HANGUL + r"])" + re.escape(term) + r"(?![" + HANGUL + r"])")
+    # 앞에 한글이 붙으면 다른 낱말이다 (「나머지」 안의 「머지」).
+    # 뒤는 한글이 아니거나, 한글이라도 조사로 시작하면 같은 낱말로 본다.
+    return re.compile(
+        r"(?<![" + HANGUL + r"])" + re.escape(term)
+        + r"(?=[" + PARTICLE + r"]|[^" + HANGUL + r"]|$)"
+    )
 
 
 PATS = [(t, a, make_pattern(t)) for t, a in TERMS]

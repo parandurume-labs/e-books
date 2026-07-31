@@ -139,8 +139,11 @@ cd hello-skill</code></pre>
       <p>"이게 다예요?" 네, 이게 다예요. 스킬 패키지는 기본적으로 <strong>폴더 안에 파일을 넣는 것</strong>이거든요. 대단한 설치 과정이나 복잡한 설정 같은 거 없어요.</p>
 
       <div class="callout">
-        <p class="callout-title">터미널이 뭔지 모르겠다면?</p>
-        <p>걱정 마세요! 터미널은 컴퓨터와 글자로 대화하는 창이에요. Windows에서는 "명령 프롬프트" 또는 "PowerShell"을, Mac에서는 "터미널"을 검색해서 열면 됩니다. 거기에 위의 명령어를 타이핑하고 Enter를 누르면 돼요.</p>
+        <p class="callout-title">터미널이 뭔지 모르겠다면? (챕터 1에서 약속한 설명이에요)</p>
+        <p>터미널은 <strong>컴퓨터와 글자로 대화하는 창</strong>이에요. 마우스로 폴더를 더블클릭하는 대신, 하고 싶은 일을 문장으로 적어서 Enter를 누르는 방식이죠. 검은 화면에 글자만 있어서 무섭게 생겼지만, 하는 일은 탐색기와 똑같아요.<br><br>
+        <strong>여는 법.</strong> Windows는 시작 메뉴에서 "PowerShell"을 검색해서 열고, Mac은 <code>Command+스페이스</code>를 눌러 "터미널"을 검색해서 열면 돼요.<br><br>
+        <strong>쓰는 법.</strong> 명령어 한 줄을 치고 Enter. 그게 전부예요. <code>mkdir hello-skill</code>은 "hello-skill이라는 폴더를 만들어라", <code>cd hello-skill</code>은 "그 폴더 안으로 들어가라"는 뜻이에요. <code>cd ..</code>는 반대로 한 칸 위로 나오라는 뜻이고요.<br><br>
+        지금 어느 폴더에 있는지 모르겠다면, Windows는 <code>cd</code>, Mac은 <code>pwd</code>를 치면 현재 위치가 나와요.</p>
       </div>
 
       <p>지금 우리 폴더 구조는 이렇게 생겼어요:</p>
@@ -158,6 +161,13 @@ cd hello-skill</code></pre>
       <p>자, 이제 스킬의 심장을 만들 차례예요. <code>SKILL.md</code> 파일이요.</p>
 
       <p>2부에서 배웠죠? <code>SKILL.md</code>는 AI에게 주는 레시피 카드라고요. 이 파일 하나가 스킬의 전부예요.</p>
+
+      <p>파일은 <strong>메모장이나 VS Code 같은 텍스트 편집기</strong>를 열어서 만들어요. 윈도우 메모장을 쓴다면 저장할 때 "파일 형식"을 "모든 파일"로 바꿔야 <code>.txt</code>가 안 붙어요.</p>
+
+      <div class="callout">
+        <p class="callout-title">가장 흔한 실패: SKILL.md.txt</p>
+        <p>메모장은 기본 설정에서 파일 이름 뒤에 <code>.txt</code>를 몰래 붙여요. 그러면 파일 이름이 <code>SKILL.md.txt</code>가 되고, 스킬은 <strong>영영 인식되지 않아요</strong>. 저장 창에서 "파일 형식"을 "모든 파일(*.*)"로 바꾸고, 이름은 따옴표로 감싸서 <code>"SKILL.md"</code>라고 적으면 확실해요. 저장한 뒤 탐색기에서 파일 이름이 정확히 <code>SKILL.md</code>인지 눈으로 한 번 확인하세요.</p>
+      </div>
 
       <p><code>hello-skill</code> 폴더 안에 <code>SKILL.md</code> 파일을 만들고, 다음 내용을 <strong>그대로</strong> 입력하세요:</p>
 
@@ -246,6 +256,40 @@ description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
       </div>
     </section>
 
+    <!-- ====== Prerequisites ====== -->
+    <section>
+      <h2>잠깐, 준비물부터 챙길게요</h2>
+
+      <p>지금까지는 폴더 하나와 텍스트 파일 하나만 있으면 됐어요. 그런데 다음 단계에서는 <strong>Claude Code</strong>가 실제로 필요해요. 아직 설치를 안 했다면 여기서 같이 해요.</p>
+
+      <h3>1. Claude Code 설치하기</h3>
+
+      <p>Claude Code는 터미널에서 실행하는 프로그램이에요. 설치는 명령어 한 줄이에요:</p>
+
+<pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
+
+      <p>여기 나오는 <code>npm</code>은 Node.js를 설치하면 같이 딸려오는 프로그램이에요. "npm이 뭔지 모르겠다" 또는 "명령어를 찾을 수 없다"는 메시지가 나오면, <code>nodejs.org</code>에서 Node.js를 먼저 설치하고 터미널을 새로 연 다음 위 명령어를 다시 실행하세요.</p>
+
+      <p><code>-g</code>는 "global(전역)"이라는 뜻이에요. 특정 폴더가 아니라 컴퓨터 어디서든 쓸 수 있게 설치한다는 표시죠.</p>
+
+      <h3>2. 설치가 됐는지 확인하기</h3>
+
+<pre><code>claude --version</code></pre>
+
+      <p>숫자로 된 버전이 나오면 성공이에요. "그런 명령어 없음" 같은 메시지가 나오면 설치가 안 된 거니까, 터미널을 완전히 닫았다가 새로 열고 다시 확인해보세요.</p>
+
+      <h3>3. 첫 실행과 로그인</h3>
+
+      <p>터미널에 <code>claude</code>라고 치면 Claude Code가 시작돼요. 처음 실행하면 <strong>브라우저 창이 열리면서 Anthropic 계정 로그인</strong>을 요구해요. 로그인하고 나면 터미널로 돌아와서 계속 진행하면 돼요.</p>
+
+      <div class="callout">
+        <p class="callout-title">돈이 드나요? 네, 들어요</p>
+        <p>Claude Code를 쓰려면 <strong>유료 플랜이나 API 크레딧이 필요해요</strong> (2026년 7월 기준). 프로그램 설치 자체는 무료지만, 로그인한 계정에 사용할 수 있는 요금제나 크레딧이 없으면 대화가 시작되지 않아요. 최신 요금제는 <code>claude.com</code>에서 확인하세요.</p>
+      </div>
+
+      <p>여기까지 됐으면 준비 끝이에요. 이제 마지막 단계로 갑시다.</p>
+    </section>
+
     <!-- ====== Step 3 ====== -->
     <section>
       <h2>Step 3: 설치하고 테스트하기</h2>
@@ -256,23 +300,34 @@ description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
 
       <p>방법은 아주 간단해요. 우리가 만든 <code>hello-skill</code> 폴더를 Claude Code의 스킬 폴더에 넣으면 됩니다.</p>
 
-      <p><strong>방법 A: 프로젝트 스킬로 설치 (추천)</strong></p>
+      <p>그 전에 하나. Step 1에서 <code>cd hello-skill</code>로 폴더 <strong>안에</strong> 들어가 있으니까, 먼저 한 칸 위로 나와야 해요. 이걸 빼먹으면 "그런 파일이나 디렉토리가 없습니다"라는 에러가 나요.</p>
 
-      <p>작업 중인 프로젝트 폴더에 <code>.claude/skills/</code> 디렉토리를 만들고, 거기에 넣으면 돼요:</p>
+<pre><code>cd ..</code></pre>
+
+      <p><strong>방법 A: 글로벌 스킬로 설치 (추천)</strong></p>
+
+      <p>어디서 Claude Code를 켜든 쓸 수 있게, 홈 디렉토리의 스킬 폴더에 넣는 방법이에요. 처음 만드는 스킬은 이쪽이 편해요:</p>
+
+<pre><code>mkdir ~/.claude
+mkdir ~/.claude/skills
+cp -r hello-skill ~/.claude/skills/</code></pre>
+
+      <p><code>~</code>는 "내 홈 폴더"라는 뜻이에요. Mac이면 <code>/Users/내이름/</code>, Windows면 <code>C:\Users\내이름\</code>이죠. 앞의 두 줄에서 "이미 있습니다" 같은 메시지가 나와도 괜찮아요. 폴더가 이미 있다는 뜻일 뿐이니 다음 줄로 넘어가면 돼요.</p>
+
+      <p><strong>방법 B: 프로젝트 스킬로 설치</strong></p>
+
+      <p>이미 다루고 있는 프로젝트 폴더가 있다면, 그 폴더 안에 <code>.claude/skills/</code>를 만들어서 넣는 방법도 있어요. 이렇게 하면 그 프로젝트에서 Claude Code를 실행할 때만 스킬이 보여요:</p>
 
 <pre><code># 프로젝트 폴더에서 실행
-mkdir -p .claude/skills/
+mkdir .claude
+mkdir .claude/skills
 cp -r hello-skill .claude/skills/</code></pre>
 
-      <p>이렇게 하면 해당 프로젝트에서 Claude Code를 실행할 때 자동으로 스킬을 인식해요.</p>
-
-      <p><strong>방법 B: 글로벌 스킬로 설치</strong></p>
-
-      <p>어디서든 쓰고 싶으면, 홈 디렉토리의 스킬 폴더에 넣으면 돼요:</p>
-
-<pre><code># 글로벌 스킬 폴더에 설치
-mkdir -p ~/.claude/skills/
-cp -r hello-skill ~/.claude/skills/</code></pre>
+      <div class="callout">
+        <p class="callout-title">명령어가 자꾸 에러가 나면, 마우스로 하세요</p>
+        <p>명령어 대신 <strong>탐색기(Windows)나 Finder(Mac)로 <code>hello-skill</code> 폴더를 <code>.claude/skills/</code> 안에 끌어다 놓아도 똑같아요.</strong> 결과만 같으면 되니까요. 운영체제마다 명령어 문법이 조금씩 달라서(특히 PowerShell은 Mac/Linux 명령어를 그대로 받지 않아요) 마우스로 옮기는 쪽이 오히려 확실할 때가 많아요.<br><br>
+        폴더 이름 앞에 점이 붙은 <code>.claude</code>는 숨김 폴더라 안 보일 수 있어요. Windows 탐색기는 "보기 → 숨긴 항목"을 켜고, Mac Finder는 <code>Command+Shift+.</code>를 누르면 보여요. 주소창에 <code>%USERPROFILE%</code>(Windows) 또는 <code>~</code>(Mac)를 입력하면 홈 폴더로 바로 갈 수 있어요.</p>
+      </div>
 
       <h3>테스트!</h3>
 
@@ -316,7 +371,17 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
         <li><strong>출력:</strong> 완성된 응답이 화면에 표시!</li>
       </ol>
 
-      <p>핵심은 3번과 4번이에요. Claude Code가 <strong>자동으로</strong> 적절한 스킬을 찾아서 적용하는 거예요. "/인사하기"라고 직접 스킬을 부르지 않아도, AI가 문맥을 보고 "아, 이 상황에서는 이 스킬이 맞겠다"고 판단하는 거죠.</p>
+      <p>핵심은 3번과 4번이에요. Claude Code가 <strong>자동으로</strong> 적절한 스킬을 찾아서 적용하는 거예요. 스킬 이름을 직접 부르지 않아도, AI가 문맥을 보고 "아, 이 상황에서는 이 스킬이 맞겠다"고 판단하는 거죠.</p>
+
+      <h3>이름을 직접 불러 쓸 수도 있어요</h3>
+
+      <p>자동으로 골라주는 게 기본이지만, "지금 이 스킬을 써"라고 못 박고 싶을 때가 있죠. 그럴 때는 스킬 이름을 그대로 말하면 돼요.</p>
+
+<pre><code>hello-skill 스킬로 인사해줘</code></pre>
+
+      <p>슬래시를 붙여 <code>/hello-skill</code>이라고 입력하는 방법도 있어요. 챕터 2에서 "<code>/review</code> 한 단어가 긴 프롬프트를 대신한다"고 했던 게 바로 이 모습이에요.</p>
+
+      <p>둘의 차이는 이래요. <code>description</code>이 잘 쓰여 있으면 <strong>안 불러도 알아서 나오고</strong>, 이름을 직접 부르면 <strong>확실하게 그 스킬만 나와요</strong>. 처음에는 이름을 직접 불러서 "제대로 설치됐는지" 확인하고, 그 다음에 자동으로 나오는지 시험해보는 순서가 편해요.</p>
 
       <div class="fun-box">
         <p class="fun-box-title">레스토랑 비유로 다시 보면</p>
@@ -376,7 +441,8 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
 
       <p><strong>"스킬이 인식이 안 돼요"</strong></p>
       <ul>
-        <li>파일 이름이 정확히 <code>SKILL.md</code>인지 확인 (대문자!)</li>
+        <li>파일 이름이 정확히 <code>SKILL.md</code>인지 확인 (대문자!). 메모장으로 저장했다면 <code>SKILL.md.txt</code>가 됐을 확률이 높아요</li>
+        <li>Step 3에서 <code>cd ..</code>를 했는지 확인. 폴더 안에 들어간 채로 복사하면 "그런 파일 없음" 에러가 나요</li>
         <li>파일이 <code>hello-skill/SKILL.md</code> 경로에 있는지 확인</li>
         <li>Claude Code를 재시작해보세요</li>
       </ul>
@@ -400,6 +466,9 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
       <h3>잠깐, 정리!</h3>
       <ul>
         <li>AI 스킬 만들기는 <strong>딱 3단계</strong>: 폴더 만들기 → SKILL.md 작성 → 설치/테스트</li>
+        <li>준비물은 <strong>Claude Code</strong> 하나예요. <code>npm install -g @anthropic-ai/claude-code</code>로 설치하고, <code>claude --version</code>으로 확인해요</li>
+        <li>메모장으로 저장할 때는 "파일 형식"을 "모든 파일"로. 안 그러면 <code>SKILL.md.txt</code>가 돼서 스킬이 인식되지 않아요</li>
+        <li>명령어가 어려우면 <strong>탐색기나 Finder로 폴더를 끌어다 놓아도</strong> 결과는 같아요</li>
         <li><code>SKILL.md</code>는 프론트매터(name, description)와 본문(지시사항)으로 구성돼요</li>
         <li>스킬의 본문은 <strong>한국어로 쓰는 지시문</strong>이에요. 코딩이 아니에요!</li>
         <li>톤과 스타일 부분만 바꿔도 <strong>완전히 다른 성격의 스킬</strong>이 돼요</li>

@@ -256,13 +256,36 @@ allowed-tools:
         <p><code>.tmpl</code>을 <code>SKILL.md</code>로 바꿔주는 <strong>생성기가 따로 있어야</strong> 해요. 이 생성기는 프로젝트가 직접 만들어 두는 것이지, 스킬을 쓰면 자동으로 딸려오는 게 아니에요. 생성기 없이 <code>.tmpl</code> 파일만 폴더에 넣어두면, <code>{{LANGUAGE}}</code>는 그냥 글자 그대로 남아 있고 스킬은 만들어지지 않아요.</p>
       </div>
 
-      <p>실물로 확인해볼까요? 설치된 gstack의 <code>qa</code> 스킬 <code>SKILL.md</code>를 열어보면 프론트매터 바로 아래에 "이 파일은 <code>SKILL.md.tmpl</code>에서 자동 생성됐으니 직접 고치지 말라"는 주석과, 다시 생성하는 명령인 <code>bun run gen:skill-docs</code>가 나란히 적혀 있어요 (2026년 7월 확인). 사람이 손으로 쓴 파일이 아니라 <strong>생성기가 찍어낸 결과물</strong>이라는 표시죠.</p>
+      <h3>생성기가 없다면 어떻게 하나요?</h3>
+
+      <p>"그럼 생성기부터 만들어야 하나요?" 아니에요. 훨씬 쉬운 답이 있어요.</p>
+
+      <div class="callout">
+        <p class="callout-title">지금 당장 할 수 있는 방법</p>
+        <p><strong>생성기가 없다면 지금은 손으로 바꿔 쓰세요.</strong> <code>SKILL.md.tmpl</code>을 복사해서 <code>{{LANGUAGE}}</code>를 <code>JavaScript</code>로 찾아 바꾸고 <code>SKILL.md</code>로 저장하면 똑같은 결과예요.</p>
+      </div>
+
+      <p>순서로 적으면 이래요.</p>
+
+      <ol>
+        <li><code>SKILL.md.tmpl</code> 파일을 복사해서 이름을 <code>SKILL.md</code>로 바꿔요</li>
+        <li>편집기에서 "찾아 바꾸기"(보통 <code>Ctrl+H</code> 또는 <code>Command+H</code>)를 열어요</li>
+        <li><code>{{LANGUAGE}}</code>를 찾아서 <code>JavaScript</code>로 전부 바꿔요</li>
+        <li>저장. 끝이에요</li>
+      </ol>
+
+      <p>생성기가 하는 일이 정확히 이거예요. 문자열을 찾아서 바꾸는 것. 스킬이 3개쯤일 때는 손으로 하는 게 오히려 빨라요. 같은 작업을 30번 반복하게 되는 날이 오면, 그때 생성기를 만들면 돼요.</p>
+
+      <p>실물로 확인해볼까요? 설치된 gstack의 <code>qa</code> 스킬 <code>SKILL.md</code>를 열어보면 프론트매터 바로 아래에 "이 파일은 <code>SKILL.md.tmpl</code>에서 자동 생성됐으니 직접 고치지 말라"는 주석과, 다시 생성하는 명령이 나란히 적혀 있어요 (2026년 7월 확인). 사람이 손으로 쓴 파일이 아니라 <strong>생성기가 찍어낸 결과물</strong>이라는 표시죠.</p>
+
+      <p>거기 적힌 명령은 <code>bun run gen:skill-docs</code>인데, 이건 <strong>그 프로젝트에서만 통하는 명령이에요.</strong> <code>bun</code>은 그 프로젝트가 쓰는 실행 도구 이름이고, <code>gen:skill-docs</code>는 그 프로젝트가 자기 생성기에 붙여둔 별명이에요. 내 컴퓨터 아무 폴더에서 이 명령을 쳐도 아무 일도 일어나지 않아요. 그러니 따라 칠 필요 없이 "이 프로젝트는 생성기를 이렇게 돌리는구나" 정도로만 보면 돼요.</p>
 
       <p>이렇게 생성기를 갖춘 프로젝트에서는, 직접 정의한 변수 말고 <strong>생성기가 알아서 값을 넣어주는 변수</strong>도 쓸 수 있어요.</p>
 
       <div class="fun-box">
         <p class="fun-box-title">생성기가 채워주는 변수 예시</p>
-        <p><strong>{{PREAMBLE}}</strong>: 그 프로젝트의 스킬들이 공통으로 쓰는 머리말이에요. 이걸 넣어두면 스킬마다 같은 문구를 복사해 붙일 필요가 없어요.<br><br>
+        <p>아래 둘은 마크다운이나 Claude Code의 표준 문법이 아니라, <strong>그 프로젝트의 생성기가 정해둔 이름</strong>이에요. 다른 프로젝트에서는 이름도 뜻도 다를 수 있어요.<br><br>
+        <strong>{{PREAMBLE}}</strong>: 그 프로젝트의 스킬들이 공통으로 쓰는 머리말이에요. 이걸 넣어두면 스킬마다 같은 문구를 복사해 붙일 필요가 없어요.<br><br>
         <strong>{{BASE_BRANCH_DETECT}}</strong>: Git의 기본 브랜치를 알아내는 방법이 들어가요. main인지 master인지 develop인지는 프로젝트마다 다르니까요.</p>
       </div>
 
@@ -288,6 +311,11 @@ PR을 리뷰할 때는 {{BASE_BRANCH_DETECT}} 브랜치와의
 차이를 비교하여 분석하세요.</code></pre>
 
       <p>생성기가 <code>{{BASE_BRANCH_DETECT}}</code> 자리를 채워주니까, 프로젝트의 기본 브랜치가 <code>main</code>이든 <code>master</code>이든 템플릿 하나로 다 커버돼요.</p>
+
+      <div class="callout">
+        <p class="callout-title">PR? 브랜치? 머지?</p>
+        <p>위 예제에 처음 보는 말이 나왔죠. <strong>브랜치는 챕터 15에서, PR과 머지는 챕터 16에서 다뤄요.</strong> 지금은 "Git으로 협업할 때 쓰는 용어구나" 정도로 넘어가도 돼요. 이 예제에서 봐야 할 건 <code>{{ }}</code>로 감싼 자리가 생성기에게 채워진다는 것 하나예요.</p>
+      </div>
     </section>
 
     <!-- ====== When to Use ====== -->
@@ -338,6 +366,7 @@ PR을 리뷰할 때는 {{BASE_BRANCH_DETECT}} 브랜치와의
         <li><strong>SKILL.md.tmpl</strong>은 SKILL.md를 자동 생성하는 템플릿이에요. 쿠키 커터 같은 거!</li>
         <li><code>{{VARIABLE_NAME}}</code> 형태의 <strong>변수</strong>가 핵심이에요. "나중에 채울 빈칸"이죠</li>
         <li><code>.tmpl</code>은 Claude Code 기능이 아니라 프로젝트의 빌드 규약이에요. 값은 <strong>빌드할 때</strong> 확장돼 <code>SKILL.md</code>에 구워지고, 그러려면 <strong>생성기가 필요해요</strong></li>
+        <li>생성기가 없으면 <strong>손으로 바꿔 쓰면 돼요.</strong> <code>.tmpl</code>을 복사해서 <code>{{LANGUAGE}}</code>를 찾아 바꾸고 <code>SKILL.md</code>로 저장하면 결과가 같아요</li>
         <li>같은 구조의 스킬이 여러 개 필요할 때 템플릿이 빛을 발해요</li>
         <li><strong>초보자는 SKILL.md 직접 작성으로 충분해요!</strong> 필요를 느낄 때 도입하세요</li>
       </ul>
