@@ -5,19 +5,19 @@
   "eyebrow": "APPENDIX",
   "title": "복붙용 자산 모음",
   "subtitle": "읽는 문서가 아니라 긁어 가는 문서입니다",
-  "desc": "CLAUDE.md 템플릿, 노트 템플릿 7종, 검증 스크립트 전문, 스킬 3종, 예약 작업 프롬프트 10종, 대시보드 스크립트를 한 곳에 모았습니다. 각 자산 앞에 언제 쓰는지와 어느 장에서 나왔는지를 적었습니다.",
-  "minutes": "33",
+  "desc": "CLAUDE.md, 노트 템플릿 7종, 검증 스크립트 전문, 스킬 3종, 예약 작업 프롬프트 10종, 대시보드 스크립트를 한 곳에 모았습니다. 각 자산 앞에 언제 쓰는지와 어느 장에서 나왔는지를 적었습니다.",
+  "minutes": "27",
   "prev_href": "appendix-a.html",
   "prev_label": "이전: 부록 A 용어 사전",
   "next_href": "appendix-c.html",
   "next_label": "다음: 부록 C 자주 막히는 곳"
 } -->
   <article>
-    <p>여기는 창고입니다. 처음부터 읽지 마시고 필요한 자산을 찾아 긁어 가세요. 각 자산 앞에 <strong>언제 쓰는가</strong>와 <strong>어느 장에서 나왔는가</strong>를 적어 두었으니, 설명이 더 필요하면 그 장으로 돌아가시면 됩니다.</p>
+    <p>여기는 창고입니다. 필요한 것만 찾아 긁어 가세요. 각 자산 앞에 <strong>언제 쓰는가</strong>와 <strong>어디서 나왔는가</strong>를 적었습니다.</p>
 
     <div class="callout callout-warning">
       <p class="callout-title">그대로 붙여 넣으면 안 도는 것이 정상입니다</p>
-      <p>모든 자산에 솔빛테크의 폴더 이름과 노트 이름이 박혀 있습니다. <strong>경로와 고유명사는 회사 것으로 바꾸고, 필드 이름은 그대로 두세요.</strong> 필드 이름을 바꾸면 검증 스크립트와 대시보드와 프롬프트가 한꺼번에 어긋납니다. 마감 날짜는 언제나 <code>due</code> 입니다.</p>
+      <p>모든 자산에 솔빛테크의 폴더 이름과 노트 이름이 박혀 있습니다. <strong>경로와 고유명사는 회사 것으로 바꾸고, 필드 이름은 그대로 두세요.</strong> 필드 이름을 바꾸면 검증 스크립트와 대시보드와 프롬프트가 한꺼번에 어긋납니다.</p>
     </div>
 
     <h2 id="jump">자산 건너뛰기</h2>
@@ -33,109 +33,71 @@
 
     <h2 id="claude-md">CLAUDE.md</h2>
 
-    <p><strong>언제 쓰나.</strong> 볼트를 만든 첫날에 볼트 루트에 놓습니다. AI가 이 폴더에서 일을 시작할 때 가장 먼저 읽는 파일입니다. <strong>어디서 나왔나.</strong> 11장입니다.</p>
+    <p><strong>언제 쓰나.</strong> 볼트를 만든 첫날 루트에 놓습니다. AI가 이 폴더에서 일을 시작할 때 가장 먼저 읽는 파일입니다. <strong>어디서 나왔나.</strong> 11장입니다.</p>
 
     <pre><code># 솔빛테크 위키 · AI 작업 규칙
 
-이 볼트는 회사의 제품·기술역량·과제·기회·고객·결정을 노트로 적어 둔 곳입니다.
-답은 노트에 적힌 사실에서만 나옵니다.
-
 ## 1. 절대 규칙 (예외 없음)
-
 1. 볼트에 없는 사실을 지어내지 않는다. 모르면 「확인 필요」라고 쓴다.
-2. 근거 없는 수치를 쓰지 않는다. 숫자에는 근거 노트를 [[대괄호]]로 함께 적는다.
-3. 사람 이름·직함·회사명을 추측해 완성하지 않는다. 원문 표기를 그대로 쓴다.
-4. 기존 노트와 모순되는 내용을 발견하면 고치지 말고 「모순」으로 따로 보고한다.
+2. 근거 없는 수치를 쓰지 않는다. 숫자에는 근거 노트를 [[대괄호]]로 적는다.
+3. 사람 이름·직함·회사명을 추측해 완성하지 않는다. 원문 표기를 쓴다.
+4. 기존 노트와 모순되면 고치지 말고 「모순」으로 따로 보고한다.
 5. 원문(회의록·메일·보고서)은 한 글자도 고치지 않는다. 오타도 그대로 둔다.
-6. confidence: draft 인 노트는 대외 문서의 근거로 쓰지 않는다.
-7. confidential 이 「대외비」인 노트의 고객명·단가·인건비는 외부용 산출물에 쓰지 않는다.
+6. confidence: draft 인 노트와 confidential 이 「대외비」인 고객명·단가·인건비는
+   대외 문서에 쓰지 않는다.
 
 ## 2. 쓰기 권한
-
-- 새 파일을 만들어도 되는 곳은 _reports/ 와 _moc/ 두 곳입니다.
-- Sources/ 아래는 사람이 검토한 뒤에만 들어갑니다.
-  자동 작업은 노트를 고치는 대신 「고칠 목록」만 남깁니다.
-- confidence: reviewed 인 노트는 어떤 필드도 자동으로 고치지 않습니다.
-- 파일 삭제와 이동은 하지 않습니다. 사람에게 요청합니다.
+- 새 파일을 만들어도 되는 곳은 _reports/ 와 _moc/ 두 곳이다.
+- Sources/ 는 사람이 검토한 뒤에만 들어간다. 자동 작업은 「고칠 목록」만 남긴다.
+- confidence: reviewed 인 노트와 파일 삭제·이동은 사람에게 요청한다.
 
 ## 3. 정본 필드명 (뜻이 같은 새 이름을 만들지 않는다)
-
-| 갈래 | 필드 |
-|---|---|
-| 메타 | class, id, owner, start, due, updated, since, confidential |
-| 상태 | status, stage, priority, blocked_by, confidence |
-| 관계 | pdm_uses, pdm_output_of, pdm_owner, pdm_intent_of |
-| 과제 | period, funder, budget |
+- class, id, owner, start, due, updated, since, confidential
+- status, stage, priority, blocked_by, confidence · 과제: period, funder, budget
+- pdm_uses, pdm_output_of, pdm_owner, pdm_intent_of
 
 ## 4. 통제 어휘 (목록 밖의 값을 쓰지 않는다)
-
 - 제품 status: 기획 / 개발 / 운영 / 중단
 - 과제·기회 status: 기획 / 진행 / 검토 / 완료 / 보류
 - confidence: draft / reviewed · priority: 상 / 중 / 하
 - confidential: 공개 / 사내 / 대외비
-
-애매하면 값을 비우고 본문에 「확인 필요」를 적습니다. 새 값을 만들지 않습니다.
+애매하면 값을 비우고 본문에 「확인 필요」를 적는다.
 
 ## 5. 클래스와 ID (제목이 바뀌어도 id 는 그대로 둔다)
-
-| 클래스 | 접두어 | 판정 기준 |
-|---|---|---|
-| 제품 | PRD- | 외부에 판매·납품하는 단위 |
-| 기술역량 | CAP- | 재사용 가능한 기술 묶음 |
-| 과제 | PRJ- | 계약 또는 예산이 붙어 있는 것 |
-| 기회 | OPP- | 계약·예산이 아직 없는 것 |
-| 조직 | ORG- | 고객·파트너·기관 |
-| 결정 | DEC- | 회의에서 정해진 것 |
+- PRD- 제품(판매·납품 단위) · CAP- 기술역량(재사용 가능한 기술 묶음)
+- PRJ- 과제(계약·예산 있음) · OPP- 기회(없음) · ORG- 조직 · DEC- 결정
 
 ## 6. 틀리기 쉬운 사실 (여기 적힌 것이 정본이다)
-
 - 창고봇은 제품(PRD-001), 객체인식은 기술역량(CAP-객체인식). 둘을 묶지 않는다.
-- 픽뷰는 실증 데이터가 없다. 제안서 근거로 쓰지 않는다.
-- 대성물류는 계약 전이다. 실적이나 레퍼런스로 표기하지 않는다.
-- 웨어트윈 TRL 은 노트에 4와 6이 함께 있다. 어느 쪽도 쓰지 말고 「확인 필요」로 남긴다.
+- 픽뷰는 실증 데이터가 없고 대성물류는 계약 전이다. 실적으로 쓰지 않는다.
+- 웨어트윈 TRL 은 노트에 4와 6이 함께 있다. 어느 쪽도 쓰지 말고 「확인 필요」로 둔다.
 - 「이대표」와 「김대표」는 다른 표기다. 같은 사람으로 합치지 않는다.
 
-## 7. 산출물 형식
+## 7. 산출물
+- 새 노트는 _ops/templates/ 의 템플릿을 쓴다. AI가 만든 노트에는
+  confidence: draft 와 generated_by 를 넣는다. 리포트는 1000자 이내.</code></pre>
 
-- 새 노트는 _ops/templates/ 의 템플릿을 그대로 씁니다.
-- AI가 만든 노트에는 confidence: draft 와 generated_by 를 넣습니다.
-- 리포트는 1000자 이내. 내용이 없으면 한 줄만 씁니다.</code></pre>
-
-    <div class="callout callout-tip">
-      <p class="callout-title">6절을 비워 두지 마세요</p>
-      <p>1절부터 5절까지는 어느 회사나 거의 같습니다. <strong>6절만 회사마다 다릅니다.</strong> AI가 같은 실수를 두 번 하면 그때마다 한 줄씩 늘리세요. 이 절이 길어질수록 답의 품질이 올라갑니다.</p>
-    </div>
+    <p>1절부터 5절까지는 어느 회사나 같고 <strong>6절만 회사마다 다릅니다.</strong> AI가 같은 실수를 두 번 하면 한 줄씩 늘리세요.</p>
 
     <h2 id="templates">노트 템플릿 7종</h2>
 
-    <p><strong>언제 쓰나.</strong> 새 노트를 만들 때마다 씁니다. <code>_ops/templates/</code> 에 넣어 두고 사람도 AI도 같은 것을 쓰게 합니다. <strong>어디서 나왔나.</strong> 12장입니다. 필드의 뜻은 10장에 있습니다.</p>
+    <p><strong>언제 쓰나.</strong> 새 노트를 만들 때마다 씁니다. <code>_ops/templates/</code> 에 넣어 두고 사람도 AI도 같은 것을 씁니다. <strong>어디서 나왔나.</strong> 12장, 필드의 뜻은 10장입니다.</p>
 
-    <h3>제품 · 기술역량</h3>
-
-    <pre><code>---
+    <pre><code>--- 제품 ---
 class: 제품
 id: PRD-001
 status: 기획
 owner: "[[담당자]]"
 since: 2026-01-01
-confidential: 사내
 pdm_uses:
   - "[[기술역량 이름]]"
 confidence: draft
 updated: 2026-01-01
 ---
 # 제품 이름
-## 한 줄 설명
-누구의 어떤 문제를 어떻게 푸는가.
-## 도입 현황
-| 고객 | 도입 시점 | 규모 | 근거 노트 |
-|---|---|---|---|
-## 쓰는 기술
-- [[기술역량 이름]] · 이 제품에서 맡는 역할
-## 확인 필요
--</code></pre>
+## 한 줄 설명 · ## 도입 현황 · ## 쓰는 기술 · ## 확인 필요
 
-    <pre><code>---
+--- 기술역량 ---
 class: 기술역량
 id: CAP-객체인식
 trl: 6
@@ -147,18 +109,10 @@ confidence: draft
 updated: 2026-01-01
 ---
 # 기술역량 이름
-## 무엇을 할 수 있나
-기능이 아니라 결과로 적습니다. 「무엇을 얼마나 정확하게」.
-## TRL 근거
-| TRL | 근거 문서 | 확인한 사람 | 확인 날짜 |
-|---|---|---|---|
-근거 없는 TRL 은 적지 않습니다. 비우고 「확인 필요」로 둡니다.
-## 한계
-쓸 수 없는 조건. 제안서에서 이 칸이 가장 비싸게 쓰입니다.</code></pre>
+## 무엇을 할 수 있나 · ## TRL 근거 · ## 한계
+근거 없는 TRL 은 적지 않는다. 비우고 「확인 필요」로 둔다.</code></pre>
 
-    <h3>과제 · 기회</h3>
-
-    <pre><code>---
+    <pre><code>--- 과제 ---
 class: 과제
 id: PRJ-2025-스마트물류
 status: 진행
@@ -169,21 +123,13 @@ funder: 산업통상자원부
 budget: 480000000
 start: 2025-04-01
 due: 2027-03-31
-priority: 상
-confidential: 사내
 confidence: reviewed
 updated: 2026-07-15
 ---
 # 과제 이름
-## 목표
-협약서 문장을 그대로 옮깁니다. 요약하지 않습니다.
-## 산출물
-| 산출물 | 제출 시점 | 상태 | 노트 |
-|---|---|---|---|
-## 여기서 나온 기술역량
-- [[CAP-객체인식]]</code></pre>
+## 목표(협약서 문장 그대로) · ## 산출물 · ## 여기서 나온 기술역량
 
-    <pre><code>---
+--- 기회 ---
 class: 기회
 id: OPP-2026-지자체공모
 status: 진행
@@ -192,22 +138,13 @@ owner: "[[김대표]]"
 start: 2026-07-25
 due: 2026-08-08
 priority: 상
-confidential: 사내
 confidence: reviewed
 updated: 2026-07-30
 ---
 # 기회 이름
-## 요구 조건 대조
-| 요구사항 | 우리 근거 | 충족 |
-|---|---|---|
-## 아직 없는 것
-근거가 빈 항목만 모읍니다. 이 목록이 다음 2주의 할 일이 됩니다.
-## 지난 회차
-- 2025년 탈락 사유: 실증 부족 · [[결정 노트]]</code></pre>
+## 요구 조건 대조(요구사항 / 근거 / 충족) · ## 아직 없는 것</code></pre>
 
-    <h3>업무로그 · 결정 · 회의록</h3>
-
-    <pre><code>---
+    <pre><code>--- 업무로그 ---
 class: 업무로그
 date: 2026-07-30
 owner: "[[박사업]]"
@@ -218,11 +155,23 @@ updated: 2026-07-30
 # 2026-07-30 박사업
 ## 한 일
 ## 막힌 것
-## 정한 것</code></pre>
+## 정한 것
 
-    <p>칸이 셋뿐입니다. 하루 3~5분에 끝나야 합니다. <code>pdm_intent_of</code> 는 이 하루가 어느 과제나 기회를 향한 것이었는지 가리키는 선이고, 18장의 회고가 그 선을 따라갑니다.</p>
+--- 회의록 ---
+class: 회의록
+date: 2026-07-15
+attendees: ["김대표", "박사업", "이CTO"]
+confidential: 사내
+confidence: reviewed
+updated: 2026-07-15
+---
+# 2026-07-15 주간회의
+## 원문
+받아 적은 그대로 붙여 넣는다. 오타도 고치지 않는다.
+## 추출 결과
+- 결정 / 액션 / 사실 변경 / 확인 필요 / 모순
 
-    <pre><code>---
+--- 결정 ---
 class: 결정
 id: DEC-2026-0715-01
 date: 2026-07-15
@@ -235,44 +184,18 @@ updated: 2026-07-15
 ---
 # 결정 제목
 ## 결정
-무엇을 하기로 했는지 한 문단.
 ## 검토했으나 채택하지 않은 안
 | 안 | 왜 채택하지 않았나 |
 |---|---|
 ## 배경
-왜 이 논의가 시작됐는지.
 ## 액션
 - [ ] 할 일 · 담당자 · 2026-08-15</code></pre>
 
-    <div class="callout">
-      <p class="callout-title">「검토했으나 채택하지 않은 안」이 이 템플릿의 핵심입니다</p>
-      <p>보통 회의록에는 정해진 것만 적힙니다. 대안이 무엇이었고 왜 버렸는지는 안 적힙니다. 그래서 6개월 뒤에 같은 논의를 처음부터 다시 합니다. 이 칸을 템플릿에 박아 두면 <strong>AI가 매번 채웁니다.</strong> 사람이 기억해서 쓰는 것이 아닙니다.</p>
-    </div>
-
-    <pre><code>---
-class: 회의록
-date: 2026-07-15
-attendees: ["김대표", "박사업", "이CTO"]
-confidential: 사내
-confidence: reviewed
-updated: 2026-07-15
----
-# 2026-07-15 주간회의
-## 원문
-받아 적은 그대로 붙여 넣습니다. 오타도 고치지 않습니다.
-
-## 추출 결과
-- 결정: [[결정 노트]]
-- 액션: 담당자 · 기한
-- 사실 변경: 어느 노트의 어느 필드
-- 확인 필요:
-- 모순: 기존 노트와 어긋나는 것</code></pre>
-
-    <p>원문과 가공물을 한 파일 안에서 나눠 둔 것이 중요합니다. 원문은 증거이고 추출 결과는 해석입니다. 둘이 섞이면 6개월 뒤에 어느 쪽이 실제로 오간 말인지 가릴 방법이 없습니다.</p>
+    <p>업무로그는 칸이 셋뿐입니다. 하루 3~5분에 끝나야 합니다. <code>pdm_intent_of</code> 가 이 하루를 어느 과제에 이어 붙이는 선이고, 18장의 회고가 그 선을 따라갑니다.</p>
 
     <h2 id="validate">검증 스크립트</h2>
 
-    <p><strong>언제 쓰나.</strong> <code>_ops/scripts/validate.py</code> 로 저장해 매일 아침이나 매주 금요일에 자동으로 돌립니다. 다섯 가지를 잡습니다. 필수 필드 누락, 통제 어휘 밖 상태값, 끊어진 링크, 오래된 노트, 금지 필드명입니다. 표준 라이브러리만 쓰므로 설치할 것이 없습니다. <strong>어디서 나왔나.</strong> 17장입니다. 스케줄에 거는 방법은 14장입니다.</p>
+    <p><strong>언제 쓰나.</strong> <code>_ops/scripts/validate.py</code> 로 저장해 매주 돌립니다. 필수 필드 누락, 통제 어휘 밖 상태값, 끊어진 링크, 오래된 노트, 금지 필드명 다섯 가지를 잡습니다. <strong>어디서 나왔나.</strong> 17장이고 스케줄은 14장입니다.</p>
 
     <pre><code># -*- coding: utf-8 -*-
 """볼트 점검. 표준 라이브러리만 씁니다.  python "_ops/scripts/validate.py"
@@ -282,7 +205,7 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]   # _ops/scripts/ 에서 두 단계 위가 볼트 루트
-STALE_DAYS = 30                              # 이만큼 손대지 않은 노트를 방치로 봅니다
+STALE = 30                                   # 이만큼 손대지 않은 노트를 방치로 봅니다
 REQUIRED = {
     "제품": ["id", "status", "owner", "since", "updated"],
     "기술역량": ["id", "trl", "evidence", "updated"],
@@ -297,14 +220,13 @@ STATUS = {"제품": ["기획", "개발", "운영", "중단"], "과제": WORK, "�
 # 금지 필드명. 나쁜 예로만 등장해야 하는 이름입니다.
 # 어제는 due, 오늘은 deadline, 내일은 마감일로 적히면 아무것도 셀 수 없습니다.
 FORBIDDEN = ["deadline", "마감일", "uses_tech", "tech_used", "사용기술"]
-
 FM = re.compile(r"\A---\r?\n(.*?)\r?\n---", re.S)
 KEY = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*:\s*(.*)$")
 LINK = re.compile(r"\[\[([^\]|#]+)")
 
 
 def frontmatter(text):
-    """--- 로 감싼 부분만 읽습니다. 이 볼트가 쓰는 문법만 다루는 최소 파서입니다."""
+    """--- 로 감싼 부분만 읽는 최소 파서입니다. 이 볼트가 쓰는 문법만 다룹니다."""
     head = FM.match(text)
     if not head:
         return None, ""
@@ -314,7 +236,7 @@ def frontmatter(text):
         if found:
             key, value = found.groups()
             meta[key] = value.strip().strip('"').strip("'")
-        elif line.strip() and key:                    # 여러 줄로 적은 목록의 항목
+        elif line.strip() and key:                 # 여러 줄로 적은 목록의 항목
             meta[key] = (meta[key] + " " + line.strip().lstrip("-")).strip()
     return meta, head.group(1)
 
@@ -342,15 +264,15 @@ def main():
                 add("ERROR", path, "금지 필드명 " + name + ". 마감은 언제나 due 입니다")
         cls = meta.get("class", "")
         if cls not in REQUIRED:
-            add("ERROR", path, "설계서에 없는 class 값: " + (cls or "비어 있음"))
+            add("ERROR", path, "설계서에 없는 class: " + (cls or "비어 있음"))
             continue
         for field in REQUIRED[cls]:                                # 필수 필드 누락
             if not meta.get(field):
                 add("ERROR", path, "필수 필드 누락: " + field)
         status = meta.get("status", "")                            # 통제 어휘 밖 값
         if status and cls in STATUS and status not in STATUS[cls]:
-            add("ERROR", path, "통제 어휘 밖 status: " + status
-                + " (" + cls + " 목록은 " + " / ".join(STATUS[cls]) + ")")
+            add("ERROR", path, "통제 어휘 밖 status: %s (%s 목록은 %s)"
+                % (status, cls, " / ".join(STATUS[cls])))
         for target in set(t.strip() for t in LINK.findall(text)):  # 끊어진 링크
             if target and target not in known:
                 add("ERROR", path, "끊어진 링크: [[" + target + "]]")
@@ -358,17 +280,13 @@ def main():
             updated = datetime.date.fromisoformat(meta.get("updated", ""))
         except ValueError:
             updated = datetime.date.fromtimestamp(path.stat().st_mtime)
-        if (today - updated).days &gt; STALE_DAYS:
+        if (today - updated).days &gt; STALE:
             add("WARN", path, "%d일 동안 갱신이 없습니다" % (today - updated).days)
 
     n, stamp = Counter(lv for lv, _, _ in found), today.isoformat()
-    lines = ["# 볼트 점검 " + stamp, "",
-             "노트 %d개 · ERROR %d건 · WARN %d건" % (len(notes), n["ERROR"], n["WARN"])]
-    for level in ("ERROR", "WARN"):
-        rows = [(w, m) for lv, w, m in found if lv == level]
-        if rows:
-            lines += ["", "## %s %d건" % (level, len(rows)), ""]
-            lines += ["- `%s` %s" % row for row in rows]
+    lines = ["# 볼트 점검 %s" % stamp, "",
+             "노트 %d개 · ERROR %d건 · WARN %d건" % (len(notes), n["ERROR"], n["WARN"]), ""]
+    lines += ["- **%s** `%s` %s" % row for row in sorted(found)] or ["규칙 위반 없음"]
     out.mkdir(exist_ok=True)
     (out / ("점검-%s.md" % stamp)).write_text("\n".join(lines) + "\n", encoding="utf-8")
     hist = out / "validate-history.csv"
@@ -383,30 +301,23 @@ def main():
 if __name__ == "__main__":
     sys.exit(main())</code></pre>
 
-    <p>Windows 작업 스케줄러에 거는 명령은 한 줄입니다. 관리자 권한 명령 프롬프트에서 실행합니다.</p>
+    <p>작업 스케줄러에는 관리자 권한 프롬프트에서 한 줄로 겁니다.</p>
 
     <pre><code>schtasks /create /tn "위키 점검" /tr "python \"C:\Users\hong\OneDrive - 솔빛테크\솔빛테크 위키\_ops\scripts\validate.py\"" /sc onlogon /f</code></pre>
 
-    <div class="callout callout-tip">
-      <p class="callout-title">ERROR 를 0으로 만들려 하지 마세요</p>
-      <p>처음 돌리면 수십 건이 나옵니다. 정상입니다. <strong>지난주보다 줄었는지</strong>만 보세요. 끊어진 링크는 대개 아직 안 만든 노트를 가리키는 것이고, 그건 잘못이 아니라 「다음에 채울 것」 목록입니다.</p>
-    </div>
+    <p>처음 돌리면 ERROR 가 수십 건 나옵니다. 정상입니다. 0으로 만들려 하지 말고 <strong>지난주보다 줄었는지</strong>만 보세요.</p>
 
     <h2 id="skills">스킬 3종</h2>
 
-    <p><strong>언제 쓰나.</strong> 같은 프롬프트를 세 번 쓰고도 내용이 거의 안 바뀌었을 때 굳힙니다. 각각 <code>SKILL.md</code> 파일 하나입니다. <strong>어디서 나왔나.</strong> 13장입니다.</p>
-
-    <h3>ingest · 원문을 지식으로</h3>
+    <p><strong>언제 쓰나.</strong> 같은 프롬프트를 세 번 쓰고도 안 바뀌면 굳힙니다. 각각 <code>SKILL.md</code> 하나입니다. <strong>어디서 나왔나.</strong> 13장입니다.</p>
 
     <pre><code>---
 name: ingest
-description: 회의록·메모·메일 원문을 볼트 규칙에 맞게 구조화한다. 원문을 먼저 저장하고 결정·액션·사실 변경·신규 개체를 뽑아 표로 보고한 뒤, 승인을 받고 노트를 만든다.
+description: 회의록·메모·메일 원문을 볼트 규칙에 맞게 구조화한다. 결정·액션·사실 변경·신규 개체를 뽑아 표로 보고한 뒤, 승인을 받고 노트를 만든다.
 ---
 # ingest
-
 ## 순서
-1. 원문을 Sources/40-Worklog/YYYY-MM-DD-제목.md 로 먼저 저장한다.
-   한 글자도 고치지 않는다.
+1. 원문을 Sources/40-Worklog/YYYY-MM-DD-제목.md 로 저장한다. 한 글자도 고치지 않는다.
 2. 네 가지를 뽑는다.
    - 결정: 「~하기로 했다」에 해당하는 것. 대안과 이유를 함께 적는다
    - 액션: 담당자와 기한이 있는 것
@@ -414,26 +325,20 @@ description: 회의록·메모·메일 원문을 볼트 규칙에 맞게 구조�
    - 신규 개체: 아직 노트가 없는 조직·제품·기술
 3. 뽑은 것을 표로 보고한다. 파일은 아직 만들지 않는다.
 4. 승인을 받으면 _ops/templates/ 의 템플릿으로 노트를 만든다.
-
 ## 규칙
 - 원문에 없는 내용을 추론하지 않는다. 모호하면 「확인 필요」로 남긴다
 - 「~같다」, 「~라고 함」처럼 불확실한 진술은 confidence: draft 로 표시한다
 - 기존 노트와 모순되면 고치지 말고 「모순」으로 따로 보고한다
 - 사람 이름은 원문 표기를 그대로 쓴다. 직함을 추측해 붙이지 않는다
 - 계약 전 고객은 confidential: 대외비 로 표시한다
-
 ## 끝났는지 확인하는 법
-- 만든 노트의 모든 문장을 원문에서 찾을 수 있다
-- 「확인 필요」가 한 건 이상 남아 있다. 0건이면 규칙이 느슨한 것이다</code></pre>
-
-    <h3>retro · 의도와 실행을 대조</h3>
+모든 문장을 원문에서 찾을 수 있고 「확인 필요」가 한 건 이상 남아 있다.</code></pre>
 
     <pre><code>---
 name: retro
 description: 분기 회고 초안을 만든다. 과제·기회의 계획과 업무로그의 실제 활동을 pdm_intent_of 링크로 대조해 차이와 그 이유를 정리한다.
 ---
 # retro
-
 ## 순서
 1. 대상 기간을 정한다. 기본은 지난 90일.
 2. Sources/20-Projects/ 에서 그 기간에 진행 중이던 과제·기회를 모은다.
@@ -441,205 +346,142 @@ description: 분기 회고 초안을 만든다. 과제·기회의 계획과 업�
 4. 세 열로 표를 만든다: 계획한 것 / 실제로 한 것 / 차이.
 5. 차이가 있는 행마다 업무로그의 「막힌 것」에서 이유를 찾아 붙인다.
 6. _reports/회고-YYYY-Q_.md 로 저장한다.
-
 ## 규칙
 - 이유를 추측하지 않는다. 로그에 적힌 말만 쓴다. 없으면 「기록에 없음」
 - 사람별로 집계하지 않는다. 과제별로만 집계한다
 - 「잘했다 / 못했다」로 평가하지 않는다. 차이와 이유만 적는다
 - 마지막에 「이유를 알 수 있는 차이」의 비율을 한 줄로 적는다
-
-이 스킬이 재는 것은 차이의 크기가 아니라 그 비율입니다.
-이유를 모르는 차이가 많다면 회고가 아니라 기록을 고쳐야 합니다.</code></pre>
-
-    <h3>audit · 품질 점검과 해석</h3>
+이 스킬이 재는 것은 차이의 크기가 아니라 그 비율이다.</code></pre>
 
     <pre><code>---
 name: audit
 description: 볼트 품질을 점검한다. validate.py 를 돌린 결과를 등급별로 나누고, 안전하게 고칠 수 있는 것만 고친 뒤 나머지는 목록으로 남긴다.
 ---
 # audit
-
 ## 순서
-1. _ops/scripts/validate.py 를 실행한다.
-2. 결과를 ERROR / WARN 으로 나눈다.
-3. 아래 두 가지만 직접 고친다.
+1. _ops/scripts/validate.py 를 실행하고 결과를 ERROR / WARN 으로 나눈다.
+2. 아래 두 가지만 직접 고친다.
    - updated 누락: 파일 수정 시각으로 채운다
-   - class 값 오타: _ops/01-온톨로지-설계서.md 의 목록과 대조해 고친다
-4. 나머지는 고치지 말고 목록만 남긴다.
-5. _reports/점검-YYYY-MM-DD.md 를 읽어 사람이 읽을 요약을 앞에 붙인다.
-   첫 줄에 지난주 대비 ERROR 증감을 쓴다.
-
+   - class 값 오타: _ops/01-온톨로지-설계서.md 와 대조해 고친다
+3. 나머지는 고치지 말고 목록만 남긴다.
+4. 리포트 앞에 요약을 붙인다. 첫 줄에 지난주 대비 ERROR 증감을 쓰고,
+   변화가 없으면 「지난주와 같음」 한 줄만 쓴다.
 ## 절대 하지 말 것
 - Sources/ 안의 본문(frontmatter 아래)을 수정하지 않는다
 - confidence: reviewed 인 노트는 어떤 필드도 고치지 않는다
-- 노트를 새로 만들지 않는다
-- 사실 관계 판단이 필요한 것에 손대지 않는다
-
-## 보고 형식
-- 첫 줄: 지난주 대비 증감 한 문장
-- 고친 것 목록 → 사람이 판단해야 할 것 목록 (최대 10건)
-- 변화가 없으면 「지난주와 같음」 한 줄만 쓴다</code></pre>
+- 노트를 새로 만들지 않는다. 사실 관계 판단이 필요한 것에 손대지 않는다</code></pre>
 
     <h2 id="schedules">예약 작업 10종</h2>
 
-    <p><strong>언제 쓰나.</strong> Claude Cowork 의 예약 작업에 그대로 붙여 넣습니다. 한 번에 다 만들지 말고 하나씩 2주 돌려 보세요. <strong>어디서 나왔나.</strong> 14장입니다. 경로 A부터 D까지의 뜻과 고르는 순서가 그 장에 있습니다. 화면 구성은 2026년 7월 기준입니다.</p>
+    <p><strong>언제 쓰나.</strong> Cowork 의 예약 작업에 붙여 넣습니다. 하나씩 2주 돌려 보세요. <strong>어디서 나왔나.</strong> 14장이고 화면 구성은 2026년 7월 기준입니다. 모든 프롬프트에 <strong>산출 위치, 빈 결과일 때의 행동, 금지 목록, 근거 표기, 회차 비교, 길이 상한</strong> 여섯 가지가 들어 있습니다.</p>
 
-    <h3>1. 월요일 주간 브리핑 · 경로 B 원격 · 매주 월 08:30</h3>
+    <h3>1. 월요일 주간 브리핑 · B 원격 · 매주 월 08:30</h3>
 
-    <pre><code>SharePoint의 「솔빛테크 위키」 폴더를 참고해 이번 주 브리핑을 작성한다.
-
-1. 마감이 14일 이내인 항목. Sources/20-Projects/ 의 due 필드를 기준으로 한다.
-   과제·기회를 구분해 나열하고 담당자(owner)를 함께 적는다.
-2. 지난 7일간 새로 생기거나 수정된 노트 (updated 필드 기준).
-3. 지난 7일간 기록된 결정 사항. Sources/40-Worklog/ 에서 찾는다.
-4. 14일 이상 업데이트가 없는 「운영」 상태 제품. 방치 신호다.
-
-- 볼트에 없는 사실은 추론하지 않는다. 없으면 「기록 없음」이라고 쓴다.
-- 각 항목 뒤에 근거 노트를 [[대괄호]]로 적는다.
-- 1000자 이내. 표를 쓰지 말고 짧은 목록으로 쓴다.
+    <pre><code>SharePoint의 「솔빛테크 위키」를 참고해 이번 주 브리핑을 쓴다.
+1. due 가 14일 이내인 과제·기회. 담당자(owner)를 함께 적는다.
+2. 지난 7일간 새로 생기거나 수정된 노트 (updated 기준)와 기록된 결정.
+3. 14일 이상 업데이트가 없는 「운영」 상태 제품.
+- 없는 사실은 추론하지 않는다. 없으면 「기록 없음」이라고 쓴다.
+- 각 항목 뒤에 근거 노트를 [[대괄호]]로 적는다. 1000자 이내.
 - 전부 비어 있으면 「이번 주 특이사항 없음」 한 줄만 쓴다.</code></pre>
 
-    <h3>2. 업무로그 미기록 확인 · 경로 B 원격 · 평일 18:00</h3>
+    <h3>2. 업무로그 미기록 확인 · B 원격 · 평일 18:00</h3>
 
-    <pre><code>Sources/40-Worklog/ 에서 오늘 날짜(KST)로 작성된 업무로그를 찾는다.
-
+    <pre><code>Sources/40-Worklog/ 에서 오늘 날짜(KST)로 쓴 업무로그를 찾는다.
 - 팀원 목록은 Sources/00-Company/멤버.md 를 기준으로 한다.
-- 오늘 로그가 없는 사람 이름만 목록으로 만든다.
-- 전원이 작성했으면 「전원 기록 완료」 한 줄만 쓰고 끝낸다.
+- 오늘 로그가 없는 사람 이름만 적는다. 전원이 썼으면 「전원 기록 완료」 한 줄.
 - 누구를 탓하는 문장을 쓰지 않는다. 이름과 숫자만 쓴다.
 - 어제·그제 미기록까지 세어 「연속 미기록 2일」처럼 표시한다.</code></pre>
 
-    <p>이 알림을 팀 전체 채널에 올리지 마세요. 본인에게만 보내거나 지식 담당자 한 명만 보게 합니다. 3주 연속 전원 기록이 되면 지웁니다.</p>
-
-    <h3>3. 주간 볼트 점검 · 경로 A 로컬 · 매주 금 17:00</h3>
+    <h3>3. 주간 볼트 점검 · A 로컬 · 매주 금 17:00</h3>
 
     <pre><code>[승인 모드] 파일 쓰기 전 확인   [폴더] 솔빛테크 위키
+1. _ops/scripts/validate.py 를 실행하고 결과를 ERROR / WARN 으로 나눈다.
+2. ERROR 중 updated 누락과 class 값 오타만 직접 고친다.
+3. 나머지는 고치지 말고 _reports/점검-YYYY-MM-DD.md 로 저장한다.
+   기존 파일을 덮어쓰지 않는다.
+4. 지난주 리포트와 비교해 ERROR 증감을 첫 줄에 쓴다.
+금지: Sources/ 본문 수정, reviewed 노트 수정, 새 노트 생성.</code></pre>
 
-1. _ops/scripts/validate.py 를 실행한다.
-2. 결과를 ERROR / WARN 으로 나누어 정리한다.
-3. ERROR 중 아래만 직접 고친다.
-   - updated 누락: 파일 수정 시각으로 채운다
-   - class 값 오타: _ops/01-온톨로지-설계서.md 와 대조해 고친다
-4. 나머지는 고치지 말고 목록만 남긴다.
-5. 결과를 _reports/점검-YYYY-MM-DD.md 로 저장한다. 덮어쓰지 않는다.
-6. 지난주 리포트와 비교해 ERROR 증감을 첫 줄에 쓴다.
+    <h3>4. 주간 대시보드 갱신 · A 로컬 · 매주 월 08:00</h3>
 
-절대 하지 말 것:
-- Sources/ 안의 본문을 수정하지 않는다
-- confidence: reviewed 인 노트는 어떤 필드도 고치지 않는다
-- 노트를 새로 만들지 않는다</code></pre>
-
-    <h3>4. 주간 대시보드 갱신 · 경로 A 로컬 · 매주 월 08:00</h3>
-
-    <pre><code>Sources/20-Projects/ 의 모든 노트를 읽어 _moc/000-대시보드.md 를 다시 만든다.
-
+    <pre><code>Sources/20-Projects/ 를 읽어 _moc/000-대시보드.md 를 다시 만든다.
 1. frontmatter 의 start, due, status, stage 를 읽는다.
-2. Mermaid gantt 코드 블록을 만든다.
-   - status: 진행 이면 active · status: 완료 이면 done
-   - due 가 21일 이내면 crit
-   - start 나 due 가 없는 노트는 간트에서 빼고
-     아래에 「일정 미기재」 목록으로 따로 적는다
-   - section 은 class 값으로 나눈다
-3. 그 아래에 상태별 개수 표를 만든다.
-4. 「지난주 대비 변화」를 3줄 이내로 적는다.
-   (_reports/dashboard-history.csv 의 마지막 줄과 비교)
-5. 파일 맨 위에 「자동 생성됩니다. 직접 고치면 다음 월요일에 사라집니다.」를 넣는다.
+2. Mermaid gantt 를 만든다. 진행은 active, 완료는 done, due 21일 이내는 crit.
+   section 은 class 값으로 나눈다.
+3. start 나 due 가 없는 노트는 간트에서 빼고 「일정 미기재」로 적는다.
+4. 상태별 개수와 「지난주 대비 변화」를 지난 대시보드와 비교해 3줄 이내로 붙인다.
+5. 맨 위에 「자동 생성됩니다. 직접 고치면 다음 월요일에 사라집니다.」를 넣는다.
+금지: Sources/ 안의 노트 수정, 날짜 추론.</code></pre>
 
-절대 하지 말 것:
-- Sources/ 안의 노트를 수정하지 않는다
-- 날짜를 추론하지 않는다. 없으면 없다고 적는다</code></pre>
+    <h3>5. 주간보고 초안 · A 로컬 · 매주 금 16:00</h3>
 
-    <h3>5. 주간보고 초안 · 경로 A 로컬 · 매주 금 16:00</h3>
-
-    <pre><code>Sources/40-Worklog/ 의 이번 주(월~금) 로그와 결정을 모아
-_reports/주간보고-YYYY-WW.md 를 만든다.
-
+    <pre><code>이번 주 업무로그와 결정을 모아 _reports/주간보고-YYYY-WW.md 를 만든다.
 - 「한 일」이 아니라 「진척과 막힌 것」 중심으로 쓴다
-- 각 항목에 관련 과제·제품 링크를 붙인다
-- 다음 주 마감 항목을 마지막에 붙인다
-- 로그가 없는 날은 「기록 없음」으로 표시하고 추측하지 않는다
-- 로그가 한 건도 없으면 「이번 주 기록 없음」 한 줄만 쓴다</code></pre>
+- 각 항목에 과제·제품 링크를 붙이고, 다음 주 마감을 마지막에 붙인다
+- 로그가 없는 날은 「기록 없음」으로 쓴다. 한 건도 없으면 그 한 줄만 쓴다</code></pre>
 
-    <h3>6. 마감 감시 · 경로 B 원격 · 매주 월 09:00</h3>
+    <h3>6. 마감 감시 · B 원격 · 매주 월 09:00</h3>
 
-    <pre><code>Sources/ 전체에서 due 필드가 있는 노트를 찾아 마감 임박 목록을 만든다.
-
-- D-60 / D-30 / D-14 세 구간으로 나눈다
-- status 가 완료·보류·중단인 것은 제외한다
+    <pre><code>Sources/ 전체에서 due 가 있는 노트를 찾아 마감 임박 목록을 만든다.
+- D-60 / D-30 / D-14 로 나눈다. 완료·보류·중단은 제외한다
 - 각 항목에 담당자(owner)와 노트 링크를 붙인다
 - due 가 지났는데 완료가 아닌 것은 맨 위에 「지연」으로 모은다
-- 세 구간이 모두 비어 있으면 「임박 항목 없음」 한 줄만 쓴다
-
+- 세 구간이 모두 비면 「임박 항목 없음」 한 줄만 쓴다
 마지막 줄에 due 가 비어 있는 과제·기회의 개수를 적는다.
 그 항목들은 감시되지 않는다는 뜻이므로 이 숫자가 더 중요하다.</code></pre>
 
-    <h3>7. 검토 대기 목록 · 경로 B 원격 · 매주 수 09:00</h3>
+    <h3>7. 검토 대기 목록 · B 원격 · 매주 수 09:00</h3>
 
-    <pre><code>Sources/ 에서 confidence: draft 인 노트를 모아 검토 대기 목록을 만든다.
-
-- 만들어진 지 오래된 순으로 정렬한다
+    <pre><code>Sources/ 에서 confidence: draft 인 노트를 모아 오래된 순으로 정렬한다.
 - generated_by 가 있으면 어느 자동화가 만든 것인지 함께 적는다
 - 14일 넘게 draft 로 남은 것은 「오래 대기」로 표시한다
-- 10건을 넘으면 오래된 순으로 10건만 쓰고 전체 건수를 함께 적는다
-- 0건이면 「검토 대기 없음」 한 줄만 쓴다</code></pre>
+- 10건을 넘으면 10건만 쓰고 전체 건수를 적는다. 0건이면 「검토 대기 없음」</code></pre>
 
-    <p>이 목록이 계속 길어지면 AI가 만든 것을 아무도 안 읽고 있다는 뜻입니다. 그대로 몇 달이 지나면 볼트의 절반이 검토받지 않은 초벌 노트가 됩니다.</p>
+    <h3>8. 월간 모순 스캔 · A 로컬 · 매월 첫 월요일</h3>
 
-    <h3>8. 월간 모순 스캔 · 경로 A 로컬 · 매월 첫 월요일</h3>
-
-    <pre><code>볼트 전체에서 서로 모순되는 사실을 찾아 _reports/모순스캔-YYYY-MM.md 로 저장한다.
-
+    <pre><code>볼트 전체에서 모순되는 사실을 찾아 _reports/모순스캔-YYYY-MM.md 로 저장한다.
 - 같은 개체에 다른 값이 적힌 경우 (TRL, 날짜, 수치, 상태)
 - 완료된 과제에 미완료 액션이 남아 있는 경우
 - 「운영」 상태인데 60일 이상 업데이트가 없는 제품
+확실한 것만 최대 5건. 각 건에 어느 노트의 몇 번째 줄인지 적고 고치지 않는다.</code></pre>
 
-확실한 것만 보고한다. 애매하면 보고하지 않는다. 최대 5건.
-각 건에 어느 노트의 몇 번째 줄인지 적는다.
-어느 쪽도 고치지 않는다. 판단은 사람이 한다.</code></pre>
-
-    <h3>9. 분기 회고 초안 · 경로 A 로컬 · 분기 마지막 주 금 15:00</h3>
+    <h3>9. 분기 회고 초안 · A 로컬 · 분기 마지막 주 금 15:00</h3>
 
     <pre><code>retro 스킬로 지난 90일 회고 초안을 만들어 _reports/회고-YYYY-Q_.md 로 저장한다.
-
 - 과제별로만 집계한다. 사람별로 집계하지 않는다
-- 계획과 실제의 차이마다 업무로그에서 이유를 찾아 붙인다
-- 이유를 찾지 못하면 「기록에 없음」이라고 쓴다. 추측하지 않는다
+- 차이마다 업무로그에서 이유를 찾아 붙인다. 못 찾으면 「기록에 없음」
 - 마지막에 「이유를 알 수 있는 차이」의 비율을 한 줄로 적는다</code></pre>
 
-    <h3>10. 자동화 정리 알림 · 경로 B 원격 · 분기 첫 월요일</h3>
+    <h3>10. 자동화 정리 알림 · B 원격 · 분기 첫 월요일</h3>
 
     <pre><code>_reports/ 의 지난 90일 산출물을 훑어 자동화 정리 후보를 정리한다.
-
 - 파일이 한 건도 늘지 않은 작업: 돌지 않았다는 뜻이다. 맨 위에 적는다
 - 매 회차 내용이 거의 같은 작업: 소음이 되고 있다
-- 다른 노트에서 한 번도 인용되지 않은 산출물: 아무도 안 읽었다는 뜻이다
-
+- 한 번도 인용되지 않은 산출물: 아무도 안 읽었다는 뜻이다
 각 후보에 「유지 / 폐기 / 경로 변경」 중 무엇을 검토할지 한 줄씩 제안한다.
-결정은 하지 않는다. 사람이 목록을 보고 고른다.</code></pre>
+결정은 하지 않는다.</code></pre>
 
-    <div class="callout callout-warning">
-      <p class="callout-title">열 개를 다 걸지 마세요</p>
-      <p>알림은 조직적으로 <strong>주 3회</strong>가 상한입니다. 그 이상이면 사람들이 채널 알림을 끄고, 알림을 끄면 정말 중요한 공지도 못 봅니다. 새 작업을 하나 만들 때마다 <strong>기존 작업 하나를 지울 후보로 검토</strong>하세요.</p>
-    </div>
+    <p>열 개를 다 걸지 마세요. 알림은 <strong>주 3회</strong>가 상한입니다.</p>
 
     <h2 id="dashboard">대시보드 스크립트</h2>
 
-    <p><strong>언제 쓰나.</strong> <code>_ops/scripts/dashboard.py</code> 로 저장해 매주 월요일 아침에 돌립니다. 4번 예약 작업 대신 쓰거나 함께 씁니다. AI 없이 도는 판이라 결과가 항상 같습니다. <strong>어디서 나왔나.</strong> 15장입니다. 레이아웃 규칙과 측정하면 안 되는 것이 그 장에 있습니다.</p>
+    <p><strong>언제 쓰나.</strong> <code>_ops/scripts/dashboard.py</code> 로 저장해 매주 월요일 아침에 돌립니다. 4번 예약 작업 대신 쓰는 판이고, AI 없이 돌아서 결과가 항상 같습니다. <strong>어디서 나왔나.</strong> 15장입니다.</p>
 
     <pre><code># -*- coding: utf-8 -*-
 """_moc/000-대시보드.md 를 다시 만듭니다.  python "_ops/scripts/dashboard.py"
-파일을 쓰는 곳은 _moc/ 와 _reports/ 두 곳뿐이고 Sources/ 는 읽기만 합니다."""
+Sources/ 는 읽기만 하고, 쓰는 곳은 _moc/ 한 곳입니다."""
 import datetime, re, sys
 from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-DUE_SOON, STALE_DAYS = 21, 30                # 마감 임박 기준 · 방치 기준
+SOON, STALE = 21, 30                         # 마감 임박 기준 · 방치 기준
 FM = re.compile(r"\A---\r?\n(.*?)\r?\n---", re.S)
 KEY = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*:\s*(.+)$", re.M)
 
 
-def as_date(value):
+def day(value):
     try:
         return datetime.date.fromisoformat(value)
     except ValueError:
@@ -659,39 +501,39 @@ def main():
         m = {k: v.strip().strip('"').strip("'") for k, v in KEY.findall(head.group(1))}
         ok += m.get("confidence") == "reviewed"
         rows.append(dict(name=path.stem, cls=m.get("class", ""), owner=m.get("owner", ""),
-                         status=m.get("status", ""), start=as_date(m.get("start", "")),
-                         due=as_date(m.get("due", "")), updated=as_date(m.get("updated", ""))))
+                         status=m.get("status", ""), start=day(m.get("start", "")),
+                         due=day(m.get("due", "")), updated=day(m.get("updated", ""))))
 
     track = [r for r in rows if r["cls"] in ("과제", "기회")]
-    dated = [r for r in track if r["start"] and r["due"]]
+    dated = sorted([r for r in track if r["start"] and r["due"]], key=lambda r: r["due"])
     undated = [r for r in track if r not in dated]
-    stale = [r for r in rows if r["updated"] and (today - r["updated"]).days &gt; STALE_DAYS]
-    soon = sorted([r for r in dated if r["status"] not in ("완료", "보류")
-                   and 0 &lt;= (r["due"] - today).days &lt;= DUE_SOON], key=lambda r: r["due"])
+    stale = [r for r in rows if r["updated"] and (today - r["updated"]).days &gt; STALE]
+    soon = [r for r in dated if r["status"] not in ("완료", "보류")
+            and 0 &lt;= (r["due"] - today).days &lt;= SOON]
     counts = Counter(r["status"] for r in track if r["status"])
 
-    out = ["# 대시보드", "", "&gt; 자동 생성 · %s · 직접 고치면 다음 실행 때 사라집니다." % today,
-           "", "| 지표 | 값 |", "|---|---|", "| 전체 노트 | %d |" % len(rows),
+    out = ["# 대시보드", "", "&gt; 자동 생성 · %s · 직접 고치면 다음 실행 때 사라집니다." % today, "",
+           "| 지표 | 값 |", "|---|---|", "| 전체 노트 | %d |" % len(rows),
            "| 검증된 노트 | %d%% |" % (round(ok * 100 / len(rows)) if rows else 0),
-           "| 마감 %d일 이내 | %d |" % (DUE_SOON, len(soon)),
-           "| %d일 이상 갱신 없음 | %d |" % (STALE_DAYS, len(stale)), "",
-           "```mermaid", "gantt", "    title 일정", "    dateFormat YYYY-MM-DD",
-           "    axisFormat %m월"]
+           "| 마감 %d일 이내 | %d |" % (SOON, len(soon)),
+           "| %d일 이상 갱신 없음 | %d |" % (STALE, len(stale)),
+           "| 상태별 | %s |" % (" · ".join("%s %d" % kv for kv in counts.most_common())
+                                or "기록 없음"), "",
+           "```mermaid", "gantt", "    title 일정",
+           "    dateFormat YYYY-MM-DD", "    axisFormat %m월"]
     seq = 0
     for section in ("과제", "기회"):
-        picked = sorted([r for r in dated if r["cls"] == section], key=lambda r: r["due"])
+        picked = [r for r in dated if r["cls"] == section]
         if picked:
             out += ["", "    section " + section]
         for r in picked:
             seq += 1
             tag = {"완료": "done, ", "진행": "active, "}.get(r["status"], "")
-            if 0 &lt;= (r["due"] - today).days &lt;= DUE_SOON:
+            if r in soon:
                 tag += "crit, "
             out.append("    %s :%st%d, %s, %s"
                        % (r["name"].replace(":", " "), tag, seq, r["start"], r["due"]))
-    out += ["```", "", "## 상태별", "",
-            " · ".join("%s %d" % kv for kv in counts.most_common()) or "기록 없음",
-            "", "## 이번 주에 볼 것", ""]
+    out += ["```", "", "## 이번 주에 볼 것", ""]
     out += ["- [[%s]] · D-%d · %s" % (r["name"], (r["due"] - today).days,
             r["owner"] or "담당 미기재") for r in soon] or ["- 마감 임박 항목 없음"]
     out += ["", "## 일정 미기재", ""]
@@ -700,12 +542,6 @@ def main():
 
     (ROOT / "_moc").mkdir(exist_ok=True)
     (ROOT / "_moc" / "000-대시보드.md").write_text("\n".join(out) + "\n", encoding="utf-8")
-    (ROOT / "_reports").mkdir(exist_ok=True)
-    hist = ROOT / "_reports" / "dashboard-history.csv"
-    if not hist.exists():
-        hist.write_text("date,notes,reviewed,due_soon,stale\n", encoding="utf-8")
-    with hist.open("a", encoding="utf-8") as f:
-        f.write("%s,%d,%d,%d,%d\n" % (today, len(rows), ok, len(soon), len(stale)))
     print("노트 %d개 · 마감 임박 %d건 · 방치 %d건" % (len(rows), len(soon), len(stale)))
     return 0
 
@@ -713,79 +549,36 @@ def main():
 if __name__ == "__main__":
     sys.exit(main())</code></pre>
 
-    <p>이 스크립트가 파일을 만드는 곳은 <code>_moc/</code> 와 <code>_reports/</code> 두 곳입니다. <code>Sources/</code> 는 읽기만 합니다. 자동화가 사람의 영역을 건드리지 않는다는 규칙이 코드로 지켜지는 자리입니다.</p>
+    <p>쓰는 곳은 <code>_moc/</code> 뿐이고 <code>Sources/</code> 는 읽기만 합니다. 자동화가 사람의 영역을 건드리지 않는다는 규칙이 코드로 지켜집니다.</p>
 
     <h2 id="prompts">자주 쓰는 프롬프트</h2>
 
-    <p><strong>언제 쓰나.</strong> 예약할 만큼 반복되지는 않지만 손으로 자주 치는 것들입니다. <code>_ops/prompts.md</code> 에 모아 두고 복사해 씁니다. <strong>어디서 나왔나.</strong> 16장의 레시피 12선을 줄인 것입니다.</p>
+    <p><strong>언제 쓰나.</strong> 예약할 만큼은 아니지만 손으로 자주 치는 것들입니다. <code>_ops/prompts.md</code> 에 모아 둡니다. <strong>어디서 나왔나.</strong> 16장입니다.</p>
 
     <pre><code># 미팅 전 상대방 히스토리
-[[대성물류]] 와의 지난 접점을 전부 찾아 브리핑을 만든다.
-시간 역순으로 정리하고, 우리가 약속했는데 아직 이행하지 않은 것을 맨 위에 둔다.
+[[대성물류]] 와의 지난 접점을 전부 찾아 시간 역순으로 정리한다.
+우리가 약속했는데 아직 이행하지 않은 것을 맨 위에 두고,
 상대가 우려로 표현한 것을 목록화한다. 500자 이내.
 
 # 이 기술이 어디서 왔나
-[[CAP-객체인식]] 의 pdm_output_of 를 따라가 어느 과제에서 나왔는지,
-pdm_uses 를 거꾸로 따라가 어느 제품이 쓰고 있는지 정리한다.
-링크로 이어지지 않는 것은 「연결 없음」으로 적는다.
-
-# 이 고객에게 쓸 수 있는 실적
-[[고객 이름]] 에게 제시할 수 있는 실적만 고른다.
-confidential 이 「대외비」인 것과 계약 전 고객 사례는 제외한다.
-각 항목에 근거 노트를 [[대괄호]]로 붙인다.
+[[CAP-객체인식]] 의 pdm_output_of 로 어느 과제에서 나왔는지,
+pdm_uses 를 거꾸로 따라가 어느 제품이 쓰는지 정리한다.
+링크가 없는 것은 「연결 없음」으로 적는다.
 
 # 제안서 역량 절 초안
-OPP-2026-지자체공모 제안서의 「사업 수행 역량」 절 초안을 만든다.
-운영 중인 제품과 도입 사이트 수, 기술역량과 TRL 근거,
-과제 실적(period, funder, 최종 결과), 보유 IP 를 Sources/ 에서 모은다.
+「사업 수행 역량」 절 초안을 만든다. 운영 중인 제품과 도입 사이트 수,
+기술역량과 TRL 근거, 과제 실적(period, funder, 결과)을 Sources/ 에서 모은다.
 각 문장 뒤에 근거 노트를 [[대괄호]]로 표시한다.
 confidence: draft 인 노트는 쓰지 않고 「검증 필요」 목록에 적는다.
 계약 전 고객은 이름 대신 「국내 물류기업」으로 쓴다.
-근거 없는 주장은 쓰지 않는다. 「근거 없음」 목록에 남긴다.
-_reports/ 에 저장하고 본문 아래에 두 목록을 반드시 붙인다.
-
-# 온보딩 팩
-신규 개발자가 읽을 노트를 첫날 / 첫주 / 첫달로 나눠 순서를 정한다.
-confidential 이 「대외비」인 노트는 제외한다.
-각 노트에 「이걸 왜 읽는가」를 한 줄씩 붙인다.
-마지막에 「아직 문서화되지 않아 사람에게 물어야 할 것」 목록을 붙인다.
+근거 없는 주장은 「근거 없음」 목록에 남긴다. _reports/ 에 저장하고
+본문 아래에 두 목록을 반드시 붙인다.
 
 # 공고 요구사항 대조
-아래 공고 요구사항을 볼트와 대조해 3열 표로 만든다.
+공고 요구사항을 볼트와 대조해 3열 표로 만든다.
 요구사항 / 우리 근거(노트 링크) / 충족 여부.
-근거가 없으면 「없음」이라고만 쓴다. 대체 가능한 것을 제안하지 않는다.
-마지막에 「없음」 항목만 모아 「준비에 필요한 것」으로 정리한다.
-참여 여부를 판단하거나 권하지 않는다.
+근거가 없으면 「없음」이라고만 쓴다. 대체안을 제안하거나 참여 여부를 권하지 않는다.
+마지막에 「없음」 항목만 모아 「준비에 필요한 것」으로 정리한다.</code></pre>
 
-# 빈칸 찾기
-Sources/10-Products/ 에서 필수 필드가 빈 노트를 찾는다.
-어느 노트의 어느 필드가 비었는지만 적는다. 값을 채우지 않는다.
-
-# 이 노트를 믿어도 되나
-[[노트 이름]] 의 각 문장에 근거가 붙어 있는지 확인한다.
-근거 없는 문장만 목록으로 뽑고, confidence 값이 적절한지도 함께 본다.</code></pre>
-
-    <div class="callout">
-      <p class="callout-title">예약 작업으로 만들 때 붙는 여섯 줄</p>
-      <p>대화 중에는 결과가 이상하면 바로 고치면 되지만, 예약 작업에는 그럴 사람이 없습니다. 그래서 아래 여섯 가지를 반드시 넣습니다.</p>
-      <ul>
-        <li><strong>산출물의 정확한 위치.</strong> 없으면 결과가 대화창에만 남고 사라집니다</li>
-        <li><strong>빈 결과일 때의 행동.</strong> 없으면 「특별한 내용 없음」이 매주 장황하게 쌓입니다</li>
-        <li><strong>절대 하지 말 것 목록.</strong> 없으면 사람이 검증한 노트를 조용히 고쳐 놓습니다</li>
-        <li><strong>근거 표기 의무.</strong> 없으면 어디서 나온 숫자인지 몰라 결국 다시 확인합니다</li>
-        <li><strong>이전 회차와의 비교.</strong> 없으면 좋아지는지 나빠지는지 모릅니다</li>
-        <li><strong>길이 상한.</strong> 없으면 3주 뒤에 아무도 안 읽습니다</li>
-      </ul>
-    </div>
-
-    <div class="checklist">
-      <p class="checklist-title">가져가는 순서</p>
-      <ul>
-        <li><strong>첫날.</strong> CLAUDE.md 와 노트 템플릿. 나머지는 아직 쓸 데가 없습니다</li>
-        <li><strong>2주차.</strong> ingest 스킬. 지식이 들어오기 시작해야 나머지가 뜻을 갖습니다</li>
-        <li><strong>4주차.</strong> 검증 스크립트와 예약 작업 1번. 하나씩 걸고 2주 지켜봅니다</li>
-        <li><strong>2개월차.</strong> 대시보드 스크립트와 예약 작업 4번. 이득이 눈에 보이는 시점입니다</li>
-        <li><strong>3개월차.</strong> audit·retro 와 나머지 예약 작업. 데이터가 쌓이기 전에는 빈 결과만 나옵니다</li>
-      </ul>
-    </div>
+    <p>가져가는 순서는 <strong>첫날</strong> CLAUDE.md 와 템플릿, <strong>2주차</strong> ingest, <strong>4주차</strong> 검증 스크립트, <strong>2개월차</strong> 대시보드입니다. 데이터가 쌓이기 전에 뒤쪽을 돌리면 빈 결과만 나옵니다.</p>
   </article>
