@@ -7,3 +7,5 @@ SKILL-PATCH.md
 
 .gstack/
 .claude/
+__pycache__/
+*.pyc

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="코딩을 모르는 사람의 앱 만들기 · 아이디어 하나와 Claude Code가 있으면 충분해요">
+  <meta name="author" content="Claude 100배 활용법">
+  <title>Chapter 12: 코딩을 모르는 사람의 앱 만들기 · Claude 100배 활용법</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Claude 100배 활용법</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5 10.1 12 4.5 10l5.6-1.4z"/><path d="M18 16l.8 2.2L21 19l-2.2.8L18 22l-.8-2.2L15 19l2.2-.8z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 마인드 전환</li>
+      <li><a href="ch01.html" class="nav-link">1장 검색 vs 지시</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 Claude를 만나다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 프롬프트의 기술</a></li>
+      <li class="nav-part">제2부: Claude.ai & Desktop</li>
+      <li><a href="ch04.html" class="nav-link">4장 Claude.ai 200%</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 Claude Desktop</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 사무직의 하루</a></li>
+      <li class="nav-part">제3부: Claude Code</li>
+      <li><a href="ch07.html" class="nav-link">7장 Claude Code 시작</a></li>
+      <li><a href="ch08.html" class="nav-link">8장 CLAUDE.md와 컨텍스트</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 Skills</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 Hooks</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 MCP 서버</a></li>
+      <li class="nav-part">제4부: 실전 워크플로</li>
+      <li><a href="ch12.html" class="nav-link">12장 비개발자의 앱 만들기</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 멀티 에이전트 협업</a></li>
+      <li><a href="ch14.html" class="nav-link">14장 보안과 안전</a></li>
+      <li class="nav-part">제5부: 더 멀리 가기</li>
+      <li><a href="ch15.html" class="nav-link">15장 Claude 생태계</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 나만의 워크플로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 프롬프트 레시피</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+
+  <!-- ====== Chapter Header ====== -->
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 12</span>
+    <h1>코딩을 모르는 사람의 앱 만들기</h1>
+    <p class="chapter-subtitle">아이디어 하나와 Claude Code가 있으면 충분해요</p>
+  </header>
+
+  <article>
+
+    <!-- ====== Opening Story ====== -->
+    <section>
+      <h2>카페 사장님의 고민</h2>
+
+      <div class="scenario-box">
+        <p>카페를 운영하는 지은 사장님은 고민이 있었어요. 단골 고객들에게 포인트를 적립해주고 싶은데, 종이 스탬프 카드는 자꾸 잃어버리고, 기존 포인트 앱은 월 이용료가 나가고...</p>
+        <p>"간단한 포인트 앱을 하나 만들면 좋겠는데..."</p>
+        <p>개발자를 고용하면 500만 원. 외주 맡기면 3개월. 그런데 Claude Code로 하면? <strong>추가 개발비 0원(구독료 별도), 2시간</strong>.</p>
+      </div>
+
+      <p>농담이 아니에요. 코딩을 전혀 모르는 사람이 Claude Code와 대화하면서 실제로 동작하는 웹앱을 만들 수 있어요. 이번 챕터에서 그 과정을 처음부터 끝까지 같이 걸어볼게요.</p>
+
+      <div class="callout">
+        <p class="callout-title">기억하세요</p>
+        <p>AI는 검색 도구가 아니라 <strong>지시를 통한 업무 달성 도구</strong>예요. "앱 만드는 법 알려줘"가 아니라 "이런 앱 만들어줘"라고 지시하는 거예요.</p>
+      </div>
+    </section>
+
+    <!-- ====== Step 1 ====== -->
+    <section>
+      <h2>Step 1: 아이디어 정리하기</h2>
+
+      <p>첫 번째 단계는 코딩이 아니에요. <strong>내가 원하는 걸 말로 설명하는 것</strong>이에요.</p>
+
+      <p>Claude Code를 열고, 이렇게 말해보세요:</p>
+
+      <div class="prompt-example">
+        <p class="label bad-label">이렇게 하지 마세요</p>
+        <p class="bad">"앱 만들어줘"</p>
+        <p class="label good-label">이렇게 하세요</p>
+        <p class="good">"카페 단골 고객 포인트 앱을 만들고 싶어. 고객이 전화번호로 로그인하면 포인트 조회/적립이 되고, 사장님은 관리자 화면에서 포인트를 부여할 수 있어. 웹 브라우저에서 작동하면 좋겠어. 디자인은 따뜻한 카페 느낌으로."</p>
+      </div>
+
+      <p>구체적일수록 좋아요. Claude는 내 마음을 읽는 독심술사가 아니에요. 하지만 너무 걱정하지 마세요. 처음부터 완벽할 필요 없어요. Claude가 질문을 해올 거예요.</p>
+
+      <div class="fun-box">
+        <p class="fun-box-title">Claude의 반응 예시</p>
+        <p>"좋은 아이디어네요! 몇 가지 질문이 있어요:<br>
+        1. 포인트는 금액 기준인가요, 방문 횟수 기준인가요?<br>
+        2. 포인트로 교환할 수 있는 보상이 있나요?<br>
+        3. 데이터는 어디에 저장할까요? (로컬 vs 서버)<br>
+        4. 동시에 몇 명 정도 사용할 예정인가요?"<br><br>
+        이런 질문에 답하면서 아이디어가 구체화돼요!</p>
+      </div>
+    </section>
+
+    <!-- ====== Step 2 ====== -->
+    <section>
+      <h2>Step 2: 기술 스택 제안 받기</h2>
+
+      <p>"기술 스택"이라는 말이 어렵게 들리죠? 그냥 "어떤 도구로 만들까?"예요.</p>
+
+      <p>Claude에게 이렇게 물어보세요:</p>
+
+      <div class="prompt-example">
+        <p class="label good-label">이렇게 하세요</p>
+        <p class="good">"나는 코딩을 전혀 모르는 사람이야. 이 앱을 가장 간단하게 만들 수 있는 방법을 제안해줘. 무료로 배포할 수 있으면 좋겠어."</p>
+      </div>
+
+      <p>Claude가 알아서 내 수준에 맞춰 제안해줄 거예요. 비개발자에게는 보통 이렇게 제안해요:</p>
+
+      <ul>
+        <li><strong>HTML + CSS + JavaScript</strong>: 가장 기본이 되는 웹 기술. 별도 설치 없이 브라우저에서 바로 실행돼요</li>
+        <li><strong>데이터 저장</strong>: 간단하면 localStorage(브라우저 저장), 복잡하면 Firebase 같은 무료 서비스</li>
+        <li><strong>배포</strong>: GitHub Pages나 Vercel로 무료 배포</li>
+      </ul>
+
+      <p>이 기술들을 이해할 필요는 없어요. Claude가 다 처리해줘요. "좋아, 그렇게 해줘"라고만 하면 돼요.</p>
+    </section>
+
+    <!-- ====== Step 3 ====== -->
+    <section>
+      <h2>Step 3: 한 번에 하나씩 구현 시키기</h2>
+
+      <p>여기가 가장 중요한 부분이에요. <strong>절대로 전체를 한 번에 시키지 마세요.</strong></p>
+
+      <div class="prompt-example">
+        <p class="label bad-label">이렇게 하지 마세요</p>
+        <p class="bad">"로그인, 포인트 적립, 관리자 화면, 보상 교환, 통계 대시보드 다 만들어줘"</p>
+        <p class="label good-label">이렇게 하세요</p>
+        <p class="good">"먼저 기본 HTML 페이지를 만들어줘. 카페 로고 자리, 전화번호 입력 칸, 로그인 버튼만 있으면 돼."</p>
+      </div>
+
+      <p>그 다음, 하나씩 추가해가요:</p>
+
+      <ol>
+        <li>"로그인 기능이 동작하게 해줘. 전화번호를 입력하면 포인트 화면으로 넘어가게."</li>
+        <li>"포인트 조회 화면을 만들어줘. 현재 포인트와 최근 적립 내역이 보이게."</li>
+        <li>"사장님 전용 관리자 페이지를 추가해줘. 관리자 비밀번호를 코드에 그대로 적지 않는 방법도 같이 알려줘."</li>
+        <li>"관리자 페이지에서 고객 전화번호를 입력하면 포인트를 추가할 수 있게."</li>
+      </ol>
+
+      <p>이렇게 한 단계씩 진행하면, 중간에 문제가 생겨도 어디서 잘못됐는지 쉽게 찾을 수 있어요.</p>
+
+      <div class="callout">
+        <p class="callout-title">비개발자를 위한 핵심 팁</p>
+        <p>"작동하는 걸 먼저, 예쁜 건 나중에." 기능이 돌아가는 걸 확인한 후에 디자인을 다듬으세요. 처음부터 예쁘게 만들려고 하면 둘 다 잃어요.</p>
+      </div>
+    </section>
+
+    <!-- ====== Step 4 ====== -->
+    <section>
+      <h2>Step 4: 수정 요청하기</h2>
+
+      <p>만들어진 앱을 브라우저에서 열어보세요. 마음에 안 드는 부분이 있을 거예요. 그게 정상이에요!</p>
+
+      <p>수정 요청은 일상 언어로 하면 돼요:</p>
+
+      <ul>
+        <li>"버튼 색을 갈색에서 연한 초록색으로 바꿔줘"</li>
+        <li>"글씨가 너무 작아. 좀 더 크게 해줘"</li>
+        <li>"포인트 숫자 옆에 커피 아이콘을 넣어줘"</li>
+        <li>"메뉴에 '이벤트' 탭을 추가해줘"</li>
+        <li>"모바일에서 보면 레이아웃이 깨지는데 고쳐줘"</li>
+      </ul>
+
+      <p>전문 용어를 몰라도 괜찮아요. "그 위에 있는 거 왼쪽으로 옮겨줘" 같은 표현도 Claude는 이해해요.</p>
+
+      <div class="fun-box">
+        <p class="fun-box-title">에러가 났을 때</p>
+        <p>에러 메시지가 나오면 당황하지 마세요. 그냥 에러 메시지를 <strong>그대로 복사</strong>해서 Claude에게 보여주세요.<br><br>
+        "이런 에러가 나는데 고쳐줘: TypeError: Cannot read properties of undefined (reading 'points')"<br><br>
+        에러를 이해할 필요 없어요. Claude가 읽고 고쳐줘요. 마치 자동차 엔진에서 이상한 소리가 나면 정비사에게 "이런 소리가 나요"라고 하는 것처럼요.</p>
+      </div>
+    </section>
+
+    <!-- ====== Step 5 ====== -->
+    <section>
+      <h2>Step 5: 세상에 공개하기 (배포)</h2>
+
+      <p>앱이 완성됐으면, 다른 사람들도 쓸 수 있게 인터넷에 올려야 해요. 이걸 "배포"라고 해요.</p>
+
+      <p>Claude에게 이렇게 말하면 돼요:</p>
+
+      <div class="prompt-example">
+        <p class="label good-label">이렇게 하세요</p>
+        <p class="good">"이 앱을 인터넷에서 누구나 접속할 수 있게 배포하고 싶어. 무료로 할 수 있는 가장 쉬운 방법 알려줘. 단계별로 안내해줘."</p>
+      </div>
+
+      <p>무료 배포 옵션:</p>
+
+      <ul>
+        <li><strong>GitHub Pages</strong>: 정적 웹사이트에 적합. 완전 무료</li>
+        <li><strong>Vercel</strong>: 좀 더 복잡한 앱도 가능. 개인 프로젝트 무료</li>
+        <li><strong>Netlify</strong>: Vercel과 비슷. 쉬운 인터페이스</li>
+      </ul>
+
+      <p>Claude가 배포 과정도 단계별로 안내해줄 거예요. 따라 하기만 하면 돼요.</p>
+    </section>
+
+    <!-- ====== Workflow ====== -->
+    <section>
+      <div class="workflow-box">
+        <p class="workflow-title">완전한 앱 개발 플로우</p>
+        <ol>
+          <li><strong>아이디어 정리</strong>: 만들고 싶은 앱을 구체적으로 설명 (10분)</li>
+          <li><strong>Claude와 대화</strong>: 기술 스택, 구조 논의 (10분)</li>
+          <li><strong>기본 틀 생성</strong>: 첫 번째 화면 만들기 (15분)</li>
+          <li><strong>기능 추가</strong>: 한 번에 하나씩, 대화하며 추가 (30-60분)</li>
+          <li><strong>디자인 다듬기</strong>: 색상, 폰트, 레이아웃 조정 (15분)</li>
+          <li><strong>테스트</strong>: 직접 써보고 문제 발견 → 수정 요청 (15분)</li>
+          <li><strong>배포</strong>: 인터넷에 공개 (10분)</li>
+        </ol>
+        <p>총 소요 시간: <strong>약 2시간</strong></p>
+      </div>
+    </section>
+
+    <!-- ====== Tips ====== -->
+    <section>
+      <h2>비개발자를 위한 생존 팁</h2>
+
+      <div class="callout">
+        <p class="callout-title">팁 1: 전체를 한 번에 시키지 말고 단계별로</p>
+        <p>큰 요청을 하면 Claude도 헷갈려해요. "먼저 이것만 해줘" → "잘 됐어, 그 다음 이것" → 이 리듬이 가장 좋아요.</p>
+      </div>
+
+      <div class="callout">
+        <p class="callout-title">팁 2: 에러 메시지는 그대로 보여주세요</p>
+        <p>"안 돼요"라고만 하면 Claude도 뭐가 문제인지 몰라요. 에러 메시지를 복사 붙여넣기 하세요. 스크린샷도 좋아요.</p>
+      </div>
+
+      <div class="callout">
+        <p class="callout-title">팁 3: 완벽하지 않아도 돼요</p>
+        <p>첫 버전이 완벽할 필요 없어요. 만들고 → 써보고 → 고치고. 이 반복이 소프트웨어 개발의 본질이에요. 전문 개발자들도 이렇게 해요.</p>
+      </div>
+
+      <div class="callout">
+        <p class="callout-title">팁 4: 자주 저장하세요</p>
+        <p>Claude에게 "지금까지 만든 거 잘 되니까, 여기서 git commit 해줘"라고 말해보세요. 문제가 생기면 이전 상태로 돌아갈 수 있어요. 게임의 세이브 포인트와 같은 거예요.</p>
+      </div>
+    </section>
+
+    <!-- ====== Exercise ====== -->
+    <section>
+      <div class="exercise-box">
+        <p class="exercise-title">실습: 5분 만에 자기소개 웹페이지 만들기</p>
+        <p>지금 바로 해볼 수 있는 간단한 실습이에요:</p>
+        <ol>
+          <li><strong>먼저 작업할 자리를 만드세요.</strong> 바탕화면에 <code>내첫페이지</code>라는 폴더를 하나 만들고, 터미널을 연 다음 그 폴더로 이동하세요. 윈도우면 <code>cd Desktop\내첫페이지</code>, 맥이면 <code>cd Desktop/내첫페이지</code>예요. 여기가 Claude가 파일을 만들어 둘 자리예요</li>
+          <li>그 폴더에서 <code>claude</code>를 입력해 Claude Code를 실행하세요</li>
+          <li>이렇게 말하세요: <em>"나만의 자기소개 웹페이지를 만들어줘. 이름은 [내 이름], 취미는 [취미], 좋아하는 말은 [명언]. 깔끔하고 예쁜 디자인으로. 한 페이지짜리 HTML로 만들어줘."</em></li>
+          <li>다 만들었다고 하면 <em>"만든 파일을 브라우저에서 열어줘"</em>라고 시키세요. 직접 열고 싶다면 아까 만든 <code>내첫페이지</code> 폴더를 열고 HTML 파일을 더블클릭해도 돼요</li>
+          <li>마음에 안 드는 부분을 Claude에게 수정 요청하세요</li>
+          <li>3번 이상 수정을 반복해보세요. 점점 마음에 드는 페이지가 될 거예요!</li>
+        </ol>
+        <p>1단계를 건너뛰지 마세요. 아무 데서나 <code>claude</code>를 실행하면 파일이 어디에 생겼는지 찾기가 어려워져요. 내가 만든 폴더에서 시작하면 결과물이 그 안에 모여요.</p>
+        <p>축하해요! 방금 "개발"을 한 거예요. 코드를 한 줄도 직접 쓰지 않았지만요.</p>
+      </div>
+    </section>
+
+    <!-- ====== Recap ====== -->
+    <aside class="recap-box">
+      <h3>잠깐, 정리!</h3>
+      <ul>
+        <li>코딩을 몰라도 Claude Code와 대화하면서 <strong>실제 동작하는 앱</strong>을 만들 수 있어요</li>
+        <li>핵심은 <strong>구체적인 설명</strong>과 <strong>단계별 진행</strong>이에요</li>
+        <li>에러가 나면 에러 메시지를 <strong>그대로 복사</strong>해서 Claude에게 보여주세요</li>
+        <li>완벽하지 않아도 돼요. <strong>만들고, 써보고, 고치는</strong> 반복이 핵심이에요</li>
+        <li>GitHub Pages나 Vercel로 <strong>무료 배포</strong>까지 가능해요</li>
+      </ul>
+    </aside>
+
+    <!-- ====== Next Teaser ====== -->
+    <div class="next-teaser">
+      <h3>다음 챕터에서는...</h3>
+      <p>혼자서도 대단한데, Claude를 <strong>여러 개</strong> 동시에 돌리면 어떨까요?<br>
+      기획하는 Claude, 코딩하는 Claude, 테스트하는 Claude...<br>
+      마치 <strong>나만의 AI 팀</strong>을 구성하는 것처럼요.<br>
+      다음 챕터에서 멀티 에이전트 협업의 세계로 들어가봅시다!</p>
+    </div>
+
+  </article>
+
+  <!-- ====== Navigation ====== -->
+  <nav class="chapter-nav">
+    <a href="ch11.html" class="prev">이전: MCP 서버</a>
+    <a href="ch13.html" class="next">다음: 팀으로 일하기</a>
+  </nav>
+
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

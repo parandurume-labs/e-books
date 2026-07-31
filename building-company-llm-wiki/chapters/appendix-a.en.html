@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appendix A: Glossary · Building a Company LLM Wiki</title>
+  <meta name="description" content="Ontology, knowledge graph, LLM Wiki, RAG, frontmatter and the rest of this book's vocabulary, explained plainly against the four-layer model.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="alternate" hreflang="ko" href="appendix-a.html">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open contents"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Building a Company LLM Wiki</span>
+  <button class="search-trigger" type="button" aria-label="Search contents"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>Search</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="Toggle dark mode"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="Contents">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+    <span class="sidebar-title">Contents</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close contents">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.en.html" class="nav-link">Cover and contents</a></li>
+      <li class="nav-part">Part 1 · Why you need this</li>
+      <li><a href="ch01.en.html" class="nav-link">1. Where our knowledge lives</a></li>
+      <li><a href="ch02.en.html" class="nav-link">2. A wiki, not RAG</a></li>
+      <li><a href="ch03.en.html" class="nav-link">3. Ontology is not the wiki</a></li>
+      <li><a href="ch04.en.html" class="nav-link">4. Three tools, three jobs</a></li>
+      <li class="nav-part">Part 2 · Setup in 30 minutes</li>
+      <li><a href="ch05.en.html" class="nav-link">5. Obsidian and the vault</a></li>
+      <li><a href="ch06.en.html" class="nav-link">6. Sharing through Teams</a></li>
+      <li><a href="ch07.en.html" class="nav-link">7. Connecting the vault to Cowork</a></li>
+      <li class="nav-part">Part 3 · Designing the ontology</li>
+      <li><a href="ch08.en.html" class="nav-link">8. Six design principles</a></li>
+      <li><a href="ch09.en.html" class="nav-link">9. Choosing your classes</a></li>
+      <li><a href="ch10.en.html" class="nav-link">10. Relations and fields</a></li>
+      <li class="nav-part">Part 4 · Running it</li>
+      <li><a href="ch11.en.html" class="nav-link">11. CLAUDE.md</a></li>
+      <li><a href="ch12.en.html" class="nav-link">12. Templates and your first note</a></li>
+      <li><a href="ch13.en.html" class="nav-link">13. Automating with skills</a></li>
+      <li class="nav-part">Part 5 · Automation and visibility</li>
+      <li><a href="ch14.en.html" class="nav-link">14. Scheduling</a></li>
+      <li><a href="ch15.en.html" class="nav-link">15. Making progress visible</a></li>
+      <li><a href="ch16.en.html" class="nav-link">16. Twelve automation recipes</a></li>
+      <li class="nav-part">Part 6 · Keeping it alive</li>
+      <li><a href="ch17.en.html" class="nav-link">17. Quality as code</a></li>
+      <li><a href="ch18.en.html" class="nav-link">18. Intent versus execution</a></li>
+      <li class="nav-part">Part 7 · Scaling to AX</li>
+      <li><a href="ch19.en.html" class="nav-link">19. From wiki to AX</a></li>
+      <li class="nav-part">Appendices</li>
+      <li><a href="appendix-a.en.html" class="nav-link">Appendix A · Glossary</a></li>
+      <li><a href="appendix-b.en.html" class="nav-link">Appendix B · Copy-paste assets</a></li>
+      <li><a href="appendix-c.en.html" class="nav-link">Appendix C · Troubleshooting</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="Toggle dark mode"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">Dark mode</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">APPENDIX A</span>
+    <h1>Glossary</h1>
+    <p class="chapter-subtitle">Come here when you hit a word you do not know</p>
+    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>Skim, about 14 min</span>
+  </header>
+
+<article>
+    <p>Come here when a word stops you mid-sentence. Only the words this book actually uses are in here, and every explanation is written <strong>to match this book's four-layer model</strong>. Some definitions will differ a little from what you find elsewhere. That is not because this book is wrong, but because every source cuts the layers differently.</p>
+    <h2 id="jump">Jump to a group</h2>
+    <ul class="glossary-nav">
+      <li><a href="#layers">The four layers (4)</a></li>
+      <li><a href="#ontology-parts">What an ontology is made of (7)</a></li>
+      <li><a href="#graph">Words for working with the graph (5)</a></li>
+      <li><a href="#tools">Tools and files (8)</a></li>
+      <li><a href="#ai">Words from the AI side (8)</a></li>
+      <li><a href="#org">Organization and strategy (3)</a></li>
+    </ul>
+    <p>There are 35 of them. Anywhere in the book, click a word with a dotted underline and you land on its entry.</p>
+
+    <h2 id="layers">The four layers</h2>
+    <p>The whole book runs on these four layers. Blur them into one word and the conversation goes sideways.</p>
+    <div class="glossary-grid">
+      <div class="glossary-item" id="taxonomy">
+        <h3>Taxonomy <span class="term-en">(분류 체계)</span></h3>
+        <p>The rule that decides <strong>which drawer a note goes in</strong>. Your folder structure is your taxonomy. In this book that job belongs to folders like <code>Sources/10-Products/</code>. A drawer holds a note in one place at a time, and the limit shows up fast. Warebot is a product and at the same time an output of a government project, and the folder makes you pick one of the two. Layers 1 and 2 are what fill that gap.</p>
+        <p class="term-where">Where it shows up · Layer 0 · Chapter 3</p>
+      </div>
+      <div class="glossary-item" id="ontology">
+        <h3>Ontology <span class="term-en">(온톨로지)</span></h3>
+        <p><strong>The rules document that decides how notes get written.</strong> It records which kinds of things exist (the classes), which fields each kind must carry, and which relations may connect them. The most important trait is a separate one. <strong>The ontology knows nothing about your company.</strong> The design document goes as far as "a thing called a product exists, and a product carries status·owner·since" and stops there. The word Warebot is not in it. Neither is a revenue figure. So ask the ontology to "summarize our track record" and nothing comes back. It is not the kind of thing you ask. The answer comes from layer 2.</p>
+        <p class="term-where">Where it shows up · Layer 1 · Chapters 3, 8-10</p>
+      </div>
+      <div class="glossary-item" id="knowledge-graph">
+        <h3>Knowledge Graph <span class="term-en">(지식 그래프)</span></h3>
+        <p>The format the ontology laid down, <strong>filled in with real company facts</strong>. Every note is a point, and every link you draw between notes is a line. This is where the answer to a question actually comes from. To answer "which technology in Warebot came out of a government project?" you follow the lines twice: Warebot → object recognition → the 2025 SmartLogistics project. That is what graph traversal means.</p>
+        <p class="term-where">Where it shows up · Layer 2 · Chapter 3</p>
+      </div>
+      <div class="glossary-item" id="llm-wiki">
+        <h3>LLM Wiki</h3>
+        <p>The three above plus <strong>the machinery that keeps them running with nobody tending them</strong>. That machinery is the rules for AI (<code>CLAUDE.md</code>), the templates, the skills, the scheduled tasks, the dashboard and the check scripts. Without it you get one well-organized folder that quietly dies three months later. Design the ontology and stop there, and you stop at layer 1.</p>
+        <p class="term-where">Where it shows up · Layer 3 · Chapters 3, 11-18</p>
+      </div>
+    </div>
+
+    <h2 id="ontology-parts">What an ontology is made of</h2>
+    <p>The items that actually get written into the layer 1 design document.</p>
+    <div class="glossary-grid">
+      <div class="glossary-item" id="class">
+        <h3>Class <span class="term-en">(클래스)</span></h3>
+        <p>The <strong>kind</strong> of thing a note is. This book splits them into product, capability, project and opportunity. What matters is fixing one decision rule per class. Project and opportunity, for example, get told apart by "is there a contract or a budget attached?" With no rule, everyone files things differently, and then the counts come out wrong.</p>
+        <p class="term-where">Where it shows up · Chapters 3, 9</p>
+      </div>
+      <div class="glossary-item" id="field">
+        <h3>Field · Property <span class="term-en">(필드)</span></h3>
+        <p><strong>One property slot</strong> that a note carries. Things like <code>status</code>, <code>owner</code> and <code>due</code>. Field names have to settle on one spelling. Two hundred notes that say <code>due</code> yesterday, <code>deadline</code> today and <code>due_date</code> tomorrow will not turn into a Gantt chart in any tool.</p>
+        <p class="term-where">Where it shows up · Chapters 10, 15</p>
+      </div>
+      <div class="glossary-item" id="relation">
+        <h3>Relation predicate <span class="term-en">(관계 술어)</span></h3>
+        <p><strong>The name on the line</strong> that joins one note to another. This book names them like <code>pdm_uses</code> (the tech a product uses) and <code>pdm_output_of</code> (the project a capability came out of). The <code>pdm_</code> in front marks it as a predicate our own company decided on. Let a predicate name drift and you cannot follow the link, and then layer 2 falls apart.</p>
+        <p class="term-where">Where it shows up · Chapters 3, 10</p>
+      </div>
+      <div class="glossary-item" id="controlled-vocab">
+        <h3>Controlled Vocabulary <span class="term-en">(통제 어휘)</span></h3>
+        <p><strong>A list of the values you are allowed to write, settled in advance.</strong> A product's <code>status</code>, for example, is one of four and no more: 기획 (planned), 개발 (in development), 운영 (in service), 중단 (discontinued). Write freely instead, with entries like "nearly there" and "in progress?", and nothing can be counted. The point of a controlled vocabulary is not to narrow how people write. It is <strong>to make things countable</strong>.</p>
+        <p class="term-where">Where it shows up · Chapters 10, 17</p>
+      </div>
+      <div class="glossary-item" id="constraint">
+        <h3>Constraint <span class="term-en">(제약)</span></h3>
+        <p><strong>A rule that must not be broken</strong>, such as "every note carries <code>class</code>, <code>id</code> and <code>updated</code>". Do not expect people to hold to it. A check script confirms it better.</p>
+        <p class="term-where">Where it shows up · Chapters 10, 17</p>
+      </div>
+      <div class="glossary-item" id="identifier">
+        <h3>ID <span class="term-en">(식별자)</span></h3>
+        <p><strong>A name tag on a note that never changes.</strong> This book puts a class prefix in front, like <code>PRD-001</code> and <code>CAP-ObjectRecognition</code>. A title may change; the identifier stays put. Rename Warebot to "SmartFactoryBot" and <code>PRD-001</code> is still <code>PRD-001</code>, so <strong>you can still tell it is the same thing after the rename.</strong> What it does not do is <strong>protect the links.</strong> Links in this book are written by name, as in <code>[[Warebot]]</code>. Rename inside Obsidian and Obsidian rewrites the links for you; rename in Explorer or SharePoint and they break (Appendix C).</p>
+        <p class="term-where">Where it shows up · Chapter 9</p>
+      </div>
+      <div class="glossary-item" id="ssot">
+        <h3>SSOT · Single Source of Truth <span class="term-en">(단일 진실 공급원)</span></h3>
+        <p>The state where the same fact is <strong>not written down differently in several places</strong>. Put a revenue figure in a note, in a report and on a slide, and the three drifting apart is a matter of time. Write it in one place and have the rest point at that place.</p>
+        <p class="term-where">Where it shows up · Chapters 10, 17</p>
+      </div>
+    </div>
+
+    <h2 id="graph">Words for working with the graph</h2>
+    <p>The names for how layer 2 produces an answer.</p>
+    <div class="glossary-grid">
+      <div class="glossary-item" id="node-edge">
+        <h3>Node · Edge <span class="term-en">(노드와 변)</span></h3>
+        <p><strong>The points and the lines</strong> in a graph. One note is a node, and one link from a note to another note is an edge. Write as many notes as you like: with no links there are no edges, and with no edges you have a pile of documents rather than a graph.</p>
+        <p class="term-where">Where it shows up · Chapter 3</p>
+      </div>
+      <div class="glossary-item" id="traversal">
+        <h3>Graph Traversal <span class="term-en">(그래프 순회)</span></h3>
+        <p><strong>Finding an answer by following links</strong>. One hop at "the tech Warebot uses", one more at "the project that tech came out of", and after two hops the answer is there. This is where answers a person could never find by searching come from, because a fact sitting two hops away cannot be put into a search term.</p>
+        <p class="term-where">Where it shows up · Chapter 3</p>
+      </div>
+      <div class="glossary-item" id="wikilink">
+        <h3>Wikilink <span class="term-en">(위키링크)</span></h3>
+        <p>The notation that points at another note with two square brackets. You write it like <code>[[Warebot]]</code>. In Obsidian, writing that creates the connection for you. Every graph in this book is built on top of this notation.</p>
+        <p class="term-where">Where it shows up · Chapter 5</p>
+      </div>
+      <div class="glossary-item" id="backlink">
+        <h3>Backlink <span class="term-en">(백링크)</span></h3>
+        <p><strong>The list of notes pointing at this one.</strong> Open the Warebot note and "notes that mention Warebot" shows up underneath on its own. The good part is that it appears with nobody maintaining it. Link diligently and that much comes back to you for free.</p>
+        <p class="term-where">Where it shows up · Chapter 5</p>
+      </div>
+      <div class="glossary-item" id="moc">
+        <h3>Map of Content <span class="term-en">(MOC · 지도 노트)</span></h3>
+        <p><strong>A note that acts as the entrance</strong> into a set of other notes. Something like "All products" is one. If a folder is a drawer, an MOC is a table of contents. One note can appear in several MOCs at once, which is how it fills the gap a folder leaves.</p>
+        <p class="term-where">Where it shows up · Chapters 15, 16</p>
+      </div>
+    </div>
+
+    <h2 id="tools">Tools and files</h2>
+    <p>The things you actually put your hands on.</p>
+    <div class="glossary-grid">
+      <div class="glossary-item" id="vault">
+        <h3>Vault <span class="term-en">(볼트)</span></h3>
+        <p><strong>A single folder</strong> that Obsidian manages. When this book says "the vault", it means the folder holding your company knowledge. It is not a special format, just an ordinary folder with markdown files in it. So you can stop using Obsidian and the files are still there.</p>
+        <p class="term-where">Where it shows up · Chapter 5</p>
+      </div>
+      <div class="glossary-item" id="frontmatter">
+        <h3>Frontmatter <span class="term-en">(프론트매터)</span></h3>
+        <p><strong>The part at the very top of a markdown file, fenced by <code>---</code> lines.</strong> Fields like <code>class</code>, <code>status</code> and <code>owner</code> go in there. The body is where people read, and the frontmatter is <strong>where machines read</strong>. Dashboards and automation look at this part and nothing else.</p>
+        <p class="term-where">Where it shows up · Chapters 12, 15</p>
+      </div>
+      <div class="glossary-item" id="obsidian">
+        <h3>Obsidian <span class="term-en">(옵시디언)</span></h3>
+        <p>A program that treats markdown files like a wiki. It gives you links, backlinks and a graph view. The important part is that it <strong>does not lock your files into its own format</strong>. A vault is just a folder.</p>
+        <p class="term-where">Where it shows up · Chapters 4, 5</p>
+      </div>
+      <div class="glossary-item" id="teams">
+        <h3>Microsoft Teams <span class="term-en">(Teams)</span></h3>
+        <p>In this book it is <strong>the place people gather</strong>. Conversation happens there and decisions get made there. Conversation flows away, though, so whatever got decided has to be copied across into the vault. Automating that copying is one of this book's goals.</p>
+        <p class="term-where">Where it shows up · Chapter 6</p>
+      </div>
+      <div class="glossary-item" id="cowork">
+        <h3>Claude Cowork</h3>
+        <p><strong>The hands on the AI side</strong>, reading and writing the vault. It creates notes, fixes them, and runs the scheduled tasks at the times you set.</p>
+        <p class="term-where">Where it shows up · Chapters 4, 7, 14</p>
+      </div>
+      <div class="glossary-item" id="skill">
+        <h3>Skill <span class="term-en">(스킬)</span></h3>
+        <p><strong>A document that writes down a task you repeat.</strong> Instead of explaining "make the weekly report" in a fresh prompt every time, you write it down once and call it by name. In human terms it is close to a work manual.</p>
+        <p class="term-where">Where it shows up · Chapter 13</p>
+      </div>
+      <div class="glossary-item" id="claude-md">
+        <h3>CLAUDE.md</h3>
+        <p><strong>The file holding the rules AI has to follow</strong> in this vault. Things like "do not fill in facts that are not there" and "write 확인 필요 for any number with no evidence". Without this file the AI makes notes in a different format every time, and fills the blanks with something plausible.</p>
+        <p class="term-where">Where it shows up · Chapter 11</p>
+      </div>
+      <div class="glossary-item" id="scheduled-task">
+        <h3>Scheduled task <span class="term-en">(예약 작업)</span></h3>
+        <p>Work that <strong>runs on its own with no person involved</strong> at a set time. The check report that arrives every Monday morning is one. There is one trap. A scheduled task running remotely <strong>cannot reach a folder on your own computer.</strong> Anything that has to touch vault files has to run locally.</p>
+        <p class="term-where">Where it shows up · Chapter 14</p>
+      </div>
+    </div>
+
+    <h2 id="ai">Words from the AI side</h2>
+    <p>The words you need in order to answer "isn't this just RAG?"</p>
+    <div class="glossary-grid">
+      <div class="glossary-item" id="llm">
+        <h3>Large Language Model <span class="term-en">(LLM · 대규모 언어 모델)</span></h3>
+        <p>A model trained to predict the next word. The prediction is good enough that it writes like a person. The key point is that <strong>it does not know what it was never taught</strong>. Your company's facts were never in its training, so you have to supply them separately.</p>
+        <p class="term-where">Where it shows up · Chapter 2</p>
+      </div>
+      <div class="glossary-item" id="rag">
+        <h3>Retrieval-Augmented Generation <span class="term-en">(RAG · 검색 증강 생성)</span></h3>
+        <p>When a question arrives, <strong>you search for the relevant documents first and hand them to the AI along with the question</strong>. In this book's four-layer model, RAG is <strong>one of the ways to get an answer out of layer 2</strong> rather than a layer of its own. And RAG on its own is not enough. Search only turns up documents that look similar, and a fact sitting two hops away it will not find. That one comes out by following links.</p>
+        <p class="term-where">Where it shows up · Chapters 2, 3</p>
+      </div>
+      <div class="glossary-item" id="embedding">
+        <h3>Embedding · Vector search <span class="term-en">(임베딩 · 벡터 검색)</span></h3>
+        <p><strong>Turning text into a list of numbers so that things close in meaning sit close together</strong>. That is why searching for "revenue" turns up a document that says "earnings". It only finds things that are similar, though, so it does not know the <strong>exact relation</strong>. "Which project did this technology come out of?" is not solved by similarity.</p>
+        <p class="term-where">Where it shows up · Chapter 2</p>
+      </div>
+      <div class="glossary-item" id="hallucination">
+        <h3>Hallucination <span class="term-en">(환각)</span></h3>
+        <p><strong>The AI inventing a plausible fact that does not exist.</strong> It happens because a blank makes it want to fill the blank. That is why this book nails down the rule "if you do not know, write 확인 필요". Leaving a blank as a blank is far better.</p>
+        <p class="term-where">Where it shows up · Chapter 11</p>
+      </div>
+      <div class="glossary-item" id="provenance">
+        <h3>Provenance <span class="term-en">(근거 · 출처)</span></h3>
+        <p>Writing down <strong>where a fact came from</strong> next to the fact itself. An answer with no evidence attached cannot be reviewed, because there is no way to confirm whether it is right or wrong. That is why AX maturity breaks between stage 1 and stage 3.</p>
+        <p class="term-where">Where it shows up · Chapters 11, 19</p>
+      </div>
+      <div class="glossary-item" id="confidence">
+        <h3>confidence <span class="term-en">(confidence 필드)</span></h3>
+        <p>The slot that records <strong>how far this note can be trusted</strong>. <strong>There are exactly two values, <code>draft</code> and <code>reviewed</code>.</strong> It separates what a person has checked from what the AI drafted. Without this slot, reviewed facts and unreviewed facts mix together, and in the end none of them can be trusted.</p>
+        <p class="term-where">Where it shows up · Chapters 3, 11, 17</p>
+      </div>
+      <div class="glossary-item" id="context-window">
+        <h3>Context window <span class="term-en">(컨텍스트 윈도우)</span></h3>
+        <p><strong>How much the AI can look at in one go.</strong> You cannot pour the whole vault in. Picking out only the notes you need therefore matters, and links and fields that were put in properly make that picking easy.</p>
+        <p class="term-where">Where it shows up · Chapter 2</p>
+      </div>
+      <div class="glossary-item" id="agent">
+        <h3>Agent <span class="term-en">(에이전트)</span></h3>
+        <p>An AI that does more than answer a question: it <strong>decides the order itself, uses tools, and finishes the job</strong>. It shows up at the last of the AX maturity stages. Getting there needs the evidence and the rules from the earlier stages already in place.</p>
+        <p class="term-where">Where it shows up · Chapter 19</p>
+      </div>
+    </div>
+
+    <h2 id="org">Organization and strategy</h2>
+    <p>The words for why you are building this system at all.</p>
+    <div class="glossary-grid">
+      <div class="glossary-item" id="ax">
+        <h3>AI Transformation <span class="term-en">(AX · AI 전환)</span></h3>
+        <p><strong>Bringing in</strong> AI tools and the company <strong>actually starting to work differently</strong> are two different things. The second one is AX. Buying a tool does not make it happen. How people work and how they record it have to change together.</p>
+        <p class="term-where">Where it shows up · Chapter 19</p>
+      </div>
+      <div class="glossary-item" id="ax-maturity">
+        <h3>AX maturity <span class="term-en">(AX 성숙도 5단계)</span></h3>
+        <p>Stage 0 everyone on their own → stage 1 individual productivity → stage 2 shared knowledge → stage 3 built into the workflow → stage 4 agents. <strong>Skipping from stage 1 to stage 3 fails.</strong> Output with no evidence attached cannot be reviewed, so in the end nobody signs off on it.</p>
+        <p class="term-where">Where it shows up · Chapter 19</p>
+      </div>
+      <div class="glossary-item" id="trl">
+        <h3>Technology Readiness Level <span class="term-en">(TRL · 기술 성숙도)</span></h3>
+        <p>A 1 to 9 scale for <strong>whether a technology is at lab level or ready to actually ship</strong>. It turns up often in government project paperwork. This book uses it as a field on capability notes.</p>
+        <p class="term-where">Where it shows up · Chapter 9</p>
+      </div>
+    </div>
+    <h2 id="confusions">Pairs that get mixed up</h2>
+
+    <p>Put the two words side by side and the difference gets obvious.</p>
+
+    <table>
+      <thead>
+        <tr><th>This one</th><th>and this one</th><th>What is different</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Ontology</td><td>Knowledge graph</td><td>Rules or facts. The company's name never appears once in the ontology</td></tr>
+        <tr><td>Taxonomy</td><td>Ontology</td><td>Where a note goes, or how it connects. A folder gives one spot, relations give several</td></tr>
+        <tr><td>Knowledge graph</td><td>LLM Wiki</td><td>Where the answer comes from, or that plus the machinery that keeps it from dying</td></tr>
+        <tr><td>RAG</td><td>Graph traversal</td><td>Fetching similar documents, or following links. A fact two hops away only comes out the second way</td></tr>
+        <tr><td>Folder</td><td>MOC</td><td>A drawer or a table of contents. A note goes into one drawer, but it can be listed in several tables of contents</td></tr>
+        <tr><td>Note body</td><td>Frontmatter</td><td>Where people read, or where machines read. The dashboard looks at the frontmatter and nothing else</td></tr>
+        <tr><td>Adopting AI</td><td>AX</td><td>You bought a tool, or the way you work changed</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">One name per field</p>
+      <p>This book writes a deadline date as <code>due</code> and nothing else. It does not use <code>deadline</code> or <code>due_date</code>. Same meaning, split names, and nothing can be counted. The canonical field list is in Chapter 10.</p>
+    </div>
+  </article>
+
+
+  <nav class="chapter-nav">
+    <a href="ch19.en.html" class="back-to-toc">← Previous: Where AX starts: the LLM Wiki</a>
+    <a href="appendix-b.en.html" class="next">Next: Appendix B · Copy-paste assets →</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="On this page"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Search contents">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="Find a chapter" aria-label="Search">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

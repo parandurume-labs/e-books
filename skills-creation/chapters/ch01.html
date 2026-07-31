@@ -3,13 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AI와 대화한다는 것 — 생성형 AI가 뭔지, 왜 지금 알아야 하는지 쉽게 설명합니다">
+  <meta name="description" content="AI와 대화한다는 것: 생성형 AI가 뭔지, 왜 지금 알아야 하는지 쉽게 설명합니다">
   <meta name="author" content="나만의 AI 스킬을 만들자">
-  <title>Chapter 1: AI와 대화한다는 것 — 나만의 AI 스킬을 만들자</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <title>Chapter 1: AI와 대화한다는 것 · 나만의 AI 스킬을 만들자</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
 </head>
 <body>
-
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">나만의 AI 스킬을 만들자</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10h3V7L6.5 3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1-3 3l-6-6a6 6 0 0 1-8-8L7 7z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 · 스킬이 필요한 세상</li>
+      <li><a href="ch01.html" class="nav-link">1장 AI와 대화한다는 것</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 반복은 지겹다: 자동화의 본능</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 내가 만든 도구를 나눠준다</a></li>
+      <li class="nav-part">제2부: 뭘 · 스킬 패키지 해부학</li>
+      <li><a href="ch04.html" class="nav-link">4장 스킬 패키지란?</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 뼈대 살펴보기</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 프론트매터: 스킬의 신분증</a></li>
+      <li><a href="ch07.html" class="nav-link">7장 references/ · 스킬의 참고서 폴더</a></li>
+      <li class="nav-part">제3부: 어떻게 · 나만의 스킬 만들기</li>
+      <li><a href="ch08.html" class="nav-link">8장 첫 번째 스킬: "인사하기"</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 프롬프트 엔지니어링 기초</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 도구 연결하기</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 references로 지식 확장하기</a></li>
+      <li><a href="ch12.html" class="nav-link">12장 템플릿과 변수</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 테스트하고 다듬기</a></li>
+      <li class="nav-part">제4부: 더 멀리 · 성장하는 스킬</li>
+      <li><a href="ch14.html" class="nav-link">14장 여러 스킬을 하나로</a></li>
+      <li><a href="ch15.html" class="nav-link">15장 팀과 함께 쓰는 스킬</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 커뮤니티에 기여하기</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전 (한-영 대조)</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 일러스트 프롬프트 모음</a></li>
+      <li><a href="appendix-c.html" class="nav-link">부록 C: 스킬 패키지 체크리스트</a></li>
+      <li><a href="appendix-d.html" class="nav-link">부록 D: 참고 자료 및 링크</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
 <div class="chapter-content">
 
   <!-- ====== Chapter Header ====== -->
@@ -42,7 +97,7 @@
         "이거... 누가 대신 써주면 안 되나? 내가 숫자만 알려주면, 나머지는 알아서 완성해주는 그런 존재?"
       </div>
 
-      <p>축하합니다. 방금 여러분은 <strong>생성형 AI(Generative AI)</strong>가 필요한 순간을 경험했습니다.</p>
+      <p>축하합니다. 방금 <strong>생성형 AI(Generative AI)</strong>가 필요한 순간을 경험하신 겁니다.</p>
 
       <p>그리고 좋은 소식이 있어요. 그런 존재, <strong>이미 있습니다.</strong></p>
     </section>
@@ -53,7 +108,7 @@
 
       <p>자, 여기서부터 천천히 갈게요. 정말 처음이신 분들을 위해, 최대한 쉽게 설명할게요.</p>
 
-      <p>여러분 핸드폰 키보드 아시죠? 카카오톡에서 글자를 치면, 그 위에 <strong>다음에 올 단어를 추천</strong>해주는 기능이요. "오늘 점심"이라고 치면 "뭐 먹을까?"가 뜨는 거.</p>
+      <p>핸드폰 키보드 아시죠? 카카오톡에서 글자를 치면, 그 위에 <strong>다음에 올 단어를 추천</strong>해주는 기능이요. "오늘 점심"이라고 치면 "뭐 먹을까?"가 뜨는 거.</p>
 
       <p>생성형 AI는 <strong>그 기능의 초울트라 버전</strong>이에요.</p>
 
@@ -64,7 +119,7 @@
         <p>둘 다 "다음에 뭐가 올까?"를 예측하는 건데, 규모와 정확도가 차원이 다릅니다.</p>
       </div>
 
-      <p>핸드폰 키보드는 여러분이 자주 쓰는 단어 몇백 개를 기억하는 수준이에요. 하지만 생성형 AI는 인터넷에 있는 수십억 개의 글, 책, 논문, 대화를 학습해서 "이 문맥에서 다음에 올 말은 뭘까?"를 예측합니다.</p>
+      <p>핸드폰 키보드는 자주 쓰는 단어 몇백 개를 기억하는 수준이에요. 하지만 생성형 AI는 인터넷에 있는 수십억 개의 글, 책, 논문, 대화를 학습해서 "이 문맥에서 다음에 올 말은 뭘까?"를 예측합니다.</p>
 
       <p>그래서 "주간 보고 이메일 써줘. 이번 주 매출은 15% 올랐고, 신규 고객 30명 확보했어"라고 말하면?</p>
 
@@ -74,7 +129,7 @@
 
       <p>"생성(Generative)"이라는 단어가 중요해요. 이전의 AI는 주로 <strong>분류</strong>를 했어요. "이 사진은 고양이인가, 개인가?" 같은 거요. 맞추거나 고르는 게 전부였죠.</p>
 
-      <p>근데 생성형 AI는 <strong>새로운 걸 만들어냅니다</strong>. 글을 쓰고, 코드를 짜고, 그림을 그리고, 음악을 작곡해요. "없던 것을 만든다" — 이게 핵심이에요.</p>
+      <p>근데 생성형 AI는 <strong>새로운 걸 만들어냅니다</strong>. 글을 쓰고, 코드를 짜고, 그림을 그리고, 음악을 작곡해요. "없던 것을 만든다". 이게 핵심이에요.</p>
 
       <p>그래서 이름이 <strong>생성형(Generative) AI</strong>인 겁니다.</p>
 
@@ -111,18 +166,18 @@
       <p>이게 왜 중요하냐면요. 역사적으로 기술이 정말 세상을 바꾸는 순간은 <strong>"아무나 쓸 수 있게 된 순간"</strong>이거든요.</p>
 
       <ul>
-        <li>인쇄술 — 책을 아무나 읽을 수 있게 됨</li>
-        <li>자동차 — 아무나 이동할 수 있게 됨</li>
-        <li>스마트폰 — 아무나 인터넷에 접속할 수 있게 됨</li>
-        <li><strong>생성형 AI — 아무나 AI와 대화할 수 있게 됨</strong></li>
+        <li>인쇄술: 책을 아무나 읽을 수 있게 됨</li>
+        <li>자동차: 아무나 이동할 수 있게 됨</li>
+        <li>스마트폰: 아무나 인터넷에 접속할 수 있게 됨</li>
+        <li><strong>생성형 AI: 아무나 AI와 대화할 수 있게 됨</strong></li>
       </ul>
 
-      <p>지금이 바로 그 순간이에요. 그리고 여러분은 이 책을 읽고 있으니까, 이미 한 발 앞서 있는 겁니다.</p>
+      <p>지금이 바로 그 순간이에요. 이 책을 읽고 계시니까, 이미 한 발 앞서 있는 겁니다.</p>
     </section>
 
     <!-- ====== Prompting ====== -->
     <section>
-      <h2>"프롬프팅" — AI에게 말 거는 법</h2>
+      <h2>"프롬프팅": AI에게 말 거는 법</h2>
 
       <p>생성형 AI를 쓰는 방법은 놀라울 정도로 단순해요. <strong>말하면 됩니다.</strong></p>
 
@@ -130,7 +185,7 @@
 
       <div class="callout">
         <p class="callout-title">프롬프트(Prompt)란?</p>
-        <p>여러분이 AI에게 보내는 메시지. 그게 끝이에요. 카톡 메시지 보내듯이 AI에게 하고 싶은 말을 적는 거예요.</p>
+        <p>AI에게 보내는 메시지. 그게 끝이에요. 카톡 메시지 보내듯이 AI에게 하고 싶은 말을 적는 거예요.</p>
       </div>
 
       <p>예를 들어볼게요:</p>
@@ -161,7 +216,7 @@
         <strong>좋은 프롬프트:</strong> "거래처 김 과장님께 보내는 미팅 일정 확인 이메일 써줘. 정중하지만 딱딱하지 않은 톤으로, 다음 주 수요일 오후 2시 제안."</p>
       </div>
 
-      <p>핵심은 <strong>구체적으로 말하기</strong>예요. AI는 마음을 읽지 못해요. 하지만 여러분이 원하는 걸 구체적으로 말하면, 놀라울 만큼 정확하게 해줍니다.</p>
+      <p>핵심은 <strong>구체적으로 말하기</strong>예요. AI는 마음을 읽지 못해요. 하지만 원하는 걸 구체적으로 말하면, 놀라울 만큼 정확하게 해줍니다.</p>
 
       <p>걱정 마세요. 처음부터 완벽하게 잘 할 필요 없어요. AI의 좋은 점은 <strong>다시 물어볼 수 있다</strong>는 거예요.</p>
 
@@ -189,7 +244,7 @@
         "이번 주 현황 보고 이메일 써줘. 매출 전주 대비 12% 상승, 신규 가입자 450명, 이탈률 2.1%로 개선. 김 팀장님한테 보내는 거고, 간결하게."
       </div>
 
-      <p>10초 후, 깔끔한 이메일이 완성됩니다. 검토하고, 살짝 수정하고, 전송. <strong>2분이면 끝.</strong></p>
+      <p>20초 후, 깔끔한 이메일이 완성됩니다. 검토하고, 살짝 수정하고, 전송. <strong>2분이면 끝.</strong></p>
 
       <p>20분 걸리던 일이 2분. 한 달이면 <strong>72분</strong>을 아끼는 거예요. 1년이면 거의 <strong>15시간</strong>. 이메일 하나로요.</p>
 
@@ -213,9 +268,9 @@
       <p>생성형 AI 서비스는 여러 개가 있어요. 잠깐 소개할게요.</p>
 
       <ul>
-        <li><strong>ChatGPT</strong> — OpenAI가 만든, 가장 유명한 AI. 2022년 말 공개되면서 전 세계에 AI 열풍을 일으켰어요.</li>
-        <li><strong>Claude</strong> — Anthropic이 만든 AI. 길고 복잡한 작업을 차분하고 정확하게 해내는 게 특기예요.</li>
-        <li><strong>Gemini</strong> — Google이 만든 AI. 검색의 왕 Google이 만든 만큼, 정보 탐색에 강해요.</li>
+        <li><strong>ChatGPT</strong>: OpenAI가 만든, 가장 유명한 AI. 2022년 말 공개되면서 전 세계에 AI 열풍을 일으켰어요.</li>
+        <li><strong>Claude</strong>: Anthropic이 만든 AI. 길고 복잡한 작업을 차분하고 정확하게 해내는 게 특기예요.</li>
+        <li><strong>Gemini</strong>: Google이 만든 AI. 검색의 왕 Google이 만든 만큼, 정보 탐색에 강해요.</li>
       </ul>
 
       <p>이 외에도 많지만, 핵심만 알면 돼요. <strong>다 비슷한 원리</strong>로 작동합니다. "다음에 올 말을 예측한다"는 근본은 같아요. 차이는 성격과 특기 정도.</p>
@@ -240,7 +295,7 @@
 
       <p><strong>AI는 터미네이터가 아닙니다.</strong></p>
 
-      <p>지금 우리가 쓰는 생성형 AI는 "대화를 잘하는 프로그램"이에요. 스스로 생각하지 않고, 의지가 없고, 세계 정복에 관심 없어요. 여러분이 "이메일 써줘"라고 하면 이메일을 쓰고, "시 써줘"라고 하면 시를 씁니다. 그게 전부예요.</p>
+      <p>지금 우리가 쓰는 생성형 AI는 "대화를 잘하는 프로그램"이에요. 스스로 생각하지 않고, 의지가 없고, 세계 정복에 관심 없어요. "이메일 써줘"라고 하면 이메일을 쓰고, "시 써줘"라고 하면 시를 씁니다. 그게 전부예요.</p>
 
       <p>좀 더 정확히 말하면, AI는 <strong>엄청나게 많은 텍스트를 읽고 패턴을 학습한 프로그램</strong>이에요. "이런 질문 뒤에는 이런 대답이 오더라"를 수십억 번 학습한 거죠.</p>
 
@@ -250,7 +305,7 @@
         <p class="fun-box-title">기억해주세요</p>
         <p>AI는 <strong>도구</strong>예요. 아주 강력한 도구. 망치가 무서운 게 아니라 쓰기 나름이듯, AI도 마찬가지예요.<br><br>
         망치로 집을 지을 수도 있고, 못을 박을 수도 있어요. AI로 이메일을 쓸 수도 있고, 소설을 쓸 수도 있고, 코드를 짤 수도 있어요.<br><br>
-        <strong>도구를 잘 쓰는 사람이 이기는 세상.</strong> 이 책은 여러분을 그 사람으로 만들어 드리려고 합니다.</p>
+        <strong>도구를 잘 쓰는 사람이 이기는 세상.</strong> 이 책은 바로 그 사람이 되시라고 쓰는 책입니다.</p>
       </div>
     </section>
 
@@ -262,7 +317,7 @@
 
       <p>우리의 목표는 훨씬 멋진 거예요:</p>
 
-      <p><strong>여러분만의 AI 스킬 패키지를 만들어서 세상과 공유하는 것.</strong></p>
+      <p><strong>나만의 AI 스킬 패키지를 만들어서 세상과 공유하는 것.</strong></p>
 
       <p>"스킬 패키지"가 뭔지는 다음 챕터부터 차근차근 알아갈 거예요. 지금은 이렇게만 생각하세요:</p>
 
@@ -270,9 +325,9 @@
         "AI에게 특정 일을 시키는 레시피를 만들어서, 다른 사람들도 쓸 수 있게 공유하는 것"
       </div>
 
-      <p>요리 레시피를 생각해보세요. 여러분이 만든 맛있는 김치찌개 레시피를 친구에게 알려주면, 친구도 같은 맛을 낼 수 있잖아요? AI 스킬도 같은 원리예요.</p>
+      <p>요리 레시피를 생각해보세요. 내가 만든 맛있는 김치찌개 레시피를 친구에게 알려주면, 친구도 같은 맛을 내잖아요? AI 스킬도 같은 원리예요.</p>
 
-      <p>이 여정을 함께하면, 여러분은:</p>
+      <p>이 여정을 함께하면 이렇게 됩니다:</p>
 
       <ol>
         <li>생성형 AI가 뭔지 <strong>진짜로</strong> 이해하게 되고</li>
@@ -294,7 +349,7 @@
         <li>AI와 대화하는 걸 <strong>프롬프팅</strong>이라고 해요. 카톡 보내듯이, 원하는 걸 구체적으로 말하면 됩니다.</li>
         <li>AI는 무서운 게 아니라 <strong>강력한 도구</strong>예요. 잘 쓰면 시간과 에너지를 엄청나게 아낄 수 있어요.</li>
         <li>지금이 AI를 배우기 <strong>딱 좋은 타이밍</strong>이에요. 아직 모르는 사람이 많을 때 배우는 게 가장 유리하니까요.</li>
-        <li>이 책의 목표는 여러분만의 <strong>AI 스킬 패키지</strong>를 만들어서 세상과 공유하는 것!</li>
+        <li>이 책의 목표는 나만의 <strong>AI 스킬 패키지</strong>를 만들어서 세상과 공유하는 것!</li>
       </ul>
     </aside>
 
@@ -302,7 +357,7 @@
     <div class="next-teaser">
       <h3>다음 챕터에서는...</h3>
       <p>"매일 같은 일을 반복하는 게 싫다"는 인간의 본능에 대해 이야기합니다.<br>
-      돌도끼에서 엑셀 매크로까지, 그리고 AI 스킬까지 — <strong>자동화의 역사</strong>를 따라가 봐요.<br>
+      돌도끼에서 엑셀 매크로까지, 그리고 AI 스킬까지. <strong>자동화의 역사</strong>를 따라가 봐요.<br>
       그리고 드디어 "스킬"이라는 개념이 처음 등장합니다!</p>
     </div>
 
@@ -315,6 +370,15 @@
   </nav>
 
 </div>
-
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
 </body>
 </html>

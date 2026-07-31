@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 3: Ontology and LLM Wiki are not the same thing · Building a Company LLM Wiki</title>
+  <meta name="description" content="A four-layer model separating taxonomy, ontology, knowledge graph and the LLM Wiki. Eight sentences people get wrong, and the two symmetric ways adoption fails.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="alternate" hreflang="ko" href="ch03.html">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open contents"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Building a Company LLM Wiki</span>
+  <button class="search-trigger" type="button" aria-label="Search contents"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>Search</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="Toggle dark mode"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="Contents">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+    <span class="sidebar-title">Contents</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close contents">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.en.html" class="nav-link">Cover and contents</a></li>
+      <li class="nav-part">Part 1 · Why you need this</li>
+      <li><a href="ch01.en.html" class="nav-link">1. Where our knowledge lives</a></li>
+      <li><a href="ch02.en.html" class="nav-link">2. A wiki, not RAG</a></li>
+      <li><a href="ch03.en.html" class="nav-link">3. Ontology is not the wiki</a></li>
+      <li><a href="ch04.en.html" class="nav-link">4. Three tools, three jobs</a></li>
+      <li class="nav-part">Part 2 · Setup in 30 minutes</li>
+      <li><a href="ch05.en.html" class="nav-link">5. Obsidian and the vault</a></li>
+      <li><a href="ch06.en.html" class="nav-link">6. Sharing through Teams</a></li>
+      <li><a href="ch07.en.html" class="nav-link">7. Connecting the vault to Cowork</a></li>
+      <li class="nav-part">Part 3 · Designing the ontology</li>
+      <li><a href="ch08.en.html" class="nav-link">8. Six design principles</a></li>
+      <li><a href="ch09.en.html" class="nav-link">9. Choosing your classes</a></li>
+      <li><a href="ch10.en.html" class="nav-link">10. Relations and fields</a></li>
+      <li class="nav-part">Part 4 · Running it</li>
+      <li><a href="ch11.en.html" class="nav-link">11. CLAUDE.md</a></li>
+      <li><a href="ch12.en.html" class="nav-link">12. Templates and your first note</a></li>
+      <li><a href="ch13.en.html" class="nav-link">13. Automating with skills</a></li>
+      <li class="nav-part">Part 5 · Automation and visibility</li>
+      <li><a href="ch14.en.html" class="nav-link">14. Scheduling</a></li>
+      <li><a href="ch15.en.html" class="nav-link">15. Making progress visible</a></li>
+      <li><a href="ch16.en.html" class="nav-link">16. Twelve automation recipes</a></li>
+      <li class="nav-part">Part 6 · Keeping it alive</li>
+      <li><a href="ch17.en.html" class="nav-link">17. Quality as code</a></li>
+      <li><a href="ch18.en.html" class="nav-link">18. Intent versus execution</a></li>
+      <li class="nav-part">Part 7 · Scaling to AX</li>
+      <li><a href="ch19.en.html" class="nav-link">19. From wiki to AX</a></li>
+      <li class="nav-part">Appendices</li>
+      <li><a href="appendix-a.en.html" class="nav-link">Appendix A · Glossary</a></li>
+      <li><a href="appendix-b.en.html" class="nav-link">Appendix B · Copy-paste assets</a></li>
+      <li><a href="appendix-c.en.html" class="nav-link">Appendix C · Troubleshooting</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="Toggle dark mode"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">Dark mode</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 3</span>
+    <h1>Ontology and LLM Wiki are not the same thing</h1>
+    <p class="chapter-subtitle">Split it into four layers and you stop mixing them up</p>
+    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>about 13 min</span>
+  </header>
+
+<article>
+    <p>This conversation actually happened.</p>
+
+    <div class="prompt-example">
+      <p><span class="label bad-label">CEO</span></p>
+      <p class="bad">"You told me the ontology was finished. So now I can ask the AI about our track record, right?"</p>
+      <p><span class="label good-label">Knowledge lead</span></p>
+      <p class="good">"No... there is nothing to ask it yet."</p>
+    </div>
+
+    <p>Neither of them is lying. <strong>They are using the same word to mean two different things.</strong> The CEO heard "ontology" as <em>a finished company knowledge base</em>. The knowledge lead meant <em>a rules document that decides how notes get formatted</em>.</p>
+
+    <p>The mix-up looks minor and it wrecks whole projects. The CEO thinks the work is done and moves on to the next thing. The knowledge lead now finds it hard to say "we still have to fill the notes." Three months later what is left is <strong>a vault with one design document in it</strong>.</p>
+
+    <p>That mix-up is why this chapter exists. It is the shortest chapter in the book and there is no new tool to learn. What you get instead is four layers that every later chapter keeps using.</p>
+
+    <h2>Split it into four layers</h2>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 430" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="430" fill="#FFFDF9"/>
+        <defs>
+          <marker id="a3" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#C2703C"/>
+          </marker>
+        </defs>
+
+        <text x="360" y="26" text-anchor="middle" font-size="14" font-weight="bold" fill="#3D2B1F">The four layers of an LLM Wiki</text>
+        <text x="360" y="46" text-anchor="middle" font-size="11" fill="#6B5647">Answers come from layer 2. Layer 1 keeps layer 2 from falling apart</text>
+
+        <!-- layer 3 wraps everything -->
+        <rect x="18" y="60" width="684" height="322" rx="16" fill="#EAF6F4" stroke="#0F766E" stroke-width="2.5"/>
+        <text x="36" y="84" font-size="13" font-weight="bold" fill="#0F766E">Layer 3 · LLM Wiki, the whole working system</text>
+
+        <!-- layer 2 -->
+        <rect x="36" y="96" width="382" height="80" rx="9" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.8"/>
+        <text x="52" y="118" font-size="12" font-weight="bold" fill="#0F766E">Layer 2 · Knowledge graph</text>
+        <text x="52" y="138" font-size="11" fill="#3D2B1F">Note bodies + frontmatter + links</text>
+        <text x="52" y="157" font-size="11" fill="#C2703C" font-weight="bold">The only layer holding company facts</text>
+        <text x="52" y="171" font-size="10" fill="#6B5647">Hundreds of files like Sources/10-Products/Warebot.md</text>
+
+        <!-- layer 1 -->
+        <rect x="36" y="186" width="382" height="80" rx="9" fill="#FFFFFF" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="52" y="208" font-size="12" font-weight="bold" fill="#C2703C">Layer 1 · Ontology (the schema)</text>
+        <text x="52" y="228" font-size="11" fill="#3D2B1F">Definitions: classes, relations, fields, constraints</text>
+        <text x="52" y="247" font-size="11" fill="#C2703C" font-weight="bold">Not a single company fact lives here</text>
+        <text x="52" y="261" font-size="10" fill="#6B5647">_ops/01-ontology-design.md · one file</text>
+
+        <!-- layer 0 -->
+        <rect x="36" y="276" width="382" height="62" rx="9" fill="#FFFFFF" stroke="#8A857C" stroke-width="1.5"/>
+        <text x="52" y="298" font-size="12" font-weight="bold" fill="#6B5647">Layer 0 · Taxonomy (folders and tags)</text>
+        <text x="52" y="317" font-size="11" fill="#3D2B1F">The hierarchy deciding where a note goes</text>
+        <text x="52" y="332" font-size="10" fill="#6B5647">Sources/00-Company/, 10-Products/ ...</text>
+
+        <!-- the machinery -->
+        <rect x="432" y="96" width="252" height="242" rx="9" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.6" stroke-dasharray="5 3"/>
+        <text x="448" y="118" font-size="12" font-weight="bold" fill="#C2703C">Layer 3 only · the machinery</text>
+        <text x="448" y="146" font-size="11" fill="#3D2B1F">· CLAUDE.md, rules for AI</text>
+        <text x="448" y="170" font-size="11" fill="#3D2B1F">· 7 note templates</text>
+        <text x="448" y="194" font-size="11" fill="#3D2B1F">· Skills and scheduled tasks</text>
+        <text x="448" y="218" font-size="11" fill="#3D2B1F">· Quality-check scripts</text>
+        <text x="448" y="242" font-size="11" fill="#3D2B1F">· Dashboard and weekly report</text>
+        <text x="448" y="266" font-size="11" fill="#3D2B1F">· A daily 3-5 minute habit</text>
+        <text x="448" y="298" font-size="10" fill="#6B5647">Without this, layers 0-2 are</text>
+        <text x="448" y="313" font-size="10" fill="#6B5647">just a tidy folder</text>
+
+        <!-- arrows -->
+        <line x1="418" y1="136" x2="432" y2="136" stroke="#C2703C" stroke-width="1.5" marker-end="url(#a3)"/>
+        <line x1="418" y1="226" x2="432" y2="226" stroke="#C2703C" stroke-width="1.5" marker-end="url(#a3)"/>
+
+        <text x="360" y="406" text-anchor="middle" font-size="11.5" fill="#3D2B1F">The ontology is the <tspan font-weight="bold">blueprint</tspan> · the graph is <tspan font-weight="bold">the building</tspan> · the wiki is <tspan font-weight="bold">how you work in it</tspan></text>
+      </svg>
+      <figcaption>Using layer 1 and layer 3 as if they were one word is where all the confusion starts.</figcaption>
+    </figure>
+
+    <p>Here is the same thing as a table. This table is the whole chapter.</p>
+
+    <table>
+      <thead>
+        <tr><th>Layer</th><th>Name</th><th>What it is</th><th>As files</th><th>How often it changes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>0</strong></td>
+          <td>Taxonomy<br><span class="jargon">classification</span></td>
+          <td>The hierarchy of folders and tags. "Where does this note go?"</td>
+          <td>Folder structure</td>
+          <td>Almost never</td>
+        </tr>
+        <tr>
+          <td><strong>1</strong></td>
+          <td>Ontology<br><span class="jargon">schema</span></td>
+          <td><strong>A schema.</strong> The <strong>definition</strong> of what kinds of things exist, how they connect, and which fields are mandatory</td>
+          <td>One design document</td>
+          <td>Once a quarter</td>
+        </tr>
+        <tr>
+          <td><strong>2</strong></td>
+          <td>Knowledge graph<br><span class="jargon">notes and links</span></td>
+          <td>Layer 1's format <strong>filled in with real company facts.</strong> Note bodies and links</td>
+          <td>Hundreds of notes</td>
+          <td>Every day</td>
+        </tr>
+        <tr>
+          <td><strong>3</strong></td>
+          <td>LLM Wiki</td>
+          <td>Layers 0 to 2 plus AI rules, skills, scheduled tasks, checks and team habits: <strong>a system that runs</strong></td>
+          <td>The whole vault folder</td>
+          <td>Constantly</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p class="callout-title">In one sentence</p>
+      <p><strong>The ontology is the blueprint, the knowledge graph is the building that got built from it, and the LLM Wiki includes how people and AI work inside that building.</strong></p>
+      <p>Drawing a blueprint does not give you a building. Having a building does not mean work gets done inside it.</p>
+    </div>
+
+    <h2>What each layer actually looks like</h2>
+
+    <p>Words alone get confusing again, so look at the files. Take one fact: <strong>"Warebot uses object recognition, and that capability came out of a 2025 government project."</strong> Watch how it gets written down differently at each layer.</p>
+
+    <h3>Layer 0 · Taxonomy: where a note goes</h3>
+
+    <div class="file-tree">Sources/
+├── 00-Company/     <span class="comment">company, org, capabilities, IP</span>
+├── 10-Products/    <span class="comment">← Warebot.md lives here</span>
+├── 20-Projects/    <span class="comment">← 2025-government-project.md lives here</span>
+├── 30-Partners/
+├── 40-Worklog/
+└── 90-Reference/</div>
+
+    <p>Layer 0 tells you that Warebot is a product, and nothing more than that. A folder holds a note in <strong>exactly one place</strong>, so this alone is not enough. Warebot is a product and, at the same time, an output of a government project.</p>
+
+    <h3>Layer 1 · Ontology: rules only, no facts</h3>
+
+    <p>Part of <code>_ops/01-ontology-design.md</code>. This is the ontology.</p>
+
+    <pre><code>## Classes
+
+| class    | prefix | how you decide                     | required fields              |
+|----------|--------|------------------------------------|------------------------------|
+| 제품     | PRD-   | a unit you sell or deliver         | status, owner, since         |
+| 기술역량 | CAP-   | a reusable bundle of technology    | trl, evidence                |
+| 과제     | PRJ-   | has a contract or a budget         | period, funder, budget       |
+| 기회     | OPP-   | no contract or budget yet          | stage, due                   |
+
+## Relation predicates
+
+| predicate      | direction        | meaning                   |
+|----------------|------------------|---------------------------|
+| pdm_uses       | 제품 → 기술역량  | tech this product uses    |
+| pdm_output_of  | 기술역량 → 과제  | project that produced it  |
+| pdm_owner      | any → person     | the owner                 |
+
+## Constraints
+
+- every note must carry the class, id and updated fields
+- status is exactly one of: 기획 / 개발 / 운영 / 중단
+- never write a number without evidence. write 확인 필요 instead</code></pre>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">Check this yourself</p>
+      <p><strong>The word Warebot never appears in that document.</strong> No revenue, no owner's name, no TRL number. The ontology <strong>knows nothing about your company.</strong> It knows only that a thing called a product exists, and that a product carries these fields.</p>
+      <p>Ask the ontology to "summarize our track record" and nothing comes back. It is not the kind of thing you ask.</p>
+    </div>
+
+    <h3>Layer 2 · Knowledge graph: where the facts arrive</h3>
+
+    <p>This is <code>Sources/10-Products/Warebot.md</code>. Layer 1's format, filled in with real values.</p>
+
+    <pre><code>---
+class: 제품
+id: PRD-001
+status: 운영
+owner: "[[Kim]]"
+since: 2023-04
+pdm_uses:
+  - "[[CAP-ObjectRecognition]]"
+  - "[[CAP-RouteOptimization]]"
+updated: 2026-07-15
+confidence: reviewed
+---
+
+# Warebot
+
+Inbound and outbound automation software for logistics warehouses.
+Running since April 2023.
+
+## Known limits
+- No recognition-rate data for freezer warehouses. 확인 필요</code></pre>
+
+    <p>One line goes into <code>Sources/00-Company/CAP-ObjectRecognition.md</code>.</p>
+
+    <pre><code>pdm_output_of: "[[PRJ-2025-SmartLogistics]]"</code></pre>
+
+    <p>Those two links in those two files are <strong>two edges in layer 2</strong>. Now the question from earlier has an answer.</p>
+
+    <div class="file-tree">"Which technology in Warebot came out of a government project?"
+
+Warebot --pdm_uses--> CAP-ObjectRecognition --pdm_output_of--> PRJ-2025-SmartLogistics
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^ answer</div>
+
+    <p>The answer comes from <strong>layer 2</strong>. Layer 1 contributed nothing to it directly. But without layer 1 you would have written <code>pdm_uses</code> yesterday, <code>uses_tech</code> today and <code>tech_used</code> tomorrow, and <strong>the link would lead nowhere</strong>. That is layer 1's job.</p>
+
+    <h3>Layer 3 · LLM Wiki: the part that runs without you</h3>
+
+    <p>Do all of that and you have one well-organized folder. It is still <strong>not a system.</strong> It will probably be dead in three months. Layer 3 is the set of things that stop that.</p>
+
+    <table>
+      <thead>
+        <tr><th>Layer 3 machinery</th><th>What happens without it</th><th>Chapter</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>CLAUDE.md</code> · rules for AI</td><td>The AI writes notes in a different format every time. It fills in facts that do not exist</td><td>Chapter 11</td></tr>
+        <tr><td>7 note templates</td><td>Everyone writes in their own format</td><td>Chapter 12</td></tr>
+        <tr><td>3 skills</td><td>You explain the same task in a fresh prompt every time</td><td>Chapter 13</td></tr>
+        <tr><td>Scheduled tasks</td><td>Nobody remembers the weekly check</td><td>Chapter 14</td></tr>
+        <tr><td>Dashboard</td><td>The payoff of writing things down stays invisible, so nobody writes</td><td>Chapter 15</td></tr>
+        <tr><td>Check scripts</td><td>Rule violations pile up quietly</td><td>Chapter 17</td></tr>
+      </tbody>
+    </table>
+
+    <p>That table is the other half of this book. <strong>Do Part 3 (designing the ontology) and stop there, and you stop at layer 1.</strong></p>
+
+    <h2>Eight sentences people get wrong</h2>
+
+    <p>You hear these all the time. When the sentence on the left leaves your mouth, the layers have blurred.</p>
+
+    <table>
+      <thead>
+        <tr><th>If you say this</th><th>Why it is wrong</th><th>Say this instead</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>"Ask the ontology and you get an answer"</td>
+          <td>Layer 1 holds no facts</td>
+          <td>"Read the notes and you get an answer"</td>
+        </tr>
+        <tr>
+          <td>"The ontology is finished"</td>
+          <td>Usually only layer 1 is done</td>
+          <td>"The ontology design is done, now we fill the notes"</td>
+        </tr>
+        <tr>
+          <td>"We designed the LLM Wiki"</td>
+          <td>You design layer 1. Layer 3 you run</td>
+          <td>"We designed the ontology"</td>
+        </tr>
+        <tr>
+          <td>"The ontology is growing"</td>
+          <td>What grows is the notes in layer 2</td>
+          <td>"The notes are growing"</td>
+        </tr>
+        <tr>
+          <td>"A knowledge graph needs a database"</td>
+          <td>Layer 2 works with markdown links</td>
+          <td>"Write the links by the rules and you have a graph"</td>
+        </tr>
+        <tr>
+          <td>"We built an ontology out of tags"</td>
+          <td>Tags are layer 0. They cannot express relations or constraints</td>
+          <td>"We built a classification scheme out of tags"</td>
+        </tr>
+        <tr>
+          <td>"The ontology is so complex the AI gets confused"</td>
+          <td>What the AI reads is layer 2 notes and layer 3 rules</td>
+          <td>"There are so many required fields the notes never get filled"</td>
+        </tr>
+        <tr>
+          <td>"The wiki is built but the AI cannot answer"</td>
+          <td>Usually layer 3 (rules and checks) is missing</td>
+          <td>"We have no CLAUDE.md and no checks yet"</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="fun-box">
+      <p class="fun-box-title">A simpler way to see it: try accounting</p>
+      <p><strong>Layer 0</strong> is how you divide up the filing cabinet. <strong>Layer 1</strong> is the chart of accounts and the posting rules. It says nothing about how much money the company has. <strong>Layer 2</strong> is the actual ledger, and the numbers live there. <strong>Layer 3</strong> is the closing procedure, the checks, the month-end report, and the habit of taping in a receipt the day you get it.</p>
+      <p>Nobody asks whether the chart of accounts will tell them their revenue. The ontology is the same.</p>
+    </div>
+
+    <h2>What happens when you have only one side</h2>
+
+    <p>Two failures happen, and they are exact mirrors of each other. Both are common.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="320" fill="#FFFDF9"/>
+
+        <!-- left: ontology only -->
+        <rect x="24" y="46" width="316" height="200" rx="12" fill="#FAEADF" stroke="#C2703C" stroke-width="2"/>
+        <text x="182" y="72" text-anchor="middle" font-size="13" font-weight="bold" fill="#C2703C">A · Ontology and nothing else</text>
+        <rect x="120" y="88" width="124" height="34" rx="6" fill="#FFFFFF" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="182" y="110" text-anchor="middle" font-size="11" fill="#3D2B1F">One design doc</text>
+        <text x="182" y="146" text-anchor="middle" font-size="11" fill="#6B5647">0-5 notes</text>
+        <text x="182" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#C2703C">"Perfect design, empty vault"</text>
+        <text x="182" y="198" text-anchor="middle" font-size="10.5" fill="#3D2B1F">With no facts to ask about,</text>
+        <text x="182" y="214" text-anchor="middle" font-size="10.5" fill="#3D2B1F">the AI is still no help at all</text>
+        <text x="182" y="234" text-anchor="middle" font-size="10" fill="#6B5647">Common in teams that enjoy designing</text>
+
+        <!-- right: no ontology -->
+        <rect x="380" y="46" width="316" height="200" rx="12" fill="#EAF6F4" stroke="#0F766E" stroke-width="2"/>
+        <text x="538" y="72" text-anchor="middle" font-size="13" font-weight="bold" fill="#0F766E">B · Notes with no ontology</text>
+        <rect x="404" y="88" width="60" height="26" rx="5" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.2"/>
+        <rect x="472" y="88" width="60" height="26" rx="5" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.2"/>
+        <rect x="540" y="88" width="60" height="26" rx="5" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.2"/>
+        <rect x="608" y="88" width="60" height="26" rx="5" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.2"/>
+        <rect x="404" y="120" width="60" height="26" rx="5" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.2"/>
+        <rect x="472" y="120" width="60" height="26" rx="5" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.2"/>
+        <rect x="540" y="120" width="60" height="26" rx="5" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.2"/>
+        <rect x="608" y="120" width="60" height="26" rx="5" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.2"/>
+        <text x="538" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#0F766E">"A scratchpad in three months"</text>
+        <text x="538" y="198" text-anchor="middle" font-size="10.5" fill="#3D2B1F">Field names vary, so links lead</text>
+        <text x="538" y="214" text-anchor="middle" font-size="10.5" fill="#3D2B1F">nowhere and duplicates pile up</text>
+        <text x="538" y="234" text-anchor="middle" font-size="10" fill="#6B5647">Common in teams that just started</text>
+
+        <text x="360" y="278" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#3D2B1F">Symmetric failures: layer 2 collapses without layer 1, layer 1 is pointless without layer 2</text>
+        <text x="360" y="300" text-anchor="middle" font-size="11" fill="#6B5647">That is why Part 3 keeps layer 1 short and Part 4 starts filling layer 2</text>
+      </svg>
+      <figcaption>This is why the book caps ontology design at three to five hours.</figcaption>
+    </figure>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: the time they fell into A</p>
+      <p>In the first week Solbit Tech grew the class list to <strong>19</strong>: product, capability, project, opportunity, org, person, patent, paper, trade show, award, certification, equipment, dataset, meeting, decision, risk, customer inquiry, hiring, regulation.</p>
+      <p>The design document was beautiful. Two weeks later they had written <strong>6</strong> notes. Every single note meant stopping to decide, "is this a paper or a dataset?"</p>
+      <p>In the end they cut the list <strong>down to 7.</strong> The rest moved down into fields or tags. Over the next two weeks 71 notes appeared.</p>
+      <p><strong>You measure the quality of layer 1 by how well layer 2 gets filled, not by how refined it is.</strong> That sentence comes back in Chapter 9.</p>
+    </div>
+
+    <h2>So which layer is RAG?</h2>
+
+    <p>Lay the RAG comparison from Chapter 2 over this picture and it comes out like this.</p>
+
+    <table>
+      <thead>
+        <tr><th></th><th>RAG</th><th>LLM Wiki</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Layer 1 (ontology)</td><td>None</td><td>A person designs it (three to five hours)</td></tr>
+        <tr><td>Layer 2 (knowledge graph)</td><td><strong>Never built.</strong> Raw source chunks get used as they are</td><td>This is the main body</td></tr>
+        <tr><td>What sits there instead</td><td>A vector index. Only machines read it</td><td>Notes. People read them too</td></tr>
+        <tr><td>The layer 3 equivalent</td><td>Running the indexing pipeline</td><td>Rules, skills, checks, habits</td></tr>
+      </tbody>
+    </table>
+
+    <p>RAG <strong>skips layer 2 and papers over it with search</strong>. That is why setup is fast, and that is why context breaks. An LLM Wiki has people build layer 2, which makes it slow and makes it accurate. The conclusion of Chapter 2 fits in that one table.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">If the phrase knowledge graph put you off</p>
+      <p>Large companies put layer 2 in a dedicated graph database. You do the same job with <strong>one link line in a markdown file</strong>. Different scale means different tools. The layers are identical.</p>
+      <p>At a few hundred notes, files are the better side anyway. A person can read them and fix them directly.</p>
+    </div>
+
+    <h2>Why use the hard word at all</h2>
+
+    <p>Fair question. Why not call it "note rules"? <strong>You can.</strong> Inside your own team that may be the better name.</p>
+
+    <p>This book keeps the word "ontology" for three reasons.</p>
+
+    <ol class="steps">
+      <li><strong>The AI understands this word</strong>
+        <p>Say "write this note following the vault's ontology" and Claude takes it as an instruction to check the classes, the relations and the constraints. That lands far more precisely than "follow the rules."</p>
+      </li>
+      <li><strong>It connects when you grow</strong>
+        <p>When the company grows and you start looking at a real knowledge management tool or a data catalog, the layer 1 you built maps straight onto their concepts. Build it in your own private vocabulary and you have to translate it all over again.</p>
+      </li>
+      <li><strong>It forces you to keep the layers apart</strong>
+        <p>Call it "note rules" and it blends back into the layer 3 operating rules. That is what happens in practice. The words have to differ for the layers to stay apart.</p>
+      </li>
+    </ol>
+
+    <p>That said, <strong>you never have to use the word outside your team.</strong> When you report to your CEO, "we settled the note format and the linking rules" is plenty.</p>
+
+    <h2>What this distinction is finally for</h2>
+
+    <p>Splitting things into layers may look like academic taste. It is not. <strong>Whether AI really lands in your company is decided here.</strong></p>
+
+    <p>You hear a lot about <strong>AX</strong> (AI transformation) these days. It means bringing in AI and changing how the company works, and most companies <strong>stall in the same place.</strong> Getting each person to draft email or summarize a document with AI goes fine. Past that, nothing moves.</p>
+
+    <p>Here is why, in terms of layers.</p>
+
+    <table>
+      <thead>
+        <tr><th>What the company has</th><th>What you can hand to AI</th><th>What it cannot do</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Nothing<br><span class="jargon">no layer 0 to 2 at all</span></td>
+          <td>General writing, summaries, translation</td>
+          <td>Any question about your company. Ask and it invents something plausible</td>
+        </tr>
+        <tr>
+          <td>Documents gathered in folders<br><span class="jargon">layer 0 only</span></td>
+          <td>Hand it one file and it answers about that file</td>
+          <td>Combining documents. Spotting contradictions. Saying "I do not know"</td>
+        </tr>
+        <tr>
+          <td>Only a design document<br><span class="jargon">layer 1 only</span></td>
+          <td>Nothing</td>
+          <td><strong>Everything.</strong> There is not a single fact</td>
+        </tr>
+        <tr>
+          <td>Notes piling up by the rules<br><span class="jargon">layers 1+2</span></td>
+          <td>Combining, cross-checking, citing evidence. Answering "no record"</td>
+          <td>Nothing happens unless a person asks</td>
+        </tr>
+        <tr>
+          <td>Rules and automation too<br><span class="jargon">layer 3</span></td>
+          <td><strong>You can hand over one step of a workflow</strong></td>
+          <td>Strategic calls about the company. Those stay with people</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The gap between the fourth row and the fifth row is <strong>the line between a person using AI and a company working with AI</strong>. To cross that line you <strong>have to have layer 2.</strong></p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">Why layer 2 is the blocker: it comes down to review</p>
+      <p>Put AI into a workflow and someone has to check what comes out. To check it, they need to know <strong>where the claim came from</strong>.</p>
+      <p>With layer 2, the answer arrives together with the note it came from. Checking takes 30 seconds. Without layer 2 you get a conclusion only, and checking means digging through everything again. <strong>That is slower than doing the work by hand, and three weeks later someone turns the automation off.</strong></p>
+      <p>That is why the book runs in this order. Layer 1 quickly (Part 3), layer 2 diligently (Part 4), automation on layer 3 (Part 5), and how all of it connects to your company's AX (Part 7, Chapter 19).</p>
+    </div>
+
+    <p>So, to put it together. <strong>The ontology is not the goal of AX. It is the precondition.</strong> And the LLM Wiki is not AX itself. It is the <strong>floor</strong> AX stands on. Everyone stalls in the same place because they try to raise walls without laying a floor.</p>
+
+    <h2>Three questions to check yourself</h2>
+
+    <p>Thirty seconds tells you whether your layers have blurred.</p>
+
+    <div class="checklist">
+      <p class="checklist-title">Can you answer these three right away?</p>
+      <ul>
+        <li><strong>How many files hold facts about your company?</strong> That number is the size of layer 2. Under 10 and you are still in state A.</li>
+        <li><strong>Where is the file that lists your classes?</strong> If you cannot find it, you have no layer 1. What sits in your head is not layer 1.</li>
+        <li><strong>Did anything run last week without a person asking for it?</strong> If not, you have no layer 3. What you have is a folder, not a system yet.</li>
+      </ul>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: split one company fact across four layers</p>
+      <p>Ten minutes is enough. You need this instinct when you do the real design in Chapter 9.</p>
+      <ol>
+        <li>Pick <strong>one sentence your company uses often in proposals</strong>. (For example: "Our product A applies technology B and ships to customer C.")</li>
+        <li><strong>Circle the nouns.</strong> Write down what <strong>kind</strong> of thing each one is. A product, a technology, a customer. Those are your candidate layer 1 classes.</li>
+        <li><strong>Write down the verbs</strong> between the nouns. "applies," "ships to." Those are your candidate layer 1 relation predicates.</li>
+        <li>Now <strong>split the sentence into three notes</strong> and write them out, with the values each note carries. That is layer 2.</li>
+        <li>Finally, ask yourself: <strong>"what would it take to keep these three notes current six months from now?"</strong> Everything that comes out of that is layer 3.</li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li>Four layers: <strong>Layer 0 · Taxonomy, Layer 1 · Ontology, Layer 2 · Knowledge graph, Layer 3 · LLM Wiki</strong></li>
+        <li><strong>The ontology (layer 1) contains not a single company fact.</strong> Only definitions of classes, relation predicates, fields and constraints</li>
+        <li><strong>Answers to questions come from layer 2.</strong> Layer 1 is the rule set that keeps layer 2 from falling apart</li>
+        <li><strong>LLM Wiki (layer 3)</strong> is the name for the whole system: layers 0 to 2 plus AI rules, skills, scheduled tasks, checks and habits</li>
+        <li>"The ontology is finished" usually means <strong>only layer 1 is done</strong>. That mix-up is what stops projects</li>
+        <li>Failure arrives in mirror image. One is <strong>a designed but empty vault</strong>, the other is <strong>a scratchpad piled up without rules</strong></li>
+        <li>You measure layer 1's quality by <strong>how well layer 2 gets filled</strong>, not by how refined it is</li>
+        <li>RAG skips layer 2 and papers over it with search. That is why it is fast, and why context breaks</li>
+        <li><strong>The ontology is not the goal of AX, it is the precondition.</strong> To move from a person using AI to a company working with AI you need layer 2, because that is when review becomes possible</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>Coming up</h3>
+      <p>With the layers sorted, look at the tools. You use three of them, Teams, Obsidian and Claude Cowork, and <strong>which layer each one covers</strong> is now clear. The next chapter also answers the question people ask most: <strong>"do we have to build our own MCP connector?"</strong></p>
+    </div>
+  </article>
+
+
+  <nav class="chapter-nav">
+    <a href="ch02.en.html" class="back-to-toc">← Previous: A wiki, not RAG</a>
+    <a href="ch04.en.html" class="next">Next: Three tools, three jobs →</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="On this page"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Search contents">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="Find a chapter" aria-label="Search">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

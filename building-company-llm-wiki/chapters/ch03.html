@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 3: 온톨로지와 LLM Wiki는 같은 말이 아니다 · 회사용 LLM Wiki 만들기</title>
+  <meta name="description" content="온톨로지·지식 그래프·LLM Wiki를 4층 모델로 분리합니다. 흔히 보는 틀린 문장 여덟 개를 고치고, 온톨로지만 있는 실패와 온톨로지 없는 실패를 함께 봅니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="alternate" hreflang="en" href="ch03.en.html">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">회사용 LLM Wiki 만들기</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 필요한가</li>
+      <li><a href="ch01.html" class="nav-link">1장 우리 지식은 어디에</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 RAG가 아니라 위키다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 온톨로지와 위키의 구분</a></li>
+      <li><a href="ch04.html" class="nav-link">4장 도구 세 개의 역할</a></li>
+      <li class="nav-part">제2부: 준비 · 30분 셋업</li>
+      <li><a href="ch05.html" class="nav-link">5장 옵시디언과 볼트</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 Teams로 팀 연결</a></li>
+      <li><a href="ch07.html" class="nav-link">7장 Cowork에 볼트 연결</a></li>
+      <li class="nav-part">제3부: 온톨로지 설계</li>
+      <li><a href="ch08.html" class="nav-link">8장 설계 원칙 여섯 개</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 클래스 정하기</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 관계와 필드 설계</a></li>
+      <li class="nav-part">제4부: 운영</li>
+      <li><a href="ch11.html" class="nav-link">11장 CLAUDE.md</a></li>
+      <li><a href="ch12.html" class="nav-link">12장 템플릿과 첫 노트</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 스킬로 자동화</a></li>
+      <li class="nav-part">제5부: 자동화와 시각화</li>
+      <li><a href="ch14.html" class="nav-link">14장 스케줄링</a></li>
+      <li><a href="ch15.html" class="nav-link">15장 업무 진행 시각화</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 자동화 레시피 12선</a></li>
+      <li class="nav-part">제6부: 지속</li>
+      <li><a href="ch17.html" class="nav-link">17장 품질을 코드로</a></li>
+      <li><a href="ch18.html" class="nav-link">18장 의도와 실행의 대조</a></li>
+      <li class="nav-part">제7부: AX로 확장</li>
+      <li><a href="ch19.html" class="nav-link">19장 위키에서 AX로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 복붙용 자산</a></li>
+      <li><a href="appendix-c.html" class="nav-link">부록 C: 트러블슈팅</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 3</span>
+    <h1>온톨로지와 LLM Wiki는 같은 말이 아니다</h1>
+    <p class="chapter-subtitle">네 층으로 나누면 다시는 헷갈리지 않습니다</p>
+    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>약 12분</span>
+  </header>
+
+<article>
+    <p>실제로 있었던 대화입니다.</p>
+
+    <div class="prompt-example">
+      <p><span class="label bad-label">대표</span></p>
+      <p class="bad">"<a href="appendix-a.html#ontology" class="term-link">온톨로지</a> 다 만들었다고 했잖아요. 그럼 이제 AI한테 우리 실적 물어보면 되는 거죠?"</p>
+      <p><span class="label good-label">담당자</span></p>
+      <p class="good">"아니요... 아직 물어볼 게 아무것도 없어요."</p>
+    </div>
+
+    <p>둘 다 거짓말을 하고 있는 게 아닙니다. <strong>같은 단어를 다른 뜻으로 쓰고 있을 뿐입니다.</strong> 대표는 「온톨로지」를 <em>완성된 회사 지식베이스</em>로 이해했고, 담당자는 <em>노트를 어떤 서식으로 쓸지 정한 규칙 문서</em>를 가리켰습니다.</p>
+
+    <p>이 혼동은 사소해 보이지만 프로젝트를 통째로 망칩니다. 대표는 이미 다 됐다고 생각해서 다음 일로 넘어가고, 담당자는 「그럼 이제 노트를 채워야 한다」는 말을 꺼내기 어려워집니다. 3개월 뒤에 남는 건 <strong>설계서 한 장뿐인 <a href="appendix-a.html#vault" class="term-link">볼트</a></strong>입니다.</p>
+
+    <p>이 혼동 때문에 이 장을 따로 뒀습니다. 이 책에서 가장 짧은 장이고, 새로 배울 도구도 없습니다. 대신 여기서 정리한 네 개의 층을 이후 모든 장에서 계속 씁니다.</p>
+
+    <h2>네 층으로 나눕니다</h2>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 430" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="430" fill="#FFFDF9"/>
+        <defs>
+          <marker id="a3" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#C2703C"/>
+          </marker>
+        </defs>
+
+        <text x="360" y="26" text-anchor="middle" font-size="14" font-weight="bold" fill="#3D2B1F">LLM Wiki 안의 네 층</text>
+        <text x="360" y="46" text-anchor="middle" font-size="11" fill="#6B5647">질문의 답은 2층에서 나온다. 1층은 2층이 무너지지 않게 하는 규칙이다</text>
+
+        <!-- 3층 = 전체를 감싼다 -->
+        <rect x="18" y="60" width="684" height="322" rx="16" fill="#EAF6F4" stroke="#0F766E" stroke-width="2.5"/>
+        <text x="36" y="84" font-size="13" font-weight="bold" fill="#0F766E">3층 · LLM Wiki, 실제로 돌아가는 시스템 전체</text>
+
+        <!-- 2층 -->
+        <rect x="36" y="96" width="382" height="80" rx="9" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.8"/>
+        <text x="52" y="118" font-size="12" font-weight="bold" fill="#0F766E">2층 · 지식 그래프</text>
+        <text x="52" y="138" font-size="11" fill="#3D2B1F">노트 본문 + frontmatter + 링크</text>
+        <text x="52" y="157" font-size="11" fill="#C2703C" font-weight="bold">우리 회사 사실이 들어 있는 유일한 층</text>
+        <text x="52" y="171" font-size="10" fill="#6B5647">Sources/10-Products/창고봇.md 같은 파일 수백 개</text>
+
+        <!-- 1층 -->
+        <rect x="36" y="186" width="382" height="80" rx="9" fill="#FFFFFF" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="52" y="208" font-size="12" font-weight="bold" fill="#C2703C">1층 · 온톨로지 (스키마)</text>
+        <text x="52" y="228" font-size="11" fill="#3D2B1F">클래스·관계 술어·필드·제약의 정의</text>
+        <text x="52" y="247" font-size="11" fill="#C2703C" font-weight="bold">회사 사실은 한 건도 들어 있지 않다</text>
+        <text x="52" y="261" font-size="10" fill="#6B5647">_ops/01-온톨로지-설계서.md · 파일 한 개</text>
+
+        <!-- 0층 -->
+        <rect x="36" y="276" width="382" height="62" rx="9" fill="#FFFFFF" stroke="#8A857C" stroke-width="1.5"/>
+        <text x="52" y="298" font-size="12" font-weight="bold" fill="#6B5647">0층 · 분류 (폴더와 태그)</text>
+        <text x="52" y="317" font-size="11" fill="#3D2B1F">이 노트를 어디에 넣을지의 계층</text>
+        <text x="52" y="332" font-size="10" fill="#6B5647">Sources/00-Company/, 10-Products/ ...</text>
+
+        <!-- 운영 장치 -->
+        <rect x="432" y="96" width="252" height="242" rx="9" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.6" stroke-dasharray="5 3"/>
+        <text x="448" y="118" font-size="12" font-weight="bold" fill="#C2703C">3층에만 있는 것 · 운영 장치</text>
+        <text x="448" y="146" font-size="11" fill="#3D2B1F">· CLAUDE.md, AI 작업 규칙</text>
+        <text x="448" y="170" font-size="11" fill="#3D2B1F">· 템플릿 7종</text>
+        <text x="448" y="194" font-size="11" fill="#3D2B1F">· 스킬 · 예약 작업</text>
+        <text x="448" y="218" font-size="11" fill="#3D2B1F">· 품질 점검 스크립트</text>
+        <text x="448" y="242" font-size="11" fill="#3D2B1F">· 대시보드 · 주간 리포트</text>
+        <text x="448" y="266" font-size="11" fill="#3D2B1F">· 하루 3~5분 기록 습관</text>
+        <text x="448" y="298" font-size="10" fill="#6B5647">이게 없으면 0~2층은</text>
+        <text x="448" y="313" font-size="10" fill="#6B5647">그냥 잘 정리된 폴더다</text>
+
+        <!-- 화살표 주석 -->
+        <line x1="418" y1="136" x2="432" y2="136" stroke="#C2703C" stroke-width="1.5" marker-end="url(#a3)"/>
+        <line x1="418" y1="226" x2="432" y2="226" stroke="#C2703C" stroke-width="1.5" marker-end="url(#a3)"/>
+
+        <text x="360" y="406" text-anchor="middle" font-size="11.5" fill="#3D2B1F">온톨로지는 <tspan font-weight="bold">설계도</tspan> · 지식 그래프는 <tspan font-weight="bold">지어진 건물</tspan> · LLM Wiki는 <tspan font-weight="bold">그 건물에서 일하는 방식까지</tspan></text>
+      </svg>
+      <figcaption>1층과 3층을 같은 말로 쓰는 것이 모든 혼동의 출발점입니다</figcaption>
+    </figure>
+
+    <p>표로도 한 번 보겠습니다. 이 표가 이 장의 전부입니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>층</th><th>이름</th><th>무엇인가</th><th>파일로는</th><th>얼마나 바뀌나</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>0</strong></td>
+          <td>분류<br><span class="jargon">taxonomy</span></td>
+          <td>폴더와 태그의 계층. "이 노트를 어디에 넣나"</td>
+          <td>폴더 구조</td>
+          <td>거의 안 바뀜</td>
+        </tr>
+        <tr>
+          <td><strong>1</strong></td>
+          <td>온톨로지<br><span class="jargon">ontology</span></td>
+          <td><strong>스키마.</strong> 어떤 종류의 것이 있고, 어떤 관계로 이어지고, 어떤 필드를 반드시 쓰는지의 <strong>정의</strong></td>
+          <td>설계서 1개</td>
+          <td>분기에 한 번</td>
+        </tr>
+        <tr>
+          <td><strong>2</strong></td>
+          <td><a href="appendix-a.html#knowledge-graph" class="term-link">지식 그래프</a><br><span class="jargon">knowledge graph</span></td>
+          <td>1층 서식을 <strong>실제 회사 사실로 채운 것.</strong> 노트 본문과 링크</td>
+          <td>노트 수백 개</td>
+          <td>매일</td>
+        </tr>
+        <tr>
+          <td><strong>3</strong></td>
+          <td><a href="appendix-a.html#llm-wiki" class="term-link">LLM Wiki</a></td>
+          <td>0~2층 + AI 규칙 + 스킬·예약작업 + 점검 + 팀 습관을 합친 <strong>돌아가는 시스템</strong></td>
+          <td>볼트 폴더 전체</td>
+          <td>계속 손봄</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p class="callout-title">한 문장으로</p>
+      <p><strong>온톨로지는 설계도이고, 지식 그래프는 그 설계도로 지은 건물이고, LLM Wiki는 그 건물에서 사람과 AI가 일하는 방식까지 포함합니다.</strong></p>
+      <p>설계도를 그렸다고 건물이 생기지 않습니다. 건물이 있다고 그 안에서 일이 되는 것도 아닙니다.</p>
+    </div>
+
+    <h2>각 층이 실제로 어떻게 생겼나</h2>
+
+    <p>말로만 하면 또 헷갈립니다. 파일을 직접 보겠습니다. <strong>"창고봇은 객체인식 기술을 쓰고, 그 기술은 2025년 정부 과제에서 나왔다"</strong>는 사실 하나가 층마다 어떻게 다르게 적히는지 보시면 됩니다.</p>
+
+    <h3>0층 · 분류: 어디에 넣을지</h3>
+
+    <div class="file-tree">Sources/
+├── 00-Company/     <span class="comment">회사·조직·역량·IP</span>
+├── 10-Products/    <span class="comment">← 창고봇.md 는 여기</span>
+├── 20-Projects/    <span class="comment">← 2025 정부과제.md 는 여기</span>
+├── 30-Partners/
+├── 40-Worklog/
+└── 90-Reference/</div>
+
+    <p>0층은 「창고봇은 제품이다」까지만 말합니다. 그 이상은 모릅니다. 폴더는 <strong>한 노트를 한 자리에만</strong> 넣을 수 있어서, 이것만으로는 부족합니다. 창고봇은 제품이면서 동시에 정부 과제의 산출물이기도 하니까요.</p>
+
+    <h3>1층 · 온톨로지: 규칙만, 사실은 없음</h3>
+
+    <p><code>_ops/01-온톨로지-설계서.md</code>의 일부입니다. 이게 온톨로지입니다.</p>
+
+    <pre><code>## 클래스
+
+| 클래스   | 접두어 | 판정 기준                          | 필수 필드                    |
+|----------|--------|------------------------------------|------------------------------|
+| 제품     | PRD-   | 외부에 판매·납품하는 단위          | status, owner, since         |
+| 기술역량 | CAP-   | 재사용 가능한 기술 묶음            | trl, evidence                |
+| 과제     | PRJ-   | 계약 또는 예산이 붙어 있는 것      | period, funder, budget       |
+| 기회     | OPP-   | 계약·예산이 아직 없는 것           | stage, due                   |
+
+## 관계 술어
+
+| 술어           | 방향             | 뜻                        |
+|----------------|------------------|---------------------------|
+| pdm_uses       | 제품 → 기술역량  | 이 제품이 활용하는 기술   |
+| pdm_output_of  | 기술역량 → 과제  | 이 기술이 산출된 과제     |
+| pdm_owner      | 아무거나 → 사람  | 담당자                    |
+
+## 제약
+
+- 모든 노트는 class, id, updated 필드를 반드시 갖는다
+- status (제품) 는 다음 중 하나만: 기획 / 개발 / 운영 / 중단
+- 근거가 없는 수치는 쓰지 않는다. 대신 「확인 필요」라고 쓴다</code></pre>
+
+    <p>두 번째 줄에 <strong>(제품)</strong>이 붙어 있는 것을 눈여겨보세요. <code>status</code>에 쓸 수 있는 값은 <strong>클래스마다 다릅니다.</strong> 과제와 기회는 다른 목록을 씁니다. 10장에서 클래스별로 확정합니다.</p>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">여기서 확인하세요</p>
+      <p>위 문서에 <strong>창고봇이라는 단어가 한 번도 안 나옵니다.</strong> 매출도, 담당자 이름도, <a href="appendix-a.html#trl" class="term-link">TRL</a> 숫자도 없습니다. 온톨로지는 <strong>회사에 대해 아무것도 모릅니다.</strong> 「제품이라는 것이 있고, 제품은 이런 필드를 갖는다」까지만 압니다.</p>
+      <p>온톨로지에게 "우리 실적 정리해줘"라고 물으면 아무 답도 나오지 않습니다. 물어볼 대상이 아니기 때문입니다.</p>
+    </div>
+
+    <h3>2층 · 지식 그래프: 사실이 들어오는 곳</h3>
+
+    <p><code>Sources/10-Products/창고봇.md</code>입니다. 1층의 서식을 실제 값으로 채웠습니다.</p>
+
+    <pre><code>---
+class: 제품
+id: PRD-001
+status: 운영
+owner: "[[김대표]]"
+since: 2023-04
+pdm_uses:
+  - "[[CAP-객체인식]]"
+  - "[[CAP-경로최적화]]"
+updated: 2026-07-15
+confidence: reviewed
+---
+
+# 창고봇
+
+물류창고 입출고 자동화 소프트웨어. 2023년 4월부터 운영 중.
+
+## 알려진 한계
+- 냉동창고 환경에서의 인식률 데이터가 없음. 확인 필요</code></pre>
+
+    <p>맨 아랫줄의 <a href="appendix-a.html#confidence" class="term-link">confidence</a>는 이 노트를 얼마나 믿어도 되는지 적는 칸입니다. 값은 <code>draft</code>와 <code>reviewed</code> 둘뿐이고, 규칙은 11장에서 정합니다. 지금은 「사람이 확인한 노트에만 <code>reviewed</code>가 붙는다」 정도로 보시면 됩니다.</p>
+
+    <p><code>Sources/00-Company/CAP-객체인식.md</code>에는 이 한 줄이 들어갑니다.</p>
+
+    <pre><code>pdm_output_of: "[[PRJ-2025-스마트물류]]"</code></pre>
+
+    <p>이 두 파일의 링크 두 개가 <strong>2층의 변(edge) 두 개</strong>입니다. 이제 앞의 질문에 답할 수 있습니다.</p>
+
+    <div class="file-tree">"창고봇에 쓰인 기술 중 정부 과제에서 나온 게 뭐야?"
+
+창고봇 --pdm_uses--> CAP-객체인식 --pdm_output_of--> PRJ-2025-스마트물류
+                                                     ^^^^^^^^^^^^^^^^^^^ 답</div>
+
+    <p>답이 나오는 곳은 <strong>2층</strong>입니다. 1층은 이 답에 직접 기여하지 않았습니다. 다만 1층이 없었다면 어제는 <code>pdm_uses</code>, 오늘은 <code>uses_tech</code>, 내일은 <code>사용기술</code>로 적혀서 <strong>링크를 따라갈 수 없었을 것</strong>입니다. 그게 1층이 하는 일입니다.</p>
+
+    <h3>3층 · LLM Wiki: 사람이 안 해도 돌아가는 부분</h3>
+
+    <p>여기까지 하면 잘 정리된 폴더가 하나 생깁니다. 그런데 이건 아직 <strong>시스템이 아닙니다.</strong> 3개월 뒤에 죽을 확률이 높습니다. 3층은 그걸 막는 장치들입니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>3층 장치</th><th>없으면 생기는 일</th><th>다루는 장</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>CLAUDE.md</code> · AI 작업 규칙</td><td>AI가 매번 다른 서식으로 노트를 만든다. 없는 사실을 채운다</td><td>11장</td></tr>
+        <tr><td>템플릿 7종</td><td>사람마다 다른 서식으로 쓴다</td><td>12장</td></tr>
+        <tr><td>스킬 3종</td><td>같은 작업을 매번 프롬프트로 설명한다</td><td>13장</td></tr>
+        <tr><td><a href="appendix-a.html#scheduled-task" class="term-link">예약 작업</a></td><td>주간 점검을 아무도 기억하지 않는다</td><td>14장</td></tr>
+        <tr><td>대시보드</td><td>기록의 이득이 눈에 보이지 않아 아무도 안 쓴다</td><td>15장</td></tr>
+        <tr><td>점검 스크립트</td><td>규칙 위반이 조용히 쌓인다</td><td>17장</td></tr>
+      </tbody>
+    </table>
+
+    <p>이 표가 이 책의 나머지 절반입니다. <strong>3부(온톨로지 설계)만 하고 끝내면 1층에서 멈춥니다.</strong></p>
+
+    <h2>흔히 보는 틀린 문장 여덟 개</h2>
+
+    <p>실제로 자주 듣는 말들입니다. 왼쪽 문장이 입에서 나오면 층위가 섞였다는 신호입니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>이렇게 말하면</th><th>왜 틀렸나</th><th>이렇게</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>"온톨로지에 물어보면 답이 나와요"</td>
+          <td>1층에는 사실이 없다</td>
+          <td>"노트를 읽으면 답이 나와요"</td>
+        </tr>
+        <tr>
+          <td>"온톨로지를 다 만들었어요"</td>
+          <td>보통 1층만 끝난 상태다</td>
+          <td>"온톨로지 설계를 마쳤고, 이제 노트를 채웁니다"</td>
+        </tr>
+        <tr>
+          <td>"LLM Wiki를 설계했어요"</td>
+          <td>설계하는 것은 1층. 3층은 운영하는 것</td>
+          <td>"온톨로지를 설계했어요"</td>
+        </tr>
+        <tr>
+          <td>"온톨로지가 늘어나고 있어요"</td>
+          <td>늘어나는 것은 2층의 노트다</td>
+          <td>"노트가 늘어나고 있어요"</td>
+        </tr>
+        <tr>
+          <td>"지식 그래프를 도입하려면 DB가 필요해요"</td>
+          <td>2층은 마크다운 링크로도 성립한다</td>
+          <td>"링크를 규칙대로 적으면 그래프가 됩니다"</td>
+        </tr>
+        <tr>
+          <td>"태그로 온톨로지를 만들었어요"</td>
+          <td>태그는 0층. 관계와 제약을 표현할 수 없다</td>
+          <td>"태그로 분류 체계를 만들었어요"</td>
+        </tr>
+        <tr>
+          <td>"온톨로지가 복잡해서 AI가 헷갈려요"</td>
+          <td>AI가 읽는 것은 2층 노트와 3층 규칙이다</td>
+          <td>"필수 필드가 너무 많아 노트가 안 채워져요"</td>
+        </tr>
+        <tr>
+          <td>"위키는 만들었는데 AI가 답을 못 해요"</td>
+          <td>보통 3층(규칙·검증)이 빠진 상태다</td>
+          <td>"CLAUDE.md와 점검이 아직 없어요"</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="fun-box">
+      <p class="fun-box-title">쉬운 비유: 회계로 바꿔보면</p>
+      <p><strong>0층</strong>은 서류함 칸 나누기. <strong>1층</strong>은 계정과목 체계와 기표 규칙입니다. 회사 돈이 얼마인지는 안 적혀 있습니다. <strong>2층</strong>은 실제 장부고, 여기에 숫자가 있습니다. <strong>3층</strong>은 마감 절차, 검증, 월말 보고서, 그리고 「영수증은 받은 날 붙인다」는 습관까지.</p>
+      <p>"계정과목 체계에 물어보면 우리 매출이 나오나요?"라고 묻지 않으시죠. 온톨로지도 같습니다.</p>
+    </div>
+
+    <h2>한쪽만 있으면 어떻게 되나</h2>
+
+    <p>두 가지 실패가 정확히 대칭으로 일어납니다. 둘 다 흔합니다.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="320" fill="#FFFDF9"/>
+
+        <!-- 왼쪽: 온톨로지만 -->
+        <rect x="24" y="46" width="316" height="200" rx="12" fill="#FAEADF" stroke="#C2703C" stroke-width="2"/>
+        <text x="182" y="72" text-anchor="middle" font-size="13" font-weight="bold" fill="#C2703C">A · 온톨로지만 있는 경우</text>
+        <rect x="120" y="88" width="124" height="34" rx="6" fill="#FFFFFF" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="182" y="110" text-anchor="middle" font-size="11" fill="#3D2B1F">설계서 1개</text>
+        <text x="182" y="146" text-anchor="middle" font-size="11" fill="#6B5647">노트 0~5개</text>
+        <text x="182" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#C2703C">"완벽한 설계, 텅 빈 볼트"</text>
+        <text x="182" y="198" text-anchor="middle" font-size="10.5" fill="#3D2B1F">물어볼 사실이 없으므로 AI는</text>
+        <text x="182" y="214" text-anchor="middle" font-size="10.5" fill="#3D2B1F">여전히 아무 도움이 안 된다</text>
+        <text x="182" y="234" text-anchor="middle" font-size="10" fill="#6B5647">설계에 재미를 붙인 조직에서 자주 생김</text>
+
+        <!-- 오른쪽: 온톨로지 없음 -->
+        <rect x="380" y="46" width="316" height="200" rx="12" fill="#EAF6F4" stroke="#0F766E" stroke-width="2"/>
+        <text x="538" y="72" text-anchor="middle" font-size="13" font-weight="bold" fill="#0F766E">B · 온톨로지 없이 노트만</text>
+        <rect x="404" y="88" width="60" height="26" rx="5" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.2"/>
+        <rect x="472" y="88" width="60" height="26" rx="5" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.2"/>
+        <rect x="540" y="88" width="60" height="26" rx="5" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.2"/>
+        <rect x="608" y="88" width="60" height="26" rx="5" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.2"/>
+        <rect x="404" y="120" width="60" height="26" rx="5" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.2"/>
+        <rect x="472" y="120" width="60" height="26" rx="5" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.2"/>
+        <rect x="540" y="120" width="60" height="26" rx="5" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.2"/>
+        <rect x="608" y="120" width="60" height="26" rx="5" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.2"/>
+        <text x="538" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#0F766E">"3개월 뒤의 메모장"</text>
+        <text x="538" y="198" text-anchor="middle" font-size="10.5" fill="#3D2B1F">필드 이름이 제각각이라 링크를</text>
+        <text x="538" y="214" text-anchor="middle" font-size="10.5" fill="#3D2B1F">따라갈 수 없고, 중복이 쌓인다</text>
+        <text x="538" y="234" text-anchor="middle" font-size="10" fill="#6B5647">일단 시작한 조직에서 자주 생김</text>
+
+        <text x="360" y="278" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#3D2B1F">두 실패는 대칭이다. 1층 없이 2층은 무너지고, 2층 없이 1층은 무의미하다</text>
+        <text x="360" y="300" text-anchor="middle" font-size="11" fill="#6B5647">그래서 이 책은 3부에서 1층을 짧게 끝내고 4부부터 2층을 채우게 한다</text>
+      </svg>
+      <figcaption>온톨로지 설계에 3~5시간만 쓰라고 못 박아둔 이유입니다</figcaption>
+    </figure>
+
+    <div class="case-box">
+      <p class="case-title">사례 · 솔빛테크가 A에 한 번 빠졌던 이야기</p>
+      <p>솔빛테크는 첫 주에 클래스를 <strong>19개</strong>까지 늘렸습니다. 제품, 기술역량, 과제, 기회, 조직, 사람, 특허, 논문, 전시회, 수상, 인증, 장비, 데이터셋, 회의, 결정, 리스크, 고객문의, 채용, 규정.</p>
+      <p>설계서는 아름다웠습니다. 그런데 2주 동안 만들어진 노트가 <strong>6개</strong>였습니다. 왜냐면 노트 하나를 쓸 때마다 "이건 논문인가 데이터셋인가"를 고민해야 했기 때문입니다.</p>
+      <p>결국 클래스를 <strong>7개로 줄였습니다.</strong> 나머지는 필드나 태그로 내려보냈습니다. 그 다음 2주에 노트 71개가 생겼습니다.</p>
+      <p><strong>1층의 품질은 정교함이 아니라 2층이 얼마나 잘 채워지는지로 측정합니다.</strong> 이 문장은 9장에서 다시 나옵니다.</p>
+    </div>
+
+    <h2>그러면 RAG는 몇 층인가</h2>
+
+    <p>2장에서 비교한 <a href="appendix-a.html#rag" class="term-link">RAG</a>를 이 그림에 얹으면 이렇게 됩니다.</p>
+
+    <table>
+      <thead>
+        <tr><th></th><th>RAG</th><th>LLM Wiki</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1층 (온톨로지)</td><td>없음</td><td>사람이 설계한다 (3~5시간)</td></tr>
+        <tr><td>2층 (지식 그래프)</td><td><strong>안 만든다.</strong> 원문 조각을 그대로 쓴다</td><td>여기가 본체</td></tr>
+        <tr><td>대신 있는 것</td><td>벡터 인덱스. 기계만 읽는다</td><td>노트. 사람도 읽는다</td></tr>
+        <tr><td>3층에 해당하는 것</td><td>인덱싱 파이프라인 운영</td><td>규칙·스킬·점검·습관</td></tr>
+      </tbody>
+    </table>
+
+    <p>RAG는 <strong>2층을 만들지 않는 대신 검색으로 때우는</strong> 방식입니다. 그래서 준비가 빠르고, 그래서 맥락이 끊깁니다. 반대로 LLM Wiki는 2층을 사람이 만들기 때문에 느리고, 그래서 정확합니다. 2장의 결론이 이 표 한 장에 다 들어 있습니다.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">지식 그래프라는 말이 무서웠다면</p>
+      <p>대기업은 2층을 전용 그래프 데이터베이스에 넣습니다. 우리는 <strong>마크다운 파일의 링크 한 줄</strong>로 같은 일을 합니다. 규모가 다르니 도구가 다른 것뿐이고, 층위는 똑같습니다.</p>
+      <p>노트 수백 개 규모에서는 파일 쪽이 오히려 유리합니다. 사람이 직접 읽고 고칠 수 있으니까요.</p>
+    </div>
+
+    <h2>왜 굳이 어려운 단어를 쓰나</h2>
+
+    <p>솔직한 질문입니다. 「노트 규칙」이라고 부르면 안 될까요? 사실 <strong>불러도 됩니다.</strong> 팀 안에서는 그렇게 부르는 게 나을 수도 있습니다.</p>
+
+    <p>그래도 이 책이 「온톨로지」를 유지하는 이유는 세 개입니다.</p>
+
+    <ol class="steps">
+      <li><strong>AI가 이 단어를 알아듣습니다</strong>
+        <p>"이 볼트의 온톨로지를 지켜서 노트를 만들어줘"라고 하면 Claude는 클래스·관계·제약을 확인해야 한다는 뜻으로 받습니다. "규칙 지켜줘"보다 훨씬 정확하게 전달됩니다.</p>
+      </li>
+      <li><strong>나중에 커질 때 연결됩니다</strong>
+        <p>회사가 커져서 정식 지식관리 도구나 데이터 카탈로그를 검토할 때, 우리가 만든 1층을 그쪽 개념에 그대로 대응시킬 수 있습니다. 「우리만의 용어」로 만들어두면 그때 다시 번역해야 합니다.</p>
+      </li>
+      <li><strong>층위를 구분하게 만듭니다</strong>
+        <p>「노트 규칙」이라고 부르면 3층의 운영 규칙과 다시 섞입니다. 실제로 그렇게 됩니다. 단어가 달라야 층이 구분됩니다.</p>
+      </li>
+    </ol>
+
+    <p>대신 <strong>온톨로지라는 말을 회사 밖 사람에게 쓸 필요는 없습니다.</strong> 대표님께 보고할 때는 "노트 서식과 연결 규칙을 정했습니다"로 충분합니다.</p>
+
+    <h2>이 구분이 결국 무엇을 위한 것인가</h2>
+
+    <p>층위를 나누는 게 학술 취향처럼 보일지도 모릅니다. 그렇지 않습니다. <strong>회사에 AI를 제대로 들이는 일이 여기서 갈립니다.</strong></p>
+
+    <p>요즘 <strong><a href="appendix-a.html#ax" class="term-link">AX</a></strong>(AI Transformation, AI 전환)라는 말을 자주 들으실 겁니다. 「AI를 도입해서 회사가 일하는 방식을 바꾸는 것」인데, 대부분의 회사가 <strong>같은 곳에서 멈춥니다.</strong> 구성원 각자가 AI로 메일 초안이나 요약을 쓰는 단계까지는 잘 갑니다. 거기서 더는 안 갑니다.</p>
+
+    <p>왜 그런지 이제 층위로 설명해 보겠습니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>회사가 갖고 있는 것</th><th>AI에게 시킬 수 있는 일</th><th>못 하는 일</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>아무것도 없음<br><span class="jargon">0~2층 전부 없음</span></td>
+          <td>일반 글쓰기·요약·번역</td>
+          <td>우리 회사에 대한 어떤 질문도. 물어보면 그럴듯하게 만들어낸다</td>
+        </tr>
+        <tr>
+          <td>문서를 폴더에 모아둠<br><span class="jargon">0층만</span></td>
+          <td>파일 하나를 주면 그 파일 내용에 대해 답변</td>
+          <td>여러 문서를 종합. 모순 발견. 「모른다」고 말하기</td>
+        </tr>
+        <tr>
+          <td>설계서만 만들어둠<br><span class="jargon">1층만</span></td>
+          <td>없음</td>
+          <td><strong>전부.</strong> 사실이 한 건도 없다</td>
+        </tr>
+        <tr>
+          <td>노트가 규칙대로 쌓임<br><span class="jargon">1+2층</span></td>
+          <td>종합·대조·근거 제시. 「기록 없음」이라고 답하기</td>
+          <td>사람이 안 시키면 아무 일도 안 일어난다</td>
+        </tr>
+        <tr>
+          <td>규칙·자동화까지<br><span class="jargon">3층</span></td>
+          <td><strong>업무 흐름의 한 단계를 맡길 수 있다</strong></td>
+          <td>회사의 전략 판단. 그건 사람 몫이다</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>네 번째 줄과 다섯 번째 줄 사이가 <strong>「개인이 AI를 쓰는 것」과 「회사가 AI로 일하는 것」의 경계</strong>입니다. 이 경계를 넘으려면 <strong>2층이 반드시 있어야 합니다.</strong></p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">왜 2층이 없으면 못 넘어가나: 검수 때문입니다</p>
+      <p>업무 흐름에 AI를 넣으면 누군가 그 결과를 확인해야 합니다. 확인하려면 <strong>「이게 어디서 나온 얘기인지」</strong>를 알아야 합니다.</p>
+      <p>2층이 있으면 답과 함께 근거 노트가 나옵니다. 확인이 30초입니다. 2층이 없으면 결론만 나오고, 확인하려면 전부 다시 뒤져야 합니다. <strong>그러면 원래보다 느려지고, 3주 뒤에 그 자동화는 꺼집니다.</strong></p>
+      <p>이 책의 순서가 그래서 이렇습니다. 1층을 짧게(3부), 2층을 성실하게(4부), 3층으로 자동화(5부), 그리고 그게 회사의 AX와 어떻게 이어지는지(7부·19장).</p>
+    </div>
+
+    <p>정리하면 이렇습니다. <strong>온톨로지는 AX의 목표가 아니라 전제 조건입니다.</strong> 그리고 LLM Wiki는 AX 그 자체가 아니라 AX가 올라갈 <strong>바닥</strong>입니다. 바닥을 안 깔고 벽을 세우려니까 다들 같은 곳에서 멈춥니다.</p>
+
+    <h2>자기 점검 세 문항</h2>
+
+    <p>지금 층위가 섞여 있는지 30초면 확인합니다.</p>
+
+    <div class="checklist">
+      <p class="checklist-title">이 세 질문에 즉시 답할 수 있나요</p>
+      <ul>
+        <li><strong>우리 회사 사실이 적힌 파일이 몇 개인가?</strong> 이 숫자가 2층의 크기입니다. 10개 미만이면 아직 설계서만 있는 A 상태입니다.</li>
+        <li><strong>클래스 목록을 적어둔 파일이 어디 있나?</strong> 못 찾으면 1층이 없습니다. 머릿속에 있는 건 1층이 아닙니다.</li>
+        <li><strong>지난주에 사람이 안 시켰는데도 실행된 작업이 있나?</strong> 없으면 3층이 없습니다. 아직 시스템이 아니라 폴더입니다.</li>
+      </ul>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">직접 해보기: 우리 회사 사실 하나를 네 층으로 쪼개기</p>
+      <p>10분이면 됩니다. 9장에서 실제 설계를 할 때 이 감각이 필요합니다.</p>
+      <ol>
+        <li>우리 회사에서 <strong>제안서에 자주 쓰는 사실 한 문장</strong>을 고르세요. (예: "당사 A제품은 B기술을 적용해 C사에 납품 중이다")</li>
+        <li>그 문장에서 <strong>명사를 동그라미 치세요.</strong> 각 명사가 어떤 <strong>종류</strong>인지 적어보세요. 제품인가, 기술인가, 고객인가. 이게 1층의 클래스 후보입니다.</li>
+        <li>명사 사이의 <strong>동사를 적어보세요.</strong> 「적용해」, 「납품 중」. 이게 1층의 <a href="appendix-a.html#relation" class="term-link">관계 술어</a> 후보입니다.</li>
+        <li>이제 그 문장을 <strong>노트 세 개로 쪼개서</strong> 적어보세요. 각 노트에 어떤 값이 들어가는지. 이게 2층입니다.</li>
+        <li>마지막으로 자문해 보세요. <strong>"이 노트 세 개를 6개월 뒤에도 최신으로 유지하려면 무엇이 필요한가?"</strong> 여기서 나오는 답이 전부 3층입니다.</li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>잠깐, 정리!</h3>
+      <ul>
+        <li>네 층: <strong>0층 분류 · 1층 온톨로지 · 2층 지식 그래프 · 3층 LLM Wiki</strong></li>
+        <li><strong>온톨로지(1층)에는 회사 사실이 한 건도 없다.</strong> 클래스·관계·필드·제약의 정의뿐이다</li>
+        <li><strong>질문의 답이 나오는 곳은 2층이다.</strong> 1층은 2층이 무너지지 않게 하는 규칙이다</li>
+        <li><strong>LLM Wiki(3층)</strong>는 0~2층에 AI 규칙·스킬·예약작업·점검·습관을 더한 시스템 전체의 이름이다</li>
+        <li>「온톨로지를 다 만들었다」는 보통 <strong>1층만 끝났다</strong>는 뜻이다. 이 혼동이 프로젝트를 멈춘다</li>
+        <li>실패는 대칭으로 온다. 하나는 <strong>설계만 하고 비어 있는 볼트</strong>, 하나는 <strong>규칙 없이 쌓인 메모장</strong></li>
+        <li>1층의 품질은 정교함이 아니라 <strong>2층이 얼마나 채워지는지</strong>로 측정한다</li>
+        <li>RAG는 2층을 만들지 않고 검색으로 때우는 방식이다. 그래서 빠르고, 그래서 맥락이 끊긴다</li>
+        <li><strong>온톨로지는 AX의 목표가 아니라 전제 조건이다.</strong> 「개인이 AI를 쓰는 것」에서 「회사가 AI로 일하는 것」으로 넘어가려면 2층이 있어야 한다. 그때부터 검수가 되기 때문이다</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>다음 장에서는...</h3>
+      <p>층위가 정리됐으니 도구를 봅니다. Teams, Obsidian, Claude Cowork 세 개를 쓰는데 각각 <strong>몇 층을 담당하는지</strong>가 이제 명확해집니다. 그리고 많이 물어보시는 <strong>"MCP 커넥터를 따로 만들어야 하나요?"</strong>에도 답을 드립니다.</p>
+    </div>
+  </article>
+
+
+  <nav class="chapter-nav">
+    <a href="ch02.html" class="back-to-toc">← 이전: RAG가 아니라 위키다</a>
+    <a href="ch04.html" class="next">다음: 도구 세 개의 역할 분담 →</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

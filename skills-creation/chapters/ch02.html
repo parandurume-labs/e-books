@@ -3,19 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="반복은 지겹다 — 자동화의 본능. 돌도끼에서 AI 스킬까지, 인간은 왜 도구를 만드는가">
+  <meta name="description" content="반복은 지겹다: 자동화의 본능. 돌도끼에서 AI 스킬까지, 인간은 왜 도구를 만드는가">
   <meta name="author" content="나만의 AI 스킬을 만들자">
-  <title>Chapter 2: 반복은 지겹다 — 자동화의 본능 — 나만의 AI 스킬을 만들자</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <title>Chapter 2: 반복은 지겹다: 자동화의 본능 · 나만의 AI 스킬을 만들자</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
 </head>
 <body>
-
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">나만의 AI 스킬을 만들자</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10h3V7L6.5 3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1-3 3l-6-6a6 6 0 0 1-8-8L7 7z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 · 스킬이 필요한 세상</li>
+      <li><a href="ch01.html" class="nav-link">1장 AI와 대화한다는 것</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 반복은 지겹다: 자동화의 본능</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 내가 만든 도구를 나눠준다</a></li>
+      <li class="nav-part">제2부: 뭘 · 스킬 패키지 해부학</li>
+      <li><a href="ch04.html" class="nav-link">4장 스킬 패키지란?</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 뼈대 살펴보기</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 프론트매터: 스킬의 신분증</a></li>
+      <li><a href="ch07.html" class="nav-link">7장 references/ · 스킬의 참고서 폴더</a></li>
+      <li class="nav-part">제3부: 어떻게 · 나만의 스킬 만들기</li>
+      <li><a href="ch08.html" class="nav-link">8장 첫 번째 스킬: "인사하기"</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 프롬프트 엔지니어링 기초</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 도구 연결하기</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 references로 지식 확장하기</a></li>
+      <li><a href="ch12.html" class="nav-link">12장 템플릿과 변수</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 테스트하고 다듬기</a></li>
+      <li class="nav-part">제4부: 더 멀리 · 성장하는 스킬</li>
+      <li><a href="ch14.html" class="nav-link">14장 여러 스킬을 하나로</a></li>
+      <li><a href="ch15.html" class="nav-link">15장 팀과 함께 쓰는 스킬</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 커뮤니티에 기여하기</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전 (한-영 대조)</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 일러스트 프롬프트 모음</a></li>
+      <li><a href="appendix-c.html" class="nav-link">부록 C: 스킬 패키지 체크리스트</a></li>
+      <li><a href="appendix-d.html" class="nav-link">부록 D: 참고 자료 및 링크</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
 <div class="chapter-content">
 
   <!-- ====== Chapter Header ====== -->
   <header class="chapter-header">
     <span class="chapter-number">CHAPTER 2</span>
-    <h1>반복은 지겹다 — 자동화의 본능</h1>
+    <h1>반복은 지겹다: 자동화의 본능</h1>
     <p class="chapter-subtitle">돌도끼에서 AI 스킬까지, 인간의 위대한 귀찮음</p>
   </header>
 
@@ -38,7 +93,7 @@
 
       <ol>
         <li>어제 광고 성과 데이터를 스프레드시트에서 복사 (5분)</li>
-        <li>팀 슬랙 채널에 일간 리포트 양식 붙여넣기 (3분)</li>
+        <li>팀 Teams 채널에 일간 리포트 양식 붙여넣기 (3분)</li>
         <li>숫자 바꾸고 문장 살짝 수정 (7분)</li>
         <li>경쟁사 블로그 3개 확인하고 요약 정리 (15분)</li>
         <li>오늘 할 일 목록 정리해서 팀장님께 공유 (10분)</li>
@@ -57,7 +112,7 @@
 
       <p>민수 씨는 자기가 원하는 게 정확히 뭔지 알고 있었어요. 그냥 <strong>실행하는 방법</strong>을 몰랐을 뿐이죠.</p>
 
-      <p>이번 챕터에서는 민수 씨 같은 사람들의 이야기, 그리고 인간이 태초부터 가지고 있던 <strong>"자동화 본능"</strong>에 대해 이야기할 거예요.</p>
+      <p>이번 챕터에서는 민수 씨 같은 사람들의 이야기, 그리고 인간이 태초부터 지녀온 <strong>"자동화 본능"</strong>을 이야기할 거예요.</p>
     </section>
 
     <!-- ====== Automation Instinct ====== -->
@@ -92,16 +147,16 @@
       <p>컴퓨터가 나온 뒤로, 자동화의 속도는 미친 듯이 빨라졌어요.</p>
 
       <ul>
-        <li><strong>단축키</strong> — Ctrl+C, Ctrl+V. 마우스로 메뉴 찾아 클릭하기 귀찮아서 만든 거예요.</li>
-        <li><strong>매크로</strong> — 같은 동작을 녹화해서 반복 실행. 엑셀 매크로 써본 분은 아실 거예요. "와, 내가 30분 걸리는 일을 3초에?" 하는 그 쾌감.</li>
-        <li><strong>스크립트</strong> — 프로그래머들이 쓰는 자동화 도구. "이 명령어를 이 순서로 실행해" 하면 컴퓨터가 척척.</li>
-        <li><strong>앱 자동화</strong> — IFTTT, Zapier 같은 서비스. "이메일 오면 자동으로 슬랙에 알려줘" 같은 것.</li>
+        <li><strong>단축키</strong>: Ctrl+C, Ctrl+V. 마우스로 메뉴 찾아 클릭하기 귀찮아서 만든 거예요.</li>
+        <li><strong>매크로</strong>: 같은 동작을 녹화해서 반복 실행. 엑셀 매크로 써본 분은 아실 거예요. "와, 내가 30분 걸리는 일을 3초에?" 하는 그 쾌감.</li>
+        <li><strong>스크립트</strong>: 프로그래머들이 쓰는 자동화 도구. "이 명령어를 이 순서로 실행해" 하면 컴퓨터가 척척.</li>
+        <li><strong>앱 자동화</strong>: IFTTT, Zapier 같은 서비스. "이메일 오면 자동으로 Teams에 알려줘" 같은 것.</li>
       </ul>
 
       <p>근데 이 도구들에는 한계가 있었어요. <strong>정해진 패턴만 자동화할 수 있었다</strong>는 거예요.</p>
 
-      <p>"A가 오면 B를 해" — 이건 잘함.<br>
-      "상황 봐서 적절하게 판단해" — 이건 못함.</p>
+      <p>"A가 오면 B를 해". 이건 잘함.<br>
+      "상황 봐서 적절하게 판단해". 이건 못함.</p>
 
       <p>엑셀 매크로는 "A1 셀의 숫자를 B1에 복사"는 할 수 있지만, "이 데이터를 분석해서 인사이트를 뽑아줘"는 못하잖아요.</p>
 
@@ -115,7 +170,7 @@
 
     <!-- ====== Real Story ====== -->
     <section>
-      <h2>왜 스킬을 만들게 됐는가 — 진짜 이야기</h2>
+      <h2>왜 스킬을 만들게 됐는가: 진짜 이야기</h2>
 
       <p>이 책을 쓰게 된 배경에는 실제 이야기가 있어요.</p>
 
@@ -153,7 +208,7 @@
 
       <div class="fun-box">
         <p class="fun-box-title">스킬 = AI에게 주는 레시피 카드</p>
-        <p>여러분이 AI에게 특정 작업을 시키기 위한 <strong>상세한 지시서</strong>예요.<br>
+        <p>AI에게 특정 작업을 시키기 위한 <strong>상세한 지시서</strong>예요.<br>
         한 번 잘 만들어두면, AI가 그 레시피대로 매번 정확하게 실행합니다.</p>
       </div>
 
@@ -161,9 +216,9 @@
 
       <h3>요리사와 레시피</h3>
 
-      <p>여러분 집에 요리를 엄청 잘하는 셰프가 왔다고 상상해보세요. 이 셰프는 어떤 요리든 만들 수 있어요. 한식, 양식, 일식, 중식 — 뭐든요. 근데 한 가지 특징이 있어요. <strong>직접 메뉴를 정하지 않는다</strong>는 거예요.</p>
+      <p>집에 요리를 엄청 잘하는 셰프가 왔다고 상상해보세요. 이 셰프는 한식, 양식, 일식, 중식 뭐든 만들어요. 근데 한 가지 특징이 있어요. <strong>직접 메뉴를 정하지 않는다</strong>는 거예요.</p>
 
-      <p>여러분이 "김치찌개 해줘"라고 하면 김치찌개를 만들고, "파스타 해줘"라고 하면 파스타를 만들어요.</p>
+      <p>"김치찌개 해줘"라고 하면 김치찌개를 만들고, "파스타 해줘"라고 하면 파스타를 만들어요.</p>
 
       <p>자, 이 상황에서 두 가지 방법이 있어요:</p>
 
@@ -222,18 +277,18 @@
       <p>만약 민수 씨가 스킬을 만들 수 있다면 어떨까요?</p>
 
       <ul>
-        <li><strong>/daily-report 스킬:</strong> 광고 데이터를 분석하고, 전날과 비교하고, 팀 슬랙에 올릴 리포트를 자동 생성</li>
+        <li><strong>/daily-report 스킬:</strong> 광고 데이터를 분석하고, 전날과 비교하고, 팀 Teams 채널에 올릴 리포트를 자동 생성</li>
         <li><strong>/competitor-scan 스킬:</strong> 경쟁사 블로그를 확인하고, 주요 내용을 요약</li>
         <li><strong>/today-plan 스킬:</strong> 캘린더와 이전 업무를 바탕으로 오늘 할 일 목록 생성</li>
       </ul>
 
       <p>45분이 <strong>5분</strong>으로 줄어듭니다.</p>
 
-      <p>그리고 남은 40분? 민수 씨가 진짜 잘하는 일 — <strong>창의적인 마케팅 전략을 짜는 데</strong> 쓸 수 있어요.</p>
+      <p>그리고 남은 40분? 민수 씨가 진짜 잘하는 일, <strong>창의적인 마케팅 전략을 짜는 데</strong> 쓰면 돼요.</p>
 
       <div class="callout">
         <p class="callout-title">핵심 인사이트</p>
-        <p>스킬은 <strong>반복적인 일</strong>을 자동화해서, 여러분이 <strong>진짜 중요한 일</strong>에 집중할 수 있게 해줘요. AI가 사람을 대체하는 게 아니라, <strong>사람이 더 사람다운 일을 할 수 있게</strong> 도와주는 거예요.</p>
+        <p>스킬은 <strong>반복되는 일</strong>을 자동화해서, <strong>진짜 중요한 일</strong>에 집중하게 해줘요. AI가 사람을 대체하는 게 아니라, <strong>사람이 더 사람다운 일을 하도록</strong> 도와주는 거예요.</p>
       </div>
     </section>
 
@@ -251,8 +306,8 @@
       <p>세상에는 두 종류의 사람이 있어요:</p>
 
       <ol>
-        <li><strong>도구를 쓰는 사람</strong> — 다른 사람이 만든 도구를 잘 활용하는 사람</li>
-        <li><strong>도구를 만드는 사람</strong> — 자기에게 필요한 도구를 직접 만드는 사람</li>
+        <li><strong>도구를 쓰는 사람</strong>: 다른 사람이 만든 도구를 잘 활용하는 사람</li>
+        <li><strong>도구를 만드는 사람</strong>: 자기에게 필요한 도구를 직접 만드는 사람</li>
       </ol>
 
       <p>둘 다 훌륭해요. 하지만 <strong>도구를 만들 줄 아는 사람</strong>은 한 차원 다른 자유를 가집니다.</p>
@@ -265,7 +320,7 @@
 
       <p>근데 AI 스킬은 달라요. <strong>한국어로 글을 쓸 줄 알면 만들 수 있어요.</strong></p>
 
-      <p>왜냐하면 스킬의 핵심은 코드가 아니라 <strong>"AI에게 주는 지시문"</strong>이거든요. 좋은 프롬프트를 잘 구조화해서 정리한 것 — 그게 스킬이에요.</p>
+      <p>왜냐하면 스킬의 핵심은 코드가 아니라 <strong>"AI에게 주는 지시문"</strong>이거든요. 좋은 프롬프트를 잘 구조화해서 정리한 것, 그게 스킬이에요.</p>
 
       <div class="fun-box">
         <p class="fun-box-title">이것만 기억하세요</p>
@@ -285,10 +340,10 @@
       <p>사람은 매번 다르게 말해요. 오늘은 "자세하게 리뷰해줘"라고 하고, 내일은 "빠르게 확인해줘"라고 하죠. 그러면 결과도 매번 달라요. 스킬은 <strong>항상 같은 기준으로</strong> 실행되니까 결과가 일관적이에요.</p>
 
       <p><strong>2. 시간 절약</strong></p>
-      <p>긴 프롬프트를 매번 치는 것도 시간이에요. 스킬 이름 한 단어 vs 200자 프롬프트 — 뭐가 더 빠른지는 명확하죠.</p>
+      <p>긴 프롬프트를 매번 치는 것도 시간이에요. 스킬 이름 한 단어 vs 200자 프롬프트. 뭐가 더 빠른지는 명확하죠.</p>
 
       <p><strong>3. 공유 가능</strong></p>
-      <p>이게 가장 중요해요. 여러분이 만든 좋은 프롬프트를 다른 사람에게 공유하려면? "이거 복붙해서 써"라고 할 수도 있지만, 스킬로 만들면 <strong>누구나 한 단어로 실행</strong>할 수 있어요.</p>
+      <p>이게 가장 중요해요. 애써 만든 좋은 프롬프트를 다른 사람에게 공유하려면? "이거 복붙해서 써"라고 할 수도 있지만, 스킬로 만들면 <strong>누구나 한 단어로 실행</strong>해요.</p>
 
       <p><strong>4. 개선 가능</strong></p>
       <p>"아, 이 부분이 좀 부족한데?" 하면 스킬을 수정하면 돼요. 한 번 고치면, 그 다음부터는 개선된 버전으로 실행되니까요.</p>
@@ -308,7 +363,7 @@
 
       <p>이 스킬이 탄생한 이유? <strong>"새 프로젝트 시작할 때마다 같은 과정을 반복하기 귀찮아서."</strong></p>
 
-      <p><strong>gstack</strong>이라는 스킬도 있어요. 이건 AI가 웹 브라우저를 사용할 수 있게 해주는 스킬이에요. 웹사이트를 열고, 버튼을 클릭하고, 스크린샷을 찍고, 상태를 확인하는 — QA(품질 검사) 작업을 자동화해줘요.</p>
+      <p><strong>gstack</strong>이라는 스킬도 있어요. 이건 AI가 웹 브라우저를 쓰게 해주는 스킬이에요. 웹사이트를 열고, 버튼을 클릭하고, 스크린샷을 찍고, 상태를 확인하는 QA(품질 검사) 작업을 자동화해줘요.</p>
 
       <p>탄생 이유? <strong>"배포할 때마다 브라우저 열어서 하나하나 클릭해보기 귀찮아서."</strong></p>
 
@@ -319,7 +374,7 @@
         <p><strong>"이거 매번 하기 귀찮다"</strong> + <strong>"AI가 대신할 수 있을 것 같다"</strong> = <strong>스킬 탄생</strong></p>
       </div>
 
-      <p>여러분도 이미 일상에서 "이거 자동화되면 좋겠다" 싶은 게 있을 거예요. 그게 바로 여러분의 첫 번째 스킬이 될 수 있어요.</p>
+      <p>일상에서 "이거 자동화되면 좋겠다" 싶은 게 이미 하나쯤 있을 거예요. 그게 바로 첫 번째 스킬이 됩니다.</p>
     </section>
 
     <!-- ====== Recap ====== -->
@@ -327,7 +382,7 @@
       <h3>잠깐, 정리!</h3>
       <ul>
         <li>인간은 <strong>태초부터 반복을 싫어해서</strong> 도구를 만들어왔어요. 돌도끼부터 AI 스킬까지!</li>
-        <li>기존 자동화 도구(매크로, 스크립트)는 "정해진 패턴"만 처리할 수 있었지만, AI는 <strong>상황을 판단</strong>할 수 있어요.</li>
+        <li>기존 자동화 도구(매크로, 스크립트)는 "정해진 패턴"만 처리했지만, AI는 <strong>상황을 판단</strong>해요.</li>
         <li><strong>스킬 = AI에게 주는 레시피 카드.</strong> 한 번 잘 만들면 매번 정확하게 실행돼요.</li>
         <li>스킬은 코딩이 아니라 <strong>"원하는 걸 명확하게 글로 쓰는 것"</strong>이 핵심이에요.</li>
         <li>모든 스킬의 시작은 <strong>"이거 매번 하기 귀찮다"</strong>라는 생각이에요.</li>
@@ -338,8 +393,8 @@
     <div class="next-teaser">
       <h3>다음 챕터에서는...</h3>
       <p>"내가 만든 유용한 도구를 왜 남에게 공짜로 줘야 하지?"<br>
-      오픈소스라는 아름다운 문화에 대해 이야기합니다.<br>
-      리눅스에서 위키피디아까지, 그리고 AI 스킬까지 — <strong>공유의 힘</strong>이 어떻게 세상을 바꾸는지 알아봐요.</p>
+      오픈소스라는 아름다운 문화를 이야기합니다.<br>
+      리눅스에서 위키피디아까지, 그리고 AI 스킬까지. <strong>공유의 힘</strong>이 어떻게 세상을 바꾸는지 알아봐요.</p>
     </div>
 
   </article>
@@ -351,6 +406,15 @@
   </nav>
 
 </div>
-
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
 </body>
 </html>

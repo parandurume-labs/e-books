@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 12: 템플릿과 첫 노트 만들기 · 회사용 LLM Wiki 만들기</title>
+  <meta name="description" content="노트 템플릿 일곱 개의 frontmatter를 실물로 제공합니다. 원문과 가공물을 왜 다른 파일로 두는지, confidence 한 칸이 볼트 전체의 신뢰를 어떻게 정하는지 다루고, 첫 노트 하나를 끝까지 만듭니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="alternate" hreflang="en" href="ch12.en.html">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">회사용 LLM Wiki 만들기</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 필요한가</li>
+      <li><a href="ch01.html" class="nav-link">1장 우리 지식은 어디에</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 RAG가 아니라 위키다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 온톨로지와 위키의 구분</a></li>
+      <li><a href="ch04.html" class="nav-link">4장 도구 세 개의 역할</a></li>
+      <li class="nav-part">제2부: 준비 · 30분 셋업</li>
+      <li><a href="ch05.html" class="nav-link">5장 옵시디언과 볼트</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 Teams로 팀 연결</a></li>
+      <li><a href="ch07.html" class="nav-link">7장 Cowork에 볼트 연결</a></li>
+      <li class="nav-part">제3부: 온톨로지 설계</li>
+      <li><a href="ch08.html" class="nav-link">8장 설계 원칙 여섯 개</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 클래스 정하기</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 관계와 필드 설계</a></li>
+      <li class="nav-part">제4부: 운영</li>
+      <li><a href="ch11.html" class="nav-link">11장 CLAUDE.md</a></li>
+      <li><a href="ch12.html" class="nav-link">12장 템플릿과 첫 노트</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 스킬로 자동화</a></li>
+      <li class="nav-part">제5부: 자동화와 시각화</li>
+      <li><a href="ch14.html" class="nav-link">14장 스케줄링</a></li>
+      <li><a href="ch15.html" class="nav-link">15장 업무 진행 시각화</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 자동화 레시피 12선</a></li>
+      <li class="nav-part">제6부: 지속</li>
+      <li><a href="ch17.html" class="nav-link">17장 품질을 코드로</a></li>
+      <li><a href="ch18.html" class="nav-link">18장 의도와 실행의 대조</a></li>
+      <li class="nav-part">제7부: AX로 확장</li>
+      <li><a href="ch19.html" class="nav-link">19장 위키에서 AX로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 복붙용 자산</a></li>
+      <li><a href="appendix-c.html" class="nav-link">부록 C: 트러블슈팅</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 12</span>
+    <h1>템플릿과 첫 노트 만들기</h1>
+    <p class="chapter-subtitle">빈 칸이 보여야 사람이 채웁니다</p>
+    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>약 21분</span>
+  </header>
+
+<article>
+    <p>11장에서 <code>CLAUDE.md</code>에 회사 규칙을 적었습니다. 이제 AI는 우리 팀이 무엇을 하면 안 되는지 압니다. 그런데 <a href="appendix-a.html#vault" class="term-link">볼트</a>는 아직 거의 비어 있습니다.</p>
+
+    <p>솔빛테크 도입 3주차에 이런 장면이 있었습니다. 김대표가 "그럼 창고봇 노트부터 하나 써봅시다" 하고 새 파일을 만들었습니다. 20분 뒤에 화면에 남아 있던 것은 제목 한 줄, 설명 한 문장, 그리고 커서였습니다.</p>
+
+    <p>아이디어가 없어서가 아닙니다. 창고봇을 두고 김대표가 아는 이야기는 하루 종일 해도 안 끝납니다. <strong>어디까지 적어야 이 노트가 끝나는지를 몰라서</strong> 멈췄습니다.</p>
+
+    <div class="callout">
+      <p class="callout-title">이 장이 하는 일</p>
+      <p>규칙(11장)은 「하면 안 되는 것」을 알려줍니다. 템플릿은 <strong>「무엇을 적으면 끝인지」</strong>를 알려줍니다. 둘이 같이 있어야 노트가 만들어집니다.</p>
+      <p>3장의 층위로 말하면, 템플릿은 1층(<a href="appendix-a.html#ontology" class="term-link">온톨로지</a>)에 적힌 <a href="appendix-a.html#field" class="term-link">필드</a> 정의를 <strong>사람이 실제로 채울 수 있는 모양</strong>으로 바꿔 놓은 3층의 장치입니다.</p>
+    </div>
+
+    <h2>빈 노트 앞에서 사람은 멈춥니다</h2>
+
+    <p>템플릿을 「서식 통일 도구」로 이해하면 절반만 맞습니다. 서식 통일은 세 번째 효과입니다. 앞의 두 개가 훨씬 큽니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>템플릿이 하는 일</th><th>없으면 벌어지는 일</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. 끝을 정해준다</strong><br>칸이 여덟 개면 여덟 개만 채우면 끝난다</td>
+          <td>끝이 안 보이는 일은 시작되지 않는다. 20분 동안 커서만 깜빡인다</td>
+        </tr>
+        <tr>
+          <td><strong>2. 안 적은 것을 보이게 한다</strong><br>빈 칸이 남으면 구멍이 눈에 띈다</td>
+          <td>백지에 쓴 글에서는 무엇이 빠졌는지 아무도 모른다. 제안서를 쓸 때 알게 된다</td>
+        </tr>
+        <tr>
+          <td><strong>3. 사람과 AI가 같은 서식을 쓴다</strong></td>
+          <td>필드 이름이 갈리고, 15장의 표와 간트가 전부 깨진다</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>두 번째가 이 장의 핵심입니다. <strong>「TRL 판단 근거」라는 빈 칸이 노트에 남아 있으면 그 칸은 계속 신경을 긁습니다.</strong> 아무 칸도 없으면 근거가 없다는 사실 자체가 안 보입니다. 1장에서 「작년 문서엔 TRL 4, 올해 문서엔 TRL 6」이라고 적은 사고가 여기서 시작됩니다. 근거 칸이 없었기 때문에 아무도 근거를 안 물었습니다.</p>
+
+    <h2>템플릿 일곱 개</h2>
+
+    <p>9장의 뼈대 클래스 넷(제품·기술역량·과제·기회)에 운영용 서식 셋(업무로그·결정·회의록)을 더해 템플릿 일곱 개입니다. 9장의 보조 클래스인 조직과 사람에는 템플릿을 만들지 않습니다. 필드가 서너 개뿐이라 서식으로 굳힐 값어치가 없기 때문입니다. 이 이상 만들지 않으시는 편이 좋습니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>템플릿</th><th>접두어</th><th>놓는 곳</th><th>이 템플릿이 막는 사고</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>제품</td><td><code>PRD-</code></td><td><code>Sources/10-Products/</code></td><td>도입 실적을 물어보면 사람마다 다른 숫자를 말한다</td></tr>
+        <tr><td>기술역량</td><td><code>CAP-</code></td><td><code>Sources/00-Company/</code></td><td>TRL 숫자가 문서마다 다르다</td></tr>
+        <tr><td>과제</td><td><code>PRJ-</code></td><td><code>Sources/20-Projects/</code></td><td>과제 산출물이 어느 제품에 들어갔는지 추적이 끊긴다</td></tr>
+        <tr><td>기회</td><td><code>OPP-</code></td><td><code>Sources/20-Projects/</code></td><td>마감을 지나서 안다</td></tr>
+        <tr><td>업무로그</td><td>없음</td><td><code>Sources/40-Worklog/</code></td><td>18장의 회고에 쓸 재료가 없다</td></tr>
+        <tr><td>결정</td><td><code>DEC-</code></td><td><code>Sources/40-Worklog/</code></td><td>6개월 뒤 같은 논의를 처음부터 다시 한다</td></tr>
+        <tr><td>회의록</td><td>없음</td><td><code>Sources/40-Worklog/</code></td><td>가공물이 틀렸을 때 돌아갈 원문이 없다</td></tr>
+      </tbody>
+    </table>
+
+    <p>업무로그와 회의록에는 접두어가 없습니다. <strong>날짜와 이름이 그대로 <code>id</code></strong>가 됩니다. 나머지 다섯 개는 9장에서 정한 접두어를 씁니다.</p>
+
+    <h3>1. 제품</h3>
+
+    <pre><code>---
+class: 제품
+id: PRD-
+status: 기획              # 기획 / 개발 / 운영 / 중단
+owner: "[[ ]]"
+since:
+pdm_uses:
+  - "[[ ]]"
+updated:
+confidence: draft
+confidential: 사내         # 공개 / 사내 / 대외비
+---
+
+# 제품 이름
+
+한 문장으로: 무엇을, 누구에게 파는가.
+
+## 도입 현황
+| 고객 | 시점 | 규모 | 근거 노트 |
+|------|------|------|-----------|
+
+## 이 제품이 쓰는 기술
+(pdm_uses 에 적은 것을 여기서 한 줄씩 풀어 쓴다)
+
+## 알려진 한계
+-
+
+## 근거 자료
+- </code></pre>
+
+    <p><strong>「알려진 한계」 칸이 이 템플릿에서 제일 중요합니다.</strong> 제안서를 쓸 때 이 칸을 읽으면 과장을 스스로 걸러냅니다. 그리고 이 칸이 빈 제품 노트는 대개 아직 아무도 제대로 안 써 본 제품입니다.</p>
+
+    <h3>2. 기술역량</h3>
+
+    <pre><code>---
+class: 기술역량
+id: CAP-
+trl:                      # 1~9. 근거가 없으면 비워 둔다
+evidence:
+  - "[[ ]]"
+pdm_output_of: "[[ ]]"
+owner: "[[ ]]"
+updated:
+confidence: draft
+---
+
+# 역량 이름
+
+## 무엇을 하는 기술인가
+(전문 용어 없이 세 줄)
+
+## TRL 판단 근거
+| 주장 | 근거 노트 | 확인한 사람 | 확인 날짜 |
+|------|-----------|-------------|-----------|
+
+## 재사용 이력
+- 어느 제품에 들어갔는가
+
+## 아직 검증되지 않은 것
+- </code></pre>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">TRL은 값이 아니라 근거와 한 쌍입니다</p>
+      <p><code>trl: 6</code>만 적으면 6개월 뒤에 아무도 6의 출처를 모릅니다. 그래서 이 템플릿은 숫자 칸과 근거 표를 붙여 놨습니다. <strong>근거 표가 비어 있으면 <code>trl</code> 칸도 비워 둡니다.</strong> 빈 칸은 정직하고, 근거 없는 숫자는 나중에 제안서에 그대로 실립니다.</p>
+    </div>
+
+    <h3>3. 과제</h3>
+
+    <pre><code>---
+class: 과제
+id: PRJ-
+status: 진행              # 기획 / 진행 / 검토 / 완료 / 보류
+stage: 3/5                # 15장의 5단계 정의 기준
+period: 2025-03-01 ~ 2026-02-28
+funder:
+budget:
+owner: "[[ ]]"
+start: 2025-03-01
+due: 2026-02-28
+updated:
+confidence: draft
+---
+
+# 과제 이름
+
+## 우리가 맡은 범위
+## 산출물
+| 산출물 | 어느 노트가 되었나 |
+|--------|--------------------|
+
+## 일정과 실제
+## 남은 위험</code></pre>
+
+    <p><code>period</code>와 <code>start</code>·<code>due</code>가 겹쳐 보이실 텐데 역할이 다릅니다. <strong><code>period</code>는 협약서에 적힌 문구 그대로</strong> 옮겨 적는 칸이고, <strong><code>start</code>와 <code>due</code>는 기계가 읽는 날짜</strong>입니다. 15장의 간트는 뒤의 두 칸만 봅니다. 둘이 어긋나면 17장의 점검 스크립트가 잡아냅니다.</p>
+
+    <h3>4. 기회</h3>
+
+    <pre><code>---
+class: 기회
+id: OPP-
+status: 검토              # 기획 / 진행 / 검토 / 완료 / 보류
+stage: 2/4                # 발굴 / 검토 / 준비 / 제출
+due: 2026-08-08           # 제출 마감. 다른 이름을 쓰지 않는다
+                          # (나쁜 예: deadline, 마감일)
+owner: "[[ ]]"
+priority: 상              # 상 / 중 / 하
+updated:
+confidence: draft
+---
+
+# 기회 이름
+
+## 무엇을 요구하는가
+| 요구사항 | 우리 근거 노트 | 충족 |
+|----------|----------------|------|
+
+## 아직 없는 것
+## 참여 판단 기록
+(판단은 사람이 한다. 이 칸에는 판단한 날짜와 이유만 적는다)</code></pre>
+
+    <p>「아직 없는 것」 칸이 16장 레시피 12와 이어집니다. 공고를 볼트와 대조해서 <strong>비어 있는 항목만 뽑아내면</strong> 그게 다음 2주의 할 일이 됩니다.</p>
+
+    <h3>5. 업무로그</h3>
+
+    <pre><code>---
+class: 업무로그
+id: 2026-07-15-박사업
+date: 2026-07-15
+owner: "[[박사업]]"
+pdm_intent_of: "[[OPP-2026-지자체공모]]"
+updated: 2026-07-15
+confidence: reviewed
+---
+
+## 시간을 가장 많이 쓴 일
+-
+
+## 막힌 것
+-
+
+## 내일 할 것
+- </code></pre>
+
+    <p>세 칸입니다. 하루 3~5분 안에 끝나야 해서 이보다 늘리면 안 됩니다. 첫 칸을 「한 일」이 아니라 「시간을 가장 많이 쓴 일」로 둔 이유는 18장에 있습니다. 「한 일」이라고 적어 두면 그날 한 일을 전부 적으려 하고, 그러면 3~5분을 넘깁니다. <code>pdm_intent_of</code>는 <strong>「이 일이 무엇을 위한 일이었나」</strong>를 가리키는 링크입니다. 18장의 회고가 이 한 줄로 성립합니다. 이 링크가 없으면 「계획한 것과 실제로 한 일」을 대조할 방법이 없습니다.</p>
+
+    <p>업무로그는 <strong>처음부터 <code>confidence: reviewed</code></strong>입니다. 본인이 직접 겪은 일을 본인이 적었기 때문입니다. 다음 절에서 이 값의 뜻을 정확히 정합니다.</p>
+
+    <h3>6. 결정</h3>
+
+    <pre><code>---
+class: 결정
+id: DEC-2026-0715-공모참여
+date: 2026-07-15
+source: "[[2026-07-15-주간회의]]"
+participants: ["김대표", "박사업", "이CTO"]
+related:
+  - "[[OPP-2026-지자체공모]]"
+  - "[[창고봇]]"
+confidence: reviewed
+updated: 2026-07-15
+---
+
+# 결정 제목
+
+## 결정
+(무엇을 하기로 했는가. 한 문단)
+
+## 검토했으나 채택하지 않은 안
+| 안 | 왜 채택하지 않았나 |
+|----|--------------------|
+
+## 배경
+## 액션
+- [ ] 할 일 · 담당자 · YYYY-MM-DD</code></pre>
+
+    <p><strong>「검토했으나 채택하지 않은 안」 칸이 이 템플릿의 존재 이유입니다.</strong> 보통 회의록에는 결론만 적힙니다. 대안이 무엇이었고 왜 버렸는지는 안 적힙니다. 그래서 6개월 뒤에 똑같은 논의를 처음부터 다시 합니다. 16장 레시피 1이 이 칸을 자동으로 채웁니다.</p>
+
+    <h3>7. 회의록 (원문)</h3>
+
+    <pre><code>---
+class: 회의록
+id: 2026-07-15-주간회의
+date: 2026-07-15
+participants: ["김대표", "박사업", "이CTO"]
+confidential: 사내
+confidence: reviewed
+updated: 2026-07-15
+---
+
+# 2026-07-15 주간회의
+
+> 아래는 원문이다. 고치지 않는다.
+> 오타도 그대로 둔다. 요약과 정정은 별도 노트로 만든다.
+
+## 원문
+
+(받아 적은 그대로)
+
+## 여기서 나온 가공물
+- [[DEC-2026-0715-공모참여]]</code></pre>
+
+    <p>이 템플릿은 앞의 여섯 개와 성격이 다릅니다. <strong>채우는 노트가 아니라 봉인하는 노트</strong>입니다. 왜 그렇게까지 하는지가 다음 절입니다.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">여덟 번째는 만들지 마세요</p>
+      <p>「조직」 템플릿을 만들고 싶어지실 겁니다. 대성물류 같은 고객 노트 말입니다. 처음에는 만들지 않습니다. <strong>조직 노트는 필드가 서너 개뿐이라 템플릿까지 필요하지 않습니다.</strong></p>
+      <p>템플릿은 하나 늘 때마다 「이건 어느 템플릿이지?」라는 고민을 하나 늘립니다. 8장에서 솔빛테크가 클래스 19개로 2주에 노트 6개를 만든 이야기와 같은 함정입니다. <strong>같은 서식으로 노트를 세 개 이상 쓰게 된 다음에</strong> 템플릿으로 굳히시면 됩니다.</p>
+    </div>
+
+    <h2>원문과 가공물을 다른 파일에 둡니다</h2>
+
+    <p>구분은 간단합니다.</p>
+
+    <ul>
+      <li><strong>원문</strong>: 우리가 만들지 않았거나, 만들었어도 고치면 안 되는 것. 회의 녹취, 받은 제안 요청서, 고객이 보낸 메일, 외부 보고서</li>
+      <li><strong>가공물</strong>: 원문에서 사람이나 AI가 뽑아낸 것. 결정 노트, 제품 노트의 갱신된 필드, 새로 생긴 조직 노트</li>
+    </ul>
+
+    <div class="file-tree">Sources/
+├── 40-Worklog/
+│   ├── 2026-07-15-박사업.md          <span class="comment">업무로그 · 가공물</span>
+│   ├── 2026-07-15-주간회의.md        <span class="comment">회의 원문 · 손대지 않음</span>
+│   └── DEC-2026-0715-공모참여.md     <span class="comment">결정 · 가공물</span>
+└── 90-Reference/
+    ├── 2026-06-대성물류-요청서.pdf   <span class="comment">받은 자료 그대로</span>
+    ├── 2026-05-공모-공고문.md        <span class="comment">공고 원문</span>
+    └── 2026-07-15-주간회의-녹취.md   <span class="comment">녹취 원문 · 손대지 않음</span></div>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="330" fill="#FFFDF9"/>
+        <defs>
+          <marker id="a12" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#C2703C"/>
+          </marker>
+          <marker id="b12" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#6B5647"/>
+          </marker>
+        </defs>
+
+        <text x="360" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">원문 하나에서 가공물 여럿이 나옵니다. 원문은 그대로 남습니다</text>
+
+        <rect x="20" y="46" width="164" height="120" rx="10" fill="#FFF8F0" stroke="#C2703C" stroke-width="2"/>
+        <text x="102" y="70" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">원문</text>
+        <text x="102" y="90" text-anchor="middle" font-size="10" fill="#3D2B1F">40-Worklog/</text>
+        <text x="102" y="108" text-anchor="middle" font-size="10" fill="#3D2B1F">2026-07-15-주간회의</text>
+        <text x="102" y="132" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#C2703C">한 글자도 고치지 않음</text>
+        <text x="102" y="150" text-anchor="middle" font-size="9.5" fill="#6B5647">사람도, AI도, 자동화도</text>
+
+        <line x1="184" y1="106" x2="248" y2="106" stroke="#C2703C" stroke-width="1.6" marker-end="url(#a12)"/>
+        <text x="216" y="98" text-anchor="middle" font-size="9.5" fill="#6B5647">추출</text>
+
+        <rect x="252" y="52" width="196" height="34" rx="7" fill="#FFFFFF" stroke="#8A857C" stroke-width="1.4"/>
+        <text x="350" y="73" text-anchor="middle" font-size="10.5" fill="#3D2B1F">결정 노트 (신규)</text>
+        <rect x="252" y="92" width="196" height="34" rx="7" fill="#FFFFFF" stroke="#8A857C" stroke-width="1.4"/>
+        <text x="350" y="113" text-anchor="middle" font-size="10.5" fill="#3D2B1F">제품 노트 필드 갱신</text>
+        <rect x="252" y="132" width="196" height="34" rx="7" fill="#FFFFFF" stroke="#8A857C" stroke-width="1.4"/>
+        <text x="350" y="153" text-anchor="middle" font-size="10.5" fill="#3D2B1F">조직 노트 (신규)</text>
+
+        <text x="350" y="186" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#6B5647">전부 confidence: draft</text>
+
+        <path d="M252,168 C210,206 150,196 122,172" fill="none" stroke="#6B5647" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#b12)"/>
+        <text x="176" y="204" text-anchor="middle" font-size="9.5" fill="#6B5647">source: 로 되돌아가는 링크</text>
+
+        <line x1="448" y1="106" x2="512" y2="106" stroke="#C2703C" stroke-width="1.6" marker-end="url(#a12)"/>
+        <text x="480" y="98" text-anchor="middle" font-size="9.5" fill="#6B5647">사람 확인</text>
+
+        <rect x="516" y="46" width="184" height="120" rx="10" fill="#EAF6F4" stroke="#0F766E" stroke-width="2"/>
+        <text x="608" y="70" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">확인된 지식</text>
+        <text x="608" y="92" text-anchor="middle" font-size="10.5" fill="#3D2B1F">confidence: reviewed</text>
+        <text x="608" y="114" text-anchor="middle" font-size="10" fill="#3D2B1F">제안서 근거로 쓴다</text>
+        <text x="608" y="134" text-anchor="middle" font-size="10" fill="#3D2B1F">자동화가 손대지 않는다</text>
+        <text x="608" y="154" text-anchor="middle" font-size="9.5" fill="#6B5647">바꾸는 사람은 owner 한 명</text>
+
+        <rect x="20" y="240" width="680" height="66" rx="9" fill="#FAEADF" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="360" y="264" text-anchor="middle" font-size="11.5" fill="#3D2B1F">가공물이 틀렸을 때 돌아갈 곳은 원문뿐입니다.</text>
+        <text x="360" y="286" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">원문을 지우면 「AI가 그렇게 요약했다」는 사실만 남습니다</text>
+      </svg>
+      <figcaption>가공물에는 반드시 <code>source:</code>로 원문을 링크합니다. 이 한 줄이 검수를 가능하게 만듭니다</figcaption>
+    </figure>
+
+    <p>원문을 지우면 안 되는 이유가 네 개입니다.</p>
+
+    <ol class="steps">
+      <li><strong>가공물이 틀렸을 때 돌아갈 곳이 원문뿐입니다</strong>
+        <p>결정 노트에 이상한 문장이 있으면 원문을 열어 대조합니다. 원문이 없으면 대조할 대상이 없고, 그러면 그 문장은 영원히 사실로 남습니다.</p>
+      </li>
+      <li><strong>요약은 정보를 줄입니다. 무엇이 줄었는지는 나중에 압니다</strong>
+        <p>회의록 원문의 「냉동창고라서 인식률 걱정한다고」 한 줄은 그때는 사소해 보입니다. 8개월 뒤 냉동창고 과제를 준비할 때 그 한 줄이 가장 중요한 정보가 됩니다. 요약할 때는 무엇이 중요해질지 모릅니다.</p>
+      </li>
+      <li><strong>근거의 근거가 필요합니다</strong>
+        <p>3장에서 2층이 있어야 검수가 가능해진다고 했습니다. 노트가 근거를 대 주기 때문입니다. 그러면 <strong>그 노트의 근거는 무엇인가</strong>라는 질문이 남습니다. 원문이 그 답입니다. 여기까지 있어야 사슬이 끊기지 않습니다.</p>
+      </li>
+      <li><strong>나중에 사실 확인의 유일한 자료가 됩니다</strong>
+        <p>계약 협의 메모, 고객이 요구한 사양, 과제 협약 조건. 이런 것은 분쟁이 생기고 나서 찾습니다. 그때 「우리가 정리한 요약본」은 자료가 되지 못합니다.</p>
+      </li>
+    </ol>
+
+    <p><code>CLAUDE.md</code>에 이 세 줄을 넣습니다. 11장에서 만든 파일에 그대로 덧붙이시면 됩니다.</p>
+
+    <pre><code>## 원문 취급
+
+- Sources/90-Reference/ 의 노트는 어떤 경우에도 수정하지 않는다.
+  오타, 비문, 줄바꿈까지 그대로 둔다.
+- 원문에서 만든 노트에는 반드시 source: 로 원문을 링크한다.
+- 원문 파일을 지우거나 옮기지 않는다. 필요하면 사람에게 알린다.</code></pre>
+
+    <div class="pitfall">
+      <p class="pitfall-title">가장 흔한 사고: 「정리해줘」가 원문을 덮어씁니다</p>
+      <p>회의록 파일을 열어 놓고 "이거 좀 정리해줘"라고 하면, AI는 <strong>같은 파일을 다듬어서 저장합니다.</strong> 오타를 고치고 문장을 매끄럽게 만들고 순서를 바꿉니다. 도와주려고 한 일입니다.</p>
+      <p>그 순간 원문이 사라집니다. 그리고 사라진 줄도 모릅니다. 파일 이름이 그대로이기 때문입니다. 16장 ⓕ에 나오는 네 번째 실수가 정확히 이것입니다.</p>
+      <p>막는 방법은 하나입니다. <strong>원문 저장과 가공을 한 번에 시키되, 저장을 먼저 시킵니다.</strong> "회의록 원문을 40-Worklog에 먼저 저장하고, 그 다음에 결정을 뽑아라." 순서를 바꾸면 안 됩니다.</p>
+    </div>
+
+    <h3>회의 메모는 어디에 두나</h3>
+
+    <p>경계에 있는 경우가 하나 있습니다. <strong>우리가 회의 중에 직접 친 짧은 메모</strong>입니다. 외부에서 받은 자료가 아니니 90-Reference에 넣기가 애매합니다.</p>
+
+    <p>기준은 「누가 만들었나」입니다. <strong>밖에서 온 것과 녹취는 <code>90-Reference/</code>에 둡니다.</strong> 우리가 친 회의록은 뽑아낸 결정과 한 몸이라 <code>40-Worklog/</code>에 원문 노트로 둡니다. 앞의 표와 16장 레시피 1과 18장의 폴더 그림이 전부 그렇게 되어 있습니다.</p>
+
+    <p>어느 쪽이든 <strong>원문 노트와 가공 노트를 다른 파일로 둔다</strong>는 원칙은 같습니다. 폴더가 어디냐보다 <strong>파일이 둘이냐</strong>가 중요합니다.</p>
+
+    <h2>confidence 한 칸이 볼트 전체의 신뢰를 정합니다</h2>
+
+    <p>11장에서 정한 <a href="appendix-a.html#confidence" class="term-link">confidence 필드</a>가 노트에서는 이렇게 보입니다.</p>
+
+    <pre><code>confidence: draft      # AI가 만들었거나, 사람이 급히 적었고 아직 아무도 확인 안 함
+confidence: reviewed   # 사람이 읽고 「지금도 맞다」고 판단함</code></pre>
+
+    <p>규칙은 이미 <code>CLAUDE.md</code>에 못 박혀 있습니다. 그러니 여기서는 <strong>운영</strong>을 봅니다. 규칙이 있어도 이 칸은 잘 죽습니다.</p>
+
+    <p>첫 번째로 할 일은 <code>reviewed</code>의 뜻을 <strong>팀이 한 문장으로 정하는 것</strong>입니다.</p>
+
+    <div class="callout">
+      <p class="callout-title">권하는 한 문장</p>
+      <p><strong>「이 노트에 적힌 사실이 지금도 맞다는 데 내 이름을 건다.」</strong></p>
+      <p>「읽어봤다」가 아닙니다. 「대충 맞는 것 같다」도 아닙니다. 이 문장을 안 정해두면 3개월 뒤에 <code>reviewed</code>가 「누군가 한 번 스크롤한 노트」라는 뜻이 되고, 그러면 이 칸은 없는 것과 같아집니다.</p>
+      <p>이름을 거는 사람은 <code>owner</code>입니다. 그래서 두 필드는 붙어 다닙니다. <code>owner</code>가 비어 있는데 <code>reviewed</code>인 노트는 <strong>아무도 책임지지 않는 사실</strong>이고, 17장의 점검이 이 조합을 잡아냅니다.</p>
+    </div>
+
+    <p>이 한 칸이 네 곳에서 일합니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>어디서</th><th><code>draft</code></th><th><code>reviewed</code></th></tr>
+      </thead>
+      <tbody>
+        <tr><td>대외 문서 근거 (16장 레시피 2)</td><td>쓰지 않는다. 「검증 필요」 목록으로 넘긴다</td><td>근거로 쓴다</td></tr>
+        <tr><td>자동화의 수정 대상 (14장)</td><td>고쳐도 된다</td><td>어떤 필드도 손대지 않는다</td></tr>
+        <tr><td>주간 대시보드 (15장)</td><td colspan="2"><code>reviewed</code> 비율의 추이가 볼트 건강 지표가 된다</td></tr>
+        <tr><td>사람의 할 일 목록</td><td colspan="2"><code>draft</code> 목록이 그대로 검토 대기열이다</td></tr>
+      </tbody>
+    </table>
+
+    <p>이 칸이 없으면 어떻게 되는지는 이미 짐작하실 겁니다. AI가 만든 초벌이 몇 달 뒤 볼트의 절반이 되고, <strong>다음 AI가 그것을 사실로 읽습니다.</strong> 그런데 더 심각한 건 사람도 똑같이 읽는다는 점입니다. 어느 것이 확인된 사실인지 구분할 방법이 없으면, <strong>결국 전부 못 믿게 됩니다.</strong> 한 번 그렇게 되면 되돌리는 데 몇 달이 걸립니다. 노트를 처음부터 다시 읽어야 하기 때문입니다.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">도입 첫 달에 전부 reviewed로 찍는 일</p>
+      <p>기분이 좋습니다. 볼트가 깨끗해 보입니다. 그리고 그 순간 이 필드는 죽습니다.</p>
+      <p>확인하는 방법이 있습니다. <strong><code>reviewed</code> 비율이 100%이거나 0%이면 그 칸은 안 쓰이고 있습니다.</strong> 정답 비율은 없습니다. 다만 살아 있는 볼트에는 항상 검토 대기 중인 노트가 얼마간 남아 있습니다.</p>
+      <p><code>reviewed</code>는 <strong>확인한 날의 사실입니다.</strong> 영원하지 않습니다. <code>updated</code>가 오래된 <code>reviewed</code> 노트를 17장의 점검이 목록으로 뽑아냅니다.</p>
+    </div>
+
+    <h2>템플릿을 어디에 두고 어떻게 부르나</h2>
+
+    <p><code>Sources/</code> 밖에 둡니다. 템플릿은 회사 사실이 아니라 서식이기 때문입니다.</p>
+
+    <div class="file-tree">_ops/
+├── 01-온톨로지-설계서.md
+├── 02-표준용어집.md
+├── scripts/
+└── templates/                <span class="comment">← 여기</span>
+    ├── 제품.md
+    ├── 기술역량.md
+    ├── 과제.md
+    ├── 기회.md
+    ├── 업무로그.md
+    ├── 결정.md
+    └── 회의록.md</div>
+
+    <p><code>Sources/</code> 안에 두면 검색 결과와 그래프 뷰에 빈 껍데기 노트가 섞입니다. 「제품이 몇 개야?」라고 물었을 때 답이 하나 더 나옵니다. 사소해 보이지만 이런 것이 쌓이면 AI 답변을 못 믿게 됩니다.</p>
+
+    <h3>옵시디언에서 부르기</h3>
+
+    <p>옵시디언에는 <strong>Templates</strong> 기능이 원래 들어 있습니다. 커뮤니티 플러그인이 아니라 코어 기능이라 따로 설치하지 않습니다. 2026년 7월 기준으로 이렇습니다.</p>
+
+    <ol class="steps">
+      <li><strong>설정 · 코어 플러그인에서 「템플릿」을 켭니다</strong>
+        <p>목록에 없으면 「Templates」로 찾아보세요. 표기가 언어 설정에 따라 다릅니다.</p>
+      </li>
+      <li><strong>템플릿 폴더를 <code>_ops/templates</code>로 지정합니다</strong>
+        <p>설정 · 템플릿 · 「템플릿 폴더 위치」입니다.</p>
+      </li>
+      <li><strong>단축키를 확인합니다</strong>
+        <p>명령 팔레트에서 「템플릿 삽입」을 부릅니다. 자주 쓰게 되므로 단축키를 하나 걸어두시면 편합니다.</p>
+      </li>
+    </ol>
+
+    <h3>AI에게 쓰게 하기</h3>
+
+    <p>사람보다 AI가 이 템플릿을 더 자주 씁니다. <code>CLAUDE.md</code>에 세 줄을 넣습니다.</p>
+
+    <pre><code>## 노트를 만들 때
+
+- 새 노트는 반드시 _ops/templates/ 의 해당 템플릿을 복사해서 시작한다.
+- 템플릿의 칸을 지우지 않는다. 채울 내용이 없으면 「확인 필요」라고 적는다.
+- 사람의 승인 없이 파일을 만드는 곳은 _reports/ 와 _moc/ 두 곳뿐이다.
+  Sources/ 아래에 노트를 만들 때는 먼저 표로 보여주고 승인을 받는다.</code></pre>
+
+    <p><strong>두 번째 줄이 제일 자주 무시됩니다.</strong> AI는 빈 칸을 지저분하게 여겨서 지우려고 합니다. 그런데 빈 칸을 지우면 이 장의 두 번째 효과가 사라집니다. 안 적은 것이 안 보이게 됩니다.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">템플릿을 고칠 때는 소급하지 않습니다</p>
+      <p>세 달쯤 지나면 템플릿에 칸을 하나 더 넣고 싶어집니다. 그때 <strong>기존 노트 전부를 새 서식으로 고치지 마세요.</strong> 두 가지가 한꺼번에 터집니다. 파일 수백 개를 동시에 건드리면 6장에서 본 OneDrive 동기화 충돌이 나고, 손댄 노트를 전부 <code>draft</code>로 되돌려야 하므로 검토 대기열이 폭발합니다.</p>
+      <p><strong>새로 만드는 노트부터 적용합니다.</strong> 옛 노트는 다음에 그 노트를 손볼 때 같이 고칩니다. 볼트는 한 번에 정리하는 곳이 아니라 지나가면서 조금씩 나아지는 곳입니다.</p>
+    </div>
+
+    <h2>첫 노트를 끝까지 만들어 봅니다</h2>
+
+    <p>창고봇 노트 하나를 처음부터 끝까지 만들어 보겠습니다. 여섯 단계입니다.</p>
+
+    <ol class="steps">
+      <li><strong>어느 클래스인지 정합니다</strong>
+        <p>판정 기준으로 갈립니다. 「외부에 판매·납품하는 단위인가?」 맞으면 제품입니다. 창고봇은 대성물류에 납품을 논의 중이고 이미 세 곳에서 돌고 있으니 제품입니다.</p>
+      </li>
+      <li><strong>템플릿을 복사합니다</strong>
+        <p><code>Sources/10-Products/창고봇.md</code>를 만들고 제품 템플릿을 붙여 넣습니다.</p>
+      </li>
+      <li><strong><a href="appendix-a.html#frontmatter" class="term-link">frontmatter</a>를 위에서 아래로 채웁니다</strong>
+        <p>모르는 칸은 비우지 말고 <strong>「확인 필요」</strong>라고 적습니다. 비워 두면 안 적은 건지 없는 건지 구분이 안 됩니다.</p>
+      </li>
+      <li><strong>본문은 세 문단이면 충분합니다</strong>
+        <p>완벽하게 쓰려다가 안 쓰게 됩니다. 「무엇을 누구에게 파는가」 한 문단, 도입 현황 표, 알려진 한계 목록. 이게 첫 판입니다.</p>
+      </li>
+      <li><strong>링크를 겁니다</strong>
+        <p><a href="appendix-a.html#wikilink" class="term-link">위키링크</a>를 <code>[[CAP-객체인식]]</code>처럼 적습니다. 그 노트가 아직 없어도 괜찮습니다. 옵시디언에서 회색으로 보입니다. <strong>회색 링크 목록이 다음에 만들 노트 목록입니다.</strong></p>
+      </li>
+      <li><strong>confidence를 정합니다</strong>
+        <p>직접 확인하고 적었으면 <code>reviewed</code>, 기억에 의존해 적었으면 <code>draft</code>입니다. 헷갈리면 <code>draft</code>입니다.</p>
+      </li>
+    </ol>
+
+    <p>결과는 이렇습니다.</p>
+
+    <pre><code>---
+class: 제품
+id: PRD-001
+status: 운영
+owner: "[[김대표]]"
+since: 2023-04
+pdm_uses:
+  - "[[CAP-객체인식]]"
+  - "[[CAP-경로최적화]]"
+updated: 2026-07-15
+confidence: reviewed
+confidential: 사내
+---
+
+# 창고봇
+
+물류창고 입출고 자동화 소프트웨어. 중소 물류센터에 납품한다.
+작업자가 손으로 하던 입고 검수와 적치 위치 지정을 자동화한다.
+
+## 도입 현황
+| 고객 | 시점 | 규모 | 근거 노트 |
+|------|------|------|-----------|
+| A센터 | 2023-04 | 확인 필요 | [[2023-04-A센터-검수보고]] |
+| B센터 | 2024-09 | 확인 필요 | [[2024-09-B센터-계약]] |
+| C센터 | 2025-06 | 확인 필요 | [[2025-06-C센터-계약]] |
+
+## 이 제품이 쓰는 기술
+- [[CAP-객체인식]] : 입고 물품 자동 판별
+- [[CAP-경로최적화]] : 적치 위치와 피킹 동선 계산
+
+## 알려진 한계
+- 냉동창고 환경 인식률 데이터가 없음. 확인 필요
+- 3개 사이트의 정량 성과(처리량 개선율)가 노트에 없음
+
+## 근거 자료
+- [[PRJ-2025-스마트물류]] 최종보고서</code></pre>
+
+    <p>여기서 눈여겨볼 것은 <strong>「확인 필요」가 네 군데 남아 있다는 점</strong>입니다. 실패가 아닙니다. 첫 노트는 원래 이렇게 생겼습니다. 이 네 줄이 <strong>다음 2주의 할 일 목록</strong>입니다.</p>
+
+    <div class="case-box">
+      <p class="case-title">사례 · 솔빛테크의 첫 노트에 걸린 40분</p>
+      <p>김대표가 창고봇 노트를 완성하는 데 40분이 걸렸습니다. 그중 <strong>30분은 「도입 사이트가 세 곳인지 네 곳인지」를 확인하는 데</strong> 썼습니다. 박사업에게 묻고, 계약 폴더를 뒤지고, 결국 한 곳은 파일럿이라 실적으로 못 쓴다는 결론이 났습니다.</p>
+      <p>그 30분이 아까워 보였지만, 실은 <strong>그 30분이 이 시스템의 값어치 전부</strong>였습니다. 그 전까지 제안서마다 「4개 사이트」와 「3개 사이트」가 섞여 나갔고, 아무도 몰랐습니다.</p>
+      <p>두 번째 노트는 12분, 열 번째 노트는 4분이 걸렸습니다. 확인 비용은 앞에 몰려 있습니다. <strong>한 번 확인한 사실은 다시 확인하지 않기 때문입니다.</strong></p>
+      <p>그리고 이때 만든 창고봇 노트가 16장 레시피 2의 제안서 초안에 그대로 쓰였습니다. 「3개 사이트」로요.</p>
+    </div>
+
+    <h2>템플릿이 무너지는 세 가지 방식</h2>
+
+    <div class="pitfall">
+      <p class="pitfall-title">1. 칸이 너무 많습니다</p>
+      <p>템플릿을 설계할 때는 다 필요해 보입니다. 그런데 필수 칸이 늘어날수록 노트가 안 만들어집니다. 3장의 클래스 19개 이야기와 정확히 같은 함정입니다.</p>
+      <p><strong>필수는 다섯 칸을 넘기지 마세요.</strong> <code>class</code>, <code>id</code>, <code>status</code>, <code>owner</code>, <code>updated</code> 정도입니다. 나머지는 선택으로 두고 「확인 필요」를 허용합니다. 템플릿의 품질은 칸의 개수가 아니라 <strong>노트가 얼마나 만들어지는지</strong>로 측정합니다.</p>
+    </div>
+
+    <div class="pitfall">
+      <p class="pitfall-title">2. 사람마다 다른 템플릿을 씁니다</p>
+      <p>「내 것만 조금 고쳐서 쓸게요」가 시작입니다. 두 달 뒤에 <code>owner</code>와 <code>담당</code>과 <code>담당자</code>가 섞입니다. 그러면 15장의 표에 열이 세 개 생기고, 「담당자별 부하」를 물으면 AI가 틀린 답을 합니다.</p>
+      <p>템플릿은 <strong>공유 폴더 한 곳에만</strong> 둡니다. 고칠 일이 생기면 그 파일을 고치고 팀에 알립니다. 각자 복사본을 만드는 순간 통제 어휘가 무너집니다.</p>
+    </div>
+
+    <div class="pitfall">
+      <p class="pitfall-title">3. 템플릿을 고쳤는데 CLAUDE.md를 안 고쳤습니다</p>
+      <p>가장 조용한 고장입니다. 템플릿에 칸을 하나 추가했는데 <code>CLAUDE.md</code>의 필드 목록은 그대로면, <strong>사람이 만든 노트와 AI가 만든 노트의 서식이 갈립니다.</strong> 아무 오류도 안 납니다. 두 달 뒤에 대시보드에서 발견합니다.</p>
+      <p>템플릿과 <code>CLAUDE.md</code>와 <code>_ops/01-온톨로지-설계서.md</code>는 <strong>한 몸입니다.</strong> 하나를 고치면 나머지 둘을 열어 보는 습관을 들이세요. 17장의 점검 스크립트가 이 셋의 어긋남을 잡도록 만드는 방법도 있습니다.</p>
+    </div>
+
+    <div class="checklist">
+      <p class="checklist-title">첫 노트를 만들고 나서 확인할 다섯 가지</p>
+      <ul>
+        <li><strong>frontmatter에 <code>class</code>, <code>id</code>, <code>updated</code>가 다 있나요?</strong> 셋은 모든 노트의 필수입니다.</li>
+        <li><strong>「확인 필요」가 하나라도 있나요?</strong> 하나도 없다면 대충 채웠을 가능성이 큽니다. 첫 노트에 모르는 것이 없기는 어렵습니다.</li>
+        <li><strong>회색 링크가 보이나요?</strong> 그게 다음에 만들 노트입니다. 하나도 없으면 이 노트가 다른 노트와 안 이어져 있다는 뜻입니다.</li>
+        <li><strong><code>confidence</code>를 의식하고 정했나요?</strong> 템플릿 기본값을 그냥 둔 것과 판단해서 둔 것은 다릅니다.</li>
+        <li><strong>기밀 등급을 걸었나요?</strong> 계약 전 고객 이름, 단가, 인건비. 나중에 찾아서 고치기가 가장 어려운 항목입니다.</li>
+      </ul>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">직접 해보기: 우리 회사 제품 노트 하나를 끝까지</p>
+      <p>이 장에서 하나만 하신다면 이 실습입니다. 40분을 잡으세요. 그중 절반은 확인하는 데 씁니다.</p>
+      <ol>
+        <li><strong>제품 하나를 고르세요.</strong> 가장 잘 아는 것 말고 <strong>제안서에 가장 자주 쓰는 것</strong>으로 고르세요. 그래야 이 노트가 바로 일을 합니다.</li>
+        <li>제품 템플릿을 복사해 <code>Sources/10-Products/</code>에 새 노트를 만드세요.</li>
+        <li><strong>frontmatter를 채우세요.</strong> 모르는 칸에는 「확인 필요」를 적습니다. 비우지 마세요.</li>
+        <li><strong>도입 현황 표를 채우다가 반드시 한 번은 막힐 겁니다.</strong> 그때 멈추지 말고 실제로 확인하세요. 계약 폴더를 열거나 담당자에게 물으세요. 이 30분이 이 장에서 가장 값어치 있는 시간입니다.</li>
+        <li>「알려진 한계」에 <strong>최소 두 줄</strong>을 적으세요. 없다고 생각되면 아직 이 제품을 충분히 팔지 않았다는 뜻입니다.</li>
+        <li>노트를 저장하고 <strong>회색 링크를 세어 보세요.</strong> 그 개수가 앞으로 만들 노트의 수입니다.</li>
+        <li>마지막으로 Claude에게 물어보세요. <strong>"이 노트만 보고 제안서의 회사 소개 문단을 써 줘. 노트에 없는 사실은 쓰지 마."</strong> 나온 문단이 얼마나 빈약한지가 지금 볼트의 상태입니다. 실망하지 마세요. 노트 한 개짜리 볼트니까요.</li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>잠깐, 정리!</h3>
+      <ul>
+        <li>템플릿의 첫 번째 기능은 서식 통일이 아니라 <strong>「어디까지 적으면 끝인지」를 정해 주는 것</strong>이다</li>
+        <li>두 번째 기능은 <strong>안 적은 것을 보이게 하는 것</strong>이다. 빈 칸이 있어야 구멍이 눈에 띈다</li>
+        <li>템플릿은 일곱 개다 <strong>제품 · 기술역량 · 과제 · 기회 · 업무로그 · 결정 · 회의록</strong>. 여덟 번째는 같은 서식으로 노트를 세 개 쓴 뒤에 만든다</li>
+        <li><strong>원문과 가공물은 다른 파일에 둔다.</strong> 밖에서 온 것과 녹취는 <code>90-Reference/</code>, 뽑아낸 결정은 <code>40-Worklog/</code></li>
+        <li>원문을 지우면 안 되는 이유: 되돌아갈 곳, 요약이 버린 정보, <strong>근거의 근거</strong>, 나중의 사실 확인</li>
+        <li>가장 흔한 사고는 <strong>「정리해줘」가 원문을 덮어쓰는 것</strong>이다. 원문 저장을 먼저 시킨다</li>
+        <li>11장의 <code>confidence</code>를 살리는 것은 규칙이 아니라 <strong>운영</strong>이다. 뜻을 팀이 한 문장으로 정한다 <strong>「이 사실이 지금도 맞다는 데 내 이름을 건다」</strong></li>
+        <li>이름을 거는 사람이 <code>owner</code>다. <strong><code>owner</code>가 빈 <code>reviewed</code> 노트는 아무도 책임지지 않는 사실</strong>이다</li>
+        <li><code>reviewed</code> 비율이 <strong>100%거나 0%면 그 칸은 안 쓰이고 있다.</strong> 그리고 <code>reviewed</code>는 확인한 날의 사실이라 낡는다</li>
+        <li>이 칸이 없으면 확인된 사실과 AI 초벌이 섞이고, <strong>결국 전부 못 믿게 된다</strong></li>
+        <li>사람 승인 없이 AI가 파일을 만드는 곳은 <code>_reports/</code>와 <code>_moc/</code> <strong>두 곳뿐</strong>이다</li>
+        <li>템플릿은 <code>_ops/templates/</code>에 둔다. <code>Sources/</code> 안에 두면 검색과 그래프에 빈 껍데기가 섞인다</li>
+        <li>첫 노트에 「확인 필요」가 남는 건 정상이다. <strong>그 목록이 다음 2주의 할 일</strong>이다</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>다음 장에서는...</h3>
+      <p>템플릿이 생기면 같은 작업을 반복하게 됩니다. 회의록을 받아 구조화하는 절차, 회고를 돌리는 절차, 규칙 위반을 점검하는 절차. 그런데 <strong>이 절차를 매번 프롬프트로 다시 설명하면 사람마다 다르게 진화합니다.</strong> 다음 장에서는 절차를 파일 하나에 적어 두고 이름으로 부르는 방법을 봅니다. 그리고 옵시디언 커뮤니티 플러그인을 쓰지 않기로 한 판단도 여기서 정리합니다.</p>
+    </div>
+  </article>
+
+
+  <nav class="chapter-nav">
+    <a href="ch11.html" class="back-to-toc">← 이전: CLAUDE.md로 AI에게 회사 규칙 알려주기</a>
+    <a href="ch13.html" class="next">다음: 스킬로 반복 작업 자동화하기 →</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

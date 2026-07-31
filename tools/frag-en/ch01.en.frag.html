@@ -1,0 +1,248 @@
+<!--META {
+  "file": "ch01.en.html",
+  "num": "1",
+  "title": "Where our knowledge actually lives",
+  "subtitle": "Start by seeing the problem clearly",
+  "desc": "Four symptoms of knowledge fragmentation in a small company, why shared folders and wikis and dumping files into AI all failed, and the three stages of turning knowledge into an asset.",
+  "minutes": "8",
+  "prev_href": "../index.en.html",
+  "prev_label": "Back to contents",
+  "next_href": "ch02.en.html",
+  "next_label": "Next: A wiki, not RAG"
+} -->
+  <article>
+    <p>Four o'clock on a Friday afternoon. Your CEO messages you on Teams.</p>
+
+    <p><strong>"We need a proposal for a city government call by next Tuesday. Can you pull our track record together?"</strong></p>
+
+    <p>And there begins a familiar journey. You go looking for last year's proposal. Where is it? On your own PC, under <code>Desktop/proposals/final/really-final</code>? Or somewhere in Teams? You find it at last. You open it. Numbers appear. But are those numbers still right?</p>
+
+    <p>You ask the CTO. "What TRL is our product at?" "Um... 5? Or was it 6?" You ask the CEO. "What was the exact name of that trade show?" "Hang on, let me look it up."</p>
+
+    <p>One page of a proposal costs you the time of three people in the company. And the next time you write a proposal, you <strong>do the whole thing over from the start</strong>.</p>
+
+    <div class="callout">
+      <p class="callout-title">The problem this book solves</p>
+      <p>Your company is not <strong>short on knowledge</strong>. There is plenty of it. The problem is that it sits <strong>in people's heads and in personal folders</strong>, so you have to gather it again every time you use it.</p>
+    </div>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">How this book names its tools</p>
+      <p>This book uses <strong>Microsoft Teams</strong> as its default tool. Many small Korean companies already run on Microsoft 365, and permissions and file sync both come with the one account.</p>
+      <p>If you use Slack, Discord, or Google Workspace, <strong>read straight through and substitute your own.</strong> What this book covers is a way of structuring knowledge, not one product, and messengers and file sync tools swap in for each other. Chapter 6 picks out the places where the difference between tools really starts to matter.</p>
+    </div>
+
+    <h2>Four symptoms of knowledge fragmentation</h2>
+
+    <p>Check whether your company has the symptoms below. If even one of them fits, this book will help.</p>
+
+    <h3>Symptom 1. You compile the same thing again and again</h3>
+
+    <p>Proposals, company profiles, investor decks, the website, job postings. You write the same content every time, yet you compile it from scratch every time, and slightly different numbers go in each round.</p>
+
+    <p>Worse, <strong>nobody knows which version is right</strong>. Last year's proposal says revenue was 82 million won, the website says 80 million, the investor deck says 85 million. Which one is it?</p>
+
+    <h3>Symptom 2. The reason behind a decision disappears</h3>
+
+    <p>Three months ago a meeting chose approach B over approach A. Now something has gone wrong. Why B? What was the problem with A?</p>
+
+    <p>There may be minutes. But minutes usually say only "agreed to proceed with approach B." <strong>What the alternative was, and why you dropped it, is not written down.</strong> So six months later you hold the same discussion again from the beginning.</p>
+
+    <h3>Symptom 3. Work stops when the one person isn't there</h3>
+
+    <p>"Oh, Kim knows that." Kim is on holiday. Work stops.</p>
+
+    <p>In a five-person company this is fatal. One person holds 20% of what the company knows. When that person leaves, 20% disappears. Write a handover document, you say? Nobody can document three years of context in the two weeks between giving notice and walking out.</p>
+
+    <h3>Symptom 4. New hires flounder for three months</h3>
+
+    <p>It takes a new person three months to get a feel for "what kind of company this is." Everyone they could ask is busy. The documents are missing or out of date.</p>
+
+    <p>So the new hire <strong>learns by reading the room.</strong> Knowledge learned that way is inaccurate, and the inaccurate version gets passed to the next new hire.</p>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice</p>
+      <p>Through this book you follow a fictional company called <strong>Solbit Tech</strong>. Five people, building warehouse automation software. One CEO, one CTO, two developers, one on business.</p>
+      <p>There are three products: <strong>Warebot</strong> (in production), <strong>Pickview</strong> (in development), <strong>WareTwin</strong> (a prototype). They are running one government R&amp;D project, preparing a city government bid, and looking at Southeast Asia.</p>
+      <p>The size and the situation are probably not far from your own company. As you follow the problems Solbit Tech runs into and how it works through them, you build your own.</p>
+    </div>
+
+    <h2>Why nobody has fixed this yet</h2>
+
+    <p>No company is unaware of this problem. So why does it stay broken? There are reasons.</p>
+
+    <h3>Attempt 1. You made a shared folder</h3>
+
+    <p>You made a folder on Google Drive or Teams and said "put things in here." Six months later the folder looks like this.</p>
+
+    <div class="file-tree">company-files/
+├── proposals/
+│   ├── proposal_final.docx
+│   ├── proposal_final_v2.docx
+│   ├── proposal_final_really-final.docx
+│   └── proposal_final_really-final_edit.docx
+├── misc/                     <span class="comment">← nobody ever opens it</span>
+├── New folder/               <span class="comment">← no idea who made it</span>
+└── reference_kim.zip         <span class="comment">← nobody knows what's inside</span></div>
+
+    <p>Because you only <strong>piled the files up</strong>. Piling up and organizing are not the same thing.</p>
+
+    <h3>Attempt 2. You brought in Notion or a wiki tool</h3>
+
+    <p>This one is better. Some companies really do make it work. But most of them end like this.</p>
+
+    <ul>
+      <li>For the first two weeks everyone writes.</li>
+      <li>A month in, updates thin out.</li>
+      <li>Three months in, nobody reads it. The content is stale.</li>
+      <li>Six months in, all that's left is someone saying "we really should clean up Notion."</li>
+    </ul>
+
+    <p>The reason is plain. <strong>The cost of writing lands now, and the benefit lands later.</strong> And even that benefit stays invisible. Writing careful minutes today makes nothing better today.</p>
+
+    <h3>Attempt 3. You threw your files at an AI</h3>
+
+    <p>A common move lately. You upload company documents to ChatGPT or Claude and ask away. At first it's impressive. Then the problems show up.</p>
+
+    <ul>
+      <li>Past ten documents or so, the answers go vague.</li>
+      <li>Give it two documents that contradict each other and the AI picks a side at random.</li>
+      <li>It invents information that doesn't exist, convincingly. <strong>In a proposal, that's an incident.</strong></li>
+      <li>You have to upload the files again every time.</li>
+    </ul>
+
+    <p>Not because the AI is bad. <strong>If the source isn't organized, the AI can't organize it for you either.</strong> Garbage in, garbage out. That's a limit of the input, not a limit of the AI.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">The most dangerous failure</p>
+      <p>Hand an AI unorganized material and let it write a proposal, and <strong>it fills the blanks with plausible lies.</strong> Awards you never won, the wrong revenue, a company you stopped working with listed as a partner.</p>
+      <p>This is hard to spot, because the sentences read smoothly. Chapter 11 covers a real case and the guardrails that stop it.</p>
+    </div>
+
+    <h2>So what do you actually need</h2>
+
+    <p>Let me restate the problem. You need three things.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="300" fill="#FFFDF9"/>
+        <defs>
+          <marker id="ar" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+            <path d="M0,0 L10,4 L0,8 z" fill="#0F766E"/>
+          </marker>
+        </defs>
+        <!-- 1 -->
+        <rect x="15" y="60" width="200" height="180" rx="14" fill="#D7F2EE" stroke="#0F766E" stroke-width="2"/>
+        <circle cx="115" cy="100" r="22" fill="#0F766E"/>
+        <text x="115" y="108" text-anchor="middle" font-size="20" font-weight="bold" fill="#fff">1</text>
+        <text x="115" y="148" text-anchor="middle" font-size="16" font-weight="bold" fill="#0F766E">Gather in one place</text>
+        <text x="115" y="176" text-anchor="middle" font-size="12" fill="#3D2B1F">Scattered files</text>
+        <text x="115" y="196" text-anchor="middle" font-size="12" fill="#3D2B1F">into one folder</text>
+        <text x="115" y="220" text-anchor="middle" font-size="11" fill="#6B5647"> · easy</text>
+        <!-- 2 -->
+        <rect x="260" y="60" width="200" height="180" rx="14" fill="#FAEADF" stroke="#C2703C" stroke-width="2"/>
+        <circle cx="360" cy="100" r="22" fill="#C2703C"/>
+        <text x="360" y="108" text-anchor="middle" font-size="20" font-weight="bold" fill="#fff">2</text>
+        <text x="360" y="148" text-anchor="middle" font-size="16" font-weight="bold" fill="#C2703C">Give it structure</text>
+        <text x="360" y="176" text-anchor="middle" font-size="12" fill="#3D2B1F">What connects</text>
+        <text x="360" y="196" text-anchor="middle" font-size="12" fill="#3D2B1F">to what, and how</text>
+        <text x="360" y="220" text-anchor="middle" font-size="11" fill="#6B5647"> · the heart of this book</text>
+        <!-- 3 -->
+        <rect x="505" y="60" width="200" height="180" rx="14" fill="#D7F2EE" stroke="#0F766E" stroke-width="2"/>
+        <circle cx="605" cy="100" r="22" fill="#0F766E"/>
+        <text x="605" y="108" text-anchor="middle" font-size="20" font-weight="bold" fill="#fff">3</text>
+        <text x="605" y="148" text-anchor="middle" font-size="16" font-weight="bold" fill="#0F766E">Keep it running</text>
+        <text x="605" y="176" text-anchor="middle" font-size="12" fill="#3D2B1F">Still alive three</text>
+        <text x="605" y="196" text-anchor="middle" font-size="12" fill="#3D2B1F">months from now</text>
+        <text x="605" y="220" text-anchor="middle" font-size="11" fill="#6B5647"> · hardest of the three</text>
+        <!-- arrows -->
+        <line x1="220" y1="150" x2="253" y2="150" stroke="#0F766E" stroke-width="2.5" marker-end="url(#ar)"/>
+        <line x1="465" y1="150" x2="498" y2="150" stroke="#0F766E" stroke-width="2.5" marker-end="url(#ar)"/>
+        <text x="360" y="35" text-anchor="middle" font-size="15" font-weight="bold" fill="#3D2B1F">Three stages to a knowledge asset</text>
+        <text x="360" y="280" text-anchor="middle" font-size="12" fill="#6B5647">Most attempts stop at stage 1, then expect stage 3 without stage 2</text>
+      </svg>
+      <figcaption>Gathering alone is not enough. Structure is what lets an AI read it.</figcaption>
+    </figure>
+
+    <h3>Stage 1: gather it in one place</h3>
+    <p>Not hard. Make one folder and share it through Teams. Part 2 gets this done in 30 minutes.</p>
+
+    <h3>Stage 2: give it structure</h3>
+    <p>Here is the heart of this book. Collecting files and <strong>structuring knowledge</strong> are completely different jobs.</p>
+
+    <p>Structuring looks like this. You have a product called Warebot. You write down, <strong>in a form a machine can read</strong>, which technologies it uses, which project it came out of, who owns it, which customers run it, and which patents it connects to.</p>
+
+    <p>Then when you say "pull together the evidence for our computer vision capability," the AI finds Warebot, finds the technology that product uses, and finds proof that the technology is actually running in production. It doesn't invent anything. <strong>It follows the links.</strong></p>
+
+    <h3>Stage 3: keep it running</h3>
+    <p>The hardest one. Even when you do the first two stages well, the usual outcome is death in three months. Part 6 fits two mechanisms: making code rather than people do the checking, and making the benefit of recording visible.</p>
+
+    <h2>What this book does not cover</h2>
+
+    <p>To set your expectations properly, here is what it leaves out.</p>
+
+    <table>
+      <thead>
+        <tr><th>Not covered</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Enterprise knowledge management for large companies</td><td>At a few hundred people, permissions and governance are an entirely different problem. This book assumes 5 to 50 people.</td></tr>
+        <tr><td>Fine-tuning AI models</td><td>You don't need it. With structured knowledge and good rules, a base model is enough.</td></tr>
+        <tr><td>Building a vector DB</td><td>Chapter 2 explains why you don't need one.</td></tr>
+        <tr><td>Coding skill</td><td>Chapter 17 uses Python scripts, but only at the level of understanding what the AI writes and running it.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Honestly, none of this is free</h2>
+
+    <p>Books like this usually say "quick and easy!" That isn't true. Here is the cost, stated honestly.</p>
+
+    <table>
+      <thead>
+        <tr><th>Stage</th><th>Time it takes</th><th>Who does it</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Initial setup (install, connect)</td><td>30 minutes</td><td>each member</td></tr>
+        <tr><td>Ontology design</td><td>3 to 5 hours</td><td>the CEO, or one knowledge owner</td></tr>
+        <tr><td>Entering core company information</td><td>1 to 2 days</td><td>CEO plus the people doing the work</td></tr>
+        <tr><td>Day-to-day operation</td><td><strong>three to five minutes a day per person</strong></td><td>everyone</td></tr>
+        <tr><td>Weekly check</td><td>20 minutes</td><td>one owner</td></tr>
+      </tbody>
+    </table>
+
+    <p>The line that matters most is not the last one but the <strong>fourth</strong>. Three to five minutes a day. If that doesn't hold, everything else becomes pointless.</p>
+
+    <div class="fun-box">
+      <p class="fun-box-title">A simpler way to see it</p>
+      <p>It's like tidying a fridge. One big clear-out takes half a day. The problem is what comes after. Without the habit of <strong>putting the groceries back in their places every time</strong>, two weeks later you're back where you started.</p>
+      <p>Half of this book is "how to tidy up." The other half is "how to turn putting things back into a system."</p>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: diagnose your own company</p>
+      <p>Open a notebook or a text file and answer the questions below. Five minutes is enough. These answers become the raw material when you design your company's ontology in Chapter 9.</p>
+      <ol>
+        <li><strong>In the last six months, have you compiled the same content twice or more?</strong> What was it?</li>
+        <li><strong>Write down three pieces of company information that only one person knows.</strong> (For example: the history with a particular customer, a system setting, contract terms)</li>
+        <li><strong>If someone joined tomorrow, what are the five things they would need to know first?</strong></li>
+        <li><strong>Pick one important decision from last quarter, then go find where the reason for it is recorded.</strong> If you can't find it, that's the problem right there.</li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li>The problem isn't that the company <strong>has no knowledge; it's that the knowledge is scattered</strong></li>
+        <li>Four symptoms of fragmentation: compiling the same thing twice, losing the reason for decisions, depending on one person, slow onboarding</li>
+        <li>Shared folders, Notion, and throwing files at an AI failed because <strong>they gathered things and never gave them structure</strong></li>
+        <li>Give an AI unorganized material and <strong>it fills the blanks with plausible lies</strong></li>
+        <li>What you need is three stages: gather → <strong>give structure</strong> → keep it running</li>
+        <li>The day-to-day cost is <strong>three to five minutes a day per person.</strong> If that slips, none of it matters</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>Coming up</h3>
+      <p>"Isn't that just RAG?" You hear that question a lot. It's partly right and partly wrong. Next we compare dumping whole documents in and searching them against structuring knowledge up front, not as concepts but as <strong>running cost</strong>.</p>
+    </div>
+  </article>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="팀으로 일하기: 멀티 에이전트 협업 · Claude 하나로 부족하면, 여러 개를 동시에 돌리세요">
+  <meta name="author" content="Claude 100배 활용법">
+  <title>Chapter 13: 팀으로 일하기: 멀티 에이전트 협업 · Claude 100배 활용법</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Claude 100배 활용법</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5 10.1 12 4.5 10l5.6-1.4z"/><path d="M18 16l.8 2.2L21 19l-2.2.8L18 22l-.8-2.2L15 19l2.2-.8z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 마인드 전환</li>
+      <li><a href="ch01.html" class="nav-link">1장 검색 vs 지시</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 Claude를 만나다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 프롬프트의 기술</a></li>
+      <li class="nav-part">제2부: Claude.ai & Desktop</li>
+      <li><a href="ch04.html" class="nav-link">4장 Claude.ai 200%</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 Claude Desktop</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 사무직의 하루</a></li>
+      <li class="nav-part">제3부: Claude Code</li>
+      <li><a href="ch07.html" class="nav-link">7장 Claude Code 시작</a></li>
+      <li><a href="ch08.html" class="nav-link">8장 CLAUDE.md와 컨텍스트</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 Skills</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 Hooks</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 MCP 서버</a></li>
+      <li class="nav-part">제4부: 실전 워크플로</li>
+      <li><a href="ch12.html" class="nav-link">12장 비개발자의 앱 만들기</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 멀티 에이전트 협업</a></li>
+      <li><a href="ch14.html" class="nav-link">14장 보안과 안전</a></li>
+      <li class="nav-part">제5부: 더 멀리 가기</li>
+      <li><a href="ch15.html" class="nav-link">15장 Claude 생태계</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 나만의 워크플로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 프롬프트 레시피</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+
+  <!-- ====== Chapter Header ====== -->
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 13</span>
+    <h1>팀으로 일하기: 멀티 에이전트 협업</h1>
+    <p class="chapter-subtitle">Claude 하나로 부족하면, 여러 개를 동시에 돌리세요</p>
+  </header>
+
+  <article>
+
+    <!-- ====== Opening Story ====== -->
+    <section>
+      <h2>1인 스타트업의 비밀</h2>
+
+      <div class="scenario-box">
+        <p>민수는 혼자서 사이드 프로젝트를 진행하고 있어요. 기획, 디자인, 프론트엔드, 백엔드, 테스트... 전부 혼자 해야 해요.</p>
+        <p>"팀원이 3명만 있으면 일주일이면 끝날 텐데..."</p>
+        <p>그래서 민수는 <strong>Claude를 3명 고용</strong>했어요. 터미널 3개를 열고, 각각 다른 역할을 맡겼어요. 결과? 하루 만에 끝났어요.</p>
+      </div>
+
+      <p>Claude Code는 하나만 실행할 수 있는 게 아니에요. 여러 터미널에서 동시에 실행하면, 마치 여러 명의 전문가가 동시에 일하는 것과 같아요.</p>
+    </section>
+
+    <!-- ====== git threshold ====== -->
+    <section>
+      <div class="callout callout-warning">
+        <p class="callout-title">이 장부터는 git을 조금 알아야 해요</p>
+        <p>12장까지는 Claude와 대화만 하면 됐는데, 이 장에는 <strong>git</strong>이라는 도구의 말이 섞여 나와요. 여럿이 같은 코드를 동시에 고칠 때 서로 밟지 않게 해주는 도구예요. 여기서는 그 「여럿」이 여러 개의 Claude죠. 아직 안 깔았다면 <a href="https://git-scm.com" target="_blank" rel="noopener">git-scm.com</a>에서 받아 설치하세요.</p>
+        <p>깊이 알 필요는 없어요. 세 단어만 알면 이 장을 끝까지 따라올 수 있어요.</p>
+        <ul>
+          <li><strong>커밋(commit) = 세이브 포인트.</strong> 지금 상태를 저장해 두는 거예요. 나중에 이 지점으로 돌아올 수 있죠</li>
+          <li><strong>브랜치(branch) = 평행 세계.</strong> 원래 코드는 그대로 두고 갈라져 나온 사본이에요. 여기서 마음껏 부숴도 원래 쪽은 멀쩡해요</li>
+          <li><strong>PR(Pull Request) = 합치기 요청.</strong> 평행 세계에서 한 일을 원래 세계에 합쳐 달라고 내는 요청서예요. 합치기 전에 한 번 확인할 자리를 만들어 주죠</li>
+        </ul>
+        <p>이 셋은 전부 Claude에게 시켜도 돼요. 「지금까지 한 거 커밋해줘」, 「feature/login 브랜치 만들어줘」처럼 말하면 Claude가 명령어를 대신 쳐요. 직접 외울 필요는 없고, 말이 나왔을 때 무슨 뜻인지만 알면 충분해요.</p>
+      </div>
+    </section>
+
+    <!-- ====== Parallel Sessions ====== -->
+    <section>
+      <h2>전략 1: 병렬 세션 · 여러 터미널에서 동시에</h2>
+
+      <p>가장 간단한 방법이에요. 터미널을 여러 개 열고, 각각 Claude Code를 실행하면 돼요.</p>
+
+      <div class="fun-box">
+        <p class="fun-box-title">세 명의 Claude</p>
+        <p><strong>터미널 1: 기획자 Claude</strong><br>
+        "우리 서비스의 사용자 플로우를 설계해줘. 로그인 → 대시보드 → 기능 사용 → 결과 확인 순서로."<br><br>
+        <strong>터미널 2: 개발자 Claude</strong><br>
+        "로그인 페이지를 React로 구현해줘. 이메일/비밀번호 방식으로."<br><br>
+        <strong>터미널 3: QA Claude</strong><br>
+        "기존에 만든 API 엔드포인트들을 테스트해줘. 모든 경우의 수를 커버하는 테스트 코드를 작성해."</p>
+      </div>
+
+      <p>이때 중요한 건 <strong>각 세션이 서로 다른 파일을 건드리게</strong> 하는 거예요. 같은 파일을 동시에 수정하면 충돌이 나니까요.</p>
+
+      <div class="callout">
+        <p class="callout-title">충돌 방지 원칙</p>
+        <p>각 Claude에게 담당 영역을 명확히 지정하세요:<br>
+        - Claude A: <code>src/frontend/</code> 폴더만 담당<br>
+        - Claude B: <code>src/backend/</code> 폴더만 담당<br>
+        - Claude C: <code>tests/</code> 폴더만 담당<br><br>
+        마치 사무실에서 팀원들이 각자 자기 책상에서 일하는 것처럼요.</p>
+      </div>
+
+      <p>병렬 세션에서 유용한 슬래시 명령어들도 있어요:</p>
+
+      <ul>
+        <li><code>/office-hours</code>: 기획 모드. 아이디어를 구체화하고 전략을 세울 때</li>
+        <li><code>/qa</code>: QA 모드. 체계적으로 버그를 찾고 테스트할 때</li>
+        <li><code>/review</code>: 코드 리뷰 모드. 다른 세션에서 작성한 코드를 검토할 때</li>
+      </ul>
+    </section>
+
+    <!-- ====== Worktree ====== -->
+    <section>
+      <h2>전략 2: Git Worktree · 독립된 작업 공간</h2>
+
+      <p>Git Worktree는 같은 프로젝트를 <strong>여러 폴더에 복사</strong>하는 것과 비슷해요. 하지만 진짜 복사가 아니라, Git이 똑똑하게 관리해줘요.</p>
+
+      <div class="prompt-example">
+        <p class="label good-label">Claude에게 이렇게 시키세요</p>
+        <p class="good">"git worktree를 사용해서 feature-login 브랜치를 별도 폴더로 만들어줘. 그리고 그 폴더에서 로그인 기능을 구현해줘."</p>
+      </div>
+
+      <p>Worktree의 장점:</p>
+
+      <ul>
+        <li>각 기능을 <strong>완전히 독립된 공간</strong>에서 개발할 수 있어요</li>
+        <li>한 기능이 망가져도 다른 기능에 <strong>영향이 없어요</strong></li>
+        <li>다 만들면 메인 브랜치에 <strong>합치기만</strong> 하면 돼요</li>
+      </ul>
+
+      <div class="fun-box">
+        <p class="fun-box-title">Worktree를 쉽게 이해하기</p>
+        <p>내 프로젝트가 "집"이라고 상상해보세요.<br><br>
+        보통 하는 방법: 한 집에서 주방 리모델링과 욕실 리모델링을 동시에 하면 → 혼란!<br><br>
+        Worktree 방법: 주방 리모델링용 "가상의 집"과 욕실 리모델링용 "가상의 집"을 따로 만들어서, 각각 완성한 후에 원래 집에 반영해요. 깔끔하죠?</p>
+      </div>
+    </section>
+
+    <!-- ====== Subagents ====== -->
+    <section>
+      <h2>전략 3: 서브에이전트 · Claude가 Claude를 호출</h2>
+
+      <p>이건 이름만 어렵지 손이 제일 덜 가요. Claude Code 안에서 <strong>Agent 도구</strong>를 사용하면, Claude가 다른 Claude를 불러서 일을 시킬 수 있어요.</p>
+
+      <p>마치 팀장이 "이 부분은 김 대리가 해줘"라고 업무를 위임하는 것처럼요.</p>
+
+      <div class="scenario-box">
+        <p><strong>메인 Claude (팀장):</strong> "전체 프로젝트를 관리하면서, 세부 작업을 각각 처리해줘"</p>
+        <p>→ 서브에이전트 1: 코드 구조 분석</p>
+        <p>→ 서브에이전트 2: 테스트 코드 작성</p>
+        <p>→ 서브에이전트 3: 문서 작성</p>
+        <p>메인 Claude가 결과를 취합해서 최종 보고</p>
+      </div>
+
+      <p>서브에이전트는 복잡한 작업을 자동으로 분할하고 처리해요. 터미널을 여러 개 직접 관리할 필요가 없어서 편하고, 따로 설정하지 않아도 Claude가 알아서 나눠 맡겨요.</p>
+    </section>
+
+    <!-- ====== Collaboration Strategies ====== -->
+    <section>
+      <h2>협업 패턴: 어떻게 역할을 나눌까?</h2>
+
+      <p>효과적인 역할 분담 패턴을 소개할게요:</p>
+
+      <h3>패턴 1: 프론트엔드 / 백엔드 분리</h3>
+      <ul>
+        <li>Claude A: 사용자가 보는 화면 (HTML, CSS, React 등)</li>
+        <li>Claude B: 서버 로직, 데이터베이스, API</li>
+        <li>둘 사이의 연결 규칙(API 스펙)을 미리 정해두면 충돌 없이 동시 작업 가능</li>
+      </ul>
+
+      <h3>패턴 2: 구현 / 리뷰 분리</h3>
+      <ul>
+        <li>Claude A: 기능 구현 (코드 작성)</li>
+        <li>Claude B: 코드 리뷰 (품질 검토, 보안 체크)</li>
+        <li>A가 만들면 B가 검토하고, 개선점을 A에게 전달</li>
+      </ul>
+
+      <h3>패턴 3: 기능별 분리</h3>
+      <ul>
+        <li>Claude A: 인증 시스템 (로그인, 회원가입)</li>
+        <li>Claude B: 핵심 기능 (대시보드, 데이터 처리)</li>
+        <li>Claude C: 부가 기능 (알림, 설정, 프로필)</li>
+      </ul>
+
+      <div class="callout">
+        <p class="callout-title">브랜치 전략</p>
+        <p>멀티 에이전트로 일할 때는 <strong>각 Claude에게 별도 브랜치</strong>를 만들어주세요:<br>
+        - <code>feature/login</code>: Claude A 담당<br>
+        - <code>feature/dashboard</code>: Claude B 담당<br>
+        - <code>feature/notifications</code>: Claude C 담당<br><br>
+        다 완성되면 PR(Pull Request)로 메인 브랜치에 합치면 돼요.</p>
+      </div>
+    </section>
+
+    <!-- ====== Exercise ====== -->
+    <section>
+      <div class="exercise-box">
+        <p class="exercise-title">실습: 두 개의 터미널에서 Claude 동시에 실행하기</p>
+        <ol>
+          <li>터미널 두 개를 열어요 (VS Code에서 터미널 분할하면 쉬워요)</li>
+          <li>같은 프로젝트 폴더로 이동하세요</li>
+          <li><strong>터미널 1</strong>에서: "index.html을 만들어줘. 간단한 할 일 목록 앱이야. UI만 먼저 만들어줘. <code>style.css</code>를 불러오는 <code>&lt;link&gt;</code> 태그를 넣어주고, 클래스 이름은 <code>.todo-list</code>와 <code>.todo-item</code>으로 해줘."</li>
+          <li><strong>터미널 2</strong>에서: "style.css를 만들어줘. 할 일 목록 앱을 위한 깔끔한 스타일이야. 파란색 테마로. <code>.todo-list</code>와 <code>.todo-item</code> 두 클래스에 스타일을 넣어줘."</li>
+          <li>두 Claude가 동시에 일하는 걸 지켜보세요!</li>
+          <li>브라우저에서 <code>index.html</code>을 열어 보세요. 파란 스타일이 입혀져 있으면 성공이에요</li>
+        </ol>
+        <p>3번과 4번에서 <strong>파일 이름과 클래스 이름을 미리 못 박은 게 이 실습의 전부</strong>예요. 앞에서 말한 「연결 규칙을 미리 정해두면 충돌 없이 동시 작업」의 가장 작은 실물이 이거죠.</p>
+        <p>정해주지 않으면 어떻게 되냐면, 두 세션은 서로의 대화를 모르니까 각자 다른 클래스 이름을 지어내요. <code>index.html</code>이 <code>style.css</code>를 불러오지도 않고요. 브라우저에서 열면 스타일이 하나도 안 먹은 맨 페이지가 나와요. 같은 파일을 안 건드리는 것만으로는 부족하고, <strong>둘이 만나는 지점을 먼저 정해줘야</strong> 해요.</p>
+      </div>
+    </section>
+
+    <!-- ====== Recap ====== -->
+    <aside class="recap-box">
+      <h3>잠깐, 정리!</h3>
+      <ul>
+        <li><strong>병렬 세션</strong>: 터미널 여러 개에서 Claude Code를 동시에 실행하는 가장 간단한 방법</li>
+        <li><strong>Git Worktree</strong>: 같은 프로젝트를 독립된 작업 공간에서 동시에 개발</li>
+        <li><strong>서브에이전트</strong>: Claude가 자동으로 작업을 분할하고 다른 Claude에게 위임</li>
+        <li>핵심은 <strong>역할 분담</strong>과 <strong>충돌 방지</strong>예요. 각 Claude가 다른 파일/폴더를 담당하게 하세요</li>
+        <li><strong>브랜치 전략</strong>으로 안전하게 병합하세요</li>
+      </ul>
+    </aside>
+
+    <!-- ====== Next Teaser ====== -->
+    <div class="next-teaser">
+      <h3>다음 챕터에서는...</h3>
+      <p>강력한 도구에는 <strong>안전 장치</strong>가 필요해요.<br>
+      Claude에게 모든 걸 맡겨도 될까요? 어디까지 믿고, 어디서 검증해야 할까요?<br>
+      다음 챕터에서 <strong>보안과 안전</strong>을 이야기해봅시다.</p>
+    </div>
+
+  </article>
+
+  <!-- ====== Navigation ====== -->
+  <nav class="chapter-nav">
+    <a href="ch12.html" class="prev">이전: 코딩을 모르는 사람의 앱 만들기</a>
+    <a href="ch14.html" class="next">다음: 보안과 안전</a>
+  </nav>
+
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

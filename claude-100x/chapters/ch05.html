@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 5: Claude Desktop으로 내 컴퓨터와 연결하기 · Claude 100배 활용법</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Claude 100배 활용법</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5 10.1 12 4.5 10l5.6-1.4z"/><path d="M18 16l.8 2.2L21 19l-2.2.8L18 22l-.8-2.2L15 19l2.2-.8z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 마인드 전환</li>
+      <li><a href="ch01.html" class="nav-link">1장 검색 vs 지시</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 Claude를 만나다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 프롬프트의 기술</a></li>
+      <li class="nav-part">제2부: Claude.ai & Desktop</li>
+      <li><a href="ch04.html" class="nav-link">4장 Claude.ai 200%</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 Claude Desktop</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 사무직의 하루</a></li>
+      <li class="nav-part">제3부: Claude Code</li>
+      <li><a href="ch07.html" class="nav-link">7장 Claude Code 시작</a></li>
+      <li><a href="ch08.html" class="nav-link">8장 CLAUDE.md와 컨텍스트</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 Skills</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 Hooks</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 MCP 서버</a></li>
+      <li class="nav-part">제4부: 실전 워크플로</li>
+      <li><a href="ch12.html" class="nav-link">12장 비개발자의 앱 만들기</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 멀티 에이전트 협업</a></li>
+      <li><a href="ch14.html" class="nav-link">14장 보안과 안전</a></li>
+      <li class="nav-part">제5부: 더 멀리 가기</li>
+      <li><a href="ch15.html" class="nav-link">15장 Claude 생태계</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 나만의 워크플로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 프롬프트 레시피</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 5</span>
+    <h1>Claude Desktop으로 내 컴퓨터와 연결하기</h1>
+    <p class="chapter-subtitle">Claude가 내 파일을 직접 읽고 쓸 수 있다고요?</p>
+  </header>
+
+  <article>
+    <p>Claude.ai에서 "내 바탕화면의 Excel 파일을 분석해줘"라고 하면... 당연히 안 됩니다. 웹 브라우저 안에 갇혀 있으니까요. 파일을 일일이 업로드해야 하죠. 하지만 만약 Claude가 내 컴퓨터에 직접 앉아서, 파일을 열어보고, 데이터베이스를 조회하고, 심지어 Teams 메시지까지 보낼 수 있다면?</p>
+
+    <p>그게 바로 <strong>Claude Desktop</strong>이에요.</p>
+
+    <h2>Claude Desktop이란?</h2>
+
+    <p>Claude Desktop은 Mac과 Windows에 설치하는 데스크톱 애플리케이션이에요. 겉보기에는 Claude.ai와 비슷하게 생겼지만, 결정적인 차이가 하나 있어요.</p>
+
+    <div class="callout">
+      <p class="callout-title">Claude Desktop의 핵심 차이점</p>
+      <p><strong>MCP(Model Context Protocol)</strong>를 통해 외부 도구와 연결할 수 있다는 것. Claude.ai가 "대화만 잘하는 AI"라면, Claude Desktop은 "대화도 하고 직접 행동도 하는 AI"예요.</p>
+    </div>
+
+    <h3>설치 방법</h3>
+    <ol>
+      <li><a href="https://claude.ai/download">claude.ai/download</a>에서 Mac 또는 Windows 버전 다운로드</li>
+      <li>설치 파일 실행 후 안내에 따라 설치</li>
+      <li>Claude.ai와 같은 계정으로 로그인</li>
+      <li>기본 대화 기능은 바로 사용 가능!</li>
+    </ol>
+
+    <p>여기까지는 그냥 "데스크톱 버전의 Claude.ai"예요. 진짜 마법은 MCP를 연결할 때 시작돼요.</p>
+
+    <h2>MCP 서버: Claude의 능력 확장</h2>
+
+    <h3>MCP란?</h3>
+    <p><strong>MCP(Model Context Protocol)</strong>는 Anthropic이 만든 개방형 프로토콜이에요. 쉽게 말해서, Claude에게 새로운 능력을 더해주는 규격이에요.</p>
+
+    <div class="fun-box">
+      <p class="fun-box-title">쉬운 비유</p>
+      <p>스마트폰에 앱을 설치하면 새로운 기능이 생기잖아요? 카카오맵 설치하면 길 찾기가 되고, 배달의민족 설치하면 음식 주문이 되고. MCP는 Claude에게 설치하는 "앱"이라고 생각하시면 돼요. <strong>Filesystem MCP를 설치하면 파일을 다루게 되고, GitHub MCP를 설치하면 코드 저장소를 관리하게 돼요.</strong></p>
+    </div>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg">
+        <!-- Title -->
+        <text x="350" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#6B4EE6">Claude Desktop + MCP 구조</text>
+        <!-- Claude Desktop center -->
+        <rect x="250" y="60" width="200" height="80" rx="14" fill="#6B4EE6" stroke="#5A3DD4" stroke-width="2"/>
+        <text x="350" y="95" text-anchor="middle" font-size="16" font-weight="bold" fill="#FFF">Claude Desktop</text>
+        <text x="350" y="118" text-anchor="middle" font-size="12" fill="#E8E0F5">AI 어시스턴트</text>
+        <!-- MCP Protocol layer -->
+        <rect x="150" y="170" width="400" height="40" rx="8" fill="#EDE8FF" stroke="#6B4EE6" stroke-width="1.5"/>
+        <text x="350" y="196" text-anchor="middle" font-size="13" font-weight="bold" fill="#6B4EE6">MCP (Model Context Protocol)</text>
+        <line x1="350" y1="140" x2="350" y2="170" stroke="#6B4EE6" stroke-width="2" stroke-dasharray="6,3"/>
+        <!-- MCP Servers -->
+        <rect x="30" y="240" width="120" height="60" rx="10" fill="#E0F5F5" stroke="#2B8C8C" stroke-width="1.5"/>
+        <text x="90" y="265" text-anchor="middle" font-size="11" font-weight="bold" fill="#2B8C8C">Filesystem</text>
+        <text x="90" y="283" text-anchor="middle" font-size="10" fill="#5A4F6B">파일 읽기/쓰기</text>
+        <line x1="210" y1="210" x2="90" y2="240" stroke="#2B8C8C" stroke-width="1.5"/>
+
+        <rect x="170" y="240" width="120" height="60" rx="10" fill="#FFF9E6" stroke="#F5C542" stroke-width="1.5"/>
+        <text x="230" y="265" text-anchor="middle" font-size="11" font-weight="bold" fill="#D4A017">Database</text>
+        <text x="230" y="283" text-anchor="middle" font-size="10" fill="#5A4F6B">DB 조회/수정</text>
+        <line x1="280" y1="210" x2="230" y2="240" stroke="#D4A017" stroke-width="1.5"/>
+
+        <rect x="310" y="240" width="120" height="60" rx="10" fill="#FDEAE7" stroke="#E85D4A" stroke-width="1.5"/>
+        <text x="370" y="265" text-anchor="middle" font-size="11" font-weight="bold" fill="#E85D4A">GitHub</text>
+        <text x="370" y="283" text-anchor="middle" font-size="10" fill="#5A4F6B">이슈/PR 관리</text>
+        <line x1="400" y1="210" x2="370" y2="240" stroke="#E85D4A" stroke-width="1.5"/>
+
+        <rect x="450" y="240" width="120" height="60" rx="10" fill="#E8F5E9" stroke="#4CAF50" stroke-width="1.5"/>
+        <text x="510" y="265" text-anchor="middle" font-size="11" font-weight="bold" fill="#2E7D32">Teams</text>
+        <text x="510" y="283" text-anchor="middle" font-size="10" fill="#5A4F6B">메시지 보내기</text>
+        <line x1="480" y1="210" x2="510" y2="240" stroke="#4CAF50" stroke-width="1.5"/>
+
+        <!-- Bottom labels -->
+        <rect x="30" y="320" width="120" height="40" rx="8" fill="#F0F0F0" stroke="#CCC" stroke-width="1"/>
+        <text x="90" y="345" text-anchor="middle" font-size="10" fill="#666">내 컴퓨터 파일</text>
+        <line x1="90" y1="300" x2="90" y2="320" stroke="#CCC" stroke-width="1" stroke-dasharray="4,3"/>
+
+        <rect x="170" y="320" width="120" height="40" rx="8" fill="#F0F0F0" stroke="#CCC" stroke-width="1"/>
+        <text x="230" y="345" text-anchor="middle" font-size="10" fill="#666">SQLite, PostgreSQL</text>
+        <line x1="230" y1="300" x2="230" y2="320" stroke="#CCC" stroke-width="1" stroke-dasharray="4,3"/>
+
+        <rect x="310" y="320" width="120" height="40" rx="8" fill="#F0F0F0" stroke="#CCC" stroke-width="1"/>
+        <text x="370" y="345" text-anchor="middle" font-size="10" fill="#666">코드 저장소</text>
+        <line x1="370" y1="300" x2="370" y2="320" stroke="#CCC" stroke-width="1" stroke-dasharray="4,3"/>
+
+        <rect x="450" y="320" width="120" height="40" rx="8" fill="#F0F0F0" stroke="#CCC" stroke-width="1"/>
+        <text x="510" y="345" text-anchor="middle" font-size="10" fill="#666">팀 채널</text>
+        <line x1="510" y1="300" x2="510" y2="320" stroke="#CCC" stroke-width="1" stroke-dasharray="4,3"/>
+      </svg>
+      <figcaption>Claude Desktop은 MCP로 다양한 외부 도구와 이어져요</figcaption>
+    </figure>
+
+    <h2>자주 쓰는 MCP 서버들</h2>
+
+    <p>MCP 서버는 이미 수백 개가 만들어져 있어요. 그중에서 가장 실용적인 것들을 소개할게요.</p>
+
+    <h3>Filesystem: 로컬 파일 읽기/쓰기</h3>
+    <p>가장 기본이면서 가장 강력한 MCP 서버예요. 지정한 폴더 안의 파일을 Claude가 직접 읽고, 수정하고, 새로 만들어요.</p>
+    <div class="scenario-box">
+      <p><strong>활용 예시:</strong> "바탕화면의 '매출데이터.csv'를 읽어서 월별 매출 추이를 분석하고, 요약 보고서를 '매출분석.md'로 저장해줘."</p>
+    </div>
+
+    <h3>Database (SQLite, PostgreSQL): DB 조회</h3>
+    <p>데이터베이스에 직접 연결해서 SQL 쿼리를 실행해요. "지난달 가입한 유저 수 알려줘"라고 자연어로 물어보면, Claude가 알아서 SQL을 짜서 실행해요.</p>
+
+    <h3>GitHub: 이슈/PR 관리</h3>
+    <p>GitHub 저장소의 이슈를 확인하고, Pull Request를 검토하고, 코드 변경 사항을 요약해요.</p>
+
+    <h3>Microsoft Teams: 메시지 보내기</h3>
+    <p>Teams 채널의 메시지를 읽거나, Claude가 직접 메시지를 보내요. "오늘 공지 채널에서 논의된 내용 요약해줘" 같은 것도 가능해요.</p>
+    <p>Slack, Discord를 쓰는 팀이라면 그쪽 MCP 서버로 <strong>그대로 대체</strong>됩니다. 도구만 바뀌고 쓰는 방식은 같아요.</p>
+
+    <h3>Google Drive: 문서 접근</h3>
+    <p>Google Drive의 문서, 스프레드시트, 프레젠테이션에 접근해서 내용을 분석하거나 수정해요.</p>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">여기서부터는 준비물이 필요해요</p>
+      <p>지금까지는 설치하고 클릭하는 것만으로 됐는데, 여기서부터는 <strong>터미널</strong>과 <strong>Node.js</strong>가 있어야 해요. 둘 다 처음 듣는 말이라면 7장의 「터미널 기초」와 Node.js 안내를 먼저 보고 오세요. 터미널 여는 법부터 차근차근 나와요. 그거 하나 보고 오면 이 절이 훨씬 쉬워져요.</p>
+    </div>
+
+    <h2>MCP 서버 설정하기</h2>
+
+    <p>MCP 서버를 연결하는 건 생각보다 간단해요. <code>claude_desktop_config.json</code>이라는 설정 파일에 원하는 MCP 서버 정보를 적어주면 돼요.</p>
+
+    <h3>설정 파일 위치</h3>
+    <ul>
+      <li><strong>Mac:</strong> <code>~/Library/Application Support/Claude/claude_desktop_config.json</code></li>
+      <li><strong>Windows:</strong> <code>%APPDATA%\Claude\claude_desktop_config.json</code></li>
+    </ul>
+
+    <p>맥 경로 앞의 <code>~</code>는 <strong>내 홈 폴더</strong>를 가리키는 기호예요. 맥이면 <code>/Users/내이름</code>이죠. 윈도우의 <code>%APPDATA%</code>는 프로그램 설정이 모이는 숨은 폴더인데, 글자 그대로 붙여넣으면 컴퓨터가 알아서 찾아가요.</p>
+
+    <h3>설정 파일을 실제로 만드는 법</h3>
+
+    <p>"파일을 만들라"는 말이 제일 막막하죠. 윈도우 기준으로 하나씩 짚어볼게요.</p>
+
+    <ol>
+      <li>탐색기를 열고 <strong>위쪽 주소창</strong>에 <code>%APPDATA%\Claude</code>를 그대로 붙여넣은 다음 엔터를 누르세요. Claude Desktop의 설정 폴더로 바로 들어가요.</li>
+      <li>거기에 <code>claude_desktop_config.json</code>이 이미 있으면, 오른쪽 클릭 → 「연결 프로그램」 → <strong>메모장</strong>으로 여세요.</li>
+      <li>없으면 <strong>메모장</strong>을 새로 열어 내용을 적고, 「파일 → 다른 이름으로 저장」에서 <strong>「파일 형식」을 「모든 파일」로 바꾼 다음</strong> 이름을 <code>claude_desktop_config.json</code>으로 적어 이 폴더에 저장하세요.</li>
+    </ol>
+
+    <p>3번의 「모든 파일」이 중요해요. 그냥 저장하면 뒤에 <code>.txt</code>가 몰래 붙어서 Claude가 파일을 못 찾아요. 그리고 워드나 한글로 열면 글꼴과 서식이 섞여 들어가 파일이 깨져요. <strong>메모장처럼 글자만 저장하는 편집기를 쓰세요.</strong> 맥이라면 텍스트편집기를 열고 「포맷 → 일반 텍스트 만들기」를 고른 뒤 위에 적힌 맥 경로에 저장하면 돼요.</p>
+
+    <h3>Filesystem MCP 서버 설정 예시</h3>
+    <pre><code>{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:\\Users\\사용자이름\\Desktop",
+        "C:\\Users\\사용자이름\\Documents"
+      ]
+    }
+  }
+}</code></pre>
+
+    <p>이 설정을 하면 Claude Desktop이 바탕화면과 문서 폴더의 파일을 읽고 쓰게 돼요.</p>
+
+    <p>낯선 게 두 개 보일 거예요. 하나는 <code>npx</code>인데, <strong>미리 설치해두지 않은 패키지를 그때그때 받아서 바로 실행하는 명령</strong>이에요. Node.js를 설치하면 함께 깔리니까 따로 준비할 건 없어요.</p>
+
+    <p>다른 하나는 경로의 역슬래시가 <code>\\</code>처럼 두 번씩 적혀 있다는 점이에요. 오타가 아니에요. <strong>JSON에서는 역슬래시를 두 번 써야 한 번으로 읽혀요.</strong> 한 번만 쓰면 파일 전체가 깨지니 보이는 대로 두 번 적으세요. 맥 경로는 <code>/Users/사용자이름/Desktop</code>처럼 슬래시라서 이 문제가 없어요.</p>
+
+    <div class="callout">
+      <p class="callout-title">보안 주의!</p>
+      <p>MCP는 Claude에게 실제 시스템 접근 권한을 주는 거예요. 꼭 <strong>필요한 폴더만</strong> 지정하고, 민감한 정보가 있는 폴더는 제외하세요. 확인 창이 뜨긴 하지만 거기에는 "이 대화에서 항상 허용"이 있어서, 한 번 허용하면 다음부터는 묻지 않아요. 그러니 <strong>폴더를 지정하는 이 단계에서 걸러야</strong> 합니다.</p>
+    </div>
+
+    <h3>여러 MCP 서버를 함께 쓰는 예시</h3>
+    <p>서버를 더 붙이고 싶으면 <code>mcpServers</code> 안에 항목을 하나 더 적으면 돼요. 생김새는 이래요.</p>
+    <pre><code>{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:\\Users\\사용자이름\\Desktop"
+      ]
+    },
+    "두-번째-서버": {
+      "command": "npx",
+      "args": ["-y", "설치할-MCP-서버-패키지-이름"],
+      "env": {
+        "API_TOKEN": "발급받은토큰"
+      }
+    }
+  }
+}</code></pre>
+
+    <p>패키지 이름과 <code>env</code>에 넣을 값은 서버마다 달라요. 그 서버의 안내 문서에 적힌 그대로 채우면 됩니다. MCP 서버 목록은 계속 바뀌어서 어제 쓰던 패키지가 오늘 없어지기도 하니(2026년 7월 기준), 설치 전에 지금도 관리되는 패키지인지 한 번 확인하세요.</p>
+
+    <div class="workflow-box">
+      <p class="workflow-title">실무 워크플로: MCP로 연결된 Claude Desktop 활용</p>
+      <ol>
+        <li><strong>아침:</strong> "바탕화면의 오늘 할일.txt를 읽어줘" → 할 일 확인</li>
+        <li><strong>오전:</strong> "Documents 폴더의 매출데이터.csv를 분석해서 보고서 초안 만들어줘" → 데이터 분석</li>
+        <li><strong>오후:</strong> "GitHub에서 이번 주 등록된 이슈 목록 보여줘" → 개발 이슈 관리</li>
+        <li><strong>퇴근 전:</strong> "오늘 한 일을 정리해서 업무일지.md로 저장해줘" → 자동 기록</li>
+      </ol>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">실습: Claude Desktop + Filesystem MCP 연결하기</p>
+      <ol>
+        <li><strong>Claude Desktop을 설치</strong>하세요 (아직 안 했다면)</li>
+        <li><strong>Node.js가 설치되어 있는지 확인</strong>하세요. 터미널을 열고 <code>node --version</code>을 입력하면 돼요. 터미널을 여는 법과 Node.js 설치는 7장에 있으니, 처음이라면 거기부터 보고 오세요</li>
+        <li>위의 「설정 파일을 실제로 만드는 법」대로 <strong><code>claude_desktop_config.json</code></strong>을 만들고 Filesystem 설정을 입력하세요</li>
+        <li>Claude Desktop을 <strong>재시작</strong>하세요</li>
+        <li>대화창에 "내 바탕화면에 어떤 파일들이 있는지 보여줘"라고 입력하세요</li>
+        <li>파일 목록이 나오면 성공! 이제 "그중에서 가장 최근 파일의 내용을 요약해줘"도 시도해 보세요</li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>잠깐, 정리!</h3>
+      <ul>
+        <li><strong>Claude Desktop</strong> = Claude.ai + 로컬 시스템 접근 능력</li>
+        <li><strong>MCP</strong>는 Claude에게 새 능력을 추가하는 "앱 스토어" 같은 것</li>
+        <li><strong>Filesystem MCP</strong>로 로컬 파일을 읽고 쓴다</li>
+        <li>GitHub, Microsoft Teams, DB 등 다양한 MCP 서버를 연결한다</li>
+        <li>설정은 <code>claude_desktop_config.json</code>에서 JSON으로 간단하게</li>
+        <li>보안을 위해 필요한 폴더만 지정하자</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>다음 챕터에서는...</h3>
+      <p>지금까지 배운 모든 걸 실전에 적용해 볼 거예요. 사무직 김대리의 하루를 따라가면서, 아침 9시부터 저녁 6시까지 Claude를 어떻게 활용하는지 생생하게 보여드릴게요!</p>
+    </div>
+  </article>
+
+  <nav class="chapter-nav">
+    <a href="ch04.html" class="prev">이전: Claude.ai 200% 활용하기</a>
+    <a href="ch06.html" class="next">다음: 실무 시나리오</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

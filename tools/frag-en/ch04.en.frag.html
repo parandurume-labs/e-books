@@ -1,0 +1,329 @@
+<!--META {
+  "file": "ch04.en.html",
+  "num": "4",
+  "title": "Three tools, three jobs",
+  "subtitle": "Teams delivers, Obsidian is the window, Claude Cowork is the hands",
+  "desc": "Why this combination of Microsoft Teams, Obsidian and Claude Cowork works, what each tool is responsible for, and why you do not need an MCP connector yet.",
+  "minutes": "9",
+  "prev_href": "ch03.en.html",
+  "prev_label": "Previous: Ontology and LLM Wiki are not the same thing",
+  "next_href": "ch05.en.html",
+  "next_label": "Next: Obsidian and the vault"
+} -->
+  <article>
+    <p>Time to talk about what you build this with. You use three tools.</p>
+
+    <table>
+      <thead>
+        <tr><th>Tool</th><th>Job</th><th>In one word</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Microsoft Teams / OneDrive</strong></td><td>Syncs the files to the whole team</td><td>Delivery</td></tr>
+        <tr><td><strong>Obsidian</strong></td><td>People read notes, write notes, see the relations</td><td>The window</td></tr>
+        <tr><td><strong>Claude Cowork</strong></td><td>The AI reads files, writes them, checks them</td><td>The hands</td></tr>
+      </tbody>
+    </table>
+
+    <p>What matters is that <strong>all three share one single folder</strong>. No separate server, no database, no integration setup.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
+        <!-- the folder at the centre -->
+        <rect x="255" y="140" width="210" height="90" rx="12" fill="#0F766E"/>
+        <text x="360" y="172" text-anchor="middle" font-size="15" font-weight="bold" fill="#fff">One vault folder</text>
+        <text x="360" y="196" text-anchor="middle" font-size="11" fill="#D7F2EE">Markdown text files</text>
+        <text x="360" y="214" text-anchor="middle" font-size="11" fill="#D7F2EE">That is all it is</text>
+
+        <!-- Teams -->
+        <rect x="30" y="40" width="180" height="76" rx="10" fill="#FAEADF" stroke="#C2703C" stroke-width="2"/>
+        <text x="120" y="66" text-anchor="middle" font-size="13" font-weight="bold" fill="#C2703C">Teams / OneDrive</text>
+        <text x="120" y="88" text-anchor="middle" font-size="11" fill="#3D2B1F">Auto-syncs to four PCs</text>
+        <text x="120" y="105" text-anchor="middle" font-size="10" fill="#6B5647">= delivery</text>
+        <line x1="150" y1="120" x2="285" y2="136" stroke="#C2703C" stroke-width="2"/>
+
+        <!-- Obsidian -->
+        <rect x="510" y="40" width="180" height="76" rx="10" fill="#D7F2EE" stroke="#0F766E" stroke-width="2"/>
+        <text x="600" y="66" text-anchor="middle" font-size="13" font-weight="bold" fill="#0F766E">Obsidian</text>
+        <text x="600" y="88" text-anchor="middle" font-size="11" fill="#3D2B1F">Read, write, see the graph</text>
+        <text x="600" y="105" text-anchor="middle" font-size="10" fill="#6B5647">= the window</text>
+        <line x1="570" y1="120" x2="435" y2="136" stroke="#0F766E" stroke-width="2"/>
+
+        <!-- Cowork -->
+        <rect x="270" y="280" width="180" height="76" rx="10" fill="#D7F2EE" stroke="#0F766E" stroke-width="2"/>
+        <text x="360" y="306" text-anchor="middle" font-size="13" font-weight="bold" fill="#0F766E">Claude Cowork</text>
+        <text x="360" y="328" text-anchor="middle" font-size="11" fill="#3D2B1F">AI reads, writes, checks</text>
+        <text x="360" y="345" text-anchor="middle" font-size="10" fill="#6B5647">= the hands</text>
+        <line x1="360" y1="276" x2="360" y2="234" stroke="#0F766E" stroke-width="2"/>
+
+        <text x="360" y="26" text-anchor="middle" font-size="12" fill="#6B5647">No server · no database · no integration setup</text>
+      </svg>
+      <figcaption>All three tools look at the same folder. That is why there is no integration work at all.</figcaption>
+    </figure>
+
+    <h2>Teams / OneDrive: delivery</h2>
+
+    <p>You are probably already using it. If your company runs Microsoft 365, this costs nothing extra.</p>
+
+    <p>Teams does exactly one thing here. <strong>You make one shared folder in Teams and it syncs automatically to everyone's PC.</strong> When someone edits a note, it shows up on the other machines within minutes.</p>
+
+    <h3>Why this is good</h3>
+
+    <ul>
+      <li><strong>Your company accounts already handle permissions.</strong> One account per person controls access. No new accounts to create.</li>
+      <li><strong>Backup is automatic.</strong> OneDrive version history rolls a file back.</li>
+      <li><strong>Offboarding is easy.</strong> Disable the account and access stops.</li>
+      <li><strong>Zero extra cost.</strong> You use what you already have.</li>
+    </ul>
+
+    <h3>What it costs you</h3>
+
+    <p>Two problems come with it. Chapter 6 covers them properly, but here is the warning up front.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Problem 1 · cloud-only files</p>
+      <p>By default OneDrive keeps files in the cloud and downloads one only when you open it. File Explorer shows the file, but <strong>it is not actually on the PC</strong>.</p>
+      <p>For a person opening notes in Obsidian this causes no trouble, because opening a note downloads it. <strong>The AI, though, reads only what is really on disk.</strong> So you end up in the situation where the file is right there and the AI cannot read it.</p>
+      <p>The fix is one right-click on the folder, then <strong>"Always keep on this device."</strong> It is the single most important click in this book.</p>
+    </div>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Problem 2 · edit conflicts</p>
+      <p>When two people edit the same note at once, OneDrive makes a conflict copy named something like <code>filename 1.md</code>. There is no live merge the way Google Docs does it.</p>
+      <p>Technology will not stop this. <strong>An operating rule will.</strong> Divide up who owns which axis, and let only the author edit their own worklog. Chapter 6 goes through how to split the work.</p>
+    </div>
+
+    <h3>It does not have to be Teams</h3>
+
+    <p>Google Drive works. Dropbox works. Even a GitHub repository works. Anything that syncs files to several PCs will do the job. Each one behaves a little differently, though.</p>
+
+    <table>
+      <thead>
+        <tr><th>Option</th><th>Upside</th><th>Downside</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Teams / OneDrive</td><td>Ties into company permissions. No extra cost</td><td>The cloud-only file trap. No conflict merge</td></tr>
+        <tr><td>Google Drive</td><td>Familiar</td><td>Needs the desktop sync app. Conflicts behave the same way</td></tr>
+        <tr><td>Dropbox</td><td>The most reliable syncing</td><td>Paid. Permissions become a separate job</td></tr>
+        <tr><td>Git (GitHub and friends)</td><td>Merges conflicts properly. Perfect change history</td><td><strong>A steep wall for non-developers</strong></td></tr>
+      </tbody>
+    </table>
+
+    <p>On technical merit alone Git wins. With non-developers on the team it is hard in practice. If every note means a commit and a push, three minutes a day turns into ten, and then nobody does it. <strong>Sustainability matters more than technical superiority.</strong></p>
+
+    <h2>Obsidian: the window</h2>
+
+    <p>Obsidian is <strong>an app that shows markdown files as a wiki</strong>. It is free, and it does not take your data to its own servers.</p>
+
+    <h3>What Obsidian does</h3>
+
+    <ul>
+      <li><strong>Wikilinks.</strong> Write <code>[[Warebot]]</code> and you get a link to that note.</li>
+      <li><strong>Backlinks.</strong> It shows you every other note pointing at this one, automatically. This matters more than it sounds.</li>
+      <li><strong>Graph view.</strong> It draws the connections between notes. Orphaned notes stand out at a glance.</li>
+      <li><strong>Fast search.</strong> It searches the whole vault instantly.</li>
+    </ul>
+
+    <h3>What Obsidian does not do</h3>
+
+    <p>This part matters more. Obsidian <strong>does not lock your data into its own format.</strong></p>
+
+    <div class="callout">
+      <p class="callout-title">The real reason for this combination</p>
+      <p>Your knowledge stays as <strong>plain text files</strong>. If Obsidian disappears, if the company switches tools, if the AI changes, the files still open.</p>
+      <p>With Notion or another SaaS wiki, the data sits on their servers in their format. Export exists, and the structure breaks on the way out. <strong>Putting your company's core knowledge in someone else's format is a risk.</strong></p>
+    </div>
+
+    <h3>But do we really need Obsidian</h3>
+
+    <p>If your company already runs on Microsoft 365, this question comes up on its own. You have Teams and OneDrive, and here is one more app to install.</p>
+
+    <p>The honest answer: <strong>this system runs without Obsidian.</strong></p>
+
+    <p>Look at what actually does the work in this book. Cowork reads the files in the folder directly (Chapter 7). The check scripts read files (Chapter 17). The script that draws the dashboard only looks at frontmatter (Chapter 15). Power Automate reads through SharePoint (Chapter 14). <strong>None of the four goes through Obsidian.</strong> A <code>[[Warebot]]</code> is just characters on a line, so the AI follows that link with no Obsidian anywhere in sight.</p>
+
+    <p>So what does Obsidian do. <strong>It lets a person see the graph.</strong> That is all it does, and it earns its place doing it.</p>
+
+    <table>
+      <thead>
+        <tr><th>Drop Obsidian and you lose</th><th>What you do instead</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Clicking a link to move around</td><td>Search by filename. Slower, but it works</td></tr>
+        <tr><td>Backlinks (the list of notes pointing at this one)</td><td>Write a script. Nothing appears on its own</td></tr>
+        <tr><td>Graph view</td><td>Gone. This is how Pickview shows up as an isolated dot in Chapter 5</td></tr>
+        <tr><td>Links following a rename</td><td>Rename in Explorer or SharePoint and every link breaks (Appendix C)</td></tr>
+      </tbody>
+    </table>
+
+    <p>That last row hurts the most in practice. Note names change more often than you would think.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">Being removable is the argument for it</p>
+      <p>This book does not recommend a tool like Notion, because the data ends up locked in someone else's format. Hold Obsidian to that same standard and <strong>the fact that you lose nothing by removing it</strong> is a passing grade. The vault is a folder. The notes are text files.</p>
+      <p>So put it this way. <strong>Take away sync (Teams/OneDrive) or Cowork and the system stops. Take away Obsidian and it keeps running.</strong> It is free and it locks up nothing, so there is no particular reason to take it away either.</p>
+      <p>One caution. A tool that <strong>saves in its own format</strong>, like OneNote or Loop, cannot stand in for Obsidian. That is not swapping the window; that is throwing out the premise of this book.</p>
+    </div>
+
+    <h3>You do not need plugins</h3>
+
+    <p>Obsidian has a huge community plugin ecosystem, AI plugins included. This book <strong>uses none of them.</strong></p>
+
+    <p>There is a reason. While building this system we did install an LLM wiki plugin, and we pulled it back out three weeks later. Chapter 13 walks through that call in detail. The core reasons were these.</p>
+
+    <ul>
+      <li>The AI model the plugin used did not understand our ontology.</li>
+      <li>It generated English notes from Korean sources, so company names came out translated and distorted.</li>
+      <li>By design it would produce <strong>low-quality duplicate notes competing</strong> with the human-verified ones.</li>
+      <li>Claude Cowork did the same job better.</li>
+    </ul>
+
+    <p>Plugins are not the problem. The lesson is that <strong>when two tools do the same job, you end up trusting neither.</strong></p>
+
+    <h2>Claude Cowork: the hands</h2>
+
+    <p>This is where the system gets its actual power.</p>
+
+    <p>Claude Cowork is a feature of the Claude desktop app, and it <strong>reads and writes folders on your computer directly.</strong> You do not upload files into a chat window. It reaches the folder itself.</p>
+
+    <h3>Upload versus folder access</h3>
+
+    <table>
+      <thead>
+        <tr><th></th><th>File upload (ordinary chat)</th><th>Folder access (Cowork)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Scope</td><td>The few files you picked</td><td>The whole folder</td></tr>
+        <tr><td>Search everything</td><td>No</td><td>Yes, regular expressions included</td></tr>
+        <tr><td>Editing files</td><td>No. You get a new file and save it yourself</td><td>Edits in place</td></tr>
+        <tr><td>Batch work across files</td><td>No</td><td>Yes</td></tr>
+        <tr><td>Running code</td><td>No</td><td>Yes, Python scripts and the like</td></tr>
+        <tr><td>Re-uploading every time</td><td>Required</td><td>Not needed</td></tr>
+      </tbody>
+    </table>
+
+    <p>The third and fifth rows are the decisive ones. <strong>The AI writes code and runs it against the vault.</strong> Quality checks, bulk edits and link analysis all come out of that.</p>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: day one</p>
+      <p>On the day Solbit Tech first set this up, here is what Claude did.</p>
+      <ul>
+        <li>Swept the whole vault folder and mapped the structure of 105 existing files</li>
+        <li>Created 40 files: the ontology design doc, the glossary, the operating guide, 7 templates and more</li>
+        <li>Wrote a Python quality-check script and ran it → <strong>found 19 rule violations</strong></li>
+        <li>Fixed all 19 in one pass and ran it again → 0 left</li>
+      </ul>
+      <p>Watch the third and fourth items. The AI <strong>checked its own output.</strong> There really were a few YAML syntax mistakes, and the script caught them.</p>
+      <p>File uploads cannot do this. There is no way to run the code.</p>
+    </div>
+
+    <h3>What Cowork cannot do</h3>
+
+    <p>The limits, honestly.</p>
+
+    <table>
+      <thead>
+        <tr><th>Cannot do</th><th>What that means</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Drive features inside the Obsidian app</td><td>It cannot press a plugin button or look at the graph view. Links are text, though, so it analyzes those directly.</td></tr>
+        <tr><td>Run on mobile</td><td>Desktop app only.</td></tr>
+        <tr><td>Read cloud-only files</td><td>The OneDrive trap from earlier. You need the "always keep" setting.</td></tr>
+        <tr><td>Block a rule violation outright</td><td>Rules work by the AI reading them and following them. Verification comes after the fact. That is why you need the check scripts in Chapter 17.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>The question everyone asks: "do we have to build an MCP?"</h2>
+
+    <p>Read around this topic and <strong>MCP</strong> (Model Context Protocol) comes up. It is a standard for connecting AI to outside tools and services. Several MCP servers for Obsidian are already public.</p>
+
+    <p>So this question comes up a lot. "Should we install an Obsidian MCP? Should we build our own?"</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">The answer: not yet</p>
+      <p>An Obsidian vault is <strong>just a pile of markdown files</strong>. Cowork handles the folder directly, so <strong>you do not need an MCP to get access</strong>. Direct file access is the stronger option anyway. Whole-vault search, running code and bulk editing are slow through MCP tool calls, or simply impossible.</p>
+    </div>
+
+    <p>There are cases where MCP genuinely pays off, though.</p>
+
+    <table>
+      <thead>
+        <tr><th>Situation</th><th>What to pick</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>You want to read and write the vault on a PC</td><td><strong>Cowork folder access.</strong> No MCP needed</td></tr>
+        <tr><td>You want to look the vault up from mobile or ordinary chat</td><td>A community MCP (the Local REST API family)</td></tr>
+        <tr><td>You want rule violations <strong>blocked up front</strong> instead of caught afterwards</td><td>Build your own MCP</td></tr>
+      </tbody>
+    </table>
+
+    <p>The third is the only one with a real payoff. An MCP server enforces "reject anything malformed" without exception. If the AI forgets the rule, the server still stops it.</p>
+
+    <p>Build this <strong>after you have watched the problem</strong>, not before. Design a system for a problem you have not met yet and you build what you do not need while missing what you do. Run the vault for two or three weeks and you will have data on how often the rules actually break. Decide then.</p>
+
+    <div class="fun-box">
+      <p class="fun-box-title">How this book leans</p>
+      <p>Use few tools. If one will do, use one.</p>
+      <p>Knowledge systems most often die not from too few tools but from <strong>too much to maintain</strong>. Install five plugins, three MCPs and ten automation scripts, and six months later maintaining them is the job.</p>
+    </div>
+
+    <h2>The whole picture</h2>
+
+    <p>Part 2 starts the actual building. At the end you have a folder like this.</p>
+
+    <div class="file-tree">Solbit Tech Wiki/
+├── 000-home.md              <span class="comment">Entry point. Start here</span>
+├── CLAUDE.md              <span class="comment">Rules for AI (Chapter 11)</span>
+├── .claude/
+│   └── skills/            <span class="comment">Skill sources (Chapter 13)</span>
+├── _ops/                  <span class="comment">Operating conventions</span>
+│   ├── 00-getting-started.md       <span class="comment">Onboarding for new people</span>
+│   ├── 01-ontology-design.md <span class="comment">The knowledge scheme (Part 3)</span>
+│   ├── 02-terminology.md      <span class="comment">Approved and banned wording</span>
+│   ├── 03-operations-guide.md      <span class="comment">Day-to-day rules</span>
+│   ├── templates/         <span class="comment">7 note templates (Chapter 12)</span>
+│   └── scripts/           <span class="comment">Quality-check scripts (Chapter 17)</span>
+├── _moc/                  <span class="comment">Dashboards and hub notes (Chapter 15)</span>
+├── _reports/              <span class="comment">Check and retro output (Chapter 17)</span>
+└── Sources/               <span class="comment">The knowledge itself</span>
+    ├── 00-Company/        <span class="comment">Company, org, capabilities, IP</span>
+    ├── 10-Products/       <span class="comment">Products</span>
+    ├── 20-Projects/       <span class="comment">Business and projects</span>
+    ├── 30-Partners/       <span class="comment">Partners and customers</span>
+    ├── 40-Worklog/        <span class="comment">Meetings, worklogs, decisions</span>
+    └── 90-Reference/      <span class="comment">External references, regulations</span></div>
+
+    <p>The second and third rows from the bottom are easy to mix up, so here is the split up front. Both are places automation is allowed to create files, and one rule tells them apart. <code>_reports/</code> is for things that carry a date and pile up; <code>_moc/</code> is for things where only the latest one survives. Check results go in the first, dashboards in the second. Chapter 17 uses this rule again.</p>
+
+    <p><code>.claude/</code> starts with a dot, so it does not show up in the Obsidian file list. It is the same kind of thing as <code>.obsidian</code> in Chapter 5, and its absence does not stop a person from reading and writing notes. You build it in Chapter 13.</p>
+
+    <p>It looks like a lot, and most of it you build once and never touch again. What you use every day is the axis folders inside <code>Sources/</code>.</p>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: check your setup</p>
+      <p>Run through this before you move on to Part 2.</p>
+      <ol>
+        <li><strong>Does your company run Microsoft 365?</strong> If not, Google Drive or Dropbox stands in fine. Decide which one now.</li>
+        <li><strong>Does everyone work from a desktop or a laptop?</strong> Anyone who lives on a tablet or a phone will end up reading in Obsidian and nothing more.</li>
+        <li><strong>Do you have an account that can use the Claude desktop app?</strong> If not, sort that out first.</li>
+        <li><strong>Name one knowledge owner.</strong> This is the person who designs the ontology and runs the weekly check. Usually it is the CEO, but if someone on the team enjoys organizing documents, they are the better pick.</li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li>The three tools <strong>share one single folder</strong>. No server, no database, no integration setup</li>
+        <li><strong>Teams/OneDrive</strong> = delivery. Your company accounts already handle permissions and backup. In exchange you get the cloud-only file trap and edit conflicts</li>
+        <li><strong>Obsidian</strong> = the window. Wikilinks, backlinks, graph view. Above all it leaves your data as <strong>plain text files</strong></li>
+        <li><strong>Claude Cowork</strong> = the hands. Direct folder access. Whole-vault search, bulk edits and <strong>running code</strong></li>
+        <li>No plugins. When two tools do the same job, you end up trusting neither</li>
+        <li><strong>You do not need MCP yet.</strong> If access is the goal, direct folder access is stronger. Revisit it when you need violations blocked up front</li>
+        <li>Use few tools. A knowledge system dies from <strong>maintenance load</strong>, not from a shortage of tools</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>Coming up</h3>
+      <p>Now your hands move. You install Obsidian and make a vault. What a vault is, why it has to be a folder and not a database, what markdown and wikilinks are: one at a time, written for someone seeing all of it for the first time.</p>
+    </div>
+  </article>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parandurumi e-book collection</title>
+  <meta name="description" content="An e-book collection built on AI and open source, starting in Gwangmyeong, Gyeonggi-do. Free for anyone to read, share, and contribute to.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/book.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+  <style>
+    .collection { max-width: 54rem; margin: 0 auto; padding: 0 var(--s5) var(--s9); }
+    .col-hero { max-width: 54rem; margin: 0 auto; padding: var(--s9) var(--s5) var(--s7); }
+    .col-title { font-size: var(--fs-hero); letter-spacing: -0.035em; margin-bottom: var(--s4); }
+    .col-lede { font-size: var(--fs-lead); color: var(--ink-2); line-height: var(--lh-snug); margin: 0 0 var(--s5); max-width: 34rem; word-break: keep-all; }
+    .col-meta { display: flex; gap: var(--s5); font-size: var(--fs-sm); color: var(--ink-4); }
+
+    .shelf-label {
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-4); padding-bottom: var(--s3); border-bottom: 1px solid var(--line);
+      margin-bottom: var(--s2);
+    }
+    .book-row {
+      display: grid; grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+      gap: var(--s5); align-items: center;
+      padding: var(--s5) var(--s3);
+      border-bottom: 1px solid var(--line);
+      color: inherit;
+      transition: background var(--dur) var(--ease);
+    }
+    .book-row:hover { background: var(--surface-2); text-decoration: none; }
+    .book-index {
+      font-family: var(--font-display); font-size: 1.5rem; font-weight: 600;
+      font-variant-numeric: tabular-nums; letter-spacing: -0.03em;
+      color: var(--ink-4); text-align: right;
+    }
+    .book-row:hover .book-index { color: var(--accent); }
+    .book-name { font-size: var(--fs-h3); font-weight: 600; letter-spacing: -0.02em; margin: 0 0 var(--s2); }
+    .book-note { font-size: var(--fs-cap); color: var(--ink-3); line-height: 1.65; margin: 0 0 var(--s3); word-break: keep-all; }
+    .book-facts { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3); font-size: var(--fs-xs); color: var(--ink-4); }
+    .badge {
+      display: inline-block; padding: 2px var(--s2);
+      font-size: var(--fs-xs); font-weight: 600;
+      border-radius: 100px; border: 1px solid var(--line-2); color: var(--ink-3);
+    }
+    .badge-wip { color: var(--accent-ink); border-color: var(--accent-line); background: var(--accent-tint); }
+    .book-go { color: var(--ink-4); display: inline-flex; }
+    .book-row:hover .book-go { color: var(--accent); }
+
+    .col-note {
+      margin-top: var(--s7); padding: var(--s5);
+      background: var(--surface-2); border-radius: var(--radius-lg);
+      font-size: var(--fs-cap); color: var(--ink-2); line-height: 1.8;
+    }
+    .col-note p { margin: 0 0 var(--s3); }
+    .col-note p:last-child { margin: 0; }
+    .col-note code {
+      font-family: var(--font-mono); font-size: 0.875em;
+      background: var(--surface); border: 1px solid var(--line);
+      padding: 0.15em 0.4em; border-radius: 5px;
+    }
+
+    @media (max-width: 640px) {
+      .book-row { grid-template-columns: 2.5rem minmax(0, 1fr); gap: var(--s4); }
+      .book-go { display: none; }
+      .col-meta { flex-direction: column; gap: var(--s2); }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-bar" id="progressBar"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="mobile-header">
+    <span class="mobile-title">Parandurumi e-books</span>
+    <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="Toggle dark mode">
+      <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+      <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+    </button>
+  </header>
+
+  <main class="main-content" id="main">
+
+    <section class="col-hero">
+      <h1 class="col-title">Parandurumi<br>e-book collection</h1>
+      <p class="col-lede">
+        Stories built on AI and open source, starting in <strong>Gwangmyeong, Gyeonggi-do</strong>.
+        Free for anyone to read, share, and contribute to.
+      </p>
+      <div class="col-meta">
+        <span>Korean</span>
+        <span>Free · Open license</span>
+        <span>4 books · 60+ chapters</span>
+      </div>
+    </section>
+
+    <section class="collection">
+      <div class="shelf-label">e-Books</div>
+
+      <a href="skills-creation/" class="book-row">
+        <span class="book-index">01</span>
+        <span>
+          <h2 class="book-name">Build Your Own AI Skill (Korean)</h2>
+          <p class="book-note">A handbook for building AI skill packages that anyone can follow, even a complete beginner who doesn't know what GenAI is. Why to build a skill, how to build one, and the open-source spirit behind it.</p>
+          <span class="book-facts">
+            <span class="badge">v1.0</span>
+            <span>16 chapters · 4 appendices</span>
+          </span>
+        </span>
+        <span class="book-go" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a href="gstack-introduction/" class="book-row">
+        <span class="book-index">02</span>
+        <span>
+          <h2 class="book-name">A Complete Beginner's Guide to gstack (Korean)</h2>
+          <p class="book-note">Build like a team, alone, with AI. Introduces every gstack skill from a beginner's perspective, covering conductor, review, browse, and deploy all in one place.</p>
+          <span class="book-facts">
+            <span class="badge">v1.0</span>
+            <span>15 chapters</span>
+          </span>
+        </span>
+        <span class="book-go" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a href="claude-100x/" class="book-row">
+        <span class="book-index">03</span>
+        <span>
+          <h2 class="book-name">Getting 100x More Out of Claude (Korean)</h2>
+          <p class="book-note">Don't search, instruct. A hands-on guide to using Claude, from Claude.ai to Claude Code, as a tool that gets work done rather than a search engine. Covers prompts, Skills, Hooks, and MCP.</p>
+          <span class="book-facts">
+            <span class="badge">v1.0</span>
+            <span>16 chapters · 2 appendices</span>
+          </span>
+        </span>
+        <span class="book-go" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <a href="building-company-llm-wiki/index.en.html" class="book-row">
+        <span class="book-index">04</span>
+        <span>
+          <h2 class="book-name">Building a Company LLM Wiki</h2>
+          <p class="book-note">Turn scattered company knowledge into your organization's brain. Design an ontology with Microsoft Teams + Obsidian + Claude Cowork, automate it with scheduling, make work in progress visible, and take it all the way to your company's AX.</p>
+          <span class="book-facts">
+            <span class="badge badge-wip">In progress</span>
+            <span>19 chapters · 3 appendices</span>
+            <span>8 chapters live</span>
+          </span>
+        </span>
+        <span class="book-go" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+
+      <div class="col-note">
+        <p><strong>How to read.</strong> Click a title above to start reading right away. Each book supports a sidebar table of contents, dark mode, and <code>⌘K</code> search.</p>
+        <p><strong>Contributing.</strong> Typo fixes, content improvements, translations, new e-book proposals — all welcome. Open an issue or send a PR.</p>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="footer-logo">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H19v3H6.5A2.5 2.5 0 0 1 4 20.5z"/></svg>
+          </span>
+          <span>Parandurumi e-books</span>
+        </div>
+        <p class="footer-message">
+          Share freely, credit the source, and <span class="footer-highlight">discover Gwangmyeong.</span><br>
+          This work is licensed under GM-Social License. Use it, change it, share it freely.<br>
+          Just one thing — remember that this project started in Gwangmyeong, Gyeonggi-do.
+        </p>
+        <div class="footer-links">
+          <a href="https://github.com/parandurume-labs/e-books" target="_blank" rel="noopener">GitHub</a>
+          <span class="footer-divider">·</span>
+          <a href="https://github.com/parandurume-labs/e-books/issues" target="_blank" rel="noopener">Contribute</a>
+          <span class="footer-divider">·</span>
+          <a href="LICENSE">License</a>
+        </div>
+        <p class="footer-copy">
+          &copy; 2026 Parandurumi Inc. · Licensed under GM-Social License v2.0
+          <br>Made with AI in Gwangmyeong, Gyeonggi-do, South Korea.
+        </p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="assets/js/book.js"></script>
+</body>
+</html>

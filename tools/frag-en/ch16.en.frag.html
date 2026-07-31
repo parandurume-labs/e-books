@@ -1,0 +1,524 @@
+<!--META {
+  "file": "ch16.en.html",
+  "num": "16",
+  "title": "Twelve automation recipes",
+  "subtitle": "The first one is shown end to end, with nothing left out",
+  "desc": "Structuring meeting notes, drafting proposals, onboarding packs, contract expiry watches and more. Recipe 1 shows the messy input, the prompt, the output, the checks, and the four things the AI got wrong first.",
+  "minutes": "20",
+  "prev_href": "ch15.en.html",
+  "prev_label": "Previous: Making work in progress visible",
+  "next_href": "ch17.en.html",
+  "next_label": "Next: Quality, kept in code"
+} -->
+  <article>
+    <p>Put together everything you have built so far and you have these ingredients. The vault (Part 2), the ontology (Part 3), the rules and templates and skills (Part 4), the schedules and the dashboard (Chapters 14 and 15).</p>
+
+    <p>This chapter is <strong>twelve dishes</strong> you cook with those ingredients. The first dish you get <strong>in full, with nothing left out</strong>. The messy meeting note that went in, the whole prompt, the whole output, how to check it, and <strong>what the AI got wrong at first and how the prompt changed</strong>.</p>
+
+    <div class="callout">
+      <p class="callout-title">Why show one all the way through</p>
+      <p>Explaining why this system is useful does not land. <strong>Watch a messy input turn into structured knowledge once</strong> and you adapt it on your own from there.</p>
+      <p>So recipe 1 takes half of this chapter. The other eleven are short. They are a list you come back to when you need one.</p>
+    </div>
+
+    <h2>Recipe 1 · Structuring a meeting note, end to end</h2>
+
+    <p>The one you use most and the one that pays off most. If you cannot do this, the other eleven do not work. It is <strong>the door knowledge comes in through</strong>.</p>
+
+    <h3>ⓐ Input: this is what it actually looks like</h3>
+
+    <p>Typed fast on a laptop during the meeting. Not tidied up afterwards. Real meeting notes look like this.</p>
+
+    <pre><code>7/15 weekly
+
+- daesung logistics meeting readout (park sales)
+  - interested in warebot. but its a cold storage site so theyre worried about the recognition rate
+  - asked if we had data, we said no
+  - agreed to send them material by mid aug
+- city gov open call (kim ceo)
+  - deadline 8/8. decided to go for it this time
+  - reason we lost last year was not enough field validation → can we use the daesung thing as validation?
+  - lee ceo: cant, no contract yet. go with warebots existing 3 sites
+- pickview (lee cto)
+  - confirmed reusing the object recognition module. not building new
+  - beta target sept. but no people so might slip
+- waretwin
+  - hold for now. cant sell without field validation
+  - TRL 4 is the right read (existing docs say 6 but thats overstated)</code></pre>
+
+    <p>Six kinds of information are mixed into that memo. Customer information, decisions, action items, a change of product status, a technology reuse relationship, and <strong>a correction to an existing record</strong>. The last line matters most. The correction that "the TRL 6 we wrote down was overstated" exists nowhere else. If this memo stays in a personal folder that correction disappears, and TRL 6 goes into the next proposal too.</p>
+
+    <h3>ⓑ The prompt: copy this</h3>
+
+    <p>With your vault folder connected in Cowork, give it these instructions.</p>
+
+    <pre><code>Structure the meeting note below according to the vault rules.
+
+## Order
+1. First save the raw note to Sources/40-Worklog/2026-07-15-weekly-meeting.md
+   Do not change a single character of the raw note. Leave the typos as they are.
+2. Extract the following from the raw note.
+   - decision: anything phrased as "we decided to". Record the alternatives and the reasons with it
+   - action: anything with an owner and a deadline
+   - fact change: anything that requires changing a field on an existing note
+   - new entity: any organization, product or technology with no note in the vault yet
+3. Show what you extracted as a table first. Do not create any files yet.
+4. Once I approve, create or edit the notes.
+
+## Rules
+- Do not infer anything that is not in the meeting note. If it is ambiguous, leave it as 확인 필요
+- Mark uncertain statements ("seems like", "they said") as confidence: draft
+- If you find anything that contradicts an existing note, do not fix it. Report it separately as a contradiction
+- Write people's names exactly as they appear in the raw note. Do not guess titles and attach them
+- Mark the name of any pre-contract customer as confidential: 대외비</code></pre>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">Steps 3 and 4 are the heart of this prompt</p>
+      <p><strong>"Show me a table first, write only after I approve."</strong> Drop those two steps and the AI creates eight notes at once, two of them wrong, and you cannot tell which two.</p>
+      <p>Once you are used to it you can trim these steps. But <strong>check the first twenty runs without exception.</strong> Over those twenty you will change the prompt, and the changed prompt becomes the skill from Chapter 13.</p>
+    </div>
+
+    <h3>ⓒ First result: the table it came back with</h3>
+
+    <p>The AI reported this.</p>
+
+    <table>
+      <thead>
+        <tr><th>Type</th><th>What</th><th>Target note</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Decision</td><td>Enter the city government open call. Use Warebot's three existing sites as the field validation evidence instead of Daesung Logistics <br><em>Reason: Daesung Logistics has no contract yet, so it cannot be presented as a track record</em></td><td>New <code>40-Worklog/DEC-2026-0715-JoinCityCall.md</code></td></tr>
+        <tr><td>Decision</td><td>Pickview reuses the object recognition module. No new development</td><td>Add <code>pdm_uses</code> to existing <code>10-Products/Pickview.md</code></td></tr>
+        <tr><td>Decision</td><td>Hold sales on WareTwin until field validation exists</td><td>Existing <code>10-Products/WareTwin.md</code> · <code>status: 보류</code></td></tr>
+        <tr><td>Action</td><td>Prepare cold storage recognition rate data (owner park sales · due 2026-08-15)</td><td>Action item inside the decision note</td></tr>
+        <tr><td>Fact change</td><td>Pickview beta target September. May slip for lack of people</td><td><code>10-Products/Pickview.md</code> · <code>due</code>, <code>risk</code></td></tr>
+        <tr><td><strong>Contradiction</strong></td><td><strong>WareTwin TRL: existing note says 6, meeting note says 4. The meeting said "6 is overstated"</strong></td><td><strong>Needs a human decision</strong></td></tr>
+        <tr><td>New entity</td><td>Daesung Logistics (organization · prospect)</td><td>New <code>30-Partners/DaesungLogistics.md</code> · <code>confidential: 대외비</code></td></tr>
+        <tr><td>Needs checking</td><td>Cannot tell whether "lee ceo" and "kim ceo" are the same person</td><td>-</td></tr>
+      </tbody>
+    </table>
+
+    <p>The <strong>last three rows are what this system is worth</strong>. One at a time.</p>
+
+    <h4>It caught the contradiction</h4>
+
+    <p>TRL 6 in the existing note, TRL 4 in the meeting note. The AI <strong>changed neither and asked you instead.</strong> "Contradictions sit there quietly," which Chapter 2 raised as RAG's problem, runs in reverse here.</p>
+
+    <p>Work out why that matters. Submit a proposal claiming TRL 6, get caught in review, and the bid is over. <strong>That correction went past in conversation and nobody would have written it down.</strong> This is exactly how those accidents happen.</p>
+
+    <h4>It stopped a pre-contract customer being used as a track record</h4>
+
+    <p>The meeting already made the call, and <strong>the reason for the call</strong> is in the decision note too. Six months later someone else wrestling with the same question finds this note. "Can we use Daesung Logistics as a track record?" The answer is already there.</p>
+
+    <h4>It did not guess at a person's name</h4>
+
+    <p>"lee ceo" and "kim ceo". The AI did not merge them; it asked. Because the prompt said <strong>"do not guess titles and attach them."</strong> Without that one line the AI ties the two together as one person, or invents someone who does not exist.</p>
+
+    <h3>ⓓ The generated note: the actual file</h3>
+
+    <p>Here is the decision note it created after approval.</p>
+
+    <pre><code>---
+class: 결정
+id: DEC-2026-0715-01
+date: 2026-07-15
+source: "[[2026-07-15-weekly-meeting]]"
+participants: ["kim ceo", "park sales", "lee cto"]
+related:
+  - "[[OPP-2026-CityCall]]"
+  - "[[Warebot]]"
+  - "[[Daesung Logistics]]"
+confidence: reviewed
+updated: 2026-07-15
+---
+
+# City government open call: entry, and the field validation evidence
+
+## Decision
+Enter the 2026 city government open call. Deadline 2026-08-08.
+Use **Warebot's three existing sites** as the field validation evidence.
+
+## Considered and rejected
+| Option | Why we rejected it |
+|---|---|
+| Use the Daesung Logistics case as field validation | No contract signed yet. We cannot present it as a track record |
+
+## Background
+Last year the same call rejected us for "not enough field validation".
+
+## Action
+- [ ] Prepare cold storage recognition rate data · park sales · 2026-08-15
+</code></pre>
+
+    <div class="callout">
+      <p class="callout-title">"Considered and rejected" is the heart of this note</p>
+      <p>In Chapter 1 the second symptom of knowledge fragmentation was <strong>"the reason behind a decision disappears."</strong> An ordinary meeting note records only "agreed to go with the Warebot sites." <strong>What the alternative was and why you dropped it goes unwritten.</strong></p>
+      <p>So six months later you hold the same discussion from the beginning. This one table breaks that loop. Put the field in the template and <strong>the AI fills it every time.</strong> Nobody has to remember to.</p>
+    </div>
+
+    <h3>ⓔ Checking: what to look at</h3>
+
+    <p>A result is not the end of it. For the first twenty runs, look at the four things below. It takes a minute.</p>
+
+    <div class="checklist">
+      <p class="checklist-title">Four checks on a structured result</p>
+      <ul>
+        <li><strong>Whether a sentence that is not in the raw note got in.</strong> The most common accident. Take the sentences in the decision note and go find them in the raw note. If you cannot, the AI made them up.</li>
+        <li><strong>Whether it left "needs checking" honestly.</strong> If it smoothed the ambiguous parts into something tidy, your prompt is weak. <strong>Be suspicious of output where the ambiguity has vanished.</strong></li>
+        <li><strong>Whether the links point at real notes.</strong> Write <code>[[Daesung Logistics]]</code> with no such note and you have a broken link. It shows up grey in Obsidian.</li>
+        <li><strong>Whether the confidentiality marks are there.</strong> Pre-contract customers, unpublished figures, salaries. These are hard to find after the fact.</li>
+      </ul>
+    </div>
+
+    <h3>ⓕ What went wrong first, and how the prompt changed</h3>
+
+    <p>The prompt above did not start out that way. It went through four rounds of fixes. Here is what was wrong and what changed, as it happened.</p>
+
+    <table>
+      <thead>
+        <tr><th>What happened on the first attempt</th><th>The line we added</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>The sentence "Daesung Logistics is a large logistics company running twelve centers nationwide" went into the note. <strong>That was not in the meeting note.</strong> The AI filled it in from general knowledge</td>
+          <td><code>Do not infer anything that is not in the meeting note</code></td>
+        </tr>
+        <tr>
+          <td>It <strong>silently changed WareTwin's TRL to 4.</strong> The meeting note is newer so that looks like the right call, but there could be a separate source document behind the "6"</td>
+          <td><code>If it contradicts an existing note, do not fix it. Report it</code></td>
+        </tr>
+        <tr>
+          <td>"lee cto" came out as "Chulsoo Lee, CTO". <strong>It invented a name.</strong> It seemed to have inferred it from another note in the vault</td>
+          <td><code>Write people's names exactly as they appear in the raw note</code></td>
+        </tr>
+        <tr>
+          <td>It saved the raw meeting note "cleaned up for readability". It fixed the typos and tidied the sentences</td>
+          <td><code>Do not change a single character of the raw note</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pitfall">
+      <p class="pitfall-title">What the four mistakes have in common</p>
+      <p>All four were <strong>attempts to help</strong>. Filling in background, correcting a stale value, completing a name, tidying the prose. For an ordinary writing assistant those are good instincts.</p>
+      <p>For <strong>recording facts about your company they are all accidents</strong>. So the prompt for this job is not "do it well" but <strong>a list of things not to do</strong>. Move these four lines into the CLAUDE.md from Chapter 11 and you stop writing them out every time.</p>
+    </div>
+
+    <h3>ⓖ So how much did it save</h3>
+
+    <table>
+      <thead>
+        <tr><th></th><th>Before</th><th>After</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Writing up a meeting note</td><td>15 minutes (or never)</td><td>30 seconds to paste the raw note</td></tr>
+        <tr><td>Recording decisions</td><td>usually never</td><td>automatic extraction + 2 minutes to check</td></tr>
+        <tr><td>Reflecting product status</td><td>never → stale three months later</td><td>included in the same pass</td></tr>
+        <tr><td>Finding contradictions</td><td>found when writing the proposal (or never)</td><td><strong>the day of the meeting</strong></td></tr>
+        <tr><td>Total</td><td>15 minutes plus an accident later</td><td><strong>3 minutes</strong></td></tr>
+      </tbody>
+    </table>
+
+    <p>The 3 minutes is not the point. <strong>The "accident later" row is the point.</strong> The real output of this recipe is not saved time; it is <strong>keeping wrong information out of the documents that leave the building</strong>.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">Why RAG cannot do this: back to Chapter 3</p>
+      <p>Put your meeting notes in a vector DB and it will answer "how did the Daesung Logistics meeting go?" But <strong>it will not catch the contradiction.</strong> TRL 4 and TRL 6 get stored as separate chunks with no relationship between them.</p>
+      <p>Here, <strong>because layer 2 (the knowledge graph) holds exactly one note called "WareTwin,"</strong> new information has to collide with it. It collides, so you find it. <strong>That is what the ontology bought you by keeping one entity in one place.</strong></p>
+    </div>
+
+    <h2>Recipe 2 · A proposal draft: that Friday afternoon in Chapter 1 again</h2>
+
+    <p>Chapter 1 opened like this. <strong>"We need a proposal for a city government call by next Tuesday. Can you pull our track record together?"</strong></p>
+
+    <p>Now look at how that Friday afternoon changes.</p>
+
+    <pre><code>Draft the "capability to deliver" section of the OPP-2026-CityCall proposal.
+
+## Rules for gathering evidence
+1. Collect the following from Sources/.
+   - products in production and how many sites each is deployed at
+   - the technical capabilities each product draws on, their TRL and the evidence for it
+   - government and city project track record (period, funder, final outcome)
+   - IP held
+2. Mark the evidence note after every sentence in [[double brackets]].
+3. Do not use content from notes with confidence: draft. Put it in the "needs verifying" list instead.
+4. For pre-contract customers (confidential: 대외비) do not write the name. Write "a domestic logistics company".
+5. Never write a claim with no evidence. Put it in the list as "no evidence, 확인 필요" instead.
+
+## Output
+- save to _reports/proposal-capability-draft-YYYY-MM-DD.md
+- always append a "needs verifying" list and a "not in the vault" list below the body</code></pre>
+
+    <p>The last part of the output comes out like this.</p>
+
+    <pre><code>## Not in the vault (a human has to check)
+
+1. Recognition rate data for cold storage environments. Daesung Logistics asked for it. Owner park sales (action registered)
+2. Quantitative results from Warebot's three sites (throughput improvement and so on). No figures in the notes
+3. Mid-term review result for the 2025 smart logistics project. No record in Sources/20-Projects/
+
+## Needs verifying (draft status, so not used)
+
+1. WareTwin TRL. The notes contradict each other, 4 against 6. See DEC-2026-0715</code></pre>
+
+    <div class="callout">
+      <p class="callout-title">This list is worth more than the proposal</p>
+      <p><strong>Instead of filling the blanks plausibly, the AI handed the blanks over as a list.</strong> The awards you never won and the wrong revenue that Chapter 1 called "the most dangerous failure" do not come out of this structure.</p>
+      <p>The list becomes <strong>your to-do list for the next two weeks</strong>. Fill those three in and the next proposal is easier. <strong>The vault grows every time you write a proposal.</strong> That is why this system gets better as time passes.</p>
+    </div>
+
+    <h2>Recipes 3 to 12: the list you come back to</h2>
+
+    <p>The other ten get a short entry each. Same shape every time. <strong>When / which path (A to D from Chapter 14) / what comes out / where it breaks.</strong></p>
+
+    <h3>3 · Generating the weekly report</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>When</strong></td><td>Every Friday at 16:00</td></tr>
+        <tr><td><strong>Path</strong></td><td>A (local · write)</td></tr>
+        <tr><td><strong>Output</strong></td><td><code>_reports/weekly-report-YYYY-WW.md</code></td></tr>
+        <tr><td><strong>Where it breaks</strong></td><td>If the work log is empty nothing comes out. That is correct behavior. It does not make up what is not there</td></tr>
+      </tbody>
+    </table>
+
+    <pre><code>Collect this week's logs and decisions (Mon-Fri) from Sources/40-Worklog/ and write the weekly report.
+- Write it around "progress and blockers", not "things done"
+- Attach the related project and product links to every item
+- Put next week's deadlines at the end
+- Mark days with no log as "no record" and do not guess</code></pre>
+
+    <h3>4 · An onboarding pack for a new hire</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>When</strong></td><td>When a hire is confirmed (manual)</td></tr>
+        <tr><td><strong>Path</strong></td><td>A (local · write)</td></tr>
+        <tr><td><strong>Output</strong></td><td><code>_moc/onboarding-role.md</code> (a list of notes in reading order)</td></tr>
+        <tr><td><strong>Where it breaks</strong></td><td>Skip the confidentiality level and the new hire sees salaries and contract terms. <strong>Put the level filter in the prompt every time</strong></td></tr>
+      </tbody>
+    </table>
+
+    <pre><code>Build the onboarding material for a new developer.
+- Split the reading order into first day / first week / first month
+- Exclude notes where confidential is 대외비 or higher
+- Add one line to each note saying why they are reading it
+- At the end, list the things that are not documented yet and have to be asked of a person</code></pre>
+
+    <p>That last line has a side effect. <strong>Every time you build an onboarding pack, the holes in your documentation come out as a list.</strong> "New hires flounder for three months" from Chapter 1 becomes measurable here.</p>
+
+    <h3>5 · A history briefing before a meeting</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>When</strong></td><td>The evening before the meeting (schedule it with B, or run it by hand)</td></tr>
+        <tr><td><strong>Path</strong></td><td>B (remote · read)</td></tr>
+        <tr><td><strong>Output</strong></td><td>A one-page briefing (past touchpoints, what you promised, actions not yet done)</td></tr>
+        <tr><td><strong>Where it breaks</strong></td><td>If the meeting notes are not structured nothing comes out. Recipe 1 is the prerequisite</td></tr>
+      </tbody>
+    </table>
+
+    <pre><code>Find every past touchpoint with [[Daesung Logistics]] and write a meeting briefing.
+- List the touchpoints newest first (date · what was discussed · who)
+- Put anything we promised and have not done yet at the top
+- List the things they raised as concerns
+- Under 300 words</code></pre>
+
+    <p>"What we promised and have not done" coming first is the whole point. That is the worst spot to be in during a meeting.</p>
+
+    <h3>6 · Watching for contract and project expiry</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>When</strong></td><td>Every Monday (folded into the briefing)</td></tr>
+        <tr><td><strong>Path</strong></td><td>C (Python) + D (Teams alert)</td></tr>
+        <tr><td><strong>Output</strong></td><td>A channel alert at D-60 / D-30 / D-14</td></tr>
+        <tr><td><strong>Where it breaks</strong></td><td>Items with an empty <code>due</code> field are not watched. <strong>Always read it alongside the "no date recorded" list from Chapter 15</strong></td></tr>
+      </tbody>
+    </table>
+
+    <p>Do this one in Python, not with AI. Date arithmetic needs no judgement, and <strong>the result has to be the same every time</strong>.</p>
+
+    <h3>7 · Assembling the evidence behind a quote</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>When</strong></td><td>When a quote is requested (manual)</td></tr>
+        <tr><td><strong>Path</strong></td><td>A</td></tr>
+        <tr><td><strong>Output</strong></td><td>A comparison table of scope, duration and price from similar past jobs</td></tr>
+        <tr><td><strong>Where it breaks</strong></td><td>The most confidentiality-sensitive recipe there is. <strong>Per-customer pricing must not leak between customers.</strong> If your notes have no levels set, do not use this recipe</td></tr>
+      </tbody>
+    </table>
+
+    <h3>8 · Job postings and job descriptions</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>When</strong></td><td>When hiring starts (manual)</td></tr>
+        <tr><td><strong>Path</strong></td><td>A</td></tr>
+        <tr><td><strong>Output</strong></td><td>A JD draft, built on the real products and stack</td></tr>
+        <tr><td><strong>Where it breaks</strong></td><td>An easy document to overstate. Turn the "mark the evidence note" rule on without fail</td></tr>
+      </tbody>
+    </table>
+
+    <p>A JD written off the vault says <strong>what the person will actually do</strong>. Which cuts the gap between expectation and reality after they start. The side effect is sizeable.</p>
+
+    <h3>9 · Risk and contradiction scan</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>When</strong></td><td>Once a month (first Monday)</td></tr>
+        <tr><td><strong>Path</strong></td><td>A (local · read, report only)</td></tr>
+        <tr><td><strong>Output</strong></td><td><code>_reports/contradiction-scan-YYYY-MM.md</code></td></tr>
+        <tr><td><strong>Where it breaks</strong></td><td>The AI often reports things that are not contradictions. <strong>Pin it down to "only what is certain", and have it report the top three when there are more than three</strong></td></tr>
+      </tbody>
+    </table>
+
+    <pre><code>Find facts that contradict each other across the whole vault.
+- different values recorded for the same entity (TRL, dates, figures, status)
+- unfinished actions left on a completed project
+- products marked in production with no update for over 60 days
+Report only what is certain. If it is borderline, do not report it. Three items maximum.
+For each one, write which note and which line.</code></pre>
+
+    <h3>10 · Controlled vocabulary audit</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>When</strong></td><td>Once a quarter</td></tr>
+        <tr><td><strong>Path</strong></td><td>C (Python). It is a string search, so no AI needed</td></tr>
+        <tr><td><strong>Output</strong></td><td>A list of banned spellings in use (file and line number)</td></tr>
+        <tr><td><strong>Where it breaks</strong></td><td>Pointless if the controlled vocabulary (<code>_ops/02-terminology.md</code>) is not current</td></tr>
+      </tbody>
+    </table>
+
+    <p>Mix "Warebot / Ware Bot / WarehouseBot / warehouse robot" and search stops working and <strong>the AI reads them as different products</strong>. Consistent spelling in outgoing documents comes along with it.</p>
+
+    <h3>11 · A retrospective comparing intent against execution</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>When</strong></td><td>Last week of the quarter</td></tr>
+        <tr><td><strong>Path</strong></td><td>A</td></tr>
+        <tr><td><strong>Output</strong></td><td>The gap between plan and reality, and <strong>the reason for the gap</strong></td></tr>
+        <tr><td><strong>Where it breaks</strong></td><td>Without a <code>pdm_intent_of</code> link in the work log there is nothing to compare. Chapter 18 covers this</td></tr>
+      </tbody>
+    </table>
+
+    <p>This recipe is where the book lands. The full design is in Chapter 18.</p>
+
+    <h3>12 · Deciding whether to go for a new opportunity</h3>
+
+    <table>
+      <tbody>
+        <tr><td><strong>When</strong></td><td>When you spot a call (manual)</td></tr>
+        <tr><td><strong>Path</strong></td><td>A</td></tr>
+        <tr><td><strong>Output</strong></td><td>The evidence for the decision: a table of requirements met and unmet against what you hold</td></tr>
+        <tr><td><strong>Where it breaks</strong></td><td>Do not ask the AI "should we go for it?" <strong>Ask only what is met and what is empty.</strong> People make the call</td></tr>
+      </tbody>
+    </table>
+
+    <pre><code>Compare the requirements in the call below against our vault.
+For each requirement, a three-column table: requirement / our evidence (note link) / met or not
+- If there is no evidence, write only "none". Do not suggest substitutes
+- At the end, collect just the "none" items as "what we need to estimate the prep time"
+- Do not judge or recommend whether to enter</code></pre>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">"Do not hand the judgement to the AI" is the point of 12</p>
+      <p>Finding which of twenty requirements are unmet is something AI does faster and more accurately than you. But <strong>"so is it worth entering" is a judgement about strategy, people and cash flow.</strong> That decision runs on information the vault does not hold, and the AI does not have it.</p>
+      <p>Holding that line is the core principle of AX in Chapter 19. The goal is not <strong>delegating judgement to the AI; it is making the material a judgement needs complete</strong>.</p>
+    </div>
+
+    <h2>When a recipe becomes a skill</h2>
+
+    <p>Chapter 13 built skills. But <strong>not every recipe needs to be one.</strong> There is one test.</p>
+
+    <div class="callout">
+      <p class="callout-title">Three uses, then make it a skill</p>
+      <p>If you have used the same prompt <strong>three times</strong> and it barely changed across those three, it is time to fix it as a skill. If you are still editing it, do not. Editing a skill is more work than editing a prompt.</p>
+      <p>In practice <strong>three or four</strong> of the twelve are worth turning into skills. Recipes 1, 3 and 9, roughly. For the rest, keep the prompts in <code>_ops/prompts.md</code> and copy them out.</p>
+    </div>
+
+    <h2>Do not do all twelve</h2>
+
+    <p>You will read this list and want all of it. Three weeks later you will use none of it. There is an order.</p>
+
+    <table>
+      <thead>
+        <tr><th>Period</th><th>What to add</th><th>Why this order</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Weeks 1-2</strong></td>
+          <td>Recipe 1 only</td>
+          <td>It is the door knowledge comes in through. Without it the vault is empty, and out of an empty vault the other eleven print nothing but "no record"</td>
+        </tr>
+        <tr>
+          <td><strong>Weeks 3-4</strong></td>
+          <td>+ recipes 2 and 5</td>
+          <td>The first stage where you <strong>feel the gain</strong>. Proposals and meeting briefings show their effect straight away</td>
+        </tr>
+        <tr>
+          <td><strong>Month 2</strong></td>
+          <td>+ recipes 3 and 6, and the dashboard from Chapter 15</td>
+          <td>Attach the automation and the visibility. This is when the team starts to feel the system is <strong>theirs</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Month 3 onward</strong></td>
+          <td>+ 9, 10, 11</td>
+          <td>Quality control and retrospectives. Without accumulated data these three have nothing to work on</td>
+        </tr>
+        <tr>
+          <td><strong>When you need them</strong></td>
+          <td>4, 7, 8, 12</td>
+          <td>Event-driven recipes. If you are not hiring you do not need 8</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: breaking the order</p>
+      <p>Solbit Tech tried recipe 2, the proposal draft, in the first week. It was the most urgent thing.</p>
+      <p>The output looked like this. <strong>A 17-line "not in the vault" list and a 6-line body.</strong></p>
+      <p>Disappointing, and correct. The vault held twelve notes, so of course there was no evidence. <strong>The AI honestly said there was none.</strong> Had it come back with a proposal that filled those 17 lines plausibly, that would have been far more dangerous.</p>
+      <p>So they changed the order. For three weeks they ran recipe 1 over meeting notes and existing material and got to <strong>71 notes</strong>. Then they ran recipe 2 again. <strong>A two-page body and three lines missing.</strong></p>
+      <p><strong>The quality of a recipe is decided by the vault, not the prompt.</strong> That sentence is close to the conclusion of this whole book.</p>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: recipe 1 on today's meeting note</p>
+      <p>If you do one thing from this chapter, do this. Twenty minutes is enough.</p>
+      <ol>
+        <li><strong>Find a recent meeting note or memo.</strong> An untidy one is better. A tidy meeting note gives you no practice.</li>
+        <li>Copy the prompt from recipe 1 and <strong>change the folder paths and class names to match your vault.</strong></li>
+        <li>Run it and <strong>stop at the table.</strong> No files yet.</li>
+        <li>Check the table against the raw note. <strong>Look for sentences that are not in the original.</strong> If there are any, that is the next ban rule you add.</li>
+        <li>Count how many "needs checking" items came out. <strong>Zero means your prompt is too generous.</strong> A real meeting note always has ambiguous parts.</li>
+        <li>Approve, let it create the notes, then <strong>open the Obsidian graph view.</strong> You will see grey nodes, notes that do not exist yet. Those are what you fill next.</li>
+        <li>Last, answer this question. <strong>"If this meeting note had stayed in a personal folder, what information would have disappeared six months from now?"</strong></li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li><strong>Recipe 1, structuring meeting notes, is the premise for all of it.</strong> It is the door knowledge comes in through, and without it the rest print nothing but "no record"</li>
+        <li>The heart of a structuring prompt is <strong>"show me a table first, write only after I approve"</strong></li>
+        <li>The AI's mistakes are usually <strong>attempts to help</strong>. Adding background, correcting values, completing names, tidying prose. Which is why the prompt becomes a list of bans</li>
+        <li>Put a <strong>"considered and rejected"</strong> field in the decision note and you do not repeat the same discussion six months later</li>
+        <li>It catches the contradiction <strong>because layer 2 holds one entity once</strong>. RAG cannot do that</li>
+        <li>The real output of a proposal draft is not the body but the <strong>"not in the vault" list</strong>. That becomes the next two weeks of work</li>
+        <li><strong>Do not hand the judgement to the AI.</strong> Ask only what is met and what is empty</li>
+        <li>Fix it as a skill <strong>after you have used the same prompt three times</strong>. Three or four of the twelve are actually worth it</li>
+        <li>The order is <strong>1 → 2 and 5 → 3, 6 and the dashboard → 9, 10, 11.</strong> Break the order and all you see is empty output</li>
+        <li><strong>The quality of a recipe is decided by the vault, not the prompt</strong></li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>Coming up</h3>
+      <p>Once the recipes are running the vault grows fast. <strong>So do the rule violations.</strong> "Manage it well" is not a management method. Part 6 makes code rather than people do the checking, and ends with <strong>a retrospective comparing intent against execution</strong>. Part 7 pulls all of it together into your company's AX.</p>
+    </div>
+  </article>

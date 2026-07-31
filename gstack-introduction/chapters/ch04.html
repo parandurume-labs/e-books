@@ -3,11 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chapter 4: 설치하기 — gstack 완전 초보자 가이드</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <title>Chapter 4: 설치하기 · gstack 완전 초보자 가이드</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
 </head>
 <body>
-
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">gstack 완전 초보자 가이드</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13a8 8 0 0 1 7-7 6 6 0 0 1 6 6 8 8 0 0 1-7 7z"/><path d="M13 7a4 4 0 0 1 4 4"/><path d="M9 15l-4 4"/><path d="M5 15h4v4"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 시작하기 전에</li>
+      <li><a href="ch01.html" class="nav-link">1장 AI와 대화하기</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 gstack이란 무엇인가?</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 준비하기</a></li>
+      <li class="nav-part">제2부: 첫 걸음</li>
+      <li><a href="ch04.html" class="nav-link">4장 설치하기</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 처음 만나는 gstack</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 스프린트 모델 이해하기</a></li>
+      <li class="nav-part">제3부: 깊이 들어가기</li>
+      <li><a href="ch07.html" class="nav-link">7장 핵심 스킬 카탈로그</a></li>
+      <li><a href="ch08.html" class="nav-link">8장 사회연대경제 조직 가이드</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 스타트업 가이드</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 학습자 가이드</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 교육자 가이드</a></li>
+      <li class="nav-part">제4부: 철학과 참고</li>
+      <li><a href="ch12.html" class="nav-link">12장 Builder Ethos</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 문제 해결</a></li>
+      <li><a href="ch14.html" class="nav-link">14장 참고 자료</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
 <div class="chapter-content">
   <header class="chapter-header">
     <span class="chapter-number">CHAPTER 4</span>
@@ -36,21 +86,33 @@
       <p>터미널에 이렇게 타이핑하고 엔터:</p>
       <p><code>git --version</code></p>
       <p><strong>성공:</strong> <code>git version 2.43.0</code> 같은 버전 번호가 나오면 OK!</p>
-      <p><strong>실패:</strong> "command not found"가 나오면, <a href="https://git-scm.com" target="_blank">git-scm.com</a>에서 Git을 먼저 설치하세요.</p>
+      <p><strong>실패:</strong> "command not found"가 나오면, <a href="https://git-scm.com" target="_blank" rel="noopener">git-scm.com</a>에서 Git을 먼저 설치하세요.</p>
 
       <h3>Node.js 확인</h3>
       <p><code>node --version</code></p>
       <p><strong>성공:</strong> <code>v20.11.0</code> 같은 버전 번호가 나오면 OK! (v18 이상이면 돼요)</p>
-      <p><strong>실패:</strong> <a href="https://nodejs.org" target="_blank">nodejs.org</a>에서 LTS 버전을 설치하세요.</p>
+      <p><strong>실패:</strong> <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a>에서 LTS 버전을 설치하세요.</p>
+
+      <h3>Bun 확인</h3>
+      <p><code>bun --version</code></p>
+      <p><strong>성공:</strong> <code>1.1.30</code> 같은 번호가 나오면 OK! (1.0 이상이면 돼요)</p>
+      <p><strong>실패:</strong> <a href="https://bun.sh" target="_blank" rel="noopener">bun.sh</a>에 나온 한 줄을 터미널에 붙여넣으면 깔려요. gstack의 설치 스크립트가 Bun으로 돌아가서, 이게 없으면 마지막 단계에서 멈춰요.</p>
 
       <h3>Claude Code 확인</h3>
       <p><code>claude --version</code></p>
       <p><strong>성공:</strong> 버전 번호가 나오면 OK!</p>
-      <p><strong>실패:</strong> Claude Code를 먼저 설치해야 해요. <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank">Anthropic 공식 문서</a>를 참고하세요.</p>
+      <p><strong>실패:</strong> 아직 안 깔린 거예요. 터미널에 이렇게 치면 됩니다.</p>
+      <p><code>npm install -g @anthropic-ai/claude-code</code></p>
+      <p>깔고 나서 터미널에 <code>claude</code>를 치면 <strong>브라우저가 열리면서 Anthropic 계정 로그인을 요구해요.</strong> 로그인까지 마쳐야 준비가 끝나요.</p>
+
+      <div class="callout callout-warning">
+        <p class="callout-title">돈이 드는 부분을 먼저 말씀드릴게요</p>
+        <p>Claude Code를 계속 쓰려면 <strong>유료 플랜이나 API 크레딧이 필요해요.</strong> 무료로 잠깐 맛보고 끝나는 도구가 아니에요. 나중에 알고 서운하시면 안 되니까 여기서 적어둡니다. (2026년 7월 기준)</p>
+      </div>
 
       <div class="callout">
         <p class="callout-title">전부 OK인가요?</p>
-        <p>세 개 다 버전 번호가 나왔으면, 축하해요! 바로 Step 1로 넘어가세요. 하나라도 안 되면 해당 도구를 먼저 설치하고 오세요. 설치는 전부 "다운로드 → 다음 → 다음 → 완료" 형태예요.</p>
+        <p>네 개 다 버전 번호가 나왔으면 Step 1로 넘어가세요. 하나라도 안 되면 그 도구를 먼저 깔고 오세요. Git·Node·Bun은 위 링크에서 받아 "다음 → 다음 → 완료"로 끝나요.</p>
       </div>
     </section>
 
@@ -58,50 +120,58 @@
     <section>
       <h2>Step 1: gstack 설치 명령어</h2>
 
-      <p>자, 이제 진짜 설치합니다. Claude Code를 실행하고, 아래 명령어를 붙여넣기 하세요:</p>
+      <p>자, 이제 진짜 설치합니다. <strong>터미널에</strong> 아래를 통째로 붙여넣고 엔터를 치세요. Claude Code 안이 아니라 그냥 터미널이에요.</p>
+      <pre><code>git clone --single-branch --depth 1 \
+  https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
 
-      <div class="scenario-box">
-        <code>/install-skills https://github.com/garrytan/gstack</code>
+cd ~/.claude/skills/gstack &amp;&amp; ./setup</code></pre>
+      <p>두 줄이 하는 일은 이래요. 첫 줄이 gstack을 인터넷에서 내려받아 <code>~/.claude/skills/gstack</code>에 놓고, 둘째 줄이 그 폴더로 들어가 설치 스크립트를 돌려요. 여기서 <code>~</code>는 내 홈 폴더를 뜻해요. 윈도우면 <code>C:\Users\내이름</code>, 맥이면 <code>/Users/내이름</code>이에요.</p>
+
+      <div class="callout callout-tip">
+        <p class="callout-title">잘 됐는지 어떻게 아나요</p>
+        <p><code>./setup</code>이 끝나면 설치된 스킬 이름들이 화면에 주르륵 지나가요. 그러고 나서 이렇게 확인하면 됩니다.</p>
+        <p><code>cat ~/.claude/skills/gstack/VERSION</code></p>
+        <p>버전 번호(예: <code>1.60.1.0</code>)가 나오면 성공이에요. (2026년 7월 확인)</p>
       </div>
 
-      <p>이게 끝이에요. 진짜로.</p>
-
-      <p>Claude Code가 gstack 저장소에서 28개의 스킬 파일을 다운로드하고 자동으로 설치해줍니다. 진행 상황이 터미널에 표시되니까 지켜보세요.</p>
+      <div class="pitfall">
+        <p class="pitfall-title">윈도우에서 막히면</p>
+        <p>위 명령어는 맥·리눅스 기준이에요. 윈도우라면 <strong>PowerShell 말고 Git Bash</strong>에서 치세요. Git을 설치할 때 함께 깔리는 프로그램이고, 시작 메뉴에서 "Git Bash"로 찾으면 나와요. PowerShell에서는 <code>./setup</code>이 안 돌아가요.</p>
+      </div>
 
       <div class="fun-box">
         <p class="fun-box-title">쉬운 비유</p>
-        <p>앱스토어에서 "gstack" 앱을 검색하고 "설치" 버튼을 누른 거예요.<br>
-        다운로드 → 설치 → 완료! 알아서 다 해줍니다.</p>
+        <p>첫 줄은 레시피북을 주문해서 받는 것,<br>
+        둘째 줄은 받은 책을 주방 선반에 꽂아 넣는 것이에요.<br>
+        꽂아 넣어야 요리할 때 꺼내 쓸 수 있죠.</p>
       </div>
     </section>
 
     <!-- ====== Step 2: CLAUDE.md ====== -->
     <section>
-      <h2>Step 2: CLAUDE.md에 등록하기</h2>
+      <h2>Step 2: 등록됐는지 확인하기</h2>
 
-      <p>설치가 끝나면, gstack을 <strong>CLAUDE.md</strong> 파일에 등록해야 해요.</p>
+      <p><code>./setup</code>이 대개 자동으로 등록해 줍니다. 확인만 하면 돼요.</p>
+
+      <p>등록이란, gstack 스킬이 Claude Code가 들여다보는 폴더에 놓이는 걸 말해요. 그 폴더가 <code>~/.claude/skills</code>이고, gstack은 그 안의 <code>~/.claude/skills/gstack</code>에 놓여요.</p>
+
+      <p>터미널에 이렇게 쳐서 확인하세요.</p>
+
+      <p><code>ls ~/.claude/skills/gstack</code></p>
+
+      <p><strong>성공:</strong> 폴더 안의 파일 이름들이 주르륵 나오면 등록된 거예요.</p>
+      <p><strong>실패:</strong> "No such file or directory"가 나오면 Step 1의 두 줄을 다시 돌려 보세요.</p>
 
       <div class="callout">
-        <p class="callout-title">CLAUDE.md가 뭔데요?</p>
-        <p>CLAUDE.md는 Claude Code의 <strong>"설정 파일"</strong>이에요. "나는 이런 스킬들을 사용할 거야, 이런 규칙을 따라줘"라고 Claude Code에게 알려주는 파일이에요.</p>
-        <p>스마트폰의 "설정" 앱이라고 생각하면 돼요. 배경화면, 알림 설정, 언어 설정... 그런 걸 CLAUDE.md에서 하는 거예요.</p>
+        <p class="callout-title">CLAUDE.md는 뭔가요?</p>
+        <p>CLAUDE.md는 Claude Code의 <strong>"설정 파일"</strong>이에요. "이런 규칙을 따라줘"라고 Claude Code에게 알려주는 파일이에요. 스마트폰의 "설정" 앱이라고 생각하면 돼요.</p>
+        <p>gstack을 쓰는 데는 이 파일을 직접 손댈 일이 없어요. <code>./setup</code>이 스킬을 폴더에 놓아 주는 것으로 등록이 끝나거든요. 나중에 프로젝트마다 규칙을 따로 정하고 싶어지면 그때 만들면 돼요.</p>
       </div>
-
-      <p>프로젝트 폴더의 CLAUDE.md 파일에 gstack 스킬 경로를 추가하면 됩니다. 보통 설치 과정에서 자동으로 추가되지만, 확인해보세요.</p>
-
-      <p>CLAUDE.md 파일을 열면 이런 내용이 있을 거예요:</p>
-
-      <div class="scenario-box">
-        <code># Skills<br>
-        - /path/to/gstack/skills/*.md</code>
-      </div>
-
-      <p>이 줄이 있으면, Claude Code가 gstack의 모든 스킬을 인식한다는 뜻이에요.</p>
     </section>
 
     <!-- ====== Step 3: Verification ====== -->
     <section>
-      <h2>Step 3: 설치 확인 — /office-hours로 테스트!</h2>
+      <h2>Step 3: 설치 확인 · /office-hours로 테스트!</h2>
 
       <p>설치가 잘 됐는지 확인하는 가장 좋은 방법은 직접 써보는 거예요.</p>
 
@@ -111,9 +181,9 @@
         <code>/office-hours</code>
       </div>
 
-      <p>AI가 "어떤 아이디어나 프로젝트에 대해 이야기하고 싶으신가요?" 같은 질문을 하면 — <strong>성공!</strong> gstack이 제대로 설치된 거예요.</p>
+      <p>AI가 "어떤 아이디어나 프로젝트에 대해 이야기하고 싶으신가요?" 같은 질문을 하면 <strong>성공!</strong> gstack이 제대로 설치된 거예요.</p>
 
-      <p>"해당 스킬을 찾을 수 없습니다" 같은 에러가 나오면, CLAUDE.md 파일을 다시 확인해보세요.</p>
+      <p>"해당 스킬을 찾을 수 없습니다" 같은 에러가 나오면, Step 2의 확인을 다시 해보세요.</p>
     </section>
 
     <!-- ====== Windows Warning ====== -->
@@ -136,13 +206,13 @@
 
       <p>혼자 쓰는 것도 좋지만, 팀이 있다면 같이 쓰면 더 좋아요.</p>
 
-      <p>gstack은 프로젝트의 CLAUDE.md 파일에 등록되기 때문에, 이 파일을 Git으로 공유하면 팀원들도 바로 같은 스킬을 사용할 수 있어요.</p>
+      <p>gstack은 각자 PC의 <code>~/.claude/skills/gstack</code>에 깔려요. 그래서 팀원도 Step 1의 두 줄을 자기 PC에서 한 번 돌려야 해요. 대신 한 번 깔고 나면 같은 스킬 이름을 팀 전체가 똑같이 쓸 수 있어요.</p>
 
       <div class="fun-box">
         <p class="fun-box-title">쉬운 비유</p>
-        <p>레시피북 한 권을 사서 팀 공유 책상에 올려놓은 거예요.<br>
-        누구든 와서 레시피를 보고 따라 할 수 있어요.<br>
-        개인별로 따로 살 필요 없이, <strong>한 번 설정하면 팀 전체가 사용</strong>할 수 있습니다.</p>
+        <p>같은 레시피북을 팀원 각자가 한 권씩 받아 두는 거예요.<br>
+        책이 같으니까 "3번 레시피대로 해줘" 한마디면 서로 통해요.<br>
+        <strong>각자 한 번만 깔면, 팀이 같은 말로 일하게 됩니다.</strong></p>
       </div>
     </section>
 
@@ -150,12 +220,12 @@
     <aside class="recap-box">
       <h3>잠깐, 정리!</h3>
       <ul>
-        <li><strong>Step 0:</strong> Git, Node.js, Claude Code가 설치되어 있는지 확인</li>
-        <li><strong>Step 1:</strong> Claude Code에서 <code>/install-skills</code> 명령어로 gstack 설치 (30초!)</li>
-        <li><strong>Step 2:</strong> CLAUDE.md 파일에 gstack이 등록되어 있는지 확인</li>
+        <li><strong>Step 0:</strong> Git · Node.js · Bun · Claude Code가 있는지 확인 (Claude Code는 로그인까지)</li>
+        <li><strong>Step 1:</strong> 터미널에서 <code>git clone</code> 과 <code>./setup</code> 두 줄로 설치</li>
+        <li><strong>Step 2:</strong> <code>ls ~/.claude/skills/gstack</code>으로 등록됐는지 확인</li>
         <li><strong>Step 3:</strong> <code>/office-hours</code>로 설치 확인</li>
         <li>Windows 사용자는 <strong>영문 경로</strong>를 추천해요.</li>
-        <li>CLAUDE.md를 Git으로 공유하면 팀원도 바로 사용 가능!</li>
+        <li>팀원도 Step 1의 두 줄을 자기 PC에서 한 번 돌리면 같은 스킬을 써요.</li>
       </ul>
     </aside>
 
@@ -176,6 +246,15 @@
   </nav>
 
 </div>
-
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
 </body>
 </html>

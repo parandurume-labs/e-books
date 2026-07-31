@@ -3,13 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="첫 번째 스킬 만들기 — Hello World! 가장 간단한 AI 스킬을 직접 만들어봅니다">
+  <meta name="description" content="첫 번째 스킬 만들기. Hello World! 가장 간단한 AI 스킬을 직접 만들어봅니다">
   <meta name="author" content="나만의 AI 스킬을 만들자">
-  <title>Chapter 8: 첫 번째 스킬: "인사하기" — 나만의 AI 스킬을 만들자</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <title>Chapter 8: 첫 번째 스킬: "인사하기" · 나만의 AI 스킬을 만들자</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
 </head>
 <body>
-
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">나만의 AI 스킬을 만들자</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10h3V7L6.5 3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1-3 3l-6-6a6 6 0 0 1-8-8L7 7z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 · 스킬이 필요한 세상</li>
+      <li><a href="ch01.html" class="nav-link">1장 AI와 대화한다는 것</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 반복은 지겹다: 자동화의 본능</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 내가 만든 도구를 나눠준다</a></li>
+      <li class="nav-part">제2부: 뭘 · 스킬 패키지 해부학</li>
+      <li><a href="ch04.html" class="nav-link">4장 스킬 패키지란?</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 뼈대 살펴보기</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 프론트매터: 스킬의 신분증</a></li>
+      <li><a href="ch07.html" class="nav-link">7장 references/ · 스킬의 참고서 폴더</a></li>
+      <li class="nav-part">제3부: 어떻게 · 나만의 스킬 만들기</li>
+      <li><a href="ch08.html" class="nav-link">8장 첫 번째 스킬: "인사하기"</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 프롬프트 엔지니어링 기초</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 도구 연결하기</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 references로 지식 확장하기</a></li>
+      <li><a href="ch12.html" class="nav-link">12장 템플릿과 변수</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 테스트하고 다듬기</a></li>
+      <li class="nav-part">제4부: 더 멀리 · 성장하는 스킬</li>
+      <li><a href="ch14.html" class="nav-link">14장 여러 스킬을 하나로</a></li>
+      <li><a href="ch15.html" class="nav-link">15장 팀과 함께 쓰는 스킬</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 커뮤니티에 기여하기</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전 (한-영 대조)</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 일러스트 프롬프트 모음</a></li>
+      <li><a href="appendix-c.html" class="nav-link">부록 C: 스킬 패키지 체크리스트</a></li>
+      <li><a href="appendix-d.html" class="nav-link">부록 D: 참고 자료 및 링크</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
 <div class="chapter-content">
 
   <!-- ====== Chapter Header ====== -->
@@ -27,7 +82,7 @@
 
     <!-- ====== Opening Hook ====== -->
     <section>
-      <h2>지금부터 여러분은 만드는 사람(Maker)입니다</h2>
+      <h2>지금부터는 만드는 사람(Maker)입니다</h2>
 
       <p>여기까지 오신 분들, 진심으로 축하드려요.</p>
 
@@ -36,14 +91,14 @@
       <p>이제 달라집니다.</p>
 
       <div class="scenario-box">
-        지금부터 여러분은 <strong>구경하는 사람</strong>이 아니라 <strong>만드는 사람</strong>이에요. 코드를 읽는 사람이 아니라 코드를 쓰는 사람. 스킬을 쓰는 사람이 아니라 스킬을 만드는 사람.
+        지금부터는 <strong>구경하는 사람</strong>이 아니라 <strong>만드는 사람</strong>이에요. 코드를 읽는 사람이 아니라 코드를 쓰는 사람. 스킬을 쓰는 사람이 아니라 스킬을 만드는 사람.
       </div>
 
       <p>긴장되시나요? 괜찮아요. 프로그래밍의 오랜 전통이 하나 있거든요.</p>
 
       <p>모든 것은 <strong>"Hello, World!"</strong>에서 시작한다는 것.</p>
 
-      <p>1972년, 프로그래밍 언어 C를 만든 브라이언 커니핸이 교재에 "Hello, World!"를 화면에 출력하는 예제를 처음 넣었어요. 그 이후 50년 동안, 새로운 기술을 배울 때는 항상 가장 간단한 것부터 만들어보는 게 전통이 됐죠.</p>
+      <p>1972년 브라이언 커니핸이 B 언어 교재에 "Hello, World!"를 화면에 출력하는 예제를 처음 넣었고, 1978년 데니스 리치와 함께 쓴 C 언어 교재로 이어지며 전통이 됐어요. 그 뒤 50년 넘게, 새로운 기술을 배울 때는 항상 가장 간단한 것부터 만들어보는 관례가 이어지고 있죠.</p>
 
       <p>우리도 그 전통을 따릅니다. 가장 간단하고, 가장 쉽고, 가장 빨리 결과를 볼 수 있는 스킬부터 만들어볼 거예요.</p>
 
@@ -84,8 +139,11 @@ cd hello-skill</code></pre>
       <p>"이게 다예요?" 네, 이게 다예요. 스킬 패키지는 기본적으로 <strong>폴더 안에 파일을 넣는 것</strong>이거든요. 대단한 설치 과정이나 복잡한 설정 같은 거 없어요.</p>
 
       <div class="callout">
-        <p class="callout-title">터미널이 뭔지 모르겠다면?</p>
-        <p>걱정 마세요! 터미널은 컴퓨터와 글자로 대화하는 창이에요. Windows에서는 "명령 프롬프트" 또는 "PowerShell"을, Mac에서는 "터미널"을 검색해서 열면 됩니다. 거기에 위의 명령어를 타이핑하고 Enter를 누르면 돼요.</p>
+        <p class="callout-title">터미널이 뭔지 모르겠다면? (챕터 1에서 약속한 설명이에요)</p>
+        <p>터미널은 <strong>컴퓨터와 글자로 대화하는 창</strong>이에요. 마우스로 폴더를 더블클릭하는 대신, 하고 싶은 일을 문장으로 적어서 Enter를 누르는 방식이죠. 검은 화면에 글자만 있어서 무섭게 생겼지만, 하는 일은 탐색기와 똑같아요.<br><br>
+        <strong>여는 법.</strong> Windows는 시작 메뉴에서 "PowerShell"을 검색해서 열고, Mac은 <code>Command+스페이스</code>를 눌러 "터미널"을 검색해서 열면 돼요.<br><br>
+        <strong>쓰는 법.</strong> 명령어 한 줄을 치고 Enter. 그게 전부예요. <code>mkdir hello-skill</code>은 "hello-skill이라는 폴더를 만들어라", <code>cd hello-skill</code>은 "그 폴더 안으로 들어가라"는 뜻이에요. <code>cd ..</code>는 반대로 한 칸 위로 나오라는 뜻이고요.<br><br>
+        지금 어느 폴더에 있는지 모르겠다면, Windows는 <code>cd</code>, Mac은 <code>pwd</code>를 치면 현재 위치가 나와요.</p>
       </div>
 
       <p>지금 우리 폴더 구조는 이렇게 생겼어요:</p>
@@ -104,9 +162,17 @@ cd hello-skill</code></pre>
 
       <p>2부에서 배웠죠? <code>SKILL.md</code>는 AI에게 주는 레시피 카드라고요. 이 파일 하나가 스킬의 전부예요.</p>
 
+      <p>파일은 <strong>메모장이나 VS Code 같은 텍스트 편집기</strong>를 열어서 만들어요. 윈도우 메모장을 쓴다면 저장할 때 "파일 형식"을 "모든 파일"로 바꿔야 <code>.txt</code>가 안 붙어요.</p>
+
+      <div class="callout">
+        <p class="callout-title">가장 흔한 실패: SKILL.md.txt</p>
+        <p>메모장은 기본 설정에서 파일 이름 뒤에 <code>.txt</code>를 몰래 붙여요. 그러면 파일 이름이 <code>SKILL.md.txt</code>가 되고, 스킬은 <strong>영영 인식되지 않아요</strong>. 저장 창에서 "파일 형식"을 "모든 파일(*.*)"로 바꾸고, 이름은 따옴표로 감싸서 <code>"SKILL.md"</code>라고 적으면 확실해요. 저장한 뒤 탐색기에서 파일 이름이 정확히 <code>SKILL.md</code>인지 눈으로 한 번 확인하세요.</p>
+      </div>
+
       <p><code>hello-skill</code> 폴더 안에 <code>SKILL.md</code> 파일을 만들고, 다음 내용을 <strong>그대로</strong> 입력하세요:</p>
 
 <pre><code>---
+name: hello-skill
 description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
 ---
 
@@ -132,7 +198,7 @@ description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
 ## 예시 응답
 "좋은 아침이에요! ☀️
 
-오늘은 3월 27일인데요, 1845년에 뢴트겐이 X선을 발견한 날이에요!
+오늘은 3월 27일인데요, 1845년에 X선을 발견한 뢴트겐이 태어난 날이에요!
 눈에 보이지 않는 것도 발견할 수 있다니, 오늘 하루도 새로운 발견이
 있는 멋진 날이 되길 바랄게요! 💪"</code></pre>
 
@@ -154,10 +220,15 @@ description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
       <p><strong>1. 프론트매터 (맨 위 --- 사이 부분)</strong></p>
 
 <pre><code>---
+name: hello-skill
 description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
 ---</code></pre>
 
-      <p>이건 스킬의 "명찰"이에요. Claude Code가 "이 스킬이 뭘 하는 거지?"를 빠르게 파악하는 데 사용해요. 사용자가 인사를 하면, Claude Code가 이 description을 보고 "아, 인사하기 스킬을 쓰면 되겠다!"라고 판단하는 거예요.</p>
+      <p>이건 스킬의 "명찰"이에요. Claude Code가 "이 스킬이 뭘 하는 거지?"를 빠르게 파악하는 데 사용해요.</p>
+
+      <p><code>name</code>은 스킬을 부르는 이름이에요. 6장에서 배운 대로 케밥 케이스로 씁니다. 이게 없으면 스킬이 제대로 등록되지 않으니 꼭 넣으세요.</p>
+
+      <p><code>description</code>은 스킬의 자기소개예요. 사용자가 인사를 하면, Claude Code가 이 description을 보고 "아, 인사하기 스킬을 쓰면 되겠다!"라고 판단하는 거예요.</p>
 
       <p><strong>2. 제목과 역할 (# 인사하기 스킬)</strong></p>
 
@@ -173,7 +244,7 @@ description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
 
       <p><strong>4. 톤과 스타일</strong></p>
 
-      <p>"어떤 느낌으로 해"라는 스타일 가이드예요. "친구처럼 편하지만 예의 바르게" — 이 한 줄이 AI의 응답 분위기를 결정해요.</p>
+      <p>"어떤 느낌으로 해"라는 스타일 가이드예요. "친구처럼 편하지만 예의 바르게", 이 한 줄이 AI의 응답 분위기를 결정해요.</p>
 
       <p><strong>5. 예시 응답</strong></p>
 
@@ -181,8 +252,42 @@ description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
 
       <div class="fun-box">
         <p class="fun-box-title">놀라운 사실</p>
-        <p>방금 여러분이 한 건 <strong>프로그래밍이 아니에요</strong>. 한국어로 글을 쓴 거예요. "이렇게 인사해줘"를 체계적으로 정리한 것뿐이에요. 그런데 이게 AI를 움직이는 스킬이 됩니다. 이게 2020년대의 마법이에요.</p>
+        <p>방금 한 건 <strong>프로그래밍이 아니에요</strong>. 한국어로 글을 쓴 거예요. "이렇게 인사해줘"를 체계적으로 정리한 것뿐이에요. 그런데 이게 AI를 움직이는 스킬이 됩니다. 이게 2020년대의 마법이에요.</p>
       </div>
+    </section>
+
+    <!-- ====== Prerequisites ====== -->
+    <section>
+      <h2>잠깐, 준비물부터 챙길게요</h2>
+
+      <p>지금까지는 폴더 하나와 텍스트 파일 하나만 있으면 됐어요. 그런데 다음 단계에서는 <strong>Claude Code</strong>가 실제로 필요해요. 아직 설치를 안 했다면 여기서 같이 해요.</p>
+
+      <h3>1. Claude Code 설치하기</h3>
+
+      <p>Claude Code는 터미널에서 실행하는 프로그램이에요. 설치는 명령어 한 줄이에요:</p>
+
+<pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
+
+      <p>여기 나오는 <code>npm</code>은 Node.js를 설치하면 같이 딸려오는 프로그램이에요. "npm이 뭔지 모르겠다" 또는 "명령어를 찾을 수 없다"는 메시지가 나오면, <code>nodejs.org</code>에서 Node.js를 먼저 설치하고 터미널을 새로 연 다음 위 명령어를 다시 실행하세요.</p>
+
+      <p><code>-g</code>는 "global(전역)"이라는 뜻이에요. 특정 폴더가 아니라 컴퓨터 어디서든 쓸 수 있게 설치한다는 표시죠.</p>
+
+      <h3>2. 설치가 됐는지 확인하기</h3>
+
+<pre><code>claude --version</code></pre>
+
+      <p>숫자로 된 버전이 나오면 성공이에요. "그런 명령어 없음" 같은 메시지가 나오면 설치가 안 된 거니까, 터미널을 완전히 닫았다가 새로 열고 다시 확인해보세요.</p>
+
+      <h3>3. 첫 실행과 로그인</h3>
+
+      <p>터미널에 <code>claude</code>라고 치면 Claude Code가 시작돼요. 처음 실행하면 <strong>브라우저 창이 열리면서 Anthropic 계정 로그인</strong>을 요구해요. 로그인하고 나면 터미널로 돌아와서 계속 진행하면 돼요.</p>
+
+      <div class="callout">
+        <p class="callout-title">돈이 드나요? 네, 들어요</p>
+        <p>Claude Code를 쓰려면 <strong>유료 플랜이나 API 크레딧이 필요해요</strong> (2026년 7월 기준). 프로그램 설치 자체는 무료지만, 로그인한 계정에 사용할 수 있는 요금제나 크레딧이 없으면 대화가 시작되지 않아요. 최신 요금제는 <code>claude.com</code>에서 확인하세요.</p>
+      </div>
+
+      <p>여기까지 됐으면 준비 끝이에요. 이제 마지막 단계로 갑시다.</p>
     </section>
 
     <!-- ====== Step 3 ====== -->
@@ -195,23 +300,34 @@ description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
 
       <p>방법은 아주 간단해요. 우리가 만든 <code>hello-skill</code> 폴더를 Claude Code의 스킬 폴더에 넣으면 됩니다.</p>
 
-      <p><strong>방법 A: 프로젝트 스킬로 설치 (추천)</strong></p>
+      <p>그 전에 하나. Step 1에서 <code>cd hello-skill</code>로 폴더 <strong>안에</strong> 들어가 있으니까, 먼저 한 칸 위로 나와야 해요. 이걸 빼먹으면 "그런 파일이나 디렉토리가 없습니다"라는 에러가 나요.</p>
 
-      <p>작업 중인 프로젝트 폴더에 <code>.claude/skills/</code> 디렉토리를 만들고, 거기에 넣으면 돼요:</p>
+<pre><code>cd ..</code></pre>
+
+      <p><strong>방법 A: 글로벌 스킬로 설치 (추천)</strong></p>
+
+      <p>어디서 Claude Code를 켜든 쓸 수 있게, 홈 디렉토리의 스킬 폴더에 넣는 방법이에요. 처음 만드는 스킬은 이쪽이 편해요:</p>
+
+<pre><code>mkdir ~/.claude
+mkdir ~/.claude/skills
+cp -r hello-skill ~/.claude/skills/</code></pre>
+
+      <p><code>~</code>는 "내 홈 폴더"라는 뜻이에요. Mac이면 <code>/Users/내이름/</code>, Windows면 <code>C:\Users\내이름\</code>이죠. 앞의 두 줄에서 "이미 있습니다" 같은 메시지가 나와도 괜찮아요. 폴더가 이미 있다는 뜻일 뿐이니 다음 줄로 넘어가면 돼요.</p>
+
+      <p><strong>방법 B: 프로젝트 스킬로 설치</strong></p>
+
+      <p>이미 다루고 있는 프로젝트 폴더가 있다면, 그 폴더 안에 <code>.claude/skills/</code>를 만들어서 넣는 방법도 있어요. 이렇게 하면 그 프로젝트에서 Claude Code를 실행할 때만 스킬이 보여요:</p>
 
 <pre><code># 프로젝트 폴더에서 실행
-mkdir -p .claude/skills/
+mkdir .claude
+mkdir .claude/skills
 cp -r hello-skill .claude/skills/</code></pre>
 
-      <p>이렇게 하면 해당 프로젝트에서 Claude Code를 실행할 때 자동으로 스킬을 인식해요.</p>
-
-      <p><strong>방법 B: 글로벌 스킬로 설치</strong></p>
-
-      <p>어디서든 쓰고 싶으면, 홈 디렉토리의 스킬 폴더에 넣으면 돼요:</p>
-
-<pre><code># 글로벌 스킬 폴더에 설치
-mkdir -p ~/.claude/skills/
-cp -r hello-skill ~/.claude/skills/</code></pre>
+      <div class="callout">
+        <p class="callout-title">명령어가 자꾸 에러가 나면, 마우스로 하세요</p>
+        <p>명령어 대신 <strong>탐색기(Windows)나 Finder(Mac)로 <code>hello-skill</code> 폴더를 <code>.claude/skills/</code> 안에 끌어다 놓아도 똑같아요.</strong> 결과만 같으면 되니까요. 운영체제마다 명령어 문법이 조금씩 달라서(특히 PowerShell은 Mac/Linux 명령어를 그대로 받지 않아요) 마우스로 옮기는 쪽이 오히려 확실할 때가 많아요.<br><br>
+        폴더 이름 앞에 점이 붙은 <code>.claude</code>는 숨김 폴더라 안 보일 수 있어요. Windows 탐색기는 "보기 → 숨긴 항목"을 켜고, Mac Finder는 <code>Command+Shift+.</code>를 누르면 보여요. 주소창에 <code>%USERPROFILE%</code>(Windows) 또는 <code>~</code>(Mac)를 입력하면 홈 폴더로 바로 갈 수 있어요.</p>
+      </div>
 
       <h3>테스트!</h3>
 
@@ -226,16 +342,16 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
       <p>그러면... 두근두근...</p>
 
       <div class="scenario-box">
-        "좋은 오후예요! 😊<br><br>
+        "안녕하세요! 좋은 하루 보내고 계신가요? 😊<br><br>
         오늘은 3월 27일인데요, 1886년에 아파치 족의 전설적인 지도자 제로니모가 항복한 날이래요. 포기하지 않는 정신은 정말 대단하죠!<br><br>
         오늘 하루도 포기하지 않고 멋지게 보내세요! 💪"
       </div>
 
       <p><strong>작동합니다!</strong></p>
 
-      <p>여러분이 방금 만든 스킬이, AI의 응답 방식을 바꿨어요. 그냥 "안녕하세요"라고만 대답하던 AI가, 재미있는 사실과 응원 메시지까지 전해주는 친구가 됐어요.</p>
+      <p>방금 만든 스킬이, AI의 응답 방식을 바꿨어요. 그냥 "안녕하세요"라고만 대답하던 AI가, 재미있는 사실과 응원 메시지까지 전해주는 친구가 됐어요.</p>
 
-      <p>축하합니다! 여러분은 방금 <strong>첫 번째 AI 스킬을 만들었어요!</strong></p>
+      <p>축하합니다! 방금 <strong>첫 번째 AI 스킬을 만든 거예요!</strong></p>
     </section>
 
     <!-- ====== What Just Happened ====== -->
@@ -244,22 +360,32 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
 
       <p>"그래, 작동은 하는데... 도대체 어떻게 되는 거야?"</p>
 
-      <p>좋은 질문이에요. 여러분이 "안녕!"이라고 입력한 순간부터 응답이 나올 때까지, 뒤에서 일어나는 일을 순서대로 볼게요:</p>
+      <p>좋은 질문이에요. "안녕!"이라고 입력한 순간부터 응답이 나올 때까지, 뒤에서 일어나는 일을 순서대로 볼게요:</p>
 
       <ol>
-        <li><strong>사용자 입력:</strong> 여러분이 "안녕!"이라고 타이핑</li>
+        <li><strong>사용자 입력:</strong> "안녕!"이라고 타이핑</li>
         <li><strong>스킬 탐색:</strong> Claude Code가 설치된 스킬들의 <code>description</code>을 훑어봄</li>
-        <li><strong>매칭:</strong> "사용자에게 따뜻한 한국어 인사를 해주는 스킬" — 오, 이게 딱이네!</li>
+        <li><strong>매칭:</strong> "사용자에게 따뜻한 한국어 인사를 해주는 스킬". 오, 이게 딱이네!</li>
         <li><strong>스킬 로드:</strong> <code>SKILL.md</code>의 내용을 읽어서 AI의 지시사항에 추가</li>
         <li><strong>응답 생성:</strong> AI가 스킬의 지시를 따라 인사 + 재미있는 사실 + 응원 메시지를 생성</li>
         <li><strong>출력:</strong> 완성된 응답이 화면에 표시!</li>
       </ol>
 
-      <p>핵심은 3번과 4번이에요. Claude Code가 <strong>자동으로</strong> 적절한 스킬을 찾아서 적용하는 거예요. 여러분이 "/인사하기"라고 명시적으로 스킬을 호출하지 않아도, AI가 문맥을 보고 "아, 이 상황에서는 이 스킬이 맞겠다"고 판단하는 거죠.</p>
+      <p>핵심은 3번과 4번이에요. Claude Code가 <strong>자동으로</strong> 적절한 스킬을 찾아서 적용하는 거예요. 스킬 이름을 직접 부르지 않아도, AI가 문맥을 보고 "아, 이 상황에서는 이 스킬이 맞겠다"고 판단하는 거죠.</p>
+
+      <h3>이름을 직접 불러 쓸 수도 있어요</h3>
+
+      <p>자동으로 골라주는 게 기본이지만, "지금 이 스킬을 써"라고 못 박고 싶을 때가 있죠. 그럴 때는 스킬 이름을 그대로 말하면 돼요.</p>
+
+<pre><code>hello-skill 스킬로 인사해줘</code></pre>
+
+      <p>슬래시를 붙여 <code>/hello-skill</code>이라고 입력하는 방법도 있어요. 챕터 2에서 "<code>/review</code> 한 단어가 긴 프롬프트를 대신한다"고 했던 게 바로 이 모습이에요.</p>
+
+      <p>둘의 차이는 이래요. <code>description</code>이 잘 쓰여 있으면 <strong>안 불러도 알아서 나오고</strong>, 이름을 직접 부르면 <strong>확실하게 그 스킬만 나와요</strong>. 처음에는 이름을 직접 불러서 "제대로 설치됐는지" 확인하고, 그 다음에 자동으로 나오는지 시험해보는 순서가 편해요.</p>
 
       <div class="fun-box">
         <p class="fun-box-title">레스토랑 비유로 다시 보면</p>
-        <p>여러분 = 손님 ("안녕!")<br>
+        <p>나 = 손님 ("안녕!")<br>
         Claude Code = 웨이터 (어떤 레시피를 쓸지 판단)<br>
         SKILL.md = 레시피 (인사 전문가처럼 응답하라)<br>
         AI = 셰프 (레시피대로 응답 만들기)<br>
@@ -315,14 +441,16 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
 
       <p><strong>"스킬이 인식이 안 돼요"</strong></p>
       <ul>
-        <li>파일 이름이 정확히 <code>SKILL.md</code>인지 확인 (대문자!)</li>
+        <li>파일 이름이 정확히 <code>SKILL.md</code>인지 확인 (대문자!). 메모장으로 저장했다면 <code>SKILL.md.txt</code>가 됐을 확률이 높아요</li>
+        <li>Step 3에서 <code>cd ..</code>를 했는지 확인. 폴더 안에 들어간 채로 복사하면 "그런 파일 없음" 에러가 나요</li>
         <li>파일이 <code>hello-skill/SKILL.md</code> 경로에 있는지 확인</li>
         <li>Claude Code를 재시작해보세요</li>
       </ul>
 
       <p><strong>"스킬이 적용되는 것 같지 않아요"</strong></p>
       <ul>
-        <li><code>description</code> 필드가 있는지 확인 — 이게 없으면 Claude Code가 스킬을 찾을 수 없어요</li>
+        <li><code>name</code> 필드가 있는지 확인. 이게 빠지면 스킬이 등록조차 안 돼요</li>
+        <li><code>description</code> 필드가 있는지 확인. 이게 없으면 Claude Code가 스킬을 찾지 못해요</li>
         <li>프론트매터의 <code>---</code>가 정확히 두 줄 있는지 확인</li>
       </ul>
 
@@ -338,7 +466,10 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
       <h3>잠깐, 정리!</h3>
       <ul>
         <li>AI 스킬 만들기는 <strong>딱 3단계</strong>: 폴더 만들기 → SKILL.md 작성 → 설치/테스트</li>
-        <li><code>SKILL.md</code>는 프론트매터(description)와 본문(지시사항)으로 구성돼요</li>
+        <li>준비물은 <strong>Claude Code</strong> 하나예요. <code>npm install -g @anthropic-ai/claude-code</code>로 설치하고, <code>claude --version</code>으로 확인해요</li>
+        <li>메모장으로 저장할 때는 "파일 형식"을 "모든 파일"로. 안 그러면 <code>SKILL.md.txt</code>가 돼서 스킬이 인식되지 않아요</li>
+        <li>명령어가 어려우면 <strong>탐색기나 Finder로 폴더를 끌어다 놓아도</strong> 결과는 같아요</li>
+        <li><code>SKILL.md</code>는 프론트매터(name, description)와 본문(지시사항)으로 구성돼요</li>
         <li>스킬의 본문은 <strong>한국어로 쓰는 지시문</strong>이에요. 코딩이 아니에요!</li>
         <li>톤과 스타일 부분만 바꿔도 <strong>완전히 다른 성격의 스킬</strong>이 돼요</li>
         <li>안 되면 당황하지 말고, 파일명과 경로를 차근차근 확인하세요</li>
@@ -350,7 +481,7 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
       <h3>다음 챕터에서는...</h3>
       <p>스킬이 작동하긴 하는데, 응답이 좀... 아쉬울 때가 있죠?<br>
       "요약해줘"라고 하면 어떤 때는 3줄, 어떤 때는 30줄로 요약하는 AI.<br>
-      다음 챕터에서는 <strong>프롬프트 엔지니어링</strong> — AI에게 정확히 원하는 결과를 뽑아내는 기술을 배워요.<br>
+      다음 챕터에서는 <strong>프롬프트 엔지니어링</strong>, AI에게 정확히 원하는 결과를 뽑아내는 기술을 배워요.<br>
       영화 감독이 배우에게 연기 지도하듯, AI에게 "역할 부여"하는 비법을 알려드릴게요!</p>
     </div>
 
@@ -358,11 +489,20 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
 
   <!-- ====== Navigation ====== -->
   <nav class="chapter-nav">
-    <a href="ch07.html" class="prev">이전: 스킬의 구성 요소</a>
+    <a href="ch07.html" class="prev">이전: references/ 폴더</a>
     <a href="ch09.html" class="next">다음: 프롬프트 엔지니어링 기초</a>
   </nav>
 
 </div>
-
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
 </body>
 </html>

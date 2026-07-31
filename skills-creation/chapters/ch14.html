@@ -3,19 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="여러 스킬을 하나로 — 모노레포 패턴으로 관련 스킬들을 체계적으로 관리하는 방법">
+  <meta name="description" content="여러 스킬을 하나로 · 모노레포 패턴으로 관련 스킬들을 체계적으로 관리하는 방법">
   <meta name="author" content="나만의 AI 스킬을 만들자">
-  <title>Chapter 14: 여러 스킬을 하나로 — 모노레포 패턴 — 나만의 AI 스킬을 만들자</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <title>Chapter 14: 여러 스킬을 하나로 · 모노레포 패턴 · 나만의 AI 스킬을 만들자</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
 </head>
 <body>
-
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">나만의 AI 스킬을 만들자</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10h3V7L6.5 3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1-3 3l-6-6a6 6 0 0 1-8-8L7 7z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 · 스킬이 필요한 세상</li>
+      <li><a href="ch01.html" class="nav-link">1장 AI와 대화한다는 것</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 반복은 지겹다: 자동화의 본능</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 내가 만든 도구를 나눠준다</a></li>
+      <li class="nav-part">제2부: 뭘 · 스킬 패키지 해부학</li>
+      <li><a href="ch04.html" class="nav-link">4장 스킬 패키지란?</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 뼈대 살펴보기</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 프론트매터: 스킬의 신분증</a></li>
+      <li><a href="ch07.html" class="nav-link">7장 references/ · 스킬의 참고서 폴더</a></li>
+      <li class="nav-part">제3부: 어떻게 · 나만의 스킬 만들기</li>
+      <li><a href="ch08.html" class="nav-link">8장 첫 번째 스킬: "인사하기"</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 프롬프트 엔지니어링 기초</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 도구 연결하기</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 references로 지식 확장하기</a></li>
+      <li><a href="ch12.html" class="nav-link">12장 템플릿과 변수</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 테스트하고 다듬기</a></li>
+      <li class="nav-part">제4부: 더 멀리 · 성장하는 스킬</li>
+      <li><a href="ch14.html" class="nav-link">14장 여러 스킬을 하나로</a></li>
+      <li><a href="ch15.html" class="nav-link">15장 팀과 함께 쓰는 스킬</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 커뮤니티에 기여하기</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전 (한-영 대조)</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 일러스트 프롬프트 모음</a></li>
+      <li><a href="appendix-c.html" class="nav-link">부록 C: 스킬 패키지 체크리스트</a></li>
+      <li><a href="appendix-d.html" class="nav-link">부록 D: 참고 자료 및 링크</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
 <div class="chapter-content">
 
   <!-- ====== Chapter Header ====== -->
   <header class="chapter-header">
     <span class="chapter-number">CHAPTER 14</span>
-    <h1>여러 스킬을 하나로 — 모노레포 패턴</h1>
+    <h1>여러 스킬을 하나로: 모노레포 패턴</h1>
     <p class="chapter-subtitle">한 지붕 아래, 여러 주방이 돌아가는 푸드코트의 비밀</p>
   </header>
 
@@ -29,7 +84,7 @@
     <section>
       <h2>식당 하나 vs 푸드코트</h2>
 
-      <p>여러분, 동네 맛집 하나를 상상해보세요. 김치찌개 하나만 파는 작은 식당이에요. 메뉴도 간단하고, 주방도 하나, 셰프도 한 명. 깔끔하죠?</p>
+      <p>동네 맛집 하나를 상상해보세요. 김치찌개 하나만 파는 작은 식당이에요. 메뉴도 간단하고, 주방도 하나, 셰프도 한 명. 깔끔하죠?</p>
 
       <p>근데 시간이 지나면서 이 셰프가 재능이 넘치는 거예요. 김치찌개만 하기엔 아까워서, 된장찌개도 만들고, 비빔밥도 만들고, 냉면도 만들어요.</p>
 
@@ -76,10 +131,10 @@
       <p>모든 상황에 모노레포가 좋은 건 아니에요. <strong>이럴 때</strong> 쓰면 좋아요:</p>
 
       <ul>
-        <li><strong>관련된 스킬이 3개 이상일 때</strong> — 혼자 사는 것보다 함께 사는 게 효율적인 수준</li>
-        <li><strong>스킬들이 공통 참조 파일을 공유할 때</strong> — 같은 코딩 컨벤션, 같은 회사 규칙 등</li>
-        <li><strong>스킬들이 하나의 워크플로우에 속할 때</strong> — 리뷰 → 배포 → 모니터링처럼 연결되는 경우</li>
-        <li><strong>같은 팀이 여러 스킬을 관리할 때</strong> — 버전 관리와 업데이트를 일괄 처리하고 싶을 때</li>
+        <li><strong>관련된 스킬이 3개 이상일 때</strong>: 혼자 사는 것보다 함께 사는 게 효율적인 수준</li>
+        <li><strong>스킬들이 공통 참조 파일을 공유할 때</strong>: 같은 코딩 컨벤션, 같은 회사 규칙 등</li>
+        <li><strong>스킬들이 하나의 워크플로우에 속할 때</strong>: 리뷰 → 배포 → 모니터링처럼 연결되는 경우</li>
+        <li><strong>같은 팀이 여러 스킬을 관리할 때</strong>: 버전 관리와 업데이트를 일괄 처리하고 싶을 때</li>
       </ul>
 
       <p>반대로, <strong>이럴 때는 굳이 모노레포를 안 써도 돼요:</strong></p>
@@ -129,12 +184,19 @@
       <p>예를 들어:</p>
 
       <ul>
-        <li><code>SHARED-PREAMBLE.md</code> — "우리 팀은 이런 코딩 스타일을 씁니다"라는 공통 규칙</li>
-        <li><code>coding-standards.md</code> — 변수명 규칙, 들여쓰기 규칙 등</li>
-        <li><code>team-conventions.md</code> — 팀 내 약속들 (커밋 메시지 형식, 브랜치 전략 등)</li>
+        <li><code>SHARED-PREAMBLE.md</code>: "우리 팀은 이런 코딩 스타일을 씁니다"라는 공통 규칙</li>
+        <li><code>coding-standards.md</code>: 변수명 규칙, 들여쓰기 규칙 등</li>
+        <li><code>team-conventions.md</code>: 팀 내 약속들 (커밋 메시지 형식, 브랜치 전략 등)</li>
       </ul>
 
-      <p>이 파일들이 변경되면, 모든 스킬에 자동으로 반영돼요. <strong>한 번 고치면, 전부 업데이트.</strong> 이걸 폴리레포로 하면? 저장소 3개에 같은 수정을 3번 해야 하죠. 끔찍해요.</p>
+      <p>그러면 각 스킬은 이 공유 파일을 어떻게 가리킬까요? <code>SKILL.md</code> 본문에 <strong>저장소 루트를 기준으로</strong> 경로를 적어요. <code>skill-review/SKILL.md</code> 안에서도 <code>../shared-references/</code>가 아니라 이렇게 적어요.</p>
+
+      <pre><code>리뷰를 시작하기 전에 shared-references/coding-standards.md를 읽고,
+거기 적힌 규칙을 기준으로 판단하세요.</code></pre>
+
+      <p>스킬 전용 참조 파일도 같은 기준이에요. <code>skill-review/references/review-checklist.md</code>처럼 저장소 루트에서 출발하는 경로로 적어요. 실제로 gstack의 <code>qa</code> 스킬도 자기 참조 파일을 <code>qa/references/issue-taxonomy.md</code>라고 적지, <code>references/issue-taxonomy.md</code>라고 적지 않아요.</p>
+
+      <p>이렇게 해두면 공유 파일 하나만 고쳐도 그걸 가리키는 스킬 전부가 같이 바뀌어요. <strong>한 번 고치면, 전부 업데이트.</strong> 이걸 폴리레포로 하면? 저장소 3개에 같은 수정을 3번 해야 하죠. 끔찍해요.</p>
 
       <h3>3. 각 스킬 폴더 = 개별 주방</h3>
 
@@ -156,12 +218,12 @@
       <p>이 책에서 여러 번 언급한 <strong>gstack</strong> 기억하시죠? gstack은 여러 스킬이 하나의 모노레포에 들어있어요.</p>
 
       <ul>
-        <li><strong>/browse</strong> — 웹 브라우저로 사이트를 탐색하고 테스트</li>
-        <li><strong>/benchmark</strong> — 성능을 측정하고 비교</li>
-        <li><strong>/canary</strong> — 배포 후 모니터링</li>
-        <li><strong>/review</strong> — 코드 리뷰</li>
-        <li><strong>/qa</strong> — QA 테스트</li>
-        <li><strong>/design-review</strong> — 디자인 검토</li>
+        <li><strong>/browse</strong>: 웹 브라우저로 사이트를 탐색하고 테스트</li>
+        <li><strong>/benchmark</strong>: 성능을 측정하고 비교</li>
+        <li><strong>/canary</strong>: 배포 후 모니터링</li>
+        <li><strong>/review</strong>: 코드 리뷰</li>
+        <li><strong>/qa</strong>: QA 테스트</li>
+        <li><strong>/design-review</strong>: 디자인 검토</li>
       </ul>
 
       <p>이 스킬들이 왜 모노레포에 있을까요?</p>
@@ -170,13 +232,13 @@
 
       <p><strong>둘째, 공통 인프라를 공유해요.</strong> browse 스킬이 사용하는 브라우저 도구를, benchmark나 canary도 같이 써요. 공유 자원이 있으니 모노레포가 효율적이죠.</p>
 
-      <p><strong>셋째, 같은 팀이 관리해요.</strong> 업데이트할 때 한 번에 모든 스킬을 확인하고 수정할 수 있어요.</p>
+      <p><strong>셋째, 같은 팀이 관리해요.</strong> 업데이트할 때 한 번에 모든 스킬을 확인하고 수정하죠.</p>
 
       <div class="callout">
         <p class="callout-title">실전 팁: 이름 짓기</p>
         <p>모노레포 안의 각 스킬 폴더 이름은 <strong>일관된 규칙</strong>을 따르는 게 좋아요.<br><br>
-        예시: <code>skill-review</code>, <code>skill-deploy</code>, <code>skill-monitor</code> — 접두어 <code>skill-</code>을 통일.<br>
-        또는: <code>review/</code>, <code>deploy/</code>, <code>monitor/</code> — 더 간결하게.<br><br>
+        예시: <code>skill-review</code>, <code>skill-deploy</code>, <code>skill-monitor</code>처럼 접두어 <code>skill-</code>을 통일.<br>
+        또는: <code>review/</code>, <code>deploy/</code>, <code>monitor/</code>처럼 더 간결하게.<br><br>
         아무 규칙이나 괜찮은데, <strong>통일하는 게 중요</strong>합니다.</p>
       </div>
     </section>
@@ -187,19 +249,19 @@
 
       <p>지금까지 이야기한 장점을 깔끔하게 정리해볼게요.</p>
 
-      <p><strong>1. 공유 참조 파일 — "한 번 쓰고 여러 번 쓰기"</strong></p>
+      <p><strong>1. 공유 참조 파일: "한 번 쓰고 여러 번 쓰기"</strong></p>
 
       <p>팀의 코딩 규칙이 바뀌었다고 해봐요. 모노레포라면? <code>shared-references/coding-standards.md</code> 하나만 수정하면 끝. 폴리레포라면? 스킬 10개의 저장소를 하나하나 열어서 똑같은 수정을 10번 해야 해요.</p>
 
-      <p><strong>2. 일관된 버전 관리 — "다 같이 업데이트"</strong></p>
+      <p><strong>2. 일관된 버전 관리: "다 같이 업데이트"</strong></p>
 
-      <p>Git에서 커밋(변경 기록) 하나로 여러 스킬을 동시에 업데이트할 수 있어요. "이번 변경은 리뷰 스킬과 배포 스킬 모두에 영향을 줘" — 이런 수정을 하나의 커밋으로 깔끔하게 기록할 수 있죠.</p>
+      <p>Git에서 커밋(변경 기록) 하나로 여러 스킬을 동시에 업데이트해요. "이번 변경은 리뷰 스킬과 배포 스킬 모두에 영향을 줘". 이런 수정을 하나의 커밋으로 깔끔하게 기록하죠.</p>
 
-      <p><strong>3. 쉬운 테스트 — "한 자리에서 전부 확인"</strong></p>
+      <p><strong>3. 쉬운 테스트: "한 자리에서 전부 확인"</strong></p>
 
       <p>모든 스킬이 한 곳에 있으니, 전체를 한 번에 테스트하기가 쉬워요. "리뷰 스킬 고쳤는데, 배포 스킬에 영향 없나?" 같은 걸 바로 확인할 수 있죠.</p>
 
-      <p><strong>4. 발견 가능성 — "아, 이런 스킬도 있었어?"</strong></p>
+      <p><strong>4. 발견 가능성: "아, 이런 스킬도 있었어?"</strong></p>
 
       <p>팀원이 모노레포를 둘러보다가 "오, 모니터링 스킬도 있네? 이거 몰랐는데!" 하고 발견할 수 있어요. 각각 다른 저장소에 흩어져 있었다면, 존재 자체를 모를 수도 있었을 거예요.</p>
 
@@ -224,7 +286,7 @@
 
       <p>자, 이론은 충분해요. 직접 만들어봅시다!</p>
 
-      <p>여러분이 마케팅 팀에서 일한다고 가정하고, 마케팅 관련 스킬 3개를 모노레포로 만들어볼게요.</p>
+      <p>마케팅 팀에서 일한다고 가정하고, 마케팅 관련 스킬 3개를 모노레포로 만들어볼게요.</p>
 
       <h3>1단계: 최상위 폴더 만들기</h3>
 
@@ -249,9 +311,19 @@ cd marketing-skills</code></pre>
 
       <h3>3단계: 개별 스킬 폴더 만들기</h3>
 
-      <pre><code>mkdir -p skill-copy-write/references
-mkdir -p skill-social-post/references
-mkdir -p skill-report/references</code></pre>
+      <pre><code>mkdir skill-copy-write
+mkdir skill-copy-write/references
+mkdir skill-social-post
+mkdir skill-social-post/references
+mkdir skill-report
+mkdir skill-report/references</code></pre>
+
+      <p>Mac이나 Linux 터미널이라면 <code>mkdir -p skill-copy-write/references</code>처럼 <code>-p</code> 옵션으로 한 줄에 끝낼 수 있어요. 다만 <strong>Windows PowerShell에서는 <code>-p</code>가 에러</strong>가 나니까, 위처럼 한 단계씩 나눠서 만드세요.</p>
+
+      <div class="callout">
+        <p class="callout-title">여기도 마우스로 됩니다</p>
+        <p>명령어 대신 탐색기나 Finder에서 폴더를 하나씩 만들어도 결과는 똑같아요. 폴더 구조만 맞으면 어떻게 만들었는지는 아무도 신경 쓰지 않아요.</p>
+      </div>
 
       <p>각 스킬의 <code>SKILL.md</code>를 만들면 끝이에요. 우리가 이전 챕터에서 배운 것 그대로요.</p>
 
@@ -293,7 +365,7 @@ mkdir -p skill-report/references</code></pre>
 
       <p><strong>실수 1: 관련 없는 스킬 몰아넣기</strong></p>
 
-      <p>"모노레포가 좋다니까, 내 모든 스킬을 다 하나에 넣자!" — 이러면 안 돼요. 요리 스킬과 코드 리뷰 스킬은 관련이 없잖아요. 관련 없는 스킬을 억지로 모으면, 오히려 복잡해져요.</p>
+      <p>"모노레포가 좋다니까, 내 모든 스킬을 다 하나에 넣자!" 이러면 안 돼요. 요리 스킬과 코드 리뷰 스킬은 관련이 없잖아요. 관련 없는 스킬을 억지로 모으면, 오히려 복잡해져요.</p>
 
       <p><strong>실수 2: shared-references를 너무 크게 만들기</strong></p>
 
@@ -301,7 +373,7 @@ mkdir -p skill-report/references</code></pre>
 
       <p><strong>실수 3: 한 스킬이 너무 많은 걸 하기</strong></p>
 
-      <p>모노레포 안의 각 스킬은 여전히 "한 가지 일을 잘하는" 원칙을 지켜야 해요. "리뷰도 하고 배포도 하고 모니터링도 하는" 스킬 하나보다, 각각 분리된 3개의 스킬이 낫습니다.</p>
+      <p>모노레포 안의 각 스킬은 여전히 "한 가지 일을 잘하는" 원칙을 지켜야 해요. "리뷰도 하고 배포도 하고 모니터링도 하는" 스킬 하나보다, 각각 분리된 3개의 스킬이 나아요.</p>
 
       <div class="fun-box">
         <p class="fun-box-title">기억하세요</p>
@@ -309,6 +381,47 @@ mkdir -p skill-report/references</code></pre>
         푸드코트에 한식, 중식, 일식이 들어가는 건 자연스러운데,<br>
         거기에 세탁소와 미용실까지 넣으면 이상하잖아요.</p>
       </div>
+    </section>
+
+    <!-- ====== Installing a monorepo ====== -->
+    <section>
+      <h2>모노레포는 통째로 설치해야 해요</h2>
+
+      <p>여기서 아주 중요한 이야기를 하나 해야 해요. 안 하면 이 챕터 전체가 따라 할 수 없는 챕터가 되거든요.</p>
+
+      <p>챕터 8에서 배운 설치는 <strong>"스킬 폴더 하나를 <code>.claude/skills/</code> 안에 넣기"</strong>였죠. 그런데 모노레포에서 <code>skill-review/</code> 폴더 하나만 복사하면 어떻게 될까요?</p>
+
+      <div class="scenario-box">
+        <code>shared-references/</code>가 안 따라옵니다.<br><br>
+        <code>SKILL.md</code>에는 "shared-references/coding-standards.md를 읽고"라고 적혀 있는데, 그 파일이 없어요. 스킬이 반쪽만 온 거예요.
+      </div>
+
+      <p>그래서 규칙은 이거예요.</p>
+
+      <div class="callout">
+        <p class="callout-title">모노레포 설치 규칙</p>
+        <p><strong>모노레포는 저장소 전체를 <code>.claude/skills/</code> 아래에 통째로 두어야 <code>shared-references/</code> 경로가 맞아요.</strong><br><br>
+        스킬 폴더 하나만 뽑아 오면 공유 참조 파일이 따라오지 않아서, 저장소 루트 기준으로 적어둔 경로가 전부 어긋나요.</p>
+      </div>
+
+      <h3>방법 1: 폴더째 복사하기</h3>
+
+      <p><code>marketing-skills</code> 폴더 전체를 <code>.claude/skills/</code> 안으로 옮기면 돼요. 탐색기나 Finder로 폴더를 끌어다 놓아도 똑같아요.</p>
+
+      <pre><code>cp -r marketing-skills ~/.claude/skills/</code></pre>
+
+      <p>이렇게 하면 최종 경로가 <code>~/.claude/skills/marketing-skills/shared-references/</code>가 되고, 저장소 루트를 기준으로 적어둔 경로가 그대로 맞아떨어져요.</p>
+
+      <h3>방법 2: 저장소를 통째로 clone 하기</h3>
+
+      <p>모노레포가 GitHub에 올라가 있다면, 스킬 폴더 안에서 저장소 전체를 받아오면 돼요.</p>
+
+      <pre><code>cd ~/.claude/skills/
+git clone https://github.com/내아이디/marketing-skills.git</code></pre>
+
+      <p>이 방법의 좋은 점은 나중에 <code>git pull</code> 한 줄로 스킬 전부를 한꺼번에 업데이트할 수 있다는 거예요. 모노레포의 장점이 설치 이후에도 이어지는 거죠.</p>
+
+      <p>실제로 이 책에서 계속 언급한 gstack도 이렇게 설치돼 있어요. <code>~/.claude/skills/gstack/</code> 아래에 저장소 전체가 들어가 있고, 그 안에 <code>qa/</code>, <code>browse/</code>, <code>review/</code> 같은 스킬 폴더들이 나란히 있어요 (2026년 7월 확인). <code>qa</code> 스킬만 따로 뽑아 온 게 아니라 저장소를 통째로 둔 거예요.</p>
     </section>
 
     <!-- ====== Recap ====== -->
@@ -320,6 +433,7 @@ mkdir -p skill-report/references</code></pre>
         <li><strong>3개 이상</strong>의 관련 스킬이 있고, 공통 자원을 공유할 때 쓰면 좋아요.</li>
         <li>구조: 최상위 폴더 안에 <code>shared-references/</code>와 개별 스킬 폴더들을 배치해요.</li>
         <li>실제 사례: gstack은 browse, benchmark, canary, review 등 여러 스킬을 하나의 모노레포로 관리해요.</li>
+        <li><strong>설치는 통째로.</strong> 스킬 폴더 하나만 복사하면 <code>shared-references/</code>가 안 따라와서 경로가 깨져요. 저장소 전체를 <code>.claude/skills/</code> 아래에 두세요.</li>
         <li>주의: 관련 없는 스킬을 억지로 모으지 마세요. <strong>"관련된 것만 모으기"</strong>가 핵심!</li>
       </ul>
     </aside>
@@ -341,6 +455,15 @@ mkdir -p skill-report/references</code></pre>
   </nav>
 
 </div>
-
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
 </body>
 </html>

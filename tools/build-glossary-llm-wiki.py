@@ -1,0 +1,339 @@
+# -*- coding: utf-8 -*-
+"""building-company-llm-wiki 부록 A 용어 사전 생성.
+
+ch03 을 껍데기로 쓴다(사이드바·헤더·스크립트가 이미 맞춰져 있다). 본문만 갈아끼운다.
+
+    python tools/build-glossary-llm-wiki.py        # 한국어판
+    python tools/build-glossary-llm-wiki.py --en   # 영어판
+
+영어판 데이터는 tools/glossary_en.py 에 따로 있다. 앵커(#ontology 등)는
+두 판본이 같아야 한다. 본문에서 거는 링크가 그 앵커를 가리키기 때문이다.
+"""
+import io, re, sys
+
+ROOT = 'building-company-llm-wiki/chapters/'
+
+# (앵커, 한글, 영문, 설명 HTML, 어디서 쓰나)
+GROUPS = [
+ ("layers", "네 개의 층", "이 책 전체가 이 네 층 위에서 돌아갑니다. 네 층을 뭉뚱그려 한 단어로 부르는 순간 대화가 어긋납니다.", [
+  ("taxonomy", "분류 체계", "Taxonomy",
+   "노트를 <strong>어느 서랍에 넣을지</strong> 정해 둔 규칙입니다. 폴더 구조가 곧 분류 체계입니다. "
+   "이 책에서는 <code>Sources/10-Products/</code> 같은 폴더가 그 역할을 합니다. "
+   "서랍은 한 번에 하나뿐이라 한계가 뚜렷합니다. 창고봇은 제품이면서 동시에 정부 과제의 산출물인데, "
+   "폴더는 둘 중 하나만 고르게 합니다. 이 한계를 메우는 것이 1층과 2층입니다.",
+   "0층 · 3장"),
+  ("ontology", "온톨로지", "Ontology",
+   "<strong>노트를 어떻게 쓸지 정한 규칙 문서</strong>입니다. 어떤 종류(클래스)가 있고, 종류마다 어떤 필드를 반드시 갖고, "
+   "어떤 관계로 이어질 수 있는지를 적습니다. "
+   "가장 중요한 특징은 따로 있습니다. <strong>온톨로지는 회사에 대해 아무것도 모릅니다.</strong> "
+   "설계서에는 「제품이라는 것이 있고, 제품은 status·owner·since를 갖는다」까지만 적혀 있습니다. "
+   "창고봇이라는 단어도, 매출 숫자도 없습니다. 그래서 온톨로지에게 「우리 실적 정리해줘」라고 물으면 아무 답도 나오지 않습니다. "
+   "물어볼 대상이 아니기 때문입니다. 답은 2층에서 나옵니다.",
+   "1층 · 3장, 8~10장"),
+  ("knowledge-graph", "지식 그래프", "Knowledge Graph",
+   "온톨로지가 정해둔 서식에 <strong>실제 회사 사실을 채워 넣은 결과</strong>입니다. "
+   "노트 하나하나가 점이고, 노트끼리 건 링크가 선입니다. 질문의 답이 실제로 나오는 곳이 여기입니다. "
+   "「창고봇에 쓰인 기술 중 정부 과제에서 나온 게 뭐야?」에 답하려면 "
+   "창고봇 → 객체인식 → 2025 스마트물류로 선을 두 번 따라가면 됩니다. 이걸 그래프 순회라고 부릅니다.",
+   "2층 · 3장"),
+  ("llm-wiki", "LLM Wiki", "LLM Wiki",
+   "위 셋에 <strong>사람이 손 대지 않아도 계속 돌아가게 하는 장치</strong>를 더한 전체 시스템입니다. "
+   "AI 작업 규칙(<code>CLAUDE.md</code>), 템플릿, 스킬, 예약 작업, 대시보드, 점검 스크립트가 그 장치입니다. "
+   "이게 없으면 잘 정리된 폴더 하나가 생겼다가 석 달 뒤에 조용히 죽습니다. "
+   "온톨로지 설계까지만 하고 끝내면 1층에서 멈춥니다.",
+   "3층 · 3장, 11~18장"),
+ ]),
+
+ ("ontology-parts", "온톨로지를 이루는 것들", "1층 설계서에 실제로 적히는 항목들입니다.", [
+  ("class", "클래스", "Class",
+   "노트의 <strong>종류</strong>입니다. 이 책은 제품·기술역량·과제·기회처럼 나눕니다. "
+   "클래스마다 판정 기준을 하나씩 정해두는 것이 중요합니다. "
+   "예를 들어 과제와 기회는 「계약이나 예산이 붙어 있는가」로 가릅니다. "
+   "기준이 없으면 사람마다 다르게 넣고, 그러면 집계가 틀립니다.",
+   "3장, 9장"),
+  ("field", "필드", "Field · Property",
+   "노트가 갖는 <strong>속성 한 칸</strong>입니다. <code>status</code>, <code>owner</code>, <code>due</code> 같은 것들입니다. "
+   "필드 이름은 반드시 하나로 통일해야 합니다. 어제는 <code>due</code>, 오늘은 <code>deadline</code>, "
+   "내일은 <code>마감일</code>로 적힌 노트 200개는 어떤 도구로도 간트 차트가 되지 않습니다.",
+   "10장, 15장"),
+  ("relation", "관계 술어", "Relation predicate",
+   "노트와 노트를 잇는 <strong>선의 이름</strong>입니다. 이 책은 <code>pdm_uses</code>(제품이 쓰는 기술), "
+   "<code>pdm_output_of</code>(기술이 나온 과제)처럼 이름을 붙입니다. "
+   "앞에 <code>pdm_</code>을 붙인 이유는 우리 회사가 정한 술어라는 표시입니다. "
+   "술어 이름이 흔들리면 링크를 따라갈 수 없고, 그러면 2층이 무너집니다.",
+   "3장, 10장"),
+  ("controlled-vocab", "통제 어휘", "Controlled Vocabulary",
+   "<strong>쓸 수 있는 값을 미리 정해둔 목록</strong>입니다. "
+   "예를 들어 제품의 <code>status</code>는 기획·개발·운영·중단 넷 중 하나만 씁니다. "
+   "「거의 다 됐음」, 「진행중?」처럼 자유롭게 쓰면 셀 수가 없습니다. "
+   "통제 어휘의 목적은 표현을 좁히는 데 있지 않고 <strong>셀 수 있게 만드는 데</strong> 있습니다.",
+   "10장, 17장"),
+  ("constraint", "제약", "Constraint",
+   "「모든 노트는 <code>class</code>, <code>id</code>, <code>updated</code>를 반드시 갖는다」처럼 "
+   "<strong>어겨서는 안 되는 규칙</strong>입니다. 사람이 지키기를 기대하지 말고 점검 스크립트로 확인하는 편이 낫습니다.",
+   "10장, 17장"),
+  ("identifier", "식별자", "ID",
+   "노트에 붙이는 <strong>변하지 않는 이름표</strong>입니다. 이 책은 <code>PRD-001</code>, <code>CAP-객체인식</code>처럼 "
+   "클래스별 접두어를 붙입니다. 제목은 바뀔 수 있어도 식별자는 그대로 둡니다. "
+   "「창고봇」이 「스마트팩토리봇」이 되어도 <code>PRD-001</code>은 그대로라, <strong>이름이 바뀐 뒤에도 같은 물건임을 알아볼 수 있습니다.</strong> "
+   "다만 <strong>링크까지 지켜 주지는 않습니다.</strong> 이 책의 링크는 <code>[[창고봇]]</code>처럼 이름으로 걸리기 때문입니다. "
+   "옵시디언 안에서 이름을 바꾸면 옵시디언이 링크를 따라 고쳐 주지만, 탐색기나 SharePoint에서 바꾸면 링크가 끊깁니다(부록 C).",
+   "9장"),
+  ("ssot", "단일 진실 공급원", "SSOT · Single Source of Truth",
+   "같은 사실이 <strong>여러 곳에 서로 다르게 적혀 있지 않은 상태</strong>입니다. "
+   "매출 숫자가 노트에도 있고 보고서에도 있고 슬라이드에도 있으면, 셋이 달라지는 것은 시간 문제입니다. "
+   "한 곳에만 적고 나머지는 그곳을 가리키게 합니다.",
+   "10장, 17장"),
+ ]),
+
+ ("graph", "그래프를 다루는 말", "2층에서 답이 나오는 원리에 붙은 이름들입니다.", [
+  ("node-edge", "노드와 변", "Node · Edge",
+   "그래프에서 <strong>점과 선</strong>입니다. 노트 하나가 노드, 노트에서 노트로 건 링크 하나가 변입니다. "
+   "노트를 아무리 많이 써도 링크를 안 걸면 변이 없고, 변이 없으면 그래프가 아니라 그냥 문서 더미입니다.",
+   "3장"),
+  ("traversal", "그래프 순회", "Graph Traversal",
+   "링크를 <strong>따라가면서 답을 찾는 방식</strong>입니다. "
+   "「창고봇이 쓰는 기술」에서 한 번, 「그 기술이 나온 과제」에서 한 번, 이렇게 두 번 건너뛰면 답이 나옵니다. "
+   "사람이 검색으로는 못 찾는 답이 여기서 나옵니다. 두 다리 건너 연결된 사실은 검색어로 표현할 수가 없기 때문입니다.",
+   "3장"),
+  ("wikilink", "위키링크", "Wikilink",
+   "대괄호 두 개로 다른 노트를 가리키는 표기입니다. <code>[[창고봇]]</code>처럼 씁니다. "
+   "옵시디언에서는 이걸 쓰면 자동으로 연결이 생깁니다. 이 책의 그래프는 전부 이 표기 위에 세워집니다.",
+   "5장"),
+  ("backlink", "백링크", "Backlink",
+   "<strong>나를 가리키고 있는 노트 목록</strong>입니다. 창고봇 노트를 열면 「창고봇을 언급한 노트들」이 아래에 저절로 뜹니다. "
+   "따로 관리하지 않아도 생기는 것이 장점입니다. 링크를 성실히 걸면 그만큼 저절로 돌아옵니다.",
+   "5장"),
+  ("moc", "MOC · 지도 노트", "Map of Content",
+   "여러 노트로 들어가는 <strong>입구 역할을 하는 노트</strong>입니다. 「제품 전체 보기」 같은 노트가 그렇습니다. "
+   "폴더가 서랍이라면 MOC는 목차입니다. 하나의 노트가 여러 MOC에 동시에 등장할 수 있어서 폴더의 한계를 메웁니다.",
+   "15장, 16장"),
+ ]),
+
+ ("tools", "도구와 파일", "실제로 손으로 만지는 것들입니다.", [
+  ("vault", "볼트", "Vault",
+   "옵시디언이 관리하는 <strong>폴더 하나</strong>입니다. 이 책에서 「볼트」라고 하면 회사 지식이 들어 있는 그 폴더를 뜻합니다. "
+   "특별한 형식이 아니라 그냥 마크다운 파일이 들어 있는 보통 폴더입니다. 그래서 옵시디언을 그만 써도 파일은 남습니다.",
+   "5장"),
+  ("frontmatter", "프론트매터", "Front matter",
+   "마크다운 파일 <strong>맨 위를 <code>---</code> 두 줄로 감싼 부분</strong>입니다. 첫 줄과 마지막 줄이 <code>---</code>이고, 그 사이가 프론트매터입니다. "
+   "여기에 <code>class</code>, <code>status</code>, <code>owner</code> 같은 필드를 적습니다. "
+   "본문은 사람이 읽는 곳이고, 프론트매터는 <strong>기계가 읽는 곳</strong>입니다. "
+   "대시보드와 자동화는 전부 이 부분만 봅니다.",
+   "12장, 15장"),
+  ("obsidian", "옵시디언", "Obsidian",
+   "마크다운 파일을 위키처럼 다루는 프로그램입니다. 링크와 백링크, 그래프 보기를 제공합니다. "
+   "중요한 점은 <strong>파일을 자기 형식으로 가두지 않는다</strong>는 데 있습니다. 볼트는 그냥 폴더입니다.",
+   "4장, 5장"),
+  ("teams", "Teams", "Microsoft Teams",
+   "이 책에서는 <strong>사람이 모이는 자리</strong>로 씁니다. 대화가 오가고 결정이 내려지는 곳입니다. "
+   "다만 대화는 흘러가 버리므로, 결정된 것은 볼트로 옮겨 적어야 합니다. 그 옮기는 일을 자동화하는 것이 이 책의 목표 중 하나입니다.",
+   "6장"),
+  ("cowork", "Claude Cowork", "Claude Cowork",
+   "볼트를 읽고 쓰는 <strong>AI 쪽 손</strong>입니다. 노트를 만들고, 고치고, 예약해 둔 작업을 정해진 시각에 돌립니다.",
+   "4장, 7장, 14장"),
+  ("skill", "스킬", "Skill",
+   "<strong>반복하는 작업을 적어 둔 문서</strong>입니다. 「주간 보고서 만들기」를 매번 프롬프트로 설명하는 대신 "
+   "한 번 적어두고 이름으로 부릅니다. 사람으로 치면 업무 매뉴얼에 가깝습니다.",
+   "13장"),
+  ("claude-md", "CLAUDE.md", "CLAUDE.md",
+   "AI가 이 볼트에서 <strong>지켜야 할 규칙을 적어 둔 파일</strong>입니다. "
+   "「없는 사실을 채우지 않는다」, 「근거 없는 수치는 「확인 필요」로 적는다」 같은 것들입니다. "
+   "이 파일이 없으면 AI가 매번 다른 서식으로 노트를 만들고, 빈칸을 그럴듯하게 메웁니다.",
+   "11장"),
+  ("scheduled-task", "예약 작업", "Scheduled task",
+   "정해진 시각에 <strong>사람 없이 저절로 도는 일</strong>입니다. 매주 월요일 아침에 나오는 점검 보고서가 그런 예입니다. "
+   "한 가지 함정이 있습니다. 원격에서 도는 예약 작업은 <strong>내 컴퓨터의 폴더에 닿지 못합니다.</strong> "
+   "볼트 파일을 건드려야 하는 일은 로컬에서 돌려야 합니다.",
+   "14장"),
+ ]),
+
+ ("ai", "AI 쪽 용어", "「이거 그냥 RAG 아닌가요?」에 답하려면 알아야 하는 말들입니다.", [
+  ("llm", "LLM · 대규모 언어 모델", "Large Language Model",
+   "다음에 올 말을 예측하도록 훈련된 모델입니다. 그 예측이 아주 잘 맞아서 사람처럼 글을 씁니다. "
+   "핵심은 <strong>배운 적 없는 것은 모른다</strong>는 점입니다. 우리 회사 사실은 배운 적이 없으므로 따로 넣어줘야 합니다.",
+   "2장"),
+  ("rag", "RAG · 검색 증강 생성", "Retrieval-Augmented Generation",
+   "질문이 들어오면 <strong>관련 문서를 먼저 찾아서 AI에게 같이 건네주는 방식</strong>입니다. "
+   "이 책의 4층 모델에서 RAG는 <strong>2층에서 답을 꺼내오는 방법 중 하나</strong>이지 별도의 층이 아닙니다. "
+   "그리고 RAG만으로는 부족합니다. 검색은 비슷한 문서를 찾아줄 뿐, 두 다리 건너 연결된 사실은 찾지 못합니다. "
+   "그건 링크를 따라가야 나옵니다.",
+   "2장, 3장"),
+  ("embedding", "임베딩 · 벡터 검색", "Embedding · Vector search",
+   "글을 <strong>숫자 목록으로 바꿔서 뜻이 비슷한 것끼리 가깝게 두는 방법</strong>입니다. "
+   "덕분에 「매출」로 검색해도 「수익」이 적힌 문서를 찾아냅니다. "
+   "다만 비슷한 것을 찾을 뿐이라 <strong>정확한 관계</strong>는 모릅니다. "
+   "「이 기술이 어느 과제에서 나왔는가」는 비슷함으로 풀리지 않습니다.",
+   "2장"),
+  ("hallucination", "환각", "Hallucination",
+   "AI가 <strong>없는 사실을 그럴듯하게 지어내는 현상</strong>입니다. 빈칸을 만나면 메우려 하기 때문에 생깁니다. "
+   "그래서 이 책은 「모르면 「확인 필요」라고 쓴다」를 규칙으로 못 박습니다. 빈칸을 빈칸으로 남기는 것이 훨씬 낫습니다.",
+   "11장"),
+  ("provenance", "근거 · 출처", "Provenance",
+   "어떤 사실이 <strong>어디서 나왔는지</strong>를 같이 적어두는 일입니다. "
+   "근거가 붙지 않은 답은 검토할 수가 없습니다. 맞는지 틀리는지 확인할 방법이 없기 때문입니다. "
+   "AX 성숙도에서 1단계와 3단계 사이가 끊기는 이유가 여기 있습니다.",
+   "11장, 19장"),
+  ("confidence", "confidence 필드", "confidence",
+   "이 노트를 <strong>얼마나 믿어도 되는지</strong> 적는 칸입니다. "
+   "<strong>값은 <code>draft</code> 와 <code>reviewed</code> 둘뿐입니다.</strong> "
+   "사람이 확인한 것과 AI가 초벌로 적어둔 것을 구분합니다. "
+   "이 칸이 없으면 검토받은 사실과 아직 안 받은 사실이 섞여서, 결국 전부 못 믿게 됩니다.",
+   "3장, 11장, 17장"),
+  ("context-window", "컨텍스트 윈도우", "Context window",
+   "AI가 <strong>한 번에 볼 수 있는 분량</strong>입니다. 볼트 전체를 통째로 넣을 수는 없습니다. "
+   "그래서 필요한 노트만 골라서 넣는 일이 중요해지고, 잘 붙은 링크와 필드가 그 고르는 일을 쉽게 만듭니다.",
+   "2장"),
+  ("agent", "에이전트", "Agent",
+   "질문에 답만 하는 것이 아니라 <strong>스스로 순서를 정해 도구를 쓰고 일을 끝내는 AI</strong>입니다. "
+   "AX 성숙도의 마지막 단계에 나옵니다. 여기까지 가려면 앞 단계에서 근거와 규칙이 갖춰져 있어야 합니다.",
+   "19장"),
+ ]),
+
+ ("org", "조직과 전략", "이 시스템을 왜 만드는지에 붙은 말들입니다.", [
+  ("ax", "AX · AI 전환", "AI Transformation",
+   "AI 도구를 <strong>도입하는 것</strong>과 회사가 <strong>실제로 다르게 일하게 되는 것</strong>은 다른 일입니다. "
+   "뒤쪽이 AX입니다. 도구를 사는 것으로는 일어나지 않고, 일하는 방식과 기록하는 방식이 같이 바뀌어야 합니다.",
+   "19장"),
+  ("ax-maturity", "AX 성숙도 5단계", "AX maturity",
+   "0단계 각자 알아서 → 1단계 개인 생산성 → 2단계 공용 지식 → 3단계 업무 흐름에 편입 → 4단계 에이전트. "
+   "1단계에서 3단계로 <strong>건너뛰면 실패합니다.</strong> "
+   "근거가 붙지 않은 결과물은 검토할 수가 없어서, 결국 아무도 결재하지 않기 때문입니다.",
+   "19장"),
+  ("trl", "TRL · 기술 성숙도", "Technology Readiness Level",
+   "기술이 <strong>연구실 수준인지 실제 납품 가능한 수준인지</strong>를 1~9로 나타낸 척도입니다. "
+   "정부 과제 문서에 자주 나옵니다. 이 책에서는 기술역량 노트의 필드로 씁니다.",
+   "9장"),
+ ]),
+]
+
+
+CHROME_KO = {
+ 'title': '부록 A: 용어 사전 · 회사용 LLM Wiki 만들기',
+ 'meta_desc': '온톨로지·지식 그래프·LLM Wiki·RAG·프론트매터 등 이 책에서 쓰는 용어를 4층 모델에 맞춰 쉽게 풀어 씁니다.',
+ 'h1': '용어 사전',
+ 'subtitle': '모르는 단어가 나오면 여기로 오세요',
+ 'reading_time': '훑어보기 약 15분',
+ 'jump_h2': '묶음으로 건너뛰기',
+ 'where_label': '어디서 쓰나',
+ 'count_line': '모두 {total}개입니다. 본문 곳곳에서 점선 밑줄이 그어진 낱말을 누르면 해당 항목으로 옵니다.',
+ 'prev_href': 'ch19.html',
+ 'prev_label': '← 이전: LLM Wiki에서 시작하는 AX',
+ 'next_href': 'appendix-b.html',
+ 'next_label': '다음: 부록 B 복붙용 자산 →',
+ 'intro': '''    <p>읽다가 막히는 단어가 나오면 여기로 오세요. 이 책에서 실제로 쓰는 말만 담았고, 설명은 전부 <strong>이 책의 4층 모델에 맞춰</strong> 적었습니다. 다른 자료의 정의와 조금 다를 수 있는데, 그건 이 책이 틀려서가 아니라 층을 나누는 방식이 자료마다 다르기 때문입니다.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">단어 세 개만 기억한다면</p>
+      <p><a href="#ontology" class="term-link">온톨로지</a>는 <strong>규칙</strong>이고, <a href="#knowledge-graph" class="term-link">지식 그래프</a>는 <strong>사실</strong>이고, <a href="#llm-wiki" class="term-link">LLM Wiki</a>는 <strong>그게 계속 굴러가게 하는 전체 장치</strong>입니다. 이 셋을 섞어 부르는 순간 대화가 어긋납니다.</p>
+    </div>''',
+ 'confusions': '''
+    <h2 id="confusions">자주 섞이는 짝</h2>
+
+    <p>두 단어를 나란히 놓고 보면 차이가 분명해집니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>이것</th><th>과 이것</th><th>무엇이 다른가</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>온톨로지</td><td>지식 그래프</td><td>규칙이냐 사실이냐. 온톨로지에는 회사 이름이 한 번도 안 나옵니다</td></tr>
+        <tr><td>분류 체계</td><td>온톨로지</td><td>어디에 넣을지냐, 어떻게 이어질지냐. 폴더는 한 자리만 주고 관계는 여러 개를 줍니다</td></tr>
+        <tr><td>지식 그래프</td><td>LLM Wiki</td><td>답이 나오는 곳이냐, 그게 안 죽게 하는 장치까지 포함하냐</td></tr>
+        <tr><td>RAG</td><td>그래프 순회</td><td>비슷한 문서를 찾아오느냐, 링크를 따라가느냐. 두 다리 건넌 사실은 뒤쪽으로만 나옵니다</td></tr>
+        <tr><td>폴더</td><td>MOC</td><td>서랍이냐 목차냐. 노트 하나는 서랍 하나에만 들어가지만 목차에는 여러 번 실릴 수 있습니다</td></tr>
+        <tr><td>본문</td><td>프론트매터</td><td>사람이 읽는 곳이냐, 기계가 읽는 곳이냐. 대시보드는 프론트매터만 봅니다</td></tr>
+        <tr><td>AI 도입</td><td>AX</td><td>도구를 샀느냐, 일하는 방식이 바뀌었느냐</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">필드 이름은 하나로</p>
+      <p>이 책은 마감 날짜를 <code>due</code> 하나로만 씁니다. <code>deadline</code>이나 <code>마감일</code>은 쓰지 않습니다. 뜻이 같아도 이름이 갈리면 셀 수 없기 때문입니다. 정본 필드 목록은 10장에 있습니다.</p>
+    </div>''',
+}
+
+
+def build_article(groups, chrome):
+    out = ['<article>', chrome['intro']]
+
+    out.append(f'    <h2 id="jump">{chrome["jump_h2"]}</h2>')
+    out.append('    <ul class="glossary-nav">')
+    for gid, gname, _gdesc, items in groups:
+        out.append(f'      <li><a href="#{gid}">{gname} ({len(items)})</a></li>')
+    out.append('    </ul>')
+
+    total = sum(len(i[3]) for i in groups)
+    out.append('    <p>' + chrome['count_line'].format(total=total) + '</p>')
+
+    for gid, gname, gdesc, items in groups:
+        out.append(f'\n    <h2 id="{gid}">{gname}</h2>')
+        out.append(f'    <p>{gdesc}</p>')
+        out.append('    <div class="glossary-grid">')
+        for aid, head, alt, body, where in items:
+            # CLAUDE.md·Cowork 처럼 두 판본에서 같은 낱말인 항목이 있다.
+            # 그대로 찍으면 「CLAUDE.md (CLAUDE.md)」가 된다.
+            paren = '' if head == alt else f' <span class="term-en">({alt})</span>'
+            out.append(f'      <div class="glossary-item" id="{aid}">')
+            out.append(f'        <h3>{head}{paren}</h3>')
+            out.append(f'        <p>{body}</p>')
+            out.append(f'        <p class="term-where">{chrome["where_label"]} · {where}</p>')
+            out.append('      </div>')
+        out.append('    </div>')
+
+    out.append(chrome['confusions'])
+    out.append('  </article>')
+    return '\n'.join(out)
+
+
+CLOCK = ('<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+         'stroke-width="1.8" stroke-linecap="round" aria-hidden="true">'
+         '<circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>')
+
+
+def build(lang):
+    if lang == 'en':
+        sys.path.insert(0, 'tools')
+        import glossary_en as data
+        groups, chrome = data.GROUPS, data.CHROME
+        shell, dest = 'ch03.en.html', 'appendix-a.en.html'
+    else:
+        groups, chrome = GROUPS, CHROME_KO
+        shell, dest = 'ch03.html', 'appendix-a.html'
+
+    src = io.open(ROOT + shell, encoding='utf-8').read()
+
+    src = re.sub(r'<title>[^<]*</title>', f'<title>{chrome["title"]}</title>', src, count=1)
+    src = re.sub(r'<meta name="description" content="[^"]*">',
+                 f'<meta name="description" content="{chrome["meta_desc"]}">', src, count=1)
+    # 껍데기가 들고 온 상대 판본 링크는 이 쪽 판본 짝으로 바꾼다.
+    other = 'appendix-a.html' if lang == 'en' else 'appendix-a.en.html'
+    src = re.sub(r'<link rel="alternate" hreflang="\w+" href="[^"]*">',
+                 f'<link rel="alternate" hreflang="{"ko" if lang == "en" else "en"}" href="{other}">',
+                 src, count=1)
+
+    old_hdr = re.search(r'  <header class="chapter-header">.*?</header>', src, re.S).group(0)
+    src = src.replace(old_hdr, f'''  <header class="chapter-header">
+    <span class="chapter-number">APPENDIX A</span>
+    <h1>{chrome["h1"]}</h1>
+    <p class="chapter-subtitle">{chrome["subtitle"]}</p>
+    <span class="reading-time">{CLOCK}{chrome["reading_time"]}</span>
+  </header>''')
+
+    a0 = src.index('<article>')
+    a1 = src.index('</article>') + len('</article>')
+    src = src[:a0] + build_article(groups, chrome) + src[a1:]
+
+    old_nav = re.search(r'  <nav class="chapter-nav">.*?</nav>', src, re.S).group(0)
+    src = src.replace(old_nav, f'''  <nav class="chapter-nav">
+    <a href="{chrome["prev_href"]}" class="back-to-toc">{chrome["prev_label"]}</a>
+    <a href="{chrome["next_href"]}" class="next">{chrome["next_label"]}</a>
+  </nav>''')
+
+    io.open(ROOT + dest, 'w', encoding='utf-8').write(src)
+    n = sum(len(i[3]) for i in groups)
+    print(f'{dest} · 용어 {n}개 · 묶음 {len(groups)}개')
+
+
+if __name__ == '__main__':
+    build('en' if '--en' in sys.argv else 'ko')

@@ -3,19 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="템플릿과 변수 — SKILL.md.tmpl로 비슷한 스킬을 효율적으로 만드는 방법">
+  <meta name="description" content="템플릿과 변수 · SKILL.md.tmpl로 비슷한 스킬을 효율적으로 만드는 방법">
   <meta name="author" content="나만의 AI 스킬을 만들자">
-  <title>Chapter 12: 템플릿과 변수 — SKILL.md.tmpl 활용 — 나만의 AI 스킬을 만들자</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <title>Chapter 12: 템플릿과 변수 · SKILL.md.tmpl 활용 · 나만의 AI 스킬을 만들자</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
 </head>
 <body>
-
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">나만의 AI 스킬을 만들자</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10h3V7L6.5 3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1-3 3l-6-6a6 6 0 0 1-8-8L7 7z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 · 스킬이 필요한 세상</li>
+      <li><a href="ch01.html" class="nav-link">1장 AI와 대화한다는 것</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 반복은 지겹다: 자동화의 본능</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 내가 만든 도구를 나눠준다</a></li>
+      <li class="nav-part">제2부: 뭘 · 스킬 패키지 해부학</li>
+      <li><a href="ch04.html" class="nav-link">4장 스킬 패키지란?</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 뼈대 살펴보기</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 프론트매터: 스킬의 신분증</a></li>
+      <li><a href="ch07.html" class="nav-link">7장 references/ · 스킬의 참고서 폴더</a></li>
+      <li class="nav-part">제3부: 어떻게 · 나만의 스킬 만들기</li>
+      <li><a href="ch08.html" class="nav-link">8장 첫 번째 스킬: "인사하기"</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 프롬프트 엔지니어링 기초</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 도구 연결하기</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 references로 지식 확장하기</a></li>
+      <li><a href="ch12.html" class="nav-link">12장 템플릿과 변수</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 테스트하고 다듬기</a></li>
+      <li class="nav-part">제4부: 더 멀리 · 성장하는 스킬</li>
+      <li><a href="ch14.html" class="nav-link">14장 여러 스킬을 하나로</a></li>
+      <li><a href="ch15.html" class="nav-link">15장 팀과 함께 쓰는 스킬</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 커뮤니티에 기여하기</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전 (한-영 대조)</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 일러스트 프롬프트 모음</a></li>
+      <li><a href="appendix-c.html" class="nav-link">부록 C: 스킬 패키지 체크리스트</a></li>
+      <li><a href="appendix-d.html" class="nav-link">부록 D: 참고 자료 및 링크</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
 <div class="chapter-content">
 
   <!-- ====== Chapter Header ====== -->
   <header class="chapter-header">
     <span class="chapter-number">CHAPTER 12</span>
-    <h1>템플릿과 변수 — SKILL.md.tmpl 활용</h1>
+    <h1>템플릿과 변수: SKILL.md.tmpl 활용</h1>
     <p class="chapter-subtitle">쿠키 커터: 같은 틀, 다른 맛</p>
   </header>
 
@@ -66,7 +121,7 @@
 
       <div class="fun-box">
         <p class="fun-box-title">빈칸 채우기</p>
-        <p>여러분 어릴 때 이런 문제 풀어봤죠?<br><br>
+        <p>어릴 때 이런 문제 풀어봤죠?<br><br>
         "나는 ___를 좋아합니다. ___는 맛있기 때문입니다."<br><br>
         빈칸에 "피자"를 넣으면 → "나는 피자를 좋아합니다. 피자는 맛있기 때문입니다."<br>
         빈칸에 "치킨"을 넣으면 → "나는 치킨을 좋아합니다. 치킨은 맛있기 때문입니다."<br><br>
@@ -76,6 +131,7 @@
       <p>실제로 보면 이렇게 생겼어요:</p>
 
 <pre><code>---
+name: {{SKILL_NAME}}
 description: "{{LANGUAGE}} 코드 리뷰를 해주는 스킬"
 ---
 
@@ -85,7 +141,7 @@ description: "{{LANGUAGE}} 코드 리뷰를 해주는 스킬"
 {{LANGUAGE}}의 베스트 프랙티스와 일반적인 실수 패턴을
 잘 알고 있으며, 건설적인 코드 리뷰를 제공합니다.</code></pre>
 
-      <p><code>{{LANGUAGE}}</code>가 빈칸이에요. 여기에 "JavaScript"를 넣으면 JavaScript 코드 리뷰 스킬이 되고, "Python"을 넣으면 Python 코드 리뷰 스킬이 돼요.</p>
+      <p><code>{{LANGUAGE}}</code>와 <code>{{SKILL_NAME}}</code>이 빈칸이에요. <code>{{LANGUAGE}}</code>에 "JavaScript"를 넣으면 JavaScript 코드 리뷰 스킬이 되고, "Python"을 넣으면 Python 코드 리뷰 스킬이 돼요. <code>{{SKILL_NAME}}</code>에는 <code>javascript-code-review</code>처럼 만들어질 스킬 폴더 이름이 들어가요.</p>
     </section>
 
     <!-- ====== Practical Example ====== -->
@@ -97,8 +153,12 @@ description: "{{LANGUAGE}} 코드 리뷰를 해주는 스킬"
       <p><strong>SKILL.md.tmpl:</strong></p>
 
 <pre><code>---
+name: {{SKILL_NAME}}
 description: "{{LANGUAGE}} 코드를 리뷰하고 개선점을 제안하는 스킬"
-allowed-tools: ["Read", "Glob", "Grep"]
+allowed-tools:
+  - Read
+  - Glob
+  - Grep
 ---
 
 # {{LANGUAGE}} 코드 리뷰 스킬
@@ -143,15 +203,17 @@ allowed-tools: ["Read", "Glob", "Grep"]
       <p>이 템플릿에서 변수는 다음과 같아요:</p>
 
       <ul>
-        <li><code>{{LANGUAGE}}</code> — 프로그래밍 언어 이름</li>
-        <li><code>{{EXPERIENCE_YEARS}}</code> — 경력 연수</li>
-        <li><code>{{STYLE_GUIDE}}</code> — 해당 언어의 스타일 가이드</li>
-        <li><code>{{LANGUAGE_SPECIFIC_CHECKS}}</code> — 언어별 특화 검토 항목</li>
+        <li><code>{{SKILL_NAME}}</code>: 만들어질 스킬의 이름 (케밥 케이스)</li>
+        <li><code>{{LANGUAGE}}</code>: 프로그래밍 언어 이름</li>
+        <li><code>{{EXPERIENCE_YEARS}}</code>: 경력 연수</li>
+        <li><code>{{STYLE_GUIDE}}</code>: 해당 언어의 스타일 가이드</li>
+        <li><code>{{LANGUAGE_SPECIFIC_CHECKS}}</code>: 언어별 특화 검토 항목</li>
       </ul>
 
       <h3>JavaScript 버전으로 변환하면:</h3>
 
-<pre><code>{{LANGUAGE}} → JavaScript
+<pre><code>{{SKILL_NAME}} → javascript-code-review
+{{LANGUAGE}} → JavaScript
 {{EXPERIENCE_YEARS}} → 10
 {{STYLE_GUIDE}} → Airbnb JavaScript Style Guide
 {{LANGUAGE_SPECIFIC_CHECKS}} →
@@ -163,7 +225,8 @@ allowed-tools: ["Read", "Glob", "Grep"]
 
       <h3>Python 버전으로 변환하면:</h3>
 
-<pre><code>{{LANGUAGE}} → Python
+<pre><code>{{SKILL_NAME}} → python-code-review
+{{LANGUAGE}} → Python
 {{EXPERIENCE_YEARS}} → 10
 {{STYLE_GUIDE}} → PEP 8
 {{LANGUAGE_SPECIFIC_CHECKS}} →
@@ -182,21 +245,60 @@ allowed-tools: ["Read", "Glob", "Grep"]
 
     <!-- ====== Built-in Variables ====== -->
     <section>
-      <h2>시스템이 제공하는 변수들</h2>
+      <h2>생성 스크립트가 채워 넣는 변수들</h2>
 
-      <p>직접 정의한 변수 외에, 시스템이 자동으로 제공하는 변수들도 있어요. 이 변수들은 스킬이 실행되는 환경에 따라 자동으로 값이 채워져요.</p>
+      <p>여기서 꼭 짚고 갈 게 하나 있어요. <code>SKILL.md.tmpl</code>과 <code>{{VAR}}</code> 문법은 <strong>Claude Code가 제공하는 기능이 아니에요.</strong> 스킬을 여러 개 관리하는 프로젝트가 자기 생성 스크립트를 돌리려고 정해둔 빌드 규약이에요.</p>
+
+      <p>그래서 변수는 스킬이 실행될 때 채워지는 게 아니에요. <strong>빌드할 때 값이 확장돼서 <code>SKILL.md</code>에 구워져요.</strong> Claude가 읽는 건 언제나 확장이 끝난 <code>SKILL.md</code>고, <code>.tmpl</code> 파일은 쳐다보지도 않아요.</p>
+
+      <div class="callout">
+        <p class="callout-title">중요: .tmpl만 만들면 아무 일도 안 일어나요</p>
+        <p><code>.tmpl</code>을 <code>SKILL.md</code>로 바꿔주는 <strong>생성기가 따로 있어야</strong> 해요. 이 생성기는 프로젝트가 직접 만들어 두는 것이지, 스킬을 쓰면 자동으로 딸려오는 게 아니에요. 생성기 없이 <code>.tmpl</code> 파일만 폴더에 넣어두면, <code>{{LANGUAGE}}</code>는 그냥 글자 그대로 남아 있고 스킬은 만들어지지 않아요.</p>
+      </div>
+
+      <h3>생성기가 없다면 어떻게 하나요?</h3>
+
+      <p>"그럼 생성기부터 만들어야 하나요?" 아니에요. 훨씬 쉬운 답이 있어요.</p>
+
+      <div class="callout">
+        <p class="callout-title">지금 당장 할 수 있는 방법</p>
+        <p><strong>생성기가 없다면 지금은 손으로 바꿔 쓰세요.</strong> <code>SKILL.md.tmpl</code>을 복사해서 <code>{{LANGUAGE}}</code>를 <code>JavaScript</code>로 찾아 바꾸고 <code>SKILL.md</code>로 저장하면 똑같은 결과예요.</p>
+      </div>
+
+      <p>순서로 적으면 이래요.</p>
+
+      <ol>
+        <li><code>SKILL.md.tmpl</code> 파일을 복사해서 이름을 <code>SKILL.md</code>로 바꿔요</li>
+        <li>편집기에서 "찾아 바꾸기"(보통 <code>Ctrl+H</code> 또는 <code>Command+H</code>)를 열어요</li>
+        <li><code>{{LANGUAGE}}</code>를 찾아서 <code>JavaScript</code>로 전부 바꿔요</li>
+        <li>저장. 끝이에요</li>
+      </ol>
+
+      <p>생성기가 하는 일이 정확히 이거예요. 문자열을 찾아서 바꾸는 것. 스킬이 3개쯤일 때는 손으로 하는 게 오히려 빨라요. 같은 작업을 30번 반복하게 되는 날이 오면, 그때 생성기를 만들면 돼요.</p>
+
+      <p>실물로 확인해볼까요? 설치된 gstack의 <code>qa</code> 스킬 <code>SKILL.md</code>를 열어보면 프론트매터 바로 아래에 "이 파일은 <code>SKILL.md.tmpl</code>에서 자동 생성됐으니 직접 고치지 말라"는 주석과, 다시 생성하는 명령이 나란히 적혀 있어요 (2026년 7월 확인). 사람이 손으로 쓴 파일이 아니라 <strong>생성기가 찍어낸 결과물</strong>이라는 표시죠.</p>
+
+      <p>거기 적힌 명령은 <code>bun run gen:skill-docs</code>인데, 이건 <strong>그 프로젝트에서만 통하는 명령이에요.</strong> <code>bun</code>은 그 프로젝트가 쓰는 실행 도구 이름이고, <code>gen:skill-docs</code>는 그 프로젝트가 자기 생성기에 붙여둔 별명이에요. 내 컴퓨터 아무 폴더에서 이 명령을 쳐도 아무 일도 일어나지 않아요. 그러니 따라 칠 필요 없이 "이 프로젝트는 생성기를 이렇게 돌리는구나" 정도로만 보면 돼요.</p>
+
+      <p>이렇게 생성기를 갖춘 프로젝트에서는, 직접 정의한 변수 말고 <strong>생성기가 알아서 값을 넣어주는 변수</strong>도 쓸 수 있어요.</p>
 
       <div class="fun-box">
-        <p class="fun-box-title">유용한 시스템 변수</p>
-        <p><strong>{{PREAMBLE}}</strong> — 기본 시스템 프리앰블. Claude Code가 기본적으로 사용하는 설정이에요. 이걸 포함하면 스킬이 기본 동작을 유지하면서 추가 기능만 얹을 수 있어요.<br><br>
-        <strong>{{BASE_BRANCH_DETECT}}</strong> — Git의 기본 브랜치를 자동 감지해요. main인지 master인지 develop인지 — 프로젝트마다 다르니까, 자동 감지가 편하죠.</p>
+        <p class="fun-box-title">생성기가 채워주는 변수 예시</p>
+        <p>아래 둘은 마크다운이나 Claude Code의 표준 문법이 아니라, <strong>그 프로젝트의 생성기가 정해둔 이름</strong>이에요. 다른 프로젝트에서는 이름도 뜻도 다를 수 있어요.<br><br>
+        <strong>{{PREAMBLE}}</strong>: 그 프로젝트의 스킬들이 공통으로 쓰는 머리말이에요. 이걸 넣어두면 스킬마다 같은 문구를 복사해 붙일 필요가 없어요.<br><br>
+        <strong>{{BASE_BRANCH_DETECT}}</strong>: Git의 기본 브랜치를 알아내는 방법이 들어가요. main인지 master인지 develop인지는 프로젝트마다 다르니까요.</p>
       </div>
 
       <p>예를 들어, Git 작업을 하는 스킬에서:</p>
 
 <pre><code>---
+name: pr-review-merge
 description: "PR을 리뷰하고 머지하는 스킬"
-allowed-tools: ["Bash", "Read", "Glob", "Grep"]
+allowed-tools:
+  - Bash
+  - Read
+  - Glob
+  - Grep
 ---
 
 {{PREAMBLE}}
@@ -208,7 +310,12 @@ allowed-tools: ["Bash", "Read", "Glob", "Grep"]
 PR을 리뷰할 때는 {{BASE_BRANCH_DETECT}} 브랜치와의
 차이를 비교하여 분석하세요.</code></pre>
 
-      <p><code>{{BASE_BRANCH_DETECT}}</code> 덕분에, 프로젝트의 기본 브랜치가 <code>main</code>이든 <code>master</code>이든 상관없이 자동으로 맞춰져요.</p>
+      <p>생성기가 <code>{{BASE_BRANCH_DETECT}}</code> 자리를 채워주니까, 프로젝트의 기본 브랜치가 <code>main</code>이든 <code>master</code>이든 템플릿 하나로 다 커버돼요.</p>
+
+      <div class="callout">
+        <p class="callout-title">PR? 브랜치? 머지?</p>
+        <p>위 예제에 처음 보는 말이 나왔죠. <strong>브랜치는 챕터 15에서, PR과 머지는 챕터 16에서 다뤄요.</strong> 지금은 "Git으로 협업할 때 쓰는 용어구나" 정도로 넘어가도 돼요. 이 예제에서 봐야 할 건 <code>{{ }}</code>로 감싼 자리가 생성기에게 채워진다는 것 하나예요.</p>
+      </div>
     </section>
 
     <!-- ====== When to Use ====== -->
@@ -222,16 +329,16 @@ PR을 리뷰할 때는 {{BASE_BRANCH_DETECT}} 브랜치와의
       <p>SKILL.md 직접 작성하는 것만으로 충분해요. 템플릿은 다음과 같은 상황에서 진가를 발휘해요:</p>
 
       <ul>
-        <li>비슷한 구조의 스킬을 <strong>5개 이상</strong> 만들어야 할 때</li>
+        <li>비슷한 구조의 스킬을 <strong>3개 이상</strong> 만들어야 할 때</li>
         <li>팀에서 스킬을 <strong>표준화</strong>하고 싶을 때</li>
-        <li>환경에 따라 스킬이 <strong>자동으로 달라져야</strong> 할 때 (예: 브랜치 이름)</li>
+        <li>빌드할 때 환경에 맞춰 스킬 내용이 <strong>달라져야</strong> 할 때 (예: 브랜치 이름)</li>
       </ul>
 
       <p>그러니까 지금 당장 "템플릿을 써야 해!"라고 부담 갖지 마세요. "아, 이런 게 있구나. 나중에 필요하면 쓰면 되겠다" 정도면 충분해요.</p>
 
       <div class="callout">
         <p class="callout-title">프로 팁</p>
-        <p>처음에는 SKILL.md를 직접 작성하세요. 그러다 "어, 이 스킬이랑 저 스킬이랑 구조가 90% 같은데?"라는 생각이 들면 — 그때가 템플릿을 도입할 타이밍이에요. 필요를 느끼기 전에 도입하면, 오히려 복잡해져요.</p>
+        <p>처음에는 SKILL.md를 직접 작성하세요. 그러다 "어, 이 스킬이랑 저 스킬이랑 구조가 90% 같은데?"라는 생각이 들면, 그때가 템플릿을 도입할 타이밍이에요. 필요를 느끼기 전에 도입하면 오히려 복잡해져요.</p>
       </div>
     </section>
 
@@ -248,7 +355,7 @@ PR을 리뷰할 때는 {{BASE_BRANCH_DETECT}} 브랜치와의
         <strong>SKILL.md.tmpl 사용:</strong><br>
         - 같은 구조의 스킬이 3개 이상 필요할 때<br>
         - 팀에서 스킬 구조를 통일하고 싶을 때<br>
-        - 환경 변수(브랜치 이름 등)를 자동으로 넣고 싶을 때</p>
+        - 빌드할 때 환경 값(브랜치 이름 등)을 넣고 싶을 때</p>
       </div>
     </section>
 
@@ -257,8 +364,9 @@ PR을 리뷰할 때는 {{BASE_BRANCH_DETECT}} 브랜치와의
       <h3>잠깐, 정리!</h3>
       <ul>
         <li><strong>SKILL.md.tmpl</strong>은 SKILL.md를 자동 생성하는 템플릿이에요. 쿠키 커터 같은 거!</li>
-        <li><code>{{VARIABLE_NAME}}</code> 형태의 <strong>변수</strong>가 핵심 — "나중에 채울 빈칸"이에요</li>
-        <li>시스템 변수 <code>{{PREAMBLE}}</code>, <code>{{BASE_BRANCH_DETECT}}</code>는 자동으로 값이 채워져요</li>
+        <li><code>{{VARIABLE_NAME}}</code> 형태의 <strong>변수</strong>가 핵심이에요. "나중에 채울 빈칸"이죠</li>
+        <li><code>.tmpl</code>은 Claude Code 기능이 아니라 프로젝트의 빌드 규약이에요. 값은 <strong>빌드할 때</strong> 확장돼 <code>SKILL.md</code>에 구워지고, 그러려면 <strong>생성기가 필요해요</strong></li>
+        <li>생성기가 없으면 <strong>손으로 바꿔 쓰면 돼요.</strong> <code>.tmpl</code>을 복사해서 <code>{{LANGUAGE}}</code>를 찾아 바꾸고 <code>SKILL.md</code>로 저장하면 결과가 같아요</li>
         <li>같은 구조의 스킬이 여러 개 필요할 때 템플릿이 빛을 발해요</li>
         <li><strong>초보자는 SKILL.md 직접 작성으로 충분해요!</strong> 필요를 느낄 때 도입하세요</li>
       </ul>
@@ -282,6 +390,15 @@ PR을 리뷰할 때는 {{BASE_BRANCH_DETECT}} 브랜치와의
   </nav>
 
 </div>
-
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
 </body>
 </html>

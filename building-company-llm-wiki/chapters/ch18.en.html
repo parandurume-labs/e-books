@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 18: Comparing intent against execution · Building a Company LLM Wiki</title>
+  <meta name="description" content="Design the work log, join intent to execution with pdm_intent_of, and run the quarterly retrospective on the record rather than on memory. Then the loop where each retrospective sets the next quarter's recording rules, and Solbit Tech's six months.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="alternate" hreflang="ko" href="ch18.html">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open contents"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Building a Company LLM Wiki</span>
+  <button class="search-trigger" type="button" aria-label="Search contents"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>Search</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="Toggle dark mode"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="Contents">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+    <span class="sidebar-title">Contents</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close contents">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.en.html" class="nav-link">Cover and contents</a></li>
+      <li class="nav-part">Part 1 · Why you need this</li>
+      <li><a href="ch01.en.html" class="nav-link">1. Where our knowledge lives</a></li>
+      <li><a href="ch02.en.html" class="nav-link">2. A wiki, not RAG</a></li>
+      <li><a href="ch03.en.html" class="nav-link">3. Ontology is not the wiki</a></li>
+      <li><a href="ch04.en.html" class="nav-link">4. Three tools, three jobs</a></li>
+      <li class="nav-part">Part 2 · Setup in 30 minutes</li>
+      <li><a href="ch05.en.html" class="nav-link">5. Obsidian and the vault</a></li>
+      <li><a href="ch06.en.html" class="nav-link">6. Sharing through Teams</a></li>
+      <li><a href="ch07.en.html" class="nav-link">7. Connecting the vault to Cowork</a></li>
+      <li class="nav-part">Part 3 · Designing the ontology</li>
+      <li><a href="ch08.en.html" class="nav-link">8. Six design principles</a></li>
+      <li><a href="ch09.en.html" class="nav-link">9. Choosing your classes</a></li>
+      <li><a href="ch10.en.html" class="nav-link">10. Relations and fields</a></li>
+      <li class="nav-part">Part 4 · Running it</li>
+      <li><a href="ch11.en.html" class="nav-link">11. CLAUDE.md</a></li>
+      <li><a href="ch12.en.html" class="nav-link">12. Templates and your first note</a></li>
+      <li><a href="ch13.en.html" class="nav-link">13. Automating with skills</a></li>
+      <li class="nav-part">Part 5 · Automation and visibility</li>
+      <li><a href="ch14.en.html" class="nav-link">14. Scheduling</a></li>
+      <li><a href="ch15.en.html" class="nav-link">15. Making progress visible</a></li>
+      <li><a href="ch16.en.html" class="nav-link">16. Twelve automation recipes</a></li>
+      <li class="nav-part">Part 6 · Keeping it alive</li>
+      <li><a href="ch17.en.html" class="nav-link">17. Quality as code</a></li>
+      <li><a href="ch18.en.html" class="nav-link">18. Intent versus execution</a></li>
+      <li class="nav-part">Part 7 · Scaling to AX</li>
+      <li><a href="ch19.en.html" class="nav-link">19. From wiki to AX</a></li>
+      <li class="nav-part">Appendices</li>
+      <li><a href="appendix-a.en.html" class="nav-link">Appendix A · Glossary</a></li>
+      <li><a href="appendix-b.en.html" class="nav-link">Appendix B · Copy-paste assets</a></li>
+      <li><a href="appendix-c.en.html" class="nav-link">Appendix C · Troubleshooting</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="Toggle dark mode"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">Dark mode</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 18</span>
+    <h1>Comparing intent against execution</h1>
+    <p class="chapter-subtitle">Put "what we said we would do" and "what we actually spent time on" side by side</p>
+    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>about 24 min</span>
+  </header>
+
+<article>
+    <p>Last week of the quarter, the retrospective meeting. Kim, the CEO, opens with a question. <strong>"So what did we say we were going to do last quarter?"</strong></p>
+
+    <p>A short silence, then somebody names a couple of things they remember. Somebody else adds one. The three that turn up get an hour of discussion. The meeting ends without incident and next quarter's plan comes out of it.</p>
+
+    <p>But those three are <strong>not everything you committed to last quarter.</strong> They are what somebody happened to remember. What people remember is mostly the last three weeks and the events that came with strong feelings. Whatever slipped quietly in the first month of the quarter comes to nobody's mind.</p>
+
+    <p>What you get then is not a retrospective. It is <strong>a recital of recent memory</strong>. That is why five people can spend an hour together and have the next quarter go exactly like the last one.</p>
+
+    <div class="callout">
+      <p class="callout-title">What this chapter is for</p>
+      <p>It makes the retrospective run <strong>on the record</strong> instead of on memory. That takes three things. A record of what you said you would do, a record of what you spent time on, and <strong>one line joining the two</strong>.</p>
+      <p>Chapter 17 kept the form of the vault. This chapter makes the vault <strong>get used in the company's actual decisions</strong>.</p>
+    </div>
+
+    <h2>Why a retrospective turns into a memory contest</h2>
+
+    <p>There is a structural reason the comparison never happens. <strong>Only one side of the material survives.</strong></p>
+
+    <p><strong>Intent gets recorded, more or less.</strong> The quarterly plan slides, the meeting notes, the email the CEO sent. The problem is that it is scattered and formatted differently everywhere, so gathering it takes half a day on its own. Which means nobody gathers it right before the meeting.</p>
+
+    <p><strong>Execution is not recorded at all.</strong> The output survives. Proposal files, code, reports. But output is not time. "What did the time go to" is written down nowhere. That is especially true of <strong>work that produced no output</strong>. Two days spent investigating something that turned out not to work leaves no trace anywhere in the company.</p>
+
+    <p>The third one hurts most. <strong>Work that was never in the plan is not in the plan document, and it rarely shows up in the output list either.</strong> Yet that is usually what eats the quarter. The thing a customer asked for out of nowhere, the call that appeared, the outage that blew up. That is why asking "why didn't the plan hold" in a retrospective gets no answer. <strong>The answer is on the side that was not recorded.</strong></p>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">The sentence this chapter is trying to produce</p>
+      <p>What should come out of a retrospective is not "let's do better next time". It is a sentence like this.</p>
+      <p><strong>"The thing we marked priority one has two logs against it this quarter. Meanwhile fifteen went to customer support that was not in the plan. That is coming again next quarter."</strong></p>
+      <p>That sentence is a fact, not an opinion. So it invites a decision rather than an argument. Put the retrospective on the record and the character of the meeting changes like that.</p>
+    </div>
+
+    <h3>Three distortions memory produces</h3>
+
+    <p>A little more detail on why a retrospective from memory is dangerous. Three distortions always pull in the same direction.</p>
+
+    <p><strong>Recent events look bigger.</strong> The last three weeks of the quarter take up most of the retrospective. Nobody brings up what happened in the first month. That is how you get a conclusion like "this quarter went entirely on the open call", when the call preparation was in fact the final three weeks and the first two months often went elsewhere.</p>
+
+    <p><strong>Only work with an outcome is remembered.</strong> You submitted a proposal, so you remember it. Two days of investigation that you dropped, you do not. But those two days were spent, and they came out of work that was in the plan. That is usually why a retrospective cannot find where the time went.</p>
+
+    <p><strong>Whoever speaks first becomes the company's memory.</strong> The viewpoint of the person who talks first becomes that day's fact. Disagreeing needs evidence, and there is none, so nobody disagrees. That is not people being bad. It is <strong>the default state of a meeting with no material</strong>.</p>
+
+    <p>None of the three is cured by diligence. Human memory is simply built that way. So you go to the record instead.</p>
+
+    <h2>Designing the work log: what to write and what not to</h2>
+
+    <p>The place for the execution-side record is <code>Sources/40-Worklog/</code>. Get the design wrong here and nobody writes anything. Chapter 15 said the work log completion rate was around 40% before the dashboard, and half of that was not laziness but <strong>"I don't know what I'm supposed to write"</strong>.</p>
+
+    <p>So nail down what goes in and what does not, first.</p>
+
+    <table>
+      <thead>
+        <tr><th>Write this</th><th>Not this</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>The <strong>one</strong> thing you spent the most time on today</td><td>Everything you did. That is a diary, not a log</td></tr>
+        <tr><td>Decisions and the reasons, including options you looked at and dropped</td><td>Reflections and resolutions like "worked hard today"</td></tr>
+        <tr><td>What blocked you and why</td><td>Anything already recorded elsewhere. Commit messages, issues, raw meeting notes</td></tr>
+        <tr><td>What turned out differently from what you expected</td><td>Boasting about what went well. The output speaks for that</td></tr>
+      </tbody>
+    </table>
+
+    <p>The test is a single one. <strong>Write only what you three months from now will want to know.</strong> "Made progress on development today" tells that person nothing. "Recognition rate came out low in the cold storage site, so we changed the lighting conditions and will measure again" does. That second sentence saves a day for whoever meets the same problem three months later.</p>
+
+    <p>The folder works like this.</p>
+
+    <div class="file-tree">
+      <pre>Sources/40-Worklog/
+├── 2026-07-15-Kim.md                 <span class="comment">One day's log. One page per person per day</span>
+├── 2026-07-15-weekly-meeting.md      <span class="comment">Raw meeting note. Saved by recipe 1 in Chapter 16</span>
+├── DEC-2026-0715-CityCall.md         <span class="comment">Decision note. Extracted from the raw note</span>
+└── ...</pre>
+    </div>
+
+    <p>Separating raw material from processed output was the principle in Chapter 12. Keep the raw meeting note without changing a character, and turn the decisions extracted from it into separate notes with a <code>DEC-</code> prefix. What the retrospective actually reads is two things: the daily logs and the decision notes.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">One line a day is enough</p>
+      <p>Design the work log as "reflective time to look back on your day" and it is over in two weeks. The three to five minutes a day this book keeps mentioning means about that much writing. <strong>One line in each of the three sections of the Chapter 12 template</strong>. Ask for more than that and the completion rate falls, and once the completion rate falls the retrospective does not work.</p>
+      <p>What a retrospective needs is <strong>completeness, not depth</strong>. A shallow record made every day beats a deep record made rarely.</p>
+    </div>
+
+    <h3>What raises the completion rate is not nagging</h3>
+
+    <p>In a five-person company, the CEO says "write your log every day" and everybody writes one that day. Next week three of them do, and in week three one does. The fewer the people, the more personal the nagging sounds, and personal nagging does not last.</p>
+
+    <p>Chapter 14 told the story of building a "missing work log check" scheduled task and later deleting it. That job worked not because it was surveillance but because <strong>it printed names and numbers and blamed nobody</strong>, and it was deleted because the habit had formed and the alert had become noise. The order matters. An alert is a tool for starting, not a tool for sustaining.</p>
+
+    <p>What actually held the completion rate up was the Chapter 15 dashboard. <strong>Seeing the line you wrote on Monday's screen</strong> beat nagging. When the benefit of recording is visible, people record. The retrospective in this chapter does the same job. Once a quarter it creates the place where the logs you wrote get used in a real company decision.</p>
+
+    <p>So set the order this way. <strong>Build the place where records get used before you add rules about recording.</strong> Asking people to diligently pile up records nobody uses does not work.</p>
+
+    <p>The Chapter 17 validation script already carries one line for this note kind, so it catches logs with missing required fields every week.</p>
+
+    <pre><code># the line for it inside REQUIRED in _ops/scripts/validate.py
+"업무로그": ["class", "id", "updated", "owner"],
+# It does not use status, so it does not go in STATUS_ENUM.
+# It is a note kind inside 40-Worklog rather than a class, but leave it
+# out and every log throws a "class value not in the design doc list" ERROR.</code></pre>
+
+    <h2>pdm_intent_of: the one line joining intent to execution</h2>
+
+    <p>When you designed the relation predicates in Chapter 10 you put <code>pdm_intent_of</code> in. This is where it gets used.</p>
+
+    <p>The meaning is simple. <strong>"This record is execution belonging to that intent."</strong> Chapter 10 defined this predicate on work logs only. Add this one line to a work log and which project or opportunity that day was aimed at stays on the record.</p>
+
+    <pre><code>---
+class: 업무로그
+id: 2026-07-15-Kim
+date: 2026-07-15
+owner: "[[Kim]]"
+updated: 2026-07-15
+pdm_intent_of: "[[OPP-2026-CityCall]]"
+confidence: reviewed
+---
+
+## What took the most time
+Draft of the track record section of the city government call proposal. 3 hours.
+
+## What blocked me
+Could not use Daesung Logistics as a track record, so substituted Warebot's existing sites.
+Another hour went to finding the evidence notes.
+
+## Tomorrow
+- List the cold storage recognition rate material</code></pre>
+
+    <p>Note that the <code>id</code> has no prefix. Work logs and meeting notes are note kinds inside <code>40-Worklog/</code> rather than classes, so the date and the name become the <code>id</code> directly. Exactly as fixed in Chapter 12.</p>
+
+    <p>The sections are the same three as the Chapter 12 template. Here is where the reason the first one is <strong>"what took the most time"</strong> rather than "what I did" becomes clear. Write "what I did" and people try to write everything, and trying to write everything blows past three to five minutes a day. Do not rename the sections here. Two sets of names and the retrospective cannot read the logs.</p>
+
+    <p>Without that one line the retrospective ends like this. "We have fifty-four logs this quarter." And what do you know from that? Nothing.</p>
+
+    <p>With it, you get this. <strong>"Twenty-eight of this quarter's fifty-four logs point at the city government call. But priority one in the quarterly plan was the Pickview pilot, and Pickview has two logs."</strong> That is a meeting agenda.</p>
+
+    <h3>When one day spans several intents</h3>
+
+    <p>The question comes immediately. What do you write on a day you spent the morning on the call proposal and the afternoon on customer phone calls?</p>
+
+    <p><strong>The rule is one value.</strong> Chapter 10 fixed it that way, because allowing multiple values leaves you with no way to split the time later. The Chapter 12 work log template is a single-value line too.</p>
+
+    <p>So on a day like that you pick <strong>"the one thing you spent the most time on today"</strong> and write only that. The rest goes into the body as a line, with no link. <strong>A consistent rule matters more than an accurate split.</strong> What you need at the end of the quarter is not an exact timesheet but a slope showing which side dominated.</p>
+
+    <p>If you really must write two, you can write a list. Just <strong>do not go past three.</strong> And logs like that split the weighting in the comparison. Whether a day divided in two gets counted as half on each side or counted fully on both is something a person has to decide at retrospective time, and if that call changes from round to round then <strong>the numbers change from round to round.</strong> If such days keep coming, that is not a recording problem but a signal that the work is fragmented too finely, and that is itself an agenda item.</p>
+
+    <p>Leave the days where you cannot attach a <code>pdm_intent_of</code> as they are. A forced link is worse than a blank. A blank counts in the retrospective as "unattached log" and becomes a signal, while a wrong link becomes <strong>a false statistic</strong>.</p>
+
+    <h3>The other side has to be a record too</h3>
+
+    <p>To compare, the intent side has to be a note as well. If "what we will do this quarter" only exists in a slide deck, no machine can read it. Spend 30 minutes in the first week of the quarter and write one page like this.</p>
+
+    <pre><code>---
+class: 결정
+id: DEC-2026-0701-Q3Plan
+owner: "[[Kim]]"
+updated: 2026-07-01
+confidence: reviewed
+---
+
+## What we said we would do in Q3 (in priority order)
+
+1. Secure [[Pickview]] pilot data · owner [[Kim]] · due 2026-09-30
+2. Submit [[OPP-2026-CityCall]] · due 2026-08-08
+3. Keep [[Warebot]]'s existing sites stable · ongoing
+
+## What we decided not to do this quarter
+- WareTwin sales. On hold until we have pilot data</code></pre>
+
+    <p>Look at that last section. <strong>Writing down "what we decided not to do" is worth more than it looks.</strong> Three months later, when "why didn't we do that one" comes up, the record shows it was not neglected but <strong>decided against</strong>. A decision and a lapse look the same from outside and are completely different things.</p>
+
+    <h2>Running the retrospective for real</h2>
+
+    <p>The eleventh recipe in Chapter 16 is this one. It has to read the vault, so route A, local. A quarter is not on the schedule options, so make it <strong>manual</strong> and press it in the last week of the quarter.</p>
+
+    <pre><code>[Task name] Quarterly retrospective comparison
+[Frequency] Manual (run in the last week of the quarter)
+[Approval mode] Confirm before writing files
+[Folder] Solbit Tech Wiki
+[Prompt]
+
+Compare intent against execution for this quarter (2026-07-01 to 2026-09-30).
+
+1. Intent side: read the items and their priority order from the quarterly
+   plan decision note in Sources/40-Worklog/.
+2. Execution side: gather the work logs for the same period and group them
+   by item using the pdm_intent_of link.
+3. Build a table split into the four groups below.
+   - in the plan, with logs
+   - in the plan, with no logs or very few
+   - not in the plan, with many logs
+   - logs with an empty pdm_intent_of that group nowhere
+4. Mark the evidence logs on each row in [[double brackets]]. Past three,
+   shorten it to "and N more".
+5. At the end, collect the items under "we had no record to answer this".
+6. Save the result as _reports/retro-2026-Q3.md.
+
+Never do this:
+- do not speculate about why. People write the reasons in the meeting
+- do not rate anything as good or bad. Counts and evidence only
+- do not aggregate by person's name
+- do not edit notes under Sources/</code></pre>
+
+    <p>The output looks like this table.</p>
+
+    <table>
+      <thead>
+        <tr><th>Group</th><th>Item</th><th>Logs</th><th>What it means</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>In the plan, with logs</td>
+          <td>City government call submission</td>
+          <td>28</td>
+          <td>Done as planned. Though it took far more of the quarter than expected</td>
+        </tr>
+        <tr>
+          <td><strong>In the plan, no logs</strong></td>
+          <td>Secure Pickview pilot data</td>
+          <td>2</td>
+          <td><strong>Priority one and we never got to it</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Not in the plan, many logs</strong></td>
+          <td>Warebot customer support</td>
+          <td>15</td>
+          <td><strong>What actually ate the quarter</strong></td>
+        </tr>
+        <tr>
+          <td>Unattached logs</td>
+          <td>-</td>
+          <td>9</td>
+          <td><code>pdm_intent_of</code> was empty. A record quality problem</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The third row of the table is this retrospective's finding. That is as far as the machine goes. The AI produces counts and evidence only. <strong>It writes not one character of "why".</strong> Let the AI start guessing at reasons and you get a plausible narrative, and people accept the narrative instead of testing it. You would be handing away the most important part of the retrospective.</p>
+
+    <h3>Run the meeting in this order</h3>
+
+    <p>A report does not make a retrospective. Here is how five people spend 60 minutes.</p>
+
+    <ol class="steps">
+      <li><strong>Put the table up. 5 minutes</strong>
+        <p>Do not read it out. Let everyone read it. The one four-group table is enough. Put the full report up and a scrolling contest starts on the spot.</p>
+      </li>
+      <li><strong>Check the facts first, and only that. 10 minutes</strong>
+        <p>Get every "this number looks wrong" out here. Sometimes a person who never wrote logs is missing from the table entirely. <strong>Debate on top of wrong numbers and the conclusion is wrong too.</strong></p>
+      </li>
+      <li><strong>Discuss only groups two and three. 30 minutes</strong>
+        <p>What was in the plan and did not happen, and what was not in the plan and ate the time. The other two groups do not get meeting time. Congratulate yourselves on what went well and move on.</p>
+      </li>
+      <li><strong>Fix next quarter's plan right there. 10 minutes</strong>
+        <p>Hold the retrospective and the planning on different days and the retrospective never reaches the plan. Open the plan note in the same room and cut the item list.</p>
+      </li>
+      <li><strong>Set one recording rule. 5 minutes</strong>
+        <p>Pick one item from the "we had no record to answer this" list. And pick one thing to remove at the same time.</p>
+      </li>
+    </ol>
+
+    <p>Loading 30 minutes into step 3 is the point of this order. The most common way a retrospective fails is <strong>spending all the time on what went well</strong>. It feels good and the next quarter is unchanged.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Your first retrospective is usually disappointing</p>
+      <p>Run it the first time and half the table lands in "unattached logs". You only have two months of logs, and <code>pdm_intent_of</code> is on some of them. You start wondering why you bothered.</p>
+      <p>Do not delete it. <strong>The value of a first retrospective is not the comparison but finding out what is missing.</strong> The table fills in from the second one, and a trend shows from the third. This system only grows a quarter at a time. Judge it on one run and you will certainly shut it down.</p>
+    </div>
+
+    <h2>Four things the comparison reveals</h2>
+
+    <h3>1. What you committed to and never touched</h3>
+
+    <p>The most painful item. And the cause is usually not laziness. If priority one has two logs, it means something more urgent kept arriving all quarter. So what a retrospective has to ask is not "why didn't we do it" but <strong>"what came in instead"</strong>. That answer is already in group three.</p>
+
+    <p>Ask "why didn't we do it" and people manufacture excuses, and excuses do not change the next quarter. Ask "what came in instead" and you get a list, and a list goes into next quarter's plan.</p>
+
+    <h3>2. What was not in the plan and ate all the time</h3>
+
+    <p>Group three is the real raw material. Fifteen items of customer support were in nobody's quarterly plan. But it happened, and <strong>it will happen next quarter too.</strong> The customers are still there.</p>
+
+    <p>So the conclusion of the retrospective is not "let's pay more attention next time" but this. <strong>"We set aside 30% of the quarter for customer support up front. The plan gets three items only."</strong> That is a decision to shrink the plan. It does not come out without the comparison. Without it, you put five items in every quarter and fail two of them every quarter.</p>
+
+    <h3>3. Logs that group nowhere</h3>
+
+    <p>The fourth group looks like a recording mistake at first glance. Half of it is. There were days when you were busy and skipped the <code>pdm_intent_of</code> line.</p>
+
+    <p>The other half is different. <strong>They could not be grouped because there was nowhere to group them.</strong> That means one of the things you actually did that quarter has no place in the ontology, and what needs fixing is layer 1, not the log. At Solbit Tech, "hiring" and "internal tooling" were those. They attached to no product and no project, and time went into them steadily.</p>
+
+    <p>Do not rush to add a class here. The minimal design principle from Chapter 8 still holds. <strong>When the same kind of log fails to group for two quarters running</strong>, then make a place for it. Attach a class to one quarter's temporary work and six months later you have a folder nobody uses. And record that judgment as a decision note too. It keeps you from repeating the same discussion at the next retrospective.</p>
+
+    <h3>4. Where a decision was reversed</h3>
+
+    <p>Lay the decision notes out in date order and you see places where the same subject comes up twice. "We go with A" in July, "we go with B" in September. <strong>What happened in between is what the company actually learned</strong>. And that learning is usually written down nowhere. One habit catches it: writing a paragraph in the second decision note on "why this reverses the July decision".</p>
+
+    <p>Solbit Tech had one of these. They wrote down that they would use Daesung Logistics as a track record, and then concluded they could not, because the contract was not signed. One line of reason survived in the second decision note, so the next proposal did not reopen the discussion. <strong>This is the point where what the company learned is remembered by a file rather than by someone's head.</strong></p>
+
+    <p>Watch decisions that reverse twice, as well. A single reversal is often down to something you newly learned. A double reversal usually means there is no judgment criterion at all, and then what needs fixing is not the decision but <strong>the criterion in layer 1</strong>. The one from Chapter 9 that split projects from opportunities by "is there a contract or a budget attached".</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Use the retrospective report in performance reviews and it is over that day</p>
+      <p>The moment logs become attendance records, people write <strong>logs that make it look like they did a lot</strong>. Then next quarter's retrospective runs on false material, and the decisions from it are wrong too. Once that happens it is very hard to undo.</p>
+      <p>Chapter 15's "do not measure people" applies most strongly here. <strong>Do not put per-person aggregates in the retrospective report.</strong> Count by item only. That is why the prompt above carries one line forbidding it.</p>
+    </div>
+
+    <h2>The record quality loop</h2>
+
+    <p>This is the part of the chapter that lasts longest.</p>
+
+    <p>Run a retrospective and this sentence always appears. <strong>"We have no record that answers this."</strong> At first it looks like failure. It is not. <strong>It is the only signal telling you what to record next quarter.</strong></p>
+
+    <p>Three of them came out of Solbit Tech's first retrospective.</p>
+
+    <ul>
+      <li>"We have no record of how many hours the proposal actually took." <br>From the next quarter they added a line for hours to the log.</li>
+      <li>"We have no record of why customer support grew." <br>They decided to link the customer note in support logs.</li>
+      <li>"We have no record of why Pickview slipped." <br>This one was not a recording problem.</li>
+    </ul>
+
+    <p>The third was the most valuable finding. Digging in, <strong>they could not answer not because the record was missing but because there had been no decision, so there was nothing to record.</strong> Nobody had decided to postpone Pickview. It just slipped. Without the retrospective they would never have known that.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="300" fill="#FFFDF9"/>
+        <defs>
+          <marker id="a18" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#0F766E"/>
+          </marker>
+        </defs>
+
+        <text x="360" y="26" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">How the system improves itself</text>
+
+        <rect x="40" y="52" width="250" height="60" rx="9" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.8"/>
+        <text x="165" y="76" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">1. One line a day</text>
+        <text x="165" y="96" text-anchor="middle" font-size="10" fill="#3D2B1F">work log + pdm_intent_of</text>
+
+        <rect x="430" y="52" width="250" height="60" rx="9" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.8"/>
+        <text x="555" y="76" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">2. Quarterly comparison</text>
+        <text x="555" y="96" text-anchor="middle" font-size="10" fill="#3D2B1F">intent and execution, four groups</text>
+
+        <rect x="430" y="176" width="250" height="72" rx="9" fill="#FAEADF" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="555" y="200" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">3. Questions with no record</text>
+        <text x="555" y="220" text-anchor="middle" font-size="10" fill="#3D2B1F">"how long did it take"</text>
+        <text x="555" y="236" text-anchor="middle" font-size="10" fill="#3D2B1F">"why did it grow"</text>
+
+        <rect x="40" y="176" width="250" height="72" rx="9" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="165" y="200" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">4. Next quarter's rules</text>
+        <text x="165" y="220" text-anchor="middle" font-size="10" fill="#3D2B1F">add one line</text>
+        <text x="165" y="236" text-anchor="middle" font-size="10" fill="#6B5647">and remove one line</text>
+
+        <line x1="290" y1="82" x2="424" y2="82" stroke="#0F766E" stroke-width="1.8" marker-end="url(#a18)"/>
+        <line x1="555" y1="112" x2="555" y2="170" stroke="#0F766E" stroke-width="1.8" marker-end="url(#a18)"/>
+        <line x1="430" y1="212" x2="296" y2="212" stroke="#0F766E" stroke-width="1.8" marker-end="url(#a18)"/>
+        <line x1="165" y1="176" x2="165" y2="118" stroke="#0F766E" stroke-width="1.8" marker-end="url(#a18)"/>
+
+        <text x="360" y="150" text-anchor="middle" font-size="10.5" fill="#6B5647">Step 3 appearing is not a failure. It is this loop's output</text>
+        <text x="360" y="278" text-anchor="middle" font-size="11" fill="#3D2B1F">A retrospective does not grade last quarter. It decides <tspan font-weight="bold">what to record next quarter</tspan></text>
+      </svg>
+      <figcaption>The record makes the retrospective, and the retrospective sets the next record</figcaption>
+    </figure>
+
+    <div class="callout">
+      <p class="callout-title">The loop has a ceiling</p>
+      <p>Keep adding every "thing to record" that comes out of a retrospective and within three quarters recording becomes a burden and the completion rate falls again. Then the retrospective stops working and the loop breaks.</p>
+      <p>So attach one rule. <strong>Add one, remove one.</strong> Same rule as Chapter 14, where making one new alert meant reviewing an existing alert as a deletion candidate. What to remove is usually "the item nothing in last quarter's retrospective used", so it is not hard to choose.</p>
+    </div>
+
+    <h3>Why quarterly</h3>
+
+    <p>You will want to add a weekly retrospective. Do not. Two reasons.</p>
+
+    <p><strong>A week is not long enough for intent and execution to diverge.</strong> Within one week you mostly move as planned. Plans slip a little at a time over several weeks, so at weekly scale every week reads "mostly fine". Then at the end of the quarter you suddenly discover what slipped.</p>
+
+    <p><strong>A retrospective invites a decision, and decisions are not for reversing weekly.</strong> Change your priorities every week and that is not a retrospective, it is drift. A quarter is big enough to actually change the plan and close enough for people to check the facts. Read a log from three months ago and you get "right, that is what happened". Read one from a year ago and it reads like someone else's writing.</p>
+
+    <p>What a week needs is not a retrospective but the Chapter 15 dashboard. Split them: <strong>the week is for looking, the quarter is for fixing</strong>.</p>
+
+    <h2>Solbit Tech six months in</h2>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: what got better and what still does not</p>
+      <p>What Solbit Tech put together after two retrospectives. In a five-person company the variation between people shows plainly. They did not write down only the good parts.</p>
+      <p>Park wrote well from the start. He rereads his own logs when he writes a proposal, so the benefit was immediately visible to him. Lee, the CTO, barely writes daily logs and instead leaves a decision note <strong>on the days he changes a design</strong>. It looked like a rule violation at first, and in the retrospective it turned out to be the more useful of the two. Eight decision notes helped the comparison more than eighty daily logs.</p>
+      <p><strong>What got better</strong></p>
+      <ul>
+        <li>The work log completion rate came up from around 40%. What raised it was not nagging but the Chapter 15 dashboard. The reason was "what I write turns up on the screen the CEO looks at on Monday".</li>
+        <li>The retrospective meeting got shorter. The whole opening section that used to go on "what did we say we would do" disappeared, and now they leave one table up and talk only about "why".</li>
+        <li>When they write a proposal they cite last quarter's decision notes as evidence. The decisions and the reasons survive, so the same discussion does not reopen.</li>
+        <li>Thanks to the "what we decided not to do" section, the WareTwin sales hold stayed on the record across quarters as <strong>a decision rather than a lapse</strong>.</li>
+      </ul>
+      <p><strong>What still does not work</strong></p>
+      <ul>
+        <li>One of the two developers barely writes logs. It feels like "work outside the code" to him, and over six months his completion rate hardly moved. They decided not to force it.</li>
+        <li>Logs with an empty <code>pdm_intent_of</code> keep appearing. That is the first line to go when people are busy.</li>
+        <li>The habit of writing the quarterly plan note in the first week of the quarter held one time out of two. In the second quarter they wrote it in week three.</li>
+        <li>Only two people read the retrospective report to the end, the CEO and the knowledge owner.</li>
+      </ul>
+      <p>That last item got some discussion. Somebody proposed making everyone read it and they did not adopt it. There is no way to make people read a document they do not want to read, and forcing it makes the next report bland. Instead they decided <strong>to put only the one table up in the retrospective meeting</strong>.</p>
+      <p>Six months in one sentence: <strong>the record is not complete, and the retrospective works.</strong> Both being true at once looks odd, and the reason is that a retrospective needs <strong>comparable records</strong>, not complete ones. The comparison does not require every log to be there. It only requires that the logs you have say what they were aimed at.</p>
+    </div>
+
+    <p>That last sentence is also the conclusion of the whole of Part 6. The check in Chapter 17 never drove ERRORs to zero either. <strong>"Not going up" was the target.</strong> The retrospective is the same. The goal is not a perfect record but <strong>being able to answer the same question a little better each quarter</strong>.</p>
+
+    <p>One more thing worth writing down. Over six months, <strong>the retrospective added neither headcount nor meetings.</strong> Creating a new standing meeting is a burden in itself at five people, so all they did was replace the opening section of the quarterly meeting they already held with one table. When you lay a knowledge system on top of a small organization, <strong>not creating a new meeting</strong> matters more than you would think.</p>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: build your first comparison</p>
+      <p>Do not wait until the retrospective system is complete. The goal is <strong>to do the comparison once</strong>.</p>
+      <ol>
+        <li><strong>Write three lines from memory on what you said you would do last quarter.</strong> If that is hard, you have just proved to yourself why this chapter exists.</li>
+        <li>Find the actual plan in your mailbox and meeting notes and compare it against the three lines you just wrote. Usually at least one is missing.</li>
+        <li>Make one plan note for this quarter. Three items, priority order included, <strong>"what we decided not to do" section included</strong>. Thirty minutes will do it.</li>
+        <li>Write one line a day for two weeks starting today. The one thing that took the most time, and one <code>pdm_intent_of</code> line.</li>
+        <li>Two weeks later, group the logs by <code>pdm_intent_of</code>. If the order differs from your plan's priority order, <strong>that is your first retrospective agenda</strong>.</li>
+        <li>Last, ask yourself this. <strong>"Was there a question I wanted to answer in these two weeks and could not, because there was no record?"</strong> If there was, turn it into the recording rule for the next two weeks.</li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li>A retrospective from memory covers <strong>the last three weeks and the emotionally loud events</strong> only. Whatever slipped quietly early in the quarter comes to nobody's mind</li>
+        <li>The comparison fails because <strong>there is no record on the execution side</strong>. Output survives, and output is not time</li>
+        <li>A work log records <strong>only what you three months from now will want to know</strong>. Write everything you did and it becomes a diary nobody keeps</li>
+        <li>A retrospective needs <strong>completeness, not depth</strong>. One line a day is enough</li>
+        <li>One <code>pdm_intent_of</code> line attaches a log to an intent. <strong>Without it, fifty-four logs are just fifty-four logs</strong></li>
+        <li>The intent side has to be a note too. Put <strong>"what we decided not to do"</strong> in the quarterly plan and a lapse becomes distinguishable from a decision</li>
+        <li>Compare in four groups: <strong>in the plan with logs · in the plan with no logs · not in the plan with many logs · unattached logs</strong></li>
+        <li>The AI produces counts and evidence only. <strong>A person writes the "why".</strong> A guessed reason is more dangerous because it sounds right</li>
+        <li>Ask <strong>"what came in instead"</strong> rather than "why didn't we do it". The first invites excuses, the second produces a list</li>
+        <li>Half the unattached logs are recording mistakes and half are <strong>a signal that the ontology has no place for that work</strong></li>
+        <li><strong>Do not put per-person aggregates in the retrospective report.</strong> The moment you do, logs become attendance records and lies mix in</li>
+        <li>"We have no record to answer this" is not a failure. It is <strong>the signal telling you what to record next quarter</strong></li>
+        <li>Recording rules go <strong>add one, remove one.</strong> Otherwise the completion rate collapses within three quarters</li>
+        <li>Retrospectives are <strong>quarterly</strong>. The week is for looking (the dashboard), the quarter is for fixing</li>
+        <li>Do not create a new meeting. Replacing the opening of the quarterly meeting you already hold <strong>with one table</strong> is enough</li>
+        <li>A retrospective needs <strong>comparable records</strong>, not complete ones</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>Coming up</h3>
+      <p>Part 6 ends here. The two devices that keep the vault from collapsing are in place: quality held by code, and a retrospective held up by the record.</p>
+      <p>One question is left. <strong>"So is this our company's AI transformation?"</strong> The next chapter sets out how DX and AX differ, where you stand on the five stages of AX maturity, and which rung of that ladder this wiki is. It also covers why what you have built so far is <strong>a rung you cannot skip</strong>.</p>
+    </div>
+  </article>
+
+
+  <nav class="chapter-nav">
+    <a href="ch17.en.html" class="back-to-toc">← Previous: Quality, kept in code</a>
+    <a href="ch19.en.html" class="next">Next: Where AX starts: the LLM Wiki →</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="On this page"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Search contents">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="Find a chapter" aria-label="Search">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

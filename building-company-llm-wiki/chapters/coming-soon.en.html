@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>In progress · Building a Company LLM Wiki</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="alternate" hreflang="ko" href="coming-soon.html">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open contents"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Building a Company LLM Wiki</span>
+  <button class="search-trigger" type="button" aria-label="Search contents"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>Search</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="Toggle dark mode"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="Contents">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+    <span class="sidebar-title">Contents</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close contents">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.en.html" class="nav-link">Cover and contents</a></li>
+      <li class="nav-part">Part 1 · Why you need this</li>
+      <li><a href="ch01.en.html" class="nav-link">1. Where our knowledge lives</a></li>
+      <li><a href="ch02.en.html" class="nav-link">2. A wiki, not RAG</a></li>
+      <li><a href="ch03.en.html" class="nav-link">3. Ontology is not the wiki</a></li>
+      <li><a href="ch04.en.html" class="nav-link">4. Three tools, three jobs</a></li>
+      <li class="nav-part">Part 2 · Setup in 30 minutes</li>
+      <li><a href="ch05.en.html" class="nav-link">5. Obsidian and the vault</a></li>
+      <li><a href="ch06.en.html" class="nav-link">6. Sharing through Teams</a></li>
+      <li><a href="ch07.en.html" class="nav-link">7. Connecting the vault to Cowork</a></li>
+      <li class="nav-part">Part 3 · Designing the ontology</li>
+      <li><a href="ch08.en.html" class="nav-link">8. Six design principles</a></li>
+      <li><a href="ch09.en.html" class="nav-link">9. Choosing your classes</a></li>
+      <li><a href="ch10.en.html" class="nav-link">10. Relations and fields</a></li>
+      <li class="nav-part">Part 4 · Running it</li>
+      <li><a href="ch11.en.html" class="nav-link">11. CLAUDE.md</a></li>
+      <li><a href="ch12.en.html" class="nav-link">12. Templates and your first note</a></li>
+      <li><a href="ch13.en.html" class="nav-link">13. Automating with skills</a></li>
+      <li class="nav-part">Part 5 · Automation and visibility</li>
+      <li><a href="ch14.en.html" class="nav-link">14. Scheduling</a></li>
+      <li><a href="ch15.en.html" class="nav-link">15. Making progress visible</a></li>
+      <li><a href="ch16.en.html" class="nav-link">16. Twelve automation recipes</a></li>
+      <li class="nav-part">Part 6 · Keeping it alive</li>
+      <li><a href="ch17.en.html" class="nav-link">17. Quality as code</a></li>
+      <li><a href="ch18.en.html" class="nav-link">18. Intent versus execution</a></li>
+      <li class="nav-part">Part 7 · Scaling to AX</li>
+      <li><a href="ch19.en.html" class="nav-link">19. From wiki to AX</a></li>
+      <li class="nav-part">Appendices</li>
+      <li><a href="appendix-a.en.html" class="nav-link">Appendix A · Glossary</a></li>
+      <li><a href="appendix-b.en.html" class="nav-link">Appendix B · Copy-paste assets</a></li>
+      <li><a href="appendix-c.en.html" class="nav-link">Appendix C · Troubleshooting</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="Toggle dark mode"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">Dark mode</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">In progress</span>
+    <h1>This chapter is still being written</h1>
+    <p class="chapter-subtitle">Right now you can read Chapters 1-4, 14-16, and 19</p>
+  </header>
+
+  <article>
+    <p>This book is written alongside an actual rollout. Instead of finishing it all at once, it fills in with verified material one piece at a time.</p>
+
+    <div class="callout">
+      <p class="callout-title">Chapters you can read right now</p>
+      <p><strong>Part 1 · Why you need this</strong><br>
+        <a href="ch01.en.html">Chapter 1 · Where our knowledge actually lives</a><br>
+        <a href="ch02.en.html">Chapter 2 · A wiki, not RAG</a><br>
+        <a href="ch03.en.html">Chapter 3 · Ontology and LLM Wiki are not the same thing</a><br>
+        <a href="ch04.en.html">Chapter 4 · Three tools, three jobs</a>
+      </p>
+      <p><strong>Part 5 · Automation and visibility</strong><br>
+        <a href="ch14.en.html">Chapter 14 · Scheduling: it runs even when people forget</a><br>
+        <a href="ch15.en.html">Chapter 15 · Making work in progress visible</a><br>
+        <a href="ch16.en.html">Chapter 16 · Twelve automation recipes</a>
+      </p>
+      <p><strong>Part 7 · AX: from the wiki to the whole company</strong><br>
+        <a href="ch19.en.html">Chapter 19 · Where AX starts: the LLM Wiki</a>
+      </p>
+    </div>
+
+    <p>You don't have to read in order. <strong>Reading Chapters 1-4 to judge "does my company need this," then Chapter 19 to see "how far can this go"</strong> is a perfectly good order too. Chapters 14-16 cover how to actually run this day to day, so they read most naturally after you've finished Parts 2-4.</p>
+
+    <h2>What's left</h2>
+
+    <table>
+      <thead><tr><th>Part</th><th>Chapters</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Part 1 · Why you need this</td><td>Chapters 1-4</td><td><strong>Live</strong></td></tr>
+        <tr><td>Part 2 · Setup in 30 minutes</td><td>5 · Obsidian and the vault / 6 · Connecting Teams / 7 · Connecting Cowork</td><td>In progress</td></tr>
+        <tr><td>Part 3 · Designing the ontology</td><td>8 · Design principles / 9 · Choosing classes / 10 · Relations and fields</td><td>Planned</td></tr>
+        <tr><td>Part 4 · Running it for real</td><td>11 · CLAUDE.md / 12 · Templates / 13 · Automating with skills</td><td>Planned</td></tr>
+        <tr><td>Part 5 · Automation and visibility</td><td>Chapters 14-16</td><td><strong>Live</strong></td></tr>
+        <tr><td>Part 6 · Keeping it alive</td><td>17 · Quality checks / 18 · Retrospectives</td><td>Planned</td></tr>
+        <tr><td>Part 7 · AX: from the wiki to the whole company</td><td>Chapter 19</td><td><strong>Live</strong></td></tr>
+        <tr><td>Appendices</td><td>A Glossary / B Copy-paste assets / C Troubleshooting</td><td>Planned</td></tr>
+      </tbody>
+    </table>
+
+    <div class="next-teaser">
+      <h3>Want to be notified?</h3>
+      <p>Watch the GitHub repository to hear when new chapters go up. Content suggestions and typo reports are welcome too.</p>
+    </div>
+  </article>
+
+  <nav class="chapter-nav">
+    <a href="../index.en.html" class="back-to-toc">← Back to contents</a>
+    <a href="ch01.en.html" class="next">Start with Chapter 1 →</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="In this chapter"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Search contents">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="Find a chapter" aria-label="Search">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

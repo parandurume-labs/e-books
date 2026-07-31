@@ -1,0 +1,376 @@
+<!--META {
+  "file": "ch09.en.html",
+  "num": "9",
+  "title": "Choosing your company's classes",
+  "subtitle": "The forty minutes that cut nineteen sticky notes down to seven",
+  "desc": "Pick a primary axis, cut the class candidates, write yes-or-no tests, and settle the ID prefixes. Follow the exact order Solbit Tech went through and build your own class table.",
+  "minutes": "20",
+  "prev_href": "ch08.en.html",
+  "prev_label": "Previous: Six design principles",
+  "next_href": "ch10.en.html",
+  "next_label": "Next: Designing relations and fields"
+} -->
+  <article>
+    <p>Chapter 8 broke the design session into seven steps. This chapter is <strong>step 4, the forty minutes of cutting</strong>. Nineteen sticky notes are on the whiteboard and twelve have to come off.</p>
+
+    <p>In that Solbit Tech session, Kim spoke first.</p>
+
+    <div class="prompt-example">
+      <p><span class="label bad-label">Kim</span></p>
+      <p class="bad">"Are these not all things we need? We have patents, we have certifications. Why would we drop those?"</p>
+      <p><span class="label good-label">The facilitator</span></p>
+      <p class="good">"We need all of them. Not all of them need to be notes."</p>
+    </div>
+
+    <p>Those two sentences summarize the chapter. <strong>Dropping something from the class list does not mean discarding the information. It means not giving that information its own note.</strong> Patents get written down somewhere for certain. But if you go looking for patents on their own twice a year, making five people add one more branch of judgement every day to serve that is a bad trade.</p>
+
+    <p>By the end of this chapter you hold three things: <strong>one class table</strong>, <strong>one test sentence per class</strong>, and <strong>a list of ID prefixes</strong>. Put them together and you have the first section of <code>_ops/01-ontology-design.md</code>. Half of layer 1 finishes here.</p>
+
+    <h2>Pick the primary axis first</h2>
+
+    <p>Before arguing over classes one at a time, there is something to do. Decide <strong>what you are cutting the company along</strong>. Call it the primary axis. Start cutting candidates without an axis and the session becomes a fight about taste. Settle the axis and half the candidates filter themselves out.</p>
+
+    <p>There are several ways to cut the same company.</p>
+
+    <table>
+      <thead>
+        <tr><th>Candidate axis</th><th>Cuts it like this</th><th>Where it is in three years</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Org axis</td><td>Engineering / Sales / Admin</td><td>One reorganization and you rebuild all of it. And the reorganization always comes</td></tr>
+        <tr><td>Time axis</td><td>2024 / 2025 / 2026</td><td>Notes pile up and no lines form between them. It is closer to tidying folders</td></tr>
+        <tr><td>Document-type axis</td><td>Proposals / reports / minutes</td><td>Dividing drawers. Layer 0 handles it and there is no reason to lift it to layer 1</td></tr>
+        <tr><td>Customer axis</td><td>Daesung Logistics / Company A / Company B</td><td>It holds up to about ten customers. Past that, classes grow with the customer list</td></tr>
+        <tr><td><strong>Asset axis</strong></td><td><strong>What do we have, and what do we earn from</strong></td><td><strong>It survives reorganizations.</strong> This is the right axis for most companies</td></tr>
+      </tbody>
+    </table>
+
+    <p>One test decides it. <strong>"Will this axis still be the same in three years?"</strong> Org charts and calendar years always change. What a company owns changes slowly.</p>
+
+    <p>If you still cannot choose, <strong>open the accounts.</strong> The unit money comes in on is usually a product. The unit money goes out on, with a period attached, is usually a project. What lumps the company actually moves in is already recorded in your revenue and cost accounts. Picking an axis is less about invention and more about <strong>finding the one already there</strong>.</p>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: why they picked the asset axis</p>
+      <p>In step 1 of the session they had written down ten "questions we answered over and over in the past year." Reopening that list, eight of them had the same shape.</p>
+      <ul>
+        <li>"Which project did that technology come out of?"</li>
+        <li>"What do we have that works as Warebot track record?"</li>
+        <li>"What evidence are we submitting to this call?"</li>
+      </ul>
+      <p>All of them were asking <strong>"what do we have."</strong> Only two questions asked who was handling something or which year it happened.</p>
+      <p>Once the axis was settled the candidates sorted themselves out. "Hiring" does not sit on the asset axis. People are assets. Job postings are not. "Trade shows" does not sit on it either. A trade show is an event. The contacts you get there are the asset.</p>
+    </div>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">Pick exactly one axis</p>
+      <p>"Let us use the asset axis but also split it by customer" always gets proposed. Do that and the same fact appears in two places, and a month later the two places disagree.</p>
+      <p>The wish to see things by customer is real. You just solve it <strong>with relations, not classes.</strong> Let the links gather on one organization note and "everything about Daesung Logistics" appears in the backlinks by itself. Chapter 10 uses this approach.</p>
+    </div>
+
+    <h2>The table that cut nineteen down to seven</h2>
+
+    <p>Per the rule in Chapter 8, when you cut you <strong>record where it goes down to.</strong> There are four destinations.</p>
+
+    <ul>
+      <li><strong>To a field</strong> · things a single value covers</li>
+      <li><strong>To a section in the body</strong> · things that need explaining but never get looked up on their own</li>
+      <li><strong>To a folder or a tag</strong> · things that only need sorting. Layer 0</li>
+      <li><strong>Out of the vault</strong> · things that are not our knowledge, or that carry a different confidentiality level</li>
+    </ul>
+
+    <p>Here is what Solbit Tech actually produced. The top seven rows survived.</p>
+
+    <table>
+      <thead>
+        <tr><th>Candidate</th><th>Outcome</th><th>Why it went that way</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>제품</strong> (product)</td><td>Kept as a class <code>PRD-</code></td><td>It appears in every proposal. This is where the money comes in</td></tr>
+        <tr><td><strong>기술역량</strong> (capability)</td><td>Kept as a class <code>CAP-</code></td><td>Several products share them. Without this, reuse is invisible</td></tr>
+        <tr><td><strong>과제</strong> (project)</td><td>Kept as a class <code>PRJ-</code></td><td>It has money and a period attached. It is the evidence behind track record</td></tr>
+        <tr><td><strong>기회</strong> (opportunity)</td><td>Kept as a class <code>OPP-</code></td><td>It has a deadline and needs a decision. Missing one costs you immediately</td></tr>
+        <tr><td><strong>조직</strong> (organization)</td><td>Kept as a class <code>ORG-</code></td><td>Customers, partners and funders all gather here</td></tr>
+        <tr><td><strong>사람</strong> (person)</td><td>Kept as a class (no prefix)</td><td>The <code>owner</code> link needs somewhere to land</td></tr>
+        <tr><td><strong>결정</strong> (decision)</td><td>Kept as a class <code>DEC-</code></td><td>The retrospective in Chapter 18 runs on these</td></tr>
+        <tr><td>Patents</td><td>A body section in the capability note</td><td>Looked up alone twice a year. They travel with the technology anyway</td></tr>
+        <tr><td>Papers</td><td>The <code>evidence</code> field on capability</td><td>Only pulled out when cited as evidence</td></tr>
+        <tr><td>Datasets</td><td>The <code>evidence</code> field on capability</td><td>Nobody had ever asked about one on its own</td></tr>
+        <tr><td>Certifications</td><td>A body section in the product note</td><td>They attach to a product. Open the product and they should be right there</td></tr>
+        <tr><td>Awards</td><td>A body section in the company note (<code>00-Company/</code>)</td><td>Few of them, and gathering them in one place is enough</td></tr>
+        <tr><td>Trade shows</td><td>Worklogs (<code>40-Worklog/</code>)</td><td>An event, not an asset. The people you met there are the asset</td></tr>
+        <tr><td>Meetings</td><td>Worklogs (<code>40-Worklog/</code>)</td><td>What survives is the decision made there, not the meeting</td></tr>
+        <tr><td>Customer enquiries</td><td>A history section in the organization note</td><td>Few for now. Split them out when the volume grows</td></tr>
+        <tr><td>Risks</td><td>A body section in the project or opportunity note</td><td>There is no risk without a subject. It always attaches to something</td></tr>
+        <tr><td>Equipment</td><td>Outside the vault</td><td>Never appears in a proposal. It is already in the asset register</td></tr>
+        <tr><td>Hiring</td><td>Outside the vault</td><td>HR data with a different confidentiality level. In the same folder it tangles the sharing boundary</td></tr>
+        <tr><td>Regulations</td><td>Reference material in <code>90-Reference/</code></td><td>Not facts about our company. They are external documents</td></tr>
+      </tbody>
+    </table>
+
+    <p>Build this table in the room. Say you will tidy it up later and "why did we drop patents?" comes back a month on, and by then nobody remembers the reason. <strong>With the reason written down, the argument does not restart.</strong></p>
+
+    <h3>Four of the surviving seven are the backbone</h3>
+
+    <p>The seven are not equals. <strong>제품, 기술역량, 과제 and 기회</strong> are the backbone. 조직, 사람 and 결정 are supporting classes that connect the four or hang off them.</p>
+
+    <p>Here is what the three supports do. <strong>조직</strong> is where the backbone four touch the outside world. <strong>사람</strong> is what <code>owner</code> points at. <strong>결정</strong> is where judgements made on top of the four get recorded. None of the three is much use alone. They earn their keep attached to the four. So in design too you settle the four first and attach the three afterwards. Reverse the order and you get a vault with twenty person notes and no product notes.</p>
+
+    <p>Of the three supports, <strong>조직 and 사람 get no template of their own in Chapter 12</strong>, because their frontmatter stops at the common fields and there is no body section worth pre-writing. Instead Chapter 12 builds formats for <strong>worklogs and meeting notes</strong>, which are not classes at all.</p>
+
+    <p>Why those four becomes obvious the moment you take one proposal sentence apart.</p>
+
+    <div class="file-tree">"We are in supply discussions with <span class="comment">Daesung Logistics</span> for <span class="comment">Warebot</span>;
+ the product applies our <span class="comment">object recognition technology</span>,
+ which we developed under a <span class="comment">2025 government project</span>."
+
+  Warebot                → 제품 (PRD-)
+  object recognition     → 기술역량 (CAP-)
+  2025 project           → 과제 (PRJ-)
+  Daesung Logistics      → 조직 (ORG-)
+  and this proposal itself, as you write it → 기회 (OPP-)</div>
+
+    <p>Almost everything a company says in public is covered by those four plus organization. So making those four your backbone turns <strong>writing a proposal into joining notes together</strong>. The proposal-draft recipe in Chapter 16 runs on this structure.</p>
+
+    <h2>Completing the class table</h2>
+
+    <p>Now put flesh on the seven rows. Each row gets a prefix, a test, required fields, a folder and a status vocabulary.</p>
+
+    <table>
+      <thead>
+        <tr><th>Class</th><th>Prefix</th><th>How you decide</th><th>Required fields</th><th>Folder</th><th><code>status</code> vocabulary</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>제품</td><td><code>PRD-</code></td><td>Is it a unit you price and sell or deliver outside</td><td><code>status</code> <code>owner</code> <code>since</code></td><td><code>10-Products/</code></td><td>기획 / 개발 / 운영 / 중단</td></tr>
+        <tr><td>기술역량</td><td><code>CAP-</code></td><td>Is it a reusable bundle of technology</td><td><code>trl</code> <code>evidence</code></td><td><code>00-Company/</code></td><td>Not applicable</td></tr>
+        <tr><td>과제</td><td><code>PRJ-</code></td><td>Does it have a contract or a budget attached</td><td><code>period</code> <code>funder</code> <code>budget</code></td><td><code>20-Projects/</code></td><td>기획 / 진행 / 검토 / 완료 / 보류</td></tr>
+        <tr><td>기회</td><td><code>OPP-</code></td><td>Does it still have no contract and no budget</td><td><code>stage</code> <code>due</code></td><td><code>20-Projects/</code></td><td>기획 / 진행 / 검토 / 완료 / 보류</td></tr>
+        <tr><td>조직</td><td><code>ORG-</code></td><td>Is it a single legal entity outside us</td><td>Common fields only</td><td><code>30-Partners/</code></td><td>Not applicable</td></tr>
+        <tr><td>사람</td><td>None</td><td>Is this someone who gets named as <code>owner</code></td><td>Common fields only</td><td><code>00-Company/</code></td><td>Not applicable</td></tr>
+        <tr><td>결정</td><td><code>DEC-</code></td><td>Would reversing it need another meeting</td><td>Common fields only</td><td><code>40-Worklog/</code></td><td>Not applicable</td></tr>
+      </tbody>
+    </table>
+
+    <p>Three things to point out in that table.</p>
+
+    <p><strong>There are three common required fields:</strong> <code>class</code>, <code>id</code> and <code>updated</code>. Every note carries them regardless of class. The "required fields" column above lists only what is needed <em>on top of</em> those. <code>confidence</code>, which separates facts a person verified from facts the AI drafted, can go on any class but stays <strong>optional</strong>, because every extra required box raises the cost of writing one note. Chapter 11 sets the rule for when it gets filled in.</p>
+
+    <p><strong>과제 and 기회 share a folder.</strong> That is deliberate. Folders are layer 0, and the <code>class</code> field already separates these two. Split the folder as well and an opportunity turning into a project means moving the file, and moving files makes the link history messy. <strong>When layer 1 is already doing layer 0's job, let layer 0 rest.</strong></p>
+
+    <p><strong>There are two <code>status</code> vocabularies.</strong> As principle 5 in Chapter 8 showed, products and projects have different lifespans. 기술역량, 조직, 사람 and 결정 get no <code>status</code> at all. A capability has no notion of being 운영 (in service), and a person is not something you manage by state. <strong>Putting the same field on every class is not consistency.</strong></p>
+
+    <p>In the design document it reads like this.</p>
+
+    <pre><code>## Classes
+
+| class    | prefix | how you decide                     | required fields              |
+|----------|--------|------------------------------------|------------------------------|
+| 제품     | PRD-   | a unit you sell or deliver         | status, owner, since         |
+| 기술역량 | CAP-   | a reusable bundle of technology    | trl, evidence                |
+| 과제     | PRJ-   | has a contract or a budget         | period, funder, budget       |
+| 기회     | OPP-   | no contract or budget yet          | stage, due                   |
+| 조직     | ORG-   | a single legal entity outside us   | -                            |
+| 사람     | (none) | someone who gets named as owner    | -                            |
+| 결정     | DEC-   | reversing it needs another meeting | -                            |
+
+Common required fields: class, id, updated
+
+## Status vocabulary
+
+status (제품)         : 기획 / 개발 / 운영 / 중단
+status (과제 · 기회)  : 기획 / 진행 / 검토 / 완료 / 보류
+No other class carries status.</code></pre>
+
+    <h2>The test is the most important column in the table</h2>
+
+    <p>If you had to keep exactly one column, keep <strong>the test</strong>. A wrong prefix can be fixed later with a bulk replace. A blurry test makes the whole vault quietly wrong. The "twelve versus four" incident in Chapter 8 was exactly that.</p>
+
+    <p>Some words have to be filtered out of a test sentence. <strong>Important, strategic, core, key, promising, sort of.</strong> One of those in the sentence and it is not a test, it is an impression. Words like <strong>contract, budget, amount, signature, delivery, submission</strong>, on the other hand, usually make a good test, because every one of them leaves paper behind.</p>
+
+    <h3>과제 and 기회 · money and contracts do the sorting</h3>
+
+    <p>The sentence this book quotes more than any other is this one line.</p>
+
+    <div class="callout">
+      <p class="callout-title">The one sentence that separates 과제 from 기회</p>
+      <p><strong>"Does this piece of work have a contract or a budget allocation attached right now?"</strong></p>
+      <p>Yes makes it <strong>과제</strong> (<code>PRJ-</code>). No makes it <strong>기회</strong> (<code>OPP-</code>). There is no room for judgement. The paper exists or it does not.</p>
+    </div>
+
+    <p>Here are the boundary cases that actually came up in the session. Pin this table beside the design document and new joiners ask fewer questions.</p>
+
+    <table>
+      <thead>
+        <tr><th>Situation</th><th>Contract or budget attached</th><th>Verdict</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Writing a proposal after seeing a city government call</td><td>No</td><td>기회 · <code>OPP-2026-CityCall</code></td></tr>
+        <tr><td>Selected for that call and the agreement is signed</td><td>Yes</td><td>Create a <strong>new</strong> project note. Do not delete the opportunity note</td></tr>
+        <tr><td>Running the smart logistics government project</td><td>Yes, government budget</td><td>과제 · <code>PRJ-2025-SmartLogistics</code></td></tr>
+        <tr><td>Development work funded only from internal budget</td><td>Yes</td><td>과제. Internal budget is budget. Write your own company into <code>funder</code></td></tr>
+        <tr><td>In adoption talks with Daesung Logistics, pre-contract</td><td>No</td><td>기회. And Daesung Logistics itself gets <strong>its own organization note</strong></td></tr>
+      </tbody>
+    </table>
+
+    <p>That last row is a spot people get stuck on. One situation becomes <strong>two notes</strong>. The reason is lifespan. "Daesung Logistics" is a legal entity that outlives us. "The Daesung Logistics adoption deal" either closes or dies this quarter. <strong>Different lifespans mean different notes.</strong> Merge them and when the deal ends the company information dies with it.</p>
+
+    <h3>When an opportunity gets signed, do I convert the note into a project?</h3>
+
+    <p>The most common question. The answer is <strong>no</strong>. You create a new project note, and you set the opportunity note to <code>status: 완료</code> and leave it there. Three reasons.</p>
+
+    <ol class="steps">
+      <li><strong>Changing the ID changes the meaning of every link pointing at it</strong>
+        <p>The <code>[[OPP-2026-CityCall]]</code> written in last quarter's weekly report meant "the deal we were pitching then." Turn that note into a project and the old record starts lying.</p>
+      </li>
+      <li><strong>The record of what it was as an opportunity gets erased</strong>
+        <p>Why you went for the call, what you argued from, where you were weak. The retrospective in Chapter 18 compares that record against the actual outcome. Overwrite the note and there is nothing left to compare against.</p>
+      </li>
+      <li><strong>You lose the ability to count your win rate</strong>
+        <p>"How many proposals did we submit last year and how many landed?" only has an answer while the opportunity notes survive. If only the winners become projects, the denominator disappears, and without a denominator there is no such number as a success rate.</p>
+      </li>
+    </ol>
+
+    <p>Which predicate joins the two notes gets settled in Chapter 10. For now, one line in the body of the opportunity note linking to the new project is enough.</p>
+
+    <h3>제품 and 기술역량 · sorted by whether you price and sell it</h3>
+
+    <p>The second boundary people get stuck on. The test is <strong>"do you price and sell it outside?"</strong> You sell Warebot. Object recognition goes inside Warebot. So Warebot is 제품 and object recognition is 기술역량.</p>
+
+    <p>Which raises this question. "What if we start licensing object recognition on its own?"</p>
+
+    <p>Then <strong>a new product note appears and the capability note stays.</strong> One technology ends up with two notes, and odd as that looks, it is right. <strong>Classes attach to roles, not to things.</strong> Merge them into one and either "how many products do we have?" or "how many technologies do we have?" is guaranteed to be wrong.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">A test that lives only in the design document never gets read</p>
+      <p>Nobody opens the design document at the moment they create a note. So the same sentence goes in <strong>three places</strong>.</p>
+      <ul>
+        <li><code>_ops/01-ontology-design.md</code> · the canonical copy. Edits happen here</li>
+        <li><code>CLAUDE.md</code> · the AI reads it. Added in Chapter 11</li>
+        <li>A comment at the top of the template · it catches a person's eye as they make a note. Added in Chapter 12</li>
+      </ul>
+      <p>The three must not diverge, so when you edit, edit all three. You can also have the check script in Chapter 17 confirm the three still agree.</p>
+    </div>
+
+    <h2>The ID scheme</h2>
+
+    <p>An ID is <strong>the handle that does not move when the name does</strong>. Reports, history files and last quarter's weekly report are all holding onto it. Titles may change. IDs do not.</p>
+
+    <p>The format differs by class. The urge to unify them is real, and unifying makes one class awkward to write, and the awkward one stops being used.</p>
+
+    <table>
+      <thead>
+        <tr><th>Class</th><th>Format</th><th>Example</th><th>Why this format</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>제품</td><td>prefix + serial number</td><td><code>PRD-001</code></td><td>There are few of them, and their names are the most likely to change</td></tr>
+        <tr><td>기술역량</td><td>prefix + name</td><td><code>CAP-ObjectRecognition</code></td><td>People do not refer to them by number. "Let us talk about 002" does not work</td></tr>
+        <tr><td>과제</td><td>prefix + year + name</td><td><code>PRJ-2025-SmartLogistics</code></td><td>Similarly named projects recur every year. The year also makes them sort</td></tr>
+        <tr><td>기회</td><td>prefix + year + name</td><td><code>OPP-2026-CityCall</code></td><td>Same as above. Public calls come round annually more than anything else</td></tr>
+        <tr><td>조직</td><td>prefix + name</td><td><code>ORG-DaesungLogistics</code></td><td>A legal name is unique and rarely changes</td></tr>
+        <tr><td>사람</td><td>the name itself</td><td><code>Kim</code></td><td>You type it by hand into <code>owner</code> every day. It has to be short</td></tr>
+        <tr><td>결정</td><td>prefix + date + short name</td><td><code>DEC-2026-0715-PickviewExcluded</code></td><td>For a decision the date is the substance. When you decided is the context</td></tr>
+      </tbody>
+    </table>
+
+    <p>Prefixes are standardized as <strong>three uppercase letters</strong>. Two letters collide with other meanings too easily, and past four letters they get long to type by hand into an <code>owner</code> field or a link. Do not spend meeting time here. Prefixes are one of the very few items you can fix later with a bulk replace at almost no cost.</p>
+
+    <h3>Five rules to keep</h3>
+
+    <ul>
+      <li><strong>Once issued, an ID does not change.</strong> If it is wrong enough to need changing, that is a new note.</li>
+      <li><strong>Do not reuse them.</strong> Reissue a deleted note's number and last month's report points at the wrong thing.</li>
+      <li><strong>Do not put state in an ID.</strong> <code>PRJ-2025-SmartLogistics-done</code> is a bad example. State lives in the <code>status</code> field. Put it in the ID and the ID changes every time the state does.</li>
+      <li><strong>Do not put people in an ID.</strong> Owners change. The owner lives in <code>owner</code>.</li>
+      <li><strong>One prefix per class.</strong> Two classes sharing one mixes your counts, and a mixed count leaves no trace.</li>
+    </ul>
+
+    <h3>The filename can differ from the ID</h3>
+
+    <p>Obsidian wikilinks use <strong>the filename</strong>. Write <code>[[Warebot]]</code> and it looks for <code>Warebot.md</code>. So what you name the file decides how convenient links are to type by hand.</p>
+
+    <p>One rule. <strong>If the spoken name is unique, use the name. Otherwise use the ID as the filename.</strong></p>
+
+    <div class="file-tree">Sources/
+├── 10-Products/
+│   └── Warebot.md              <span class="comment">id: PRD-001 · unique, and said out loud daily</span>
+├── 00-Company/
+│   ├── CAP-ObjectRecognition.md <span class="comment">the id used as the filename</span>
+│   └── Kim.md                  <span class="comment">people keep their own name</span>
+├── 20-Projects/
+│   ├── PRJ-2025-SmartLogistics.md  <span class="comment">"smart logistics" will recur in 2027</span>
+│   └── OPP-2026-CityCall.md
+└── 30-Partners/
+    └── ORG-DaesungLogistics.md</div>
+
+    <p>Whichever you pick, the <code>id</code> in the frontmatter goes in <strong>every time</strong>. The Warebot note still carries <code>id: PRD-001</code>. Filenames change one day. <code>id</code> does not.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Numbers issued by hand always collide</p>
+      <p>Two people create <code>PRD-004</code> on the same day. And nobody knows. Months later a product looks like it vanished from a report, and finding out why eats half a day.</p>
+      <p>Two ways to prevent it. First, <strong>use numeric IDs only on classes with few members.</strong> Products will not pass twenty. Worklogs grow every week. Second, put a <strong>duplicate ID check</strong> into the script in Chapter 17. A machine checking weekly is far cheaper than people being careful.</p>
+    </div>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: the day they first amended the table</p>
+      <p>As written in the design document, they booked an hour three months on. Counting notes by class, 결정 (<code>DEC-</code>) had <strong>two</strong>. Over the same period projects, opportunities and worklogs had piled into double digits.</p>
+      <p>By the Chapter 8 rule, two is not zero, so it stays. Then they opened the two and found <strong>both had been written by Kim</strong>. Nobody else on the team had made a decision note.</p>
+      <p>Asking why gave them the answer. The test was "would reversing it need another meeting," and teammates <strong>were not confident their own judgements counted as that much.</strong> The test was asking for a person's self-assurance. It broke principle 2 from Chapter 8.</p>
+      <p>They changed the test to <strong>"is someone likely to ask about this judgement three months from now?"</strong> The next month produced <strong>eleven</strong> decision notes.</p>
+      <p>When notes are not accumulating, what usually needs fixing is not the people but <strong>the test</strong>. Editing one line of a test so notes start accumulating beats refining the design document. <strong>You measure layer 1 by how well layer 2 gets filled, not by how refined it is.</strong></p>
+    </div>
+
+    <h2>Now it is your company's turn</h2>
+
+    <p>That is Solbit Tech's result. Do not copy it. A logistics software company's asset mix simply happens to look like that, and a manufacturer or a consultancy produces a different table. What to copy is not the table. It is <strong>the order that produced it</strong>.</p>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: build your own class table</p>
+      <p>Ninety minutes. Start with the candidate list from the Chapter 8 exercise beside you. At the end you have the first section of your design document.</p>
+      <ol>
+        <li><strong>Pick the primary axis.</strong> Choose one of the five candidates above and answer "will it still be the same in three years?" For most companies it is the asset axis. If you picked a different one, write down the reason in one line.</li>
+        <li><strong>Hold the candidates up against the axis.</strong> Drop the ones that do not sit on it. This is where Solbit Tech lost hiring and trade shows.</li>
+        <li><strong>Write a one-sentence test for each surviving candidate.</strong> It has to answer yes or no. If an adjective creeps in, write it again.</li>
+        <li><strong>If you are past seven, cut.</strong> Ask "in the past year, did we go looking for this kind specifically three or more times?" Each time you cut, <strong>write the destination in the next column</strong>: a field, a body section, a folder, or outside the vault.</li>
+        <li><strong>Check the backbone four.</strong> Take one sentence from a recent proposal and see whether every noun in it is covered by your surviving classes. An uncovered noun means you are one class short. A class that catches no noun means you have one too many.</li>
+        <li><strong>Add the prefixes.</strong> Three uppercase letters and a hyphen. Do not spend more than ten minutes on this.</li>
+        <li><strong>Add the required fields.</strong> Three or fewer per class. Beside each field, write which of the step 1 questions it answers. A field you cannot write anything beside comes out.</li>
+        <li><strong>Save it to a file.</strong> Put the table in <code>_ops/01-ontology-design.md</code> and write <code>updated</code> and <code>next_review</code>.</li>
+      </ol>
+      <p>Then audit it. <strong>Bring back the ten questions from step 1 and, using only this table, point to the note where each answer would live.</strong> A question you cannot point for is not a missing class. It is <strong>a missing relation</strong>, and Chapter 10 fills those in.</p>
+    </div>
+
+    <div class="checklist">
+      <p class="checklist-title">Six lines that tell you the class table is finished</p>
+      <ul>
+        <li>There is exactly one primary axis, and the reason for choosing it is written down</li>
+        <li>There are seven classes or fewer, and every dropped candidate has <strong>a destination</strong> recorded</li>
+        <li>Every test is written to answer <strong>yes or no</strong></li>
+        <li>The two most confusable classes are separated <strong>by physical evidence</strong>: money, a contract, a price</li>
+        <li>Each class has exactly one prefix and none of them collide</li>
+        <li>The three common required fields (<code>class</code>, <code>id</code>, <code>updated</code>) are written down</li>
+      </ul>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li>Dropping something from the class list does not discard the information. It means <strong>not giving it its own note</strong></li>
+        <li><strong>Pick the primary axis first.</strong> The test is "will this axis still be the same in three years?" Org and time axes always change</li>
+        <li>The <strong>asset axis</strong> suits most companies, because most of the questions you keep getting are "what do we have?"</li>
+        <li>Pick <strong>exactly one</strong> axis. Two axes put the same fact in two places, and a month later they disagree</li>
+        <li>Solbit Tech's seven classes · 제품 <code>PRD-</code> · 기술역량 <code>CAP-</code> · 과제 <code>PRJ-</code> · 기회 <code>OPP-</code> · 조직 <code>ORG-</code> · 사람 · 결정 <code>DEC-</code></li>
+        <li><strong>Four of them are the backbone</strong>, because every noun in a proposal sentence comes from those four plus organization</li>
+        <li><strong>과제 and 기회 are separated by "is there a contract or a budget attached."</strong> Paper decides it, not judgement</li>
+        <li>When an opportunity is signed, <strong>make a new project note and keep the opportunity note.</strong> Otherwise you cannot count your win rate</li>
+        <li>제품 and 기술역량 are separated by <strong>whether you price and sell it</strong>. Classes attach to <strong>roles</strong>, not to things</li>
+        <li>The test lives in three places: the design document, <code>CLAUDE.md</code>, and the template comment</li>
+        <li>An ID is <strong>the handle that does not move when the name does</strong>. Neither state nor people go in an ID</li>
+        <li>Filenames may differ from IDs. The <code>id</code> field goes in <strong>every time</strong></li>
+        <li>When notes are not accumulating, suspect <strong>the test</strong> before you suspect the people</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>Coming up</h3>
+      <p>Classes are dots and there are no lines yet. Next chapter you settle the <strong>relation predicates</strong>: why <code>pdm_uses</code> is named that way, how to keep the predicate list to five or fewer, and exactly how they get written into the frontmatter. Confidentiality levels as a field get sorted out there too, and you lay down one line <strong>joining intent to execution</strong> in advance. The retrospective in Chapter 18 runs along that line.</p>
+    </div>
+  </article>

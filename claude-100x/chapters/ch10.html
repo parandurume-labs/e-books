@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 10: Hooks: AI의 행동을 자동화하다 · Claude 100배 활용법</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Claude 100배 활용법</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5 10.1 12 4.5 10l5.6-1.4z"/><path d="M18 16l.8 2.2L21 19l-2.2.8L18 22l-.8-2.2L15 19l2.2-.8z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 마인드 전환</li>
+      <li><a href="ch01.html" class="nav-link">1장 검색 vs 지시</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 Claude를 만나다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 프롬프트의 기술</a></li>
+      <li class="nav-part">제2부: Claude.ai & Desktop</li>
+      <li><a href="ch04.html" class="nav-link">4장 Claude.ai 200%</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 Claude Desktop</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 사무직의 하루</a></li>
+      <li class="nav-part">제3부: Claude Code</li>
+      <li><a href="ch07.html" class="nav-link">7장 Claude Code 시작</a></li>
+      <li><a href="ch08.html" class="nav-link">8장 CLAUDE.md와 컨텍스트</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 Skills</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 Hooks</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 MCP 서버</a></li>
+      <li class="nav-part">제4부: 실전 워크플로</li>
+      <li><a href="ch12.html" class="nav-link">12장 비개발자의 앱 만들기</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 멀티 에이전트 협업</a></li>
+      <li><a href="ch14.html" class="nav-link">14장 보안과 안전</a></li>
+      <li class="nav-part">제5부: 더 멀리 가기</li>
+      <li><a href="ch15.html" class="nav-link">15장 Claude 생태계</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 나만의 워크플로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 프롬프트 레시피</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+
+  <!-- ====== Chapter Header ====== -->
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 10</span>
+    <h1>Hooks: AI의 행동을 자동화하다</h1>
+    <p class="chapter-subtitle">Claude가 무언가를 할 때마다 자동으로 실행되는 마법</p>
+  </header>
+
+  <article>
+
+    <!-- ====== Opening Story ====== -->
+    <section>
+      <h2>자동으로 된다면 얼마나 좋을까</h2>
+
+      <p>Claude에게 파일을 수정시켰어요. 그런데 저장된 코드를 보니 들여쓰기가 엉망이에요. "아, 포맷팅 해줘" 하고 다시 요청해요.</p>
+
+      <p>코드를 커밋하려고 했더니, 린트 에러가 5개나 있어요. "에러 고쳐줘" 하고 또 요청해요.</p>
+
+      <p>이런 반복이 매일 수십 번 일어나요. 생각해보면 이건 항상 똑같은 패턴이에요:</p>
+      <ul>
+        <li>파일 저장 → 포맷팅</li>
+        <li>코드 변경 → 린트 검사</li>
+        <li>커밋 전 → 테스트 실행</li>
+      </ul>
+
+      <p><strong>매번 수동으로 요청하는 게 아니라, 자동으로 되면 안 될까?</strong></p>
+
+      <p>네, 됩니다. 그게 바로 <strong>Hooks</strong>예요.</p>
+    </section>
+
+    <!-- ====== What are Hooks ====== -->
+    <section>
+      <h2>Hooks란 뭔가요?</h2>
+
+      <p>Hooks는 Claude Code가 어떤 도구를 사용하기 <strong>전</strong>이나 <strong>후</strong>에 자동으로 실행되는 명령어예요.</p>
+
+      <div class="fun-box">
+        <p class="fun-box-title">자동문 센서를 생각해보세요</p>
+        <p>마트의 자동문 있잖아요. 센서가 사람을 감지하면 문이 열리고(PreToolUse), 사람이 지나가면 문이 닫혀요(PostToolUse). 매번 손으로 문을 열 필요 없이, <strong>특정 상황이 되면 자동으로</strong> 실행되는 거예요. Hooks도 같은 원리예요.</p>
+      </div>
+
+      <p>예를 들어:</p>
+      <ul>
+        <li>Claude가 파일을 <strong>저장하기 전</strong>에 → 자동으로 코드 검사</li>
+        <li>Claude가 파일을 <strong>저장한 후</strong>에 → 자동으로 코드 포맷팅</li>
+        <li>Claude가 위험한 명령어를 <strong>실행하기 전</strong>에 → 자동으로 차단</li>
+      </ul>
+    </section>
+
+    <!-- ====== Hook Types ====== -->
+    <section>
+      <h2>가장 많이 쓰는 Hook 3가지</h2>
+
+      <p>Hook이 걸리는 이벤트는 이 셋 말고도 더 있어요. <code>UserPromptSubmit</code>, <code>Stop</code>, <code>SessionStart</code>, <code>PreCompact</code> 같은 것들이죠. 여기서는 처음 쓰기 좋은 세 가지만 볼게요.</p>
+
+      <h3>1. PreToolUse: 도구 사용 전에 실행</h3>
+      <p>Claude가 어떤 도구(파일 쓰기, 명령어 실행 등)를 사용하려고 할 때, <strong>그 전에</strong> 실행돼요.</p>
+      <ul>
+        <li>위험한 명령어를 차단할 때 사용</li>
+        <li>특정 파일 수정을 막을 때 사용</li>
+        <li>입력값을 검증할 때 사용</li>
+      </ul>
+
+      <h3>2. PostToolUse: 도구 사용 후에 실행</h3>
+      <p>Claude가 도구를 사용한 <strong>직후에</strong> 실행돼요.</p>
+      <ul>
+        <li>저장된 파일을 자동 포맷팅할 때 사용</li>
+        <li>변경 사항을 알림으로 보낼 때 사용</li>
+        <li>결과를 로그에 기록할 때 사용</li>
+      </ul>
+
+      <h3>3. Notification: 알림이 필요할 때</h3>
+      <p>Claude가 사용자에게 승인을 요청할 때 실행돼요.</p>
+      <ul>
+        <li>모바일 알림 보내기</li>
+        <li>소리 알림 울리기</li>
+      </ul>
+
+      <p>Notification은 <strong>소개만 하고 설정 예시는 생략할게요.</strong> <code>matcher</code>에 무엇을 넣어야 하는지가 앞의 둘과 달라서, 확실하지 않은 걸 적어두는 것보다 공식 문서를 보시는 편이 나아요. 이 장의 예시는 PreToolUse와 PostToolUse 둘로만 갈게요. 이 둘만으로도 할 수 있는 일이 충분히 많아요.</p>
+
+      <!-- SVG Diagram -->
+      <figure class="illustration">
+        <svg viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg" style="max-width:700px;">
+          <rect x="0" y="0" width="700" height="250" rx="16" fill="#F8F6FF"/>
+
+          <!-- Title -->
+          <text x="350" y="30" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="15" fill="#1E1533">Hook 실행 흐름</text>
+
+          <!-- PreToolUse -->
+          <rect x="30" y="60" width="170" height="80" rx="10" fill="#FFF9E6" stroke="#F5C542" stroke-width="2"/>
+          <text x="115" y="90" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="13" fill="#B8860B">PreToolUse</text>
+          <text x="115" y="110" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#5A4F6B">도구 사용 전</text>
+          <text x="115" y="128" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#5A4F6B">검증 / 차단</text>
+
+          <!-- Arrow 1 -->
+          <line x1="200" y1="100" x2="250" y2="100" stroke="#6B4EE6" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+          <!-- Tool Execution -->
+          <rect x="250" y="60" width="200" height="80" rx="10" fill="#6B4EE6" stroke="#5A3DD4" stroke-width="2"/>
+          <text x="350" y="90" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="13" fill="#FFFFFF">도구 실행</text>
+          <text x="350" y="110" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#EDE8FF">파일 쓰기 / 명령어</text>
+          <text x="350" y="128" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#EDE8FF">실행 / API 호출</text>
+
+          <!-- Arrow 2 -->
+          <line x1="450" y1="100" x2="500" y2="100" stroke="#6B4EE6" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+          <!-- PostToolUse -->
+          <rect x="500" y="60" width="170" height="80" rx="10" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+          <text x="585" y="90" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="13" fill="#2E7D32">PostToolUse</text>
+          <text x="585" y="110" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#5A4F6B">도구 사용 후</text>
+          <text x="585" y="128" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#5A4F6B">포맷팅 / 알림</text>
+
+          <!-- Notification -->
+          <rect x="250" y="165" width="200" height="55" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+          <text x="350" y="190" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="13" fill="#1565C0">Notification</text>
+          <text x="350" y="208" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#5A4F6B">승인 요청 시 알림</text>
+
+          <!-- Arrow definition -->
+          <defs>
+            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#6B4EE6"/>
+            </marker>
+          </defs>
+        </svg>
+        <figcaption>Hook의 실행 흐름: PreToolUse → 도구 실행 → PostToolUse</figcaption>
+      </figure>
+    </section>
+
+    <!-- ====== Configuration ====== -->
+    <section>
+      <h2>Hook 설정하기</h2>
+
+      <p>Hooks는 <code>.claude/settings.json</code> 파일에서 설정해요. 프로젝트 폴더 안의 <code>.claude</code> 폴더에 이 파일을 만들면 돼요.</p>
+
+      <h3>기본 구조</h3>
+
+      <pre><code>{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '파일이 저장되었습니다!'"
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+
+      <p>이 설정을 풀어보면:</p>
+      <ul>
+        <li><code>"PostToolUse"</code>는 도구를 쓴 다음에 실행하라는 뜻이에요</li>
+        <li><code>"matcher": "Write"</code>는 "Write(파일 쓰기)" 도구가 걸렸을 때라는 조건이에요</li>
+        <li><code>"command"</code>는 그때 자동으로 실행할 명령어예요</li>
+      </ul>
+
+      <div class="callout">
+        <p class="callout-title">matcher 종류</p>
+        <p>matcher에는 Claude가 사용하는 도구 이름을 넣어요:</p>
+        <ul>
+          <li><code>Write</code>: 파일 쓰기</li>
+          <li><code>Edit</code>: 파일 수정</li>
+          <li><code>Bash</code>: 터미널 명령어 실행</li>
+          <li><code>Read</code>: 파일 읽기</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ====== Hook stdin contract ====== -->
+    <section>
+      <h2>Hook 명령어는 stdin으로 정보를 받아요</h2>
+
+      <p>예시로 넘어가기 전에 하나만 짚고 갈게요. Hook 명령어는 어떤 파일이 저장됐는지, 어떤 명령어가 실행될 참인지를 <strong>표준 입력(stdin)으로 들어오는 JSON</strong>으로 받아요. 대략 이런 모양이에요:</p>
+
+      <pre><code>{
+  "tool_name": "Bash",
+  "tool_input": {
+    "command": "rm -rf build"
+  }
+}</code></pre>
+
+      <p>그래서 Hook 스크립트는 <code>INPUT=$(cat)</code>으로 이 JSON을 읽고, 그 안에서 필요한 값을 꺼내 써요. 한 줄짜리 명령어로 쓰기엔 길어지니까, 앞으로의 예시는 <code>.claude/hooks/</code> 폴더에 셸 스크립트를 두고 settings.json이 그 스크립트를 가리키게 할게요.</p>
+
+      <div class="callout callout-warning">
+        <p class="callout-title">여기서부터의 예시는 맥·리눅스 기준이에요</p>
+        <p>이 절부터 나오는 스크립트는 맥과 리눅스의 셸을 기준으로 썼어요. <strong>윈도우라면 PowerShell 말고 Git Bash나 WSL에서 하세요.</strong> Git Bash는 <a href="https://git-scm.com" target="_blank" rel="noopener">git-scm.com</a>에서 Git을 설치할 때 함께 깔려요. PowerShell에는 <code>chmod</code>가 없고 <code>.sh</code> 파일도 그냥은 실행되지 않아서, 7장에서 안내한 대로 PowerShell을 열어둔 채로는 여기 예시가 하나도 안 돌아가요.</p>
+        <p>준비물이 하나 더 있어요. 아래 스크립트들은 stdin으로 들어온 JSON을 읽는 데 <strong><code>python3</code></strong>을 써요. 터미널에서 <code>python3 --version</code>을 먼저 쳐보세요. 버전이 안 나오면 <a href="https://www.python.org" target="_blank" rel="noopener">python.org</a>에서 받아 설치하고 오세요.</p>
+        <p><strong>이건 그냥 넘어가도 되는 잔소리가 아니에요.</strong> <code>python3</code>이 없으면 스크립트가 실패하는데, 바로 다음 절에서 볼 것처럼 <strong>실패한 Hook은 도구를 막지 못하고 그대로 통과시켜요.</strong> 막았다고 믿고 있는데 실은 아무것도 안 막히는 상태가 되는 거죠. 그래서 설치 확인을 먼저 하는 거예요.</p>
+      </div>
+
+      <div class="callout">
+        <p class="callout-title">스크립트를 만들면 실행 권한을 주세요 (맥·리눅스에서만)</p>
+        <p>맥·리눅스에서는 스크립트 파일을 만든 다음에 <code>chmod +x .claude/hooks/스크립트이름.sh</code>를 한 번 실행하세요. 실행 권한이 없으면 Hook이 조용히 실패해요.</p>
+        <p>윈도우에는 <code>chmod</code>라는 명령 자체가 없어요. 위에서 안내한 Git Bash를 쓰고 있다면 같은 명령을 그대로 치면 돼요.</p>
+      </div>
+    </section>
+
+    <!-- ====== Exit codes ====== -->
+    <section>
+      <h2>Hook은 종료 코드로 대답해요</h2>
+
+      <p>받는 쪽을 봤으니 이제 대답하는 쪽이에요. Hook은 Claude에게 「통과시켜」 또는 「막아」를 말해야 하는데, 그걸 <strong>종료 코드</strong>로 합니다.</p>
+
+      <p>종료 코드는 어려운 게 아니에요. <strong>프로그램이 끝나면서 남기고 가는 숫자 하나</strong>예요. 오래된 약속이 하나 있는데, <code>0</code>은 「잘 끝났다」, <code>0</code>이 아닌 숫자는 「뭔가 문제가 있었다」예요. 셸에서 <code>exit 0</code>이라고 쓰면 0을 남기고 끝나요.</p>
+
+      <p>Claude Code는 PreToolUse Hook이 남긴 이 숫자를 읽고 세 갈래로 갈라요.</p>
+
+      <table>
+        <thead>
+          <tr><th>종료 코드</th><th>Claude가 하는 일</th><th>언제 쓰나</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>exit 0</code></td><td>도구를 그대로 실행해요</td><td>검사해 봤는데 괜찮을 때</td></tr>
+          <tr><td><code>exit 2</code></td><td><strong>도구를 막아요</strong></td><td>이건 실행되면 안 될 때</td></tr>
+          <tr><td>그 밖의 숫자</td><td>「Hook에 문제가 있었네」 하고 <strong>도구는 그냥 실행해요</strong></td><td>일부러 쓸 일이 없어요</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-warning">
+        <p class="callout-title"><code>exit 1</code>이 함정인 이유</p>
+        <p>막고 싶을 때 <code>exit 1</code>을 쓰고 싶어지는 게 자연스러워요. 「오류를 냈으니 당연히 멈추겠지」 싶으니까요. <strong>안 멈춰요.</strong> Claude Code는 오직 <code>2</code>만 차단 신호로 읽고, <code>1</code>은 「Hook이 실패했구나」로 넘겨요. 그러고는 도구를 그대로 실행합니다.</p>
+        <p>더 성가신 건 <strong>내가 안 썼는데도 1이 나온다</strong>는 점이에요. 스크립트 안에서 <code>grep</code>이 아무것도 못 찾거나 명령어 하나가 실패하면 그 값이 그대로 종료 코드가 되는데, 그게 대개 1이에요. 그래서 「막았다」고 믿는 Hook이 조용히 통과시키고 있는 일이 생겨요.</p>
+        <p>차단하려면 <strong><code>exit 2</code>를 직접 써야 해요.</strong> 그것 말고는 막을 방법이 없어요.</p>
+      </div>
+
+      <h3>막을 때는 이유도 함께 보내요</h3>
+
+      <p>앞으로 나올 예시에 <code>&gt;&amp;2</code>가 붙어 있어요. 「이 메시지를 표준 출력이 아니라 <strong>표준 오류</strong>로 보내라」는 뜻이에요.</p>
+
+      <pre><code>echo "위험한 명령입니다" &gt;&amp;2
+exit 2</code></pre>
+
+      <p>왜 이렇게 나눠 보내냐면, <strong>Claude가 읽는 곳이 표준 오류</strong>이기 때문이에요. 이렇게 쓰면 Claude는 그냥 막혔다는 것만 아는 게 아니라 <strong>왜 막혔는지</strong>까지 알게 돼서, 다른 방법을 찾아보거나 나에게 물어봐요. <code>exit 2</code>만 있고 메시지가 없으면 Claude는 이유를 모른 채 멈춰요.</p>
+
+      <h3>방금 끝난 명령이 잘 됐는지 보려면</h3>
+
+      <p>예시 3에 <code>$?</code>가 나와요. <strong>바로 앞 명령이 남긴 종료 코드</strong>가 들어 있는 자리예요.</p>
+
+      <pre><code>npm test
+if [ $? -ne 0 ]; then          # 테스트가 0이 아닌 값으로 끝났다면 = 실패했다면
+  echo "테스트가 실패해서 커밋을 막았어요" &gt;&amp;2
+  exit 2
+fi</code></pre>
+
+      <p><code>npm test</code>는 테스트가 다 통과하면 0을, 하나라도 깨지면 0이 아닌 값을 남겨요. <code>$?</code>로 그걸 받아 보고 우리가 <code>exit 2</code>를 내는 거예요. 앞 명령의 종료 코드를 읽어서 우리 종료 코드를 정하는 셈이죠.</p>
+    </section>
+
+    <!-- ====== Practical Examples ====== -->
+    <section>
+      <h2>실전 Hook 예시들</h2>
+
+      <h3>예시 1: 파일 저장 후 자동 포맷팅</h3>
+      <p>Prettier로 코드를 자동 정리해요. 먼저 settings.json에서 스크립트를 가리켜요:</p>
+
+      <pre><code>{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/format.sh"
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+
+      <p>그리고 <code>.claude/hooks/format.sh</code>를 이렇게 만들어요:</p>
+
+      <pre><code>#!/bin/bash
+INPUT=$(cat)
+FILE=$(printf '%s' "$INPUT" | python3 -c 'import sys,json; print(json.loads(sys.stdin.read()).get("tool_input",{}).get("file_path",""))')
+if [ -n "$FILE" ]; then
+  npx prettier --write "$FILE"
+fi</code></pre>
+
+      <h3>예시 2: 위험한 명령어 차단</h3>
+      <p><code>rm -rf</code> 같은 위험한 명령어를 막아요. settings.json은 이렇게 써요:</p>
+
+      <pre><code>{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-danger.sh"
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+
+      <p><code>.claude/hooks/block-danger.sh</code>의 내용이에요:</p>
+
+      <pre><code>#!/bin/bash
+INPUT=$(cat)
+CMD=$(printf '%s' "$INPUT" | python3 -c 'import sys,json; print(json.loads(sys.stdin.read()).get("tool_input",{}).get("command",""))')
+if echo "$CMD" | grep -q 'rm -rf'; then
+  echo "위험한 명령입니다" >&2
+  exit 2
+fi</code></pre>
+
+      <p>여기서 <code>exit 2</code>가 핵심이에요. 이 종료 코드가 도구 실행을 실제로 차단해요.</p>
+
+      <h3>예시 3: 커밋 전 테스트 자동 실행</h3>
+      <p>settings.json은 예시 2와 같은 모양이고, <code>command</code>만 <code>.claude/hooks/test-before-commit.sh</code>로 바꿔요. 스크립트는 이렇게 써요:</p>
+
+      <pre><code>#!/bin/bash
+INPUT=$(cat)
+CMD=$(printf '%s' "$INPUT" | python3 -c 'import sys,json; print(json.loads(sys.stdin.read()).get("tool_input",{}).get("command",""))')
+if echo "$CMD" | grep -q 'git commit'; then
+  npm test
+  if [ $? -ne 0 ]; then
+    echo "테스트가 실패해서 커밋을 막았어요" >&2
+    exit 2
+  fi
+fi</code></pre>
+
+      <div class="scenario-box">
+        <h3>시나리오: 프로덕션 DB 접근 차단 Hook</h3>
+        <p>실수로 프로덕션 데이터베이스에 손대는 걸 막아주는 Hook이에요. <code>.claude/hooks/block-prod.sh</code>를 만들고, PreToolUse의 Bash matcher에 연결하세요:</p>
+        <pre><code>#!/bin/bash
+INPUT=$(cat)
+CMD=$(printf '%s' "$INPUT" | python3 -c 'import sys,json; print(json.loads(sys.stdin.read()).get("tool_input",{}).get("command",""))')
+if echo "$CMD" | grep -qE 'prod|production'; then
+  echo "프로덕션 환경 접근이 차단되었어요. 개발 환경을 쓰세요" >&2
+  exit 2
+fi</code></pre>
+        <p>이 Hook이 있으면, Claude가 실수로 프로덕션 서버에 명령어를 실행하려고 해도 자동으로 차단돼요. 안전하죠!</p>
+      </div>
+    </section>
+
+    <!-- ====== Tips ====== -->
+    <section>
+      <h2>Hook 사용 팁</h2>
+
+      <h3>간단한 것부터 시작하세요</h3>
+      <p>처음부터 복잡한 Hook을 만들지 마세요. <code>echo</code>로 메시지를 출력하는 것부터 시작하고, 점점 기능을 추가해나가세요.</p>
+
+      <h3>PreToolUse로 실수를 방지하세요</h3>
+      <p>PostToolUse는 "이미 실행된 후"예요. 실수를 막으려면 <strong>PreToolUse</strong>를 쓰세요. 잘못된 명령어가 실행되기 전에 차단하는 게 훨씬 안전해요.</p>
+
+      <h3>차단은 <code>exit 2</code>로만 돼요</h3>
+      <p>앞에서 본 대로예요. <code>exit 0</code>은 통과, <code>exit 2</code>는 차단, 나머지 숫자는 전부 「Hook에 문제가 있었네」로 넘어가고 도구는 실행돼요.</p>
+      <p>Hook을 만들었다면 <strong>한 번은 일부러 걸리게 해서 진짜 막히는지 확인하세요.</strong> 막힌 줄 알았는데 통과하고 있는 게 가장 위험해요.</p>
+
+      <div class="fun-box">
+        <p class="fun-box-title">Hook = 자동 품질 관리</p>
+        <p>Hooks를 잘 설정하면, Claude가 일할 때마다 자동으로 품질 검사가 이루어져요. 마치 공장에서 제품이 컨베이어 벨트를 따라 이동하면서 자동으로 검수받는 것처럼요. 수동 검수보다 빠르고, 놓치는 것도 없어요.</p>
+      </div>
+    </section>
+
+    <!-- ====== Exercise ====== -->
+    <section>
+      <div class="exercise-box">
+        <p class="exercise-title">직접 해보기: 첫 번째 Hook 설정</p>
+        <p>이 실습에는 준비물이 없어요. 앞의 예시들과 달리 셸 스크립트도 <code>python3</code>도 안 쓰거든요.</p>
+        <ol>
+          <li>프로젝트 폴더에 <code>.claude</code> 폴더를 만드세요 (없으면). <strong>탐색기가 점으로 시작하는 폴더 이름을 거부하면, Claude Code를 켜고 「<code>.claude/settings.json</code> 만들어줘」라고 시키세요.</strong> 사실 이게 가장 쉬운 길이에요. 폴더와 빈 파일을 한 번에 만들어줘요</li>
+          <li><code>.claude/settings.json</code> 파일을 만드세요</li>
+          <li>아래 내용을 넣어보세요:
+            <pre><code>{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '파일이 저장됨' &gt;&gt; .claude/hook-log.txt"
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+          </li>
+          <li>Claude Code를 실행하고 "hello.txt 파일을 만들어줘"라고 요청하세요</li>
+          <li><code>.claude/hook-log.txt</code> 파일을 열어 보세요. 「파일이 저장됨」이 한 줄 적혀 있으면 Hook이 제대로 돈 거예요</li>
+        </ol>
+        <p>화면에는 아무것도 안 뜨는 게 정상이에요. 놀라지 마세요. Hook이 화면에 찍는 글자는 어디로 가는지 알기 어려워서, <strong>일부러 파일에 남기게 했어요.</strong> <code>&gt;&gt;</code>가 「앞의 결과를 이 파일 끝에 덧붙여라」는 뜻이에요. 눈으로 확인할 수 있는 흔적을 만드는 게 첫 Hook에서는 제일 중요해요.</p>
+      </div>
+    </section>
+
+    <!-- ====== Recap ====== -->
+    <section>
+      <div class="recap-box">
+        <h3>이번 챕터 정리</h3>
+        <ul>
+          <li><strong>Hooks</strong>는 Claude의 도구 사용 전/후에 자동으로 실행되는 명령어예요.</li>
+          <li><strong>PreToolUse</strong>는 실행 전(검증/차단), <strong>PostToolUse</strong>는 실행 후(포맷팅/알림)에 사용해요.</li>
+          <li><code>.claude/settings.json</code>에서 설정하고, <strong>matcher</strong>로 어떤 도구에 반응할지 정해요.</li>
+          <li>실전 활용: 자동 포맷팅, 위험 명령어 차단, 커밋 전 테스트, DB 접근 제한 등.</li>
+          <li>간단한 Hook부터 시작해서 점점 기능을 추가하세요.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ====== Next Teaser ====== -->
+    <section>
+      <div class="next-teaser">
+        <h3>다음 챕터 미리보기</h3>
+        <p>Hooks가 Claude의 행동을 자동화하는 거라면, <strong>MCP 서버</strong>는 Claude의 능력 자체를 확장하는 거예요. 이메일 보내기, 데이터베이스 조회, 웹 크롤링까지. Claude에게 새 초능력을 하나씩 붙여주는 거죠.</p>
+      </div>
+    </section>
+
+  </article>
+
+  <nav class="chapter-nav">
+    <a href="ch09.html" class="prev">이전: Skills: AI에게 전문성을 가르치다</a>
+    <a href="ch11.html" class="next">다음: MCP 서버: Claude의 능력을 확장하다</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

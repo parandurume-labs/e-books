@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 6: 실무 시나리오 · Claude 100배 활용법</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Claude 100배 활용법</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5 10.1 12 4.5 10l5.6-1.4z"/><path d="M18 16l.8 2.2L21 19l-2.2.8L18 22l-.8-2.2L15 19l2.2-.8z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 마인드 전환</li>
+      <li><a href="ch01.html" class="nav-link">1장 검색 vs 지시</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 Claude를 만나다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 프롬프트의 기술</a></li>
+      <li class="nav-part">제2부: Claude.ai & Desktop</li>
+      <li><a href="ch04.html" class="nav-link">4장 Claude.ai 200%</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 Claude Desktop</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 사무직의 하루</a></li>
+      <li class="nav-part">제3부: Claude Code</li>
+      <li><a href="ch07.html" class="nav-link">7장 Claude Code 시작</a></li>
+      <li><a href="ch08.html" class="nav-link">8장 CLAUDE.md와 컨텍스트</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 Skills</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 Hooks</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 MCP 서버</a></li>
+      <li class="nav-part">제4부: 실전 워크플로</li>
+      <li><a href="ch12.html" class="nav-link">12장 비개발자의 앱 만들기</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 멀티 에이전트 협업</a></li>
+      <li><a href="ch14.html" class="nav-link">14장 보안과 안전</a></li>
+      <li class="nav-part">제5부: 더 멀리 가기</li>
+      <li><a href="ch15.html" class="nav-link">15장 Claude 생태계</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 나만의 워크플로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 프롬프트 레시피</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 6</span>
+    <h1>실무 시나리오: 사무직의 하루</h1>
+    <p class="chapter-subtitle">아침 9시부터 저녁 6시까지, Claude와 함께</p>
+  </header>
+
+  <article>
+    <p>이론은 충분히 배웠어요. 이제 실전이에요. 김대리의 하루를 따라가 봅시다. 3년차 사무직, 중견 제조업체 마케팅팀 소속. 월요일 아침 9시, 출근해서 컴퓨터를 켭니다. 오늘도 할 일이 산더미예요.</p>
+
+    <p>하지만 김대리에겐 비밀 무기가 있어요. <strong>Claude</strong>입니다.</p>
+
+    <h2>09:00 · 이메일 작성 (Claude.ai)</h2>
+
+    <p>출근하자마자 팀장님이 말합니다. "김대리, 신한제약 김 부장님께 다음 주 미팅 확인 이메일 보내. 아, 이번에 좀 정중하게 보내."</p>
+
+    <div class="scenario-box">
+      <p><strong>상황:</strong> 거래처 담당자에게 미팅 확인 이메일을 보내야 함. 정중하지만 자연스러운 톤이 필요.</p>
+    </div>
+
+    <p>예전 김대리라면 "비즈니스 이메일 쓰는 법"을 검색했을 거예요. 하지만 이제는 다릅니다.</p>
+
+    <div class="prompt-example">
+      <p><span class="label good-label">김대리의 프롬프트</span></p>
+      <p class="good">"신한제약 마케팅팀 김영수 부장님께 보낼 이메일을 써줘.<br><br>
+      내용: 다음 주 수요일 오후 2시, 우리 본사 3층 회의실에서 진행 예정인 Q2 공동 마케팅 협업 미팅 일정 확인.<br><br>
+      톤: 비즈니스 격식체, 하지만 딱딱하지 않고 따뜻하게. 한국 비즈니스 문화에 맞게.<br><br>
+      포함할 내용: 미팅 안건 간략 언급, 주차 안내, 준비 사항이 있으면 말씀해 달라는 문구."</p>
+    </div>
+
+    <p><strong>소요 시간: 2분.</strong> 예전에는 15분 걸리던 일이에요. 결과물을 한 번 읽어보고, "조금 더 간결하게 줄여줘"라고 한마디 하면 끝.</p>
+
+    <h2>10:00 · 회의록 정리 (Claude.ai + 파일 업로드)</h2>
+
+    <p>10시, 주간 팀 미팅이 끝났습니다. 김대리는 미팅 중에 휴대폰으로 메모를 해뒀어요. 두서없는 메모지만 괜찮아요.</p>
+
+    <div class="scenario-box">
+      <p><strong>상황:</strong> 30분간의 팀 미팅 후, 두서없는 메모를 구조화된 회의록으로 정리해야 함.</p>
+    </div>
+
+    <div class="prompt-example">
+      <p><span class="label good-label">김대리의 프롬프트</span></p>
+      <p class="good">"아래 미팅 메모를 공식 회의록으로 정리해줘.<br><br>
+      형식: 1) 회의 정보 (일시, 참석자, 장소) 2) 핵심 논의 사항 3) 결정 사항 4) 액션 아이템 (담당자, 마감일 포함) 5) 다음 미팅 일정<br><br>
+      [여기에 메모 붙여넣기]<br>
+      - 팀장님이 Q2 예산 10% 증가 가능하다고 함<br>
+      - SNS 광고 효율 떨어져서 인플루언서 마케팅으로 전환 검토<br>
+      - 이주임이 인플루언서 리스트 이번 주 금요일까지 만들기로<br>
+      - 신제품 런칭 일정 4월 15일에서 4월 22일로 연기<br>
+      - 박과장이 경쟁사 SNS 분석 자료 만들어오기로 (수요일까지)<br>
+      - 다음 미팅은 다음 주 월요일 같은 시간"</p>
+    </div>
+
+    <p><strong>소요 시간: 3분.</strong> 깔끔한 회의록이 나오고, 액션 아이템에 담당자와 마감일까지 정리되어 있어요. 예전에는 이거 하나에 20분은 걸렸는데요.</p>
+
+    <h2>11:00 · 보고서 초안 작성 (Projects)</h2>
+
+    <p>11시, 팀장님이 "이번 주 금요일까지 Q1 마케팅 실적 보고서 올려"라고 합니다. 김대리는 미리 만들어둔 "마케팅 보고서" Project를 엽니다.</p>
+
+    <div class="scenario-box">
+      <p><strong>상황:</strong> Q1 마케팅 실적 보고서를 경영진 대상으로 작성해야 함. 이미 Project에 지난 분기 보고서, KPI 기준표, 채널별 데이터가 업로드되어 있음.</p>
+    </div>
+
+    <div class="prompt-example">
+      <p><span class="label good-label">Project 안에서의 프롬프트 (맥락 설명 불필요!)</span></p>
+      <p class="good">"Q1 마케팅 실적 보고서 초안 써줘. 아래 데이터를 기반으로.<br><br>
+      [Q1 채널별 성과 데이터 붙여넣기]<br>
+      - 네이버 블로그: 월평균 방문 12만, 전분기 대비 +15%<br>
+      - 인스타그램: 팔로워 8.5만, 전분기 대비 +22%<br>
+      - 유튜브: 구독자 3.2만, 조회수 평균 2만회/영상<br>
+      - 온라인 매출: 전분기 대비 +18%<br><br>
+      경영진 대상이니까 핵심 성과 3줄 요약을 먼저 넣어줘."</p>
+    </div>
+
+    <p>Project의 Custom Instructions에 이미 "격식체, 표 활용, 숫자 근거 포함"이 설정되어 있어서, 이런 세부 지시 없이도 원하는 스타일로 나와요.</p>
+
+    <p><strong>소요 시간: 15분 (초안 + 2번 수정).</strong> 예전에는 3시간 넘게 걸리던 일이에요.</p>
+
+    <h2>14:00 · 데이터 분석 (Claude Desktop + MCP)</h2>
+
+    <p>점심 먹고 돌아오니, 팀장님이 또 한마디 합니다. "김대리, 바탕화면에 있는 고객 설문조사 데이터 좀 분석해봐."</p>
+
+    <div class="scenario-box">
+      <p><strong>상황:</strong> 바탕화면에 '고객설문_2025Q1.csv' 파일이 있음. 500명의 설문 응답 데이터. Claude Desktop에 Filesystem MCP가 연결되어 있음.</p>
+    </div>
+
+    <div class="prompt-example">
+      <p><span class="label good-label">Claude Desktop에서의 프롬프트</span></p>
+      <p class="good">"바탕화면의 '고객설문_2025Q1.csv' 파일을 읽어서 분석해줘.<br><br>
+      분석 항목:<br>
+      1. 전체 만족도 평균 및 분포<br>
+      2. 연령대별 만족도 차이<br>
+      3. 가장 많이 언급된 불만 사항 TOP 5<br>
+      4. NPS(Net Promoter Score) 계산<br>
+      5. 개선 우선순위 추천 3가지<br><br>
+      결과를 마크다운 표로 정리하고, 분석 결과를 '설문분석_결과.md'로 바탕화면에 저장해줘."</p>
+    </div>
+
+    <p>Claude Desktop이 직접 파일을 읽고, 분석하고, 결과 파일까지 저장해 줘요. <strong>파일 업로드도, 다운로드도 필요 없어요.</strong></p>
+
+    <p><strong>소요 시간: 5분.</strong> 엑셀에서 피벗 테이블 만들고 차트 그리던 것보다 훨씬 빠르죠.</p>
+
+    <h2>15:30 · 번역 및 교정 (Claude.ai)</h2>
+
+    <p>오후 3시 반, 해외 거래처에서 영문 이메일이 왔어요. 내용이 꽤 길고, 기술적인 용어도 있어요.</p>
+
+    <div class="scenario-box">
+      <p><strong>상황:</strong> 영문 이메일 번역 + 한국어 답장 초안 작성이 필요.</p>
+    </div>
+
+    <div class="prompt-example">
+      <p><span class="label good-label">김대리의 프롬프트</span></p>
+      <p class="good">"아래 영문 이메일을 자연스러운 한국어로 번역해줘. 기술 용어는 한글(영문 병기) 형태로.<br><br>
+      [영문 이메일 붙여넣기]<br><br>
+      그리고 이 이메일에 대한 답장 초안도 한국어로 써줘. 톤은 정중하되 긍정적으로. 핵심 메시지는 '일정 조율이 필요하지만 협업 의지가 있다'."</p>
+    </div>
+
+    <p>한 번의 프롬프트로 번역 + 답장까지 완료. "이 부분은 좀 더 부드럽게"라고 한마디 하면 톤 조절도 바로 돼요.</p>
+
+    <p><strong>소요 시간: 3분.</strong></p>
+
+    <h2>17:00 · 내일 준비 (Claude.ai)</h2>
+
+    <p>퇴근 한 시간 전. 김대리는 오늘 하루를 마무리합니다.</p>
+
+    <div class="prompt-example">
+      <p><span class="label good-label">하루 마무리 프롬프트</span></p>
+      <p class="good">"오늘 내가 한 업무를 정리해줘. 아래 내용 기반으로:<br><br>
+      - 신한제약 미팅 확인 이메일 발송 완료<br>
+      - 주간 미팅 회의록 작성 및 공유<br>
+      - Q1 마케팅 실적 보고서 초안 완료 (금요일까지 최종본 제출 예정)<br>
+      - 고객 설문조사 데이터 분석 완료<br>
+      - 해외 거래처 이메일 번역 및 답장 발송<br><br>
+      그리고 내일 해야 할 일 리스트도 만들어줘:<br>
+      - 보고서 최종 수정<br>
+      - 인플루언서 리스트 이주임에게 요청 확인<br>
+      - 신제품 런칭 연기 관련 일정 업데이트<br>
+      - 경쟁사 SNS 분석 자료 박과장에게 요청<br><br>
+      오늘 업무 일지 형식과 내일 할 일을 체크리스트 형식으로 정리해줘."</p>
+    </div>
+
+    <p><strong>소요 시간: 2분.</strong></p>
+
+    <h2>하루 절약 시간 계산</h2>
+
+    <p>김대리의 하루를 정리해 볼게요.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg">
+        <text x="350" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#6B4EE6">김대리의 시간 절약 비교</text>
+        <!-- Headers -->
+        <text x="180" y="65" text-anchor="middle" font-size="13" font-weight="bold" fill="#5A4F6B">업무</text>
+        <text x="380" y="65" text-anchor="middle" font-size="13" font-weight="bold" fill="#E85D4A">Before (기존)</text>
+        <text x="540" y="65" text-anchor="middle" font-size="13" font-weight="bold" fill="#2B8C8C">After (Claude)</text>
+        <text x="650" y="65" text-anchor="middle" font-size="13" font-weight="bold" fill="#6B4EE6">절약</text>
+        <line x1="50" y1="75" x2="690" y2="75" stroke="#DDD6EE" stroke-width="1"/>
+
+        <!-- Row 1 -->
+        <text x="50" y="100" font-size="12" fill="#1E1533">이메일 작성</text>
+        <rect x="340" y="86" width="80" height="22" rx="4" fill="#FDEAE7"/>
+        <text x="380" y="102" text-anchor="middle" font-size="12" fill="#E85D4A">15분</text>
+        <rect x="500" y="86" width="80" height="22" rx="4" fill="#E0F5F5"/>
+        <text x="540" y="102" text-anchor="middle" font-size="12" fill="#2B8C8C">2분</text>
+        <text x="650" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#6B4EE6">13분</text>
+
+        <!-- Row 2 -->
+        <line x1="50" y1="115" x2="690" y2="115" stroke="#F0E8F5" stroke-width="1"/>
+        <text x="50" y="140" font-size="12" fill="#1E1533">회의록 정리</text>
+        <rect x="340" y="126" width="80" height="22" rx="4" fill="#FDEAE7"/>
+        <text x="380" y="142" text-anchor="middle" font-size="12" fill="#E85D4A">20분</text>
+        <rect x="500" y="126" width="80" height="22" rx="4" fill="#E0F5F5"/>
+        <text x="540" y="142" text-anchor="middle" font-size="12" fill="#2B8C8C">3분</text>
+        <text x="650" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#6B4EE6">17분</text>
+
+        <!-- Row 3 -->
+        <line x1="50" y1="155" x2="690" y2="155" stroke="#F0E8F5" stroke-width="1"/>
+        <text x="50" y="180" font-size="12" fill="#1E1533">보고서 초안</text>
+        <rect x="340" y="166" width="80" height="22" rx="4" fill="#FDEAE7"/>
+        <text x="380" y="182" text-anchor="middle" font-size="12" fill="#E85D4A">3시간</text>
+        <rect x="500" y="166" width="80" height="22" rx="4" fill="#E0F5F5"/>
+        <text x="540" y="182" text-anchor="middle" font-size="12" fill="#2B8C8C">15분</text>
+        <text x="650" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#6B4EE6">2시간 45분</text>
+
+        <!-- Row 4 -->
+        <line x1="50" y1="195" x2="690" y2="195" stroke="#F0E8F5" stroke-width="1"/>
+        <text x="50" y="220" font-size="12" fill="#1E1533">데이터 분석</text>
+        <rect x="340" y="206" width="80" height="22" rx="4" fill="#FDEAE7"/>
+        <text x="380" y="222" text-anchor="middle" font-size="12" fill="#E85D4A">1시간</text>
+        <rect x="500" y="206" width="80" height="22" rx="4" fill="#E0F5F5"/>
+        <text x="540" y="222" text-anchor="middle" font-size="12" fill="#2B8C8C">5분</text>
+        <text x="650" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#6B4EE6">55분</text>
+
+        <!-- Row 5 -->
+        <line x1="50" y1="235" x2="690" y2="235" stroke="#F0E8F5" stroke-width="1"/>
+        <text x="50" y="260" font-size="12" fill="#1E1533">번역 + 답장</text>
+        <rect x="340" y="246" width="80" height="22" rx="4" fill="#FDEAE7"/>
+        <text x="380" y="262" text-anchor="middle" font-size="12" fill="#E85D4A">30분</text>
+        <rect x="500" y="246" width="80" height="22" rx="4" fill="#E0F5F5"/>
+        <text x="540" y="262" text-anchor="middle" font-size="12" fill="#2B8C8C">3분</text>
+        <text x="650" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#6B4EE6">27분</text>
+
+        <!-- Row 6 -->
+        <line x1="50" y1="275" x2="690" y2="275" stroke="#F0E8F5" stroke-width="1"/>
+        <text x="50" y="300" font-size="12" fill="#1E1533">하루 정리</text>
+        <rect x="340" y="286" width="80" height="22" rx="4" fill="#FDEAE7"/>
+        <text x="380" y="302" text-anchor="middle" font-size="12" fill="#E85D4A">15분</text>
+        <rect x="500" y="286" width="80" height="22" rx="4" fill="#E0F5F5"/>
+        <text x="540" y="302" text-anchor="middle" font-size="12" fill="#2B8C8C">2분</text>
+        <text x="650" y="302" text-anchor="middle" font-size="12" font-weight="bold" fill="#6B4EE6">13분</text>
+
+        <!-- Total -->
+        <line x1="50" y1="320" x2="690" y2="320" stroke="#6B4EE6" stroke-width="2"/>
+        <text x="50" y="350" font-size="14" font-weight="bold" fill="#1E1533">합계</text>
+        <rect x="335" y="332" width="90" height="28" rx="6" fill="#FDEAE7" stroke="#E85D4A" stroke-width="1"/>
+        <text x="380" y="352" text-anchor="middle" font-size="14" font-weight="bold" fill="#E85D4A">5시간 20분</text>
+        <rect x="495" y="332" width="90" height="28" rx="6" fill="#E0F5F5" stroke="#2B8C8C" stroke-width="1"/>
+        <text x="540" y="352" text-anchor="middle" font-size="14" font-weight="bold" fill="#2B8C8C">30분</text>
+        <rect x="610" y="332" width="90" height="28" rx="6" fill="#EDE8FF" stroke="#6B4EE6" stroke-width="2"/>
+        <text x="655" y="352" text-anchor="middle" font-size="13" font-weight="bold" fill="#6B4EE6">4시간 50분!</text>
+      </svg>
+      <figcaption>하루에 4시간 50분을 절약합니다. 하루 근무 시간의 절반이 넘죠!</figcaption>
+    </figure>
+
+    <p>물론 이건 이상적인 시나리오예요. 실제로는 AI의 결과물을 검토하고 수정하는 시간이 좀 더 들겠죠. 하지만 보수적으로 잡아도 <strong>하루 2~3시간은 확실히 절약</strong>할 수 있어요.</p>
+
+    <p>그 시간에 뭘 할 수 있을까요?</p>
+    <ul>
+      <li>전략적 사고에 집중하기</li>
+      <li>팀원들과 소통하기</li>
+      <li>새로운 아이디어 구상하기</li>
+      <li>또는... 칼퇴하기!</li>
+    </ul>
+
+    <div class="fun-box">
+      <p class="fun-box-title">쉬운 비유</p>
+      <p>세탁기가 나오기 전에는 빨래하는 데 반나절이 걸렸어요. 세탁기가 나온 후에는? 빨래를 넣고 버튼만 누르면 돼요. Claude는 사무직의 세탁기예요. <strong>반복적이고 시간 많이 드는 업무를 자동화</strong>해서, 정말 중요한 일에 집중하게 해줘요.</p>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">실습: 내일 업무 3가지를 Claude에게 시키기</p>
+      <ol>
+        <li><strong>내일 할 업무 리스트를 적어보세요</strong> (최소 5개)</li>
+        <li><strong>그중 AI에게 시킬 3가지를 골라보세요</strong>
+          <ul>
+            <li>이메일/문서 작성?</li>
+            <li>데이터 정리/분석?</li>
+            <li>번역/교정?</li>
+            <li>아이디어 브레인스토밍?</li>
+            <li>일정/계획 수립?</li>
+          </ul>
+        </li>
+        <li><strong>업무마다 4원칙을 적용한 프롬프트를 미리 작성해 두세요</strong></li>
+        <li><strong>내일 출근해서 실제로 실행하세요!</strong></li>
+      </ol>
+      <p>한 번 해보면 "아, 이래서 AI를 '시키기' 모드로 쓰라고 한 거구나"를 몸으로 느끼게 될 거예요.</p>
+    </div>
+
+    <aside class="recap-box">
+      <h3>잠깐, 정리!</h3>
+      <ul>
+        <li><strong>이메일</strong> → Claude.ai에 구체적으로 시키면 2분 컷</li>
+        <li><strong>회의록</strong> → 메모만 던져도 구조화된 회의록 완성</li>
+        <li><strong>보고서</strong> → Projects에 맥락 저장해두면 초안 15분</li>
+        <li><strong>데이터 분석</strong> → Claude Desktop + MCP로 파일 직접 분석</li>
+        <li><strong>번역</strong> → 번역 + 답장을 한 번에</li>
+        <li>하루 절약 시간: 보수적으로 <strong>2~3시간</strong></li>
+        <li>핵심: AI는 검색 도구가 아니라 <strong>업무 달성 도구</strong></li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>다음 챕터에서는...</h3>
+      <p>사무직뿐 아니라 개발자를 위한 강력한 도구, Claude Code를 만나볼 거예요. 터미널에서 코딩은 물론이고 프로젝트 생성, Git 관리, 자동화까지 다룹니다. Claude의 진짜 파워를 경험하게 될 거예요!</p>
+    </div>
+  </article>
+
+  <nav class="chapter-nav">
+    <a href="ch05.html" class="prev">이전: Claude Desktop으로 내 컴퓨터와 연결하기</a>
+    <a href="ch07.html" class="next">다음: Claude Code 시작하기</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

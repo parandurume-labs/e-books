@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>부록 B: 복붙용 자산 모음 · 회사용 LLM Wiki 만들기</title>
+  <meta name="description" content="CLAUDE.md, 노트 템플릿 7종, 검증 스크립트 전문, 스킬 3종, 예약 작업 프롬프트, 대시보드 스크립트, 자주 쓰는 프롬프트를 한 곳에 모았습니다. 전부 본문 장에 나온 것을 한 글자도 고치지 않고 옮겼습니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="alternate" hreflang="en" href="appendix-b.en.html">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">회사용 LLM Wiki 만들기</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 필요한가</li>
+      <li><a href="ch01.html" class="nav-link">1장 우리 지식은 어디에</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 RAG가 아니라 위키다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 온톨로지와 위키의 구분</a></li>
+      <li><a href="ch04.html" class="nav-link">4장 도구 세 개의 역할</a></li>
+      <li class="nav-part">제2부: 준비 · 30분 셋업</li>
+      <li><a href="ch05.html" class="nav-link">5장 옵시디언과 볼트</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 Teams로 팀 연결</a></li>
+      <li><a href="ch07.html" class="nav-link">7장 Cowork에 볼트 연결</a></li>
+      <li class="nav-part">제3부: 온톨로지 설계</li>
+      <li><a href="ch08.html" class="nav-link">8장 설계 원칙 여섯 개</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 클래스 정하기</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 관계와 필드 설계</a></li>
+      <li class="nav-part">제4부: 운영</li>
+      <li><a href="ch11.html" class="nav-link">11장 CLAUDE.md</a></li>
+      <li><a href="ch12.html" class="nav-link">12장 템플릿과 첫 노트</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 스킬로 자동화</a></li>
+      <li class="nav-part">제5부: 자동화와 시각화</li>
+      <li><a href="ch14.html" class="nav-link">14장 스케줄링</a></li>
+      <li><a href="ch15.html" class="nav-link">15장 업무 진행 시각화</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 자동화 레시피 12선</a></li>
+      <li class="nav-part">제6부: 지속</li>
+      <li><a href="ch17.html" class="nav-link">17장 품질을 코드로</a></li>
+      <li><a href="ch18.html" class="nav-link">18장 의도와 실행의 대조</a></li>
+      <li class="nav-part">제7부: AX로 확장</li>
+      <li><a href="ch19.html" class="nav-link">19장 위키에서 AX로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 복붙용 자산</a></li>
+      <li><a href="appendix-c.html" class="nav-link">부록 C: 트러블슈팅</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">APPENDIX B</span>
+    <h1>복붙용 자산 모음</h1>
+    <p class="chapter-subtitle">읽는 문서가 아니라 긁어 가는 문서입니다</p>
+    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>약 41분</span>
+  </header>
+
+<article>
+    <p>여기는 창고입니다. 처음부터 읽지 마시고 필요한 것만 찾아 긁어 가세요. 자산마다 앞에 <strong>언제 쓰는가</strong>와 <strong>어느 장에서 나왔는가</strong>를 상자로 붙여 두었습니다.</p>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">그대로 붙여 넣으면 안 도는 것이 정상입니다</p>
+      <p>모든 자산에 솔빛테크의 폴더 이름과 노트 이름이 박혀 있습니다. <strong>경로와 고유명사는 회사 것으로 바꾸고, 필드 이름은 그대로 두세요.</strong> 필드 이름을 바꾸면 검증 스크립트와 대시보드와 프롬프트가 한꺼번에 어긋납니다.</p>
+      <p>여기 실린 것은 전부 본문 장에 나온 그대로입니다. 옮기면서 다듬지 않았습니다. 부록과 본문이 다르면 어느 쪽을 믿어야 할지 알 수 없기 때문입니다.</p>
+    </div>
+
+    <h2 id="jump">자산 건너뛰기</h2>
+    <ul class="glossary-nav">
+      <li><a href="#claude-md">CLAUDE.md</a></li>
+      <li><a href="#termbank">표준용어집</a></li>
+      <li><a href="#templates">노트 템플릿 7종</a></li>
+      <li><a href="#validate">검증 스크립트</a></li>
+      <li><a href="#skills">스킬 3종</a></li>
+      <li><a href="#schedules">예약 작업 10종</a></li>
+      <li><a href="#dashboard">대시보드와 시각화</a></li>
+      <li><a href="#prompts">자주 쓰는 프롬프트 16종</a></li>
+    </ul>
+
+    <h2 id="claude-md">CLAUDE.md</h2>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">언제 쓰나 · 볼트를 만든 첫날</p>
+      <p>볼트 최상위에 <code>CLAUDE.md</code> 로 놓습니다. AI가 이 폴더에서 일을 시작할 때 가장 먼저 읽는 파일이고, 새로 온 사람이 첫날에 읽는 문서이기도 합니다.</p>
+      <p><strong>어디서 나왔나.</strong> 11장입니다. 각 절을 왜 그렇게 썼는지, 나쁜 규칙과 좋은 규칙이 어떻게 다른지는 그 장에 있습니다.</p>
+    </div>
+
+    <pre><code># 솔빛테크 위키 · AI 작업 규칙
+
+마지막 수정: 2026-07-30 · 고치는 사람: 김대표
+이 파일은 사람만 고친다. AI는 제안만 한다.
+
+## 0. 이 볼트가 무엇인가
+
+- 솔빛테크의 회사 지식을 담은 볼트다.
+- 회사 사실은 Sources/ 아래 노트에만 있다. 그 밖에서 사실을 가져오지 않는다.
+- 클래스·관계·필드·어휘의 정의는 _ops/01-온톨로지-설계서.md 에 있다.
+  판단이 갈리면 그 문서를 따른다.
+- 규칙끼리 부딪히면 번호가 낮은 쪽이 이긴다.
+
+## 1. 절대 규칙 (예외 없음)
+
+1. 없는 사실을 채우지 않는다. 볼트에 없으면 「기록 없음」이라고 답한다.
+2. 근거 없는 수치는 쓰지 않는다. 대신 「확인 필요」라고 쓴다.
+3. 답에는 근거 노트 이름을 함께 적는다. 근거를 못 대는 문장은 뺀다.
+4. 기존 노트와 어긋나는 내용을 발견하면 고치지 말고 「모순」으로 따로 보고한다.
+5. 사람 이름과 직함을 추측해 붙이지 않는다. 원문 표기를 그대로 쓴다.
+6. confidence: draft 인 노트는 대외 문서의 근거로 쓰지 않는다.
+
+## 2. 필드와 어휘
+
+- 마감 날짜는 언제나 due 다. 다른 이름을 만들지 않는다.
+- 관계는 pdm_uses / pdm_output_of / pdm_intent_of 를 쓴다. 담당자는 owner 로 적는다.
+- 관계 필드의 값은 "[[노트이름]]" 형태의 링크로 적는다. 여러 개면 줄을 나눈다.
+- status: 제품은 기획 / 개발 / 운영 / 중단. 과제와 기회는 기획 / 진행 / 검토 / 완료 / 보류.
+- confidence: draft 또는 reviewed. 그 밖의 값을 만들지 않는다.
+- 설계서에 없는 필드를 새로 만들지 않는다. 필요하면 사람에게 제안만 한다.
+
+## 3. 파일을 쓰는 규칙
+
+- 스스로 새 파일을 만들어도 되는 곳은 _reports/ 와 _moc/ 두 곳이다.
+- Sources/ 아래의 노트는 표로 먼저 보여주고 승인을 받은 뒤에 만들거나 고친다.
+- _ops/ 아래와 이 파일은 사람만 고친다.
+- 새로 만드는 노트에는 confidence: draft 와 오늘 날짜(KST)의 updated 를 넣는다.
+- 자동 생성 파일 맨 위에 다음 문구를 넣는다:
+  「이 파일은 자동 생성됩니다. 직접 고치면 다음 실행 때 사라집니다.」
+
+## 4. 기밀
+
+- confidential 값: 공개 / 사내 / 대외비. 값이 없으면 사내로 본다.
+- 대외비 노트의 회사 이름을 대외 문서에 그대로 쓰지 않는다.
+  계약 전 고객은 「국내 물류기업」처럼 가려서 쓴다.
+- 개인정보, 계정과 비밀번호, 급여와 인사 자료는 볼트에 두지 않는다.
+  발견하면 작업을 멈추고 사람에게 알린다.
+
+## 5. 틀리기 쉬운 우리 회사 사실
+
+문서마다 값이 어긋나 사고가 났던 것들이다. 아래 적힌 쪽이 맞다.
+
+- 웨어트윈의 TRL 은 4다. 옛 자료의 6은 과장으로 정정됐다. 근거: DEC-2026-0715-TRL정정.
+- 대성물류는 계약 전이다. 납품 실적이나 레퍼런스로 쓰지 않는다.
+- 픽뷰는 실증 데이터가 없다. 제안서 근거로 쓰지 않는다.
+- 창고봇의 운영 시작은 2023년 4월이다. 「2023년 출시」로 반올림하지 않는다.
+- 「이대표」와 「김대표」는 확인 전까지 다른 표기로 둔다. 합치지 않는다.
+- CAP-객체인식은 PRJ-2025-스마트물류의 산출물이다. 자체 개발로 쓰지 않는다.
+
+## 6. 답할 때
+
+- 볼트에 답이 없으면 「기록 없음」이라고 먼저 말하고,
+  그 사실을 어느 노트에 적으면 되는지 알려준다.
+- 표로 답할 수 있으면 표로 답한다. 길게 늘이지 않는다.
+- 승인이 필요한 작업은 먼저 보여주고 기다린다. 미리 실행하지 않는다.</code></pre>
+
+    <div class="callout">
+      <p class="callout-title">5절을 비워 두지 마세요</p>
+      <p>0절부터 4절까지는 어느 회사나 거의 같습니다. <strong>5절 「틀리기 쉬운 우리 회사 사실」만 회사마다 다릅니다.</strong> AI가 같은 실수를 두 번 하면 그때마다 한 줄씩 늘리세요. 이 절이 길어질수록 답의 품질이 올라갑니다.</p>
+    </div>
+
+    <h2 id="termbank">표준용어집</h2>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">언제 쓰나 · 13장의 <code>wiki-audit</code> 을 처음 돌리기 전</p>
+      <p><code>_ops/02-표준용어집.md</code> 로 저장합니다. <code>wiki-audit</code> 이 온톨로지 설계서와 함께 <strong>입력으로 요구하는 파일</strong>입니다. 없으면 그 스킬은 시작하지 않습니다.</p>
+      <p><strong>어디서 나왔나.</strong> 이름은 4장의 폴더 그림과 13장에 나옵니다. 서식은 여기가 처음입니다.</p>
+    </div>
+
+    <p>두 열이면 시작할 수 있습니다. 왼쪽이 앞으로 쓸 이름 하나, 오른쪽이 볼트에 나타나면 안 되는 이름들입니다. <strong>세 줄로 시작해도 됩니다.</strong> 처음부터 다 적으려고 하면 시작이 미뤄지고, 미뤄진 파일은 안 생깁니다.</p>
+
+    <pre><code># 표준용어집
+
+우리 회사 고유명사의 정본 표기다.
+노트·제안서·프롬프트에서 왼쪽만 쓴다. 오른쪽이 보이면 왼쪽으로 고친다.
+
+| 정본 표기 | 쓰지 않는 표기                  |
+|-----------|---------------------------------|
+| 창고봇    | WarehouseBot, 창고 봇, 창고로봇 |
+| 웨어트윈  | WareTwin, 웨어 트윈             |
+| 픽뷰      | PickView, 픽 뷰                 |
+
+## 늘리는 규칙
+
+- 같은 것이 두 가지로 적힌 것을 발견하면 그때 한 줄 늘린다.
+- 필드 이름은 여기 적지 않는다. 그건 01-온톨로지-설계서.md 에 있다.
+- 사람 이름과 조직 이름도 갈리면 여기 넣는다.</code></pre>
+
+    <p>고유명사가 두 갈래로 적히면 검색이 반쪽만 걸리고, 제안서에 두 이름이 섞여 나갑니다. 13장에서 플러그인을 걷어낸 이유 중 하나가 창고봇이 <code>WarehouseBot</code> 으로 바뀌어 저장된 일이었습니다. 이 표가 그 사고를 막습니다.</p>
+
+    <h2 id="templates">노트 템플릿 7종</h2>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">언제 쓰나 · 새 노트를 만들 때마다</p>
+      <p><code>_ops/templates/</code> 에 파일로 넣어 두고 사람도 AI도 같은 것을 복사해서 시작합니다. 칸을 지우지 말고, 채울 내용이 없으면 「확인 필요」라고 적습니다.</p>
+      <p><strong>어디서 나왔나.</strong> 12장입니다. 필드의 뜻은 10장, 클래스 판정 기준은 9장에 있습니다.</p>
+    </div>
+
+    <h3>1. 제품</h3>
+
+    <pre><code>---
+class: 제품
+id: PRD-
+status: 기획              # 기획 / 개발 / 운영 / 중단
+owner: "[[ ]]"
+since:
+pdm_uses:
+  - "[[ ]]"
+updated:
+confidence: draft
+confidential: 사내         # 공개 / 사내 / 대외비
+---
+
+# 제품 이름
+
+한 문장으로: 무엇을, 누구에게 파는가.
+
+## 도입 현황
+| 고객 | 시점 | 규모 | 근거 노트 |
+|------|------|------|-----------|
+
+## 이 제품이 쓰는 기술
+(pdm_uses 에 적은 것을 여기서 한 줄씩 풀어 쓴다)
+
+## 알려진 한계
+-
+
+## 근거 자료
+- </code></pre>
+
+    <h3>2. 기술역량</h3>
+
+    <pre><code>---
+class: 기술역량
+id: CAP-
+trl:                      # 1~9. 근거가 없으면 비워 둔다
+evidence:
+  - "[[ ]]"
+pdm_output_of: "[[ ]]"
+owner: "[[ ]]"
+updated:
+confidence: draft
+---
+
+# 역량 이름
+
+## 무엇을 하는 기술인가
+(전문 용어 없이 세 줄)
+
+## TRL 판단 근거
+| 주장 | 근거 노트 | 확인한 사람 | 확인 날짜 |
+|------|-----------|-------------|-----------|
+
+## 재사용 이력
+- 어느 제품에 들어갔는가
+
+## 아직 검증되지 않은 것
+- </code></pre>
+
+    <h3>3. 과제</h3>
+
+    <pre><code>---
+class: 과제
+id: PRJ-
+status: 진행              # 기획 / 진행 / 검토 / 완료 / 보류
+stage: 3/5                # 15장의 5단계 정의 기준
+period: 2025-03-01 ~ 2026-02-28
+funder:
+budget:
+owner: "[[ ]]"
+start: 2025-03-01
+due: 2026-02-28
+updated:
+confidence: draft
+---
+
+# 과제 이름
+
+## 우리가 맡은 범위
+## 산출물
+| 산출물 | 어느 노트가 되었나 |
+|--------|--------------------|
+
+## 일정과 실제
+## 남은 위험</code></pre>
+
+    <h3>4. 기회</h3>
+
+    <pre><code>---
+class: 기회
+id: OPP-
+status: 검토              # 기획 / 진행 / 검토 / 완료 / 보류
+stage: 2/4                # 발굴 / 검토 / 준비 / 제출
+due: 2026-08-08           # 제출 마감. 다른 이름을 쓰지 않는다
+                          # (나쁜 예: deadline, 마감일)
+owner: "[[ ]]"
+priority: 상              # 상 / 중 / 하
+updated:
+confidence: draft
+---
+
+# 기회 이름
+
+## 무엇을 요구하는가
+| 요구사항 | 우리 근거 노트 | 충족 |
+|----------|----------------|------|
+
+## 아직 없는 것
+## 참여 판단 기록
+(판단은 사람이 한다. 이 칸에는 판단한 날짜와 이유만 적는다)</code></pre>
+
+    <p>기회 템플릿의 <code>due</code> 옆에 붙은 주석을 눈여겨보세요. 뜻이 같은 이름을 새로 만들면 그 순간부터 셀 수가 없습니다. 10장이 이 문제를 다룹니다.</p>
+
+    <h3>5. 업무로그</h3>
+
+    <pre><code>---
+class: 업무로그
+id: 2026-07-15-박사업
+date: 2026-07-15
+owner: "[[박사업]]"
+pdm_intent_of: "[[OPP-2026-지자체공모]]"
+updated: 2026-07-15
+confidence: reviewed
+---
+
+## 시간을 가장 많이 쓴 일
+-
+
+## 막힌 것
+-
+
+## 내일 할 것
+- </code></pre>
+
+    <p>칸이 셋뿐입니다. 하루 3~5분에 끝나야 합니다. <code>pdm_intent_of</code> 가 이 하루를 어느 과제나 기회에 이어 붙이는 선이고, 18장의 회고가 그 선을 따라갑니다.</p>
+
+    <h3>6. 결정</h3>
+
+    <pre><code>---
+class: 결정
+id: DEC-2026-0715-공모참여
+date: 2026-07-15
+source: "[[2026-07-15-주간회의]]"
+participants: ["김대표", "박사업", "이CTO"]
+related:
+  - "[[OPP-2026-지자체공모]]"
+  - "[[창고봇]]"
+confidence: reviewed
+updated: 2026-07-15
+---
+
+# 결정 제목
+
+## 결정
+(무엇을 하기로 했는가. 한 문단)
+
+## 검토했으나 채택하지 않은 안
+| 안 | 왜 채택하지 않았나 |
+|----|--------------------|
+
+## 배경
+## 액션
+- [ ] 할 일 · 담당자 · YYYY-MM-DD</code></pre>
+
+    <div class="callout">
+      <p class="callout-title">「검토했으나 채택하지 않은 안」이 결정 템플릿의 핵심입니다</p>
+      <p>보통 회의록에는 정해진 것만 적힙니다. 대안이 무엇이었고 왜 버렸는지는 안 적힙니다. 6개월 뒤에 같은 논의를 처음부터 다시 합니다. 이 칸을 템플릿에 박아 두면 <strong>AI가 매번 채웁니다.</strong> 사람이 기억해서 쓰는 것이 아닙니다.</p>
+    </div>
+
+    <h3>7. 회의록</h3>
+
+    <pre><code>---
+class: 회의록
+id: 2026-07-15-주간회의
+date: 2026-07-15
+participants: ["김대표", "박사업", "이CTO"]
+confidential: 사내
+confidence: reviewed
+updated: 2026-07-15
+---
+
+# 2026-07-15 주간회의
+
+> 아래는 원문이다. 고치지 않는다.
+> 오타도 그대로 둔다. 요약과 정정은 별도 노트로 만든다.
+
+## 원문
+
+(받아 적은 그대로)
+
+## 여기서 나온 가공물
+- [[DEC-2026-0715-공모참여]]</code></pre>
+
+    <h3>채워 넣은 예 · 창고봇</h3>
+
+    <p>빈 템플릿만 보면 어느 정도까지 적어야 하는지 감이 안 옵니다. 12장에서 실제로 채운 노트가 이렇습니다.</p>
+
+    <pre><code>---
+class: 제품
+id: PRD-001
+status: 운영
+owner: "[[김대표]]"
+since: 2023-04
+pdm_uses:
+  - "[[CAP-객체인식]]"
+  - "[[CAP-경로최적화]]"
+updated: 2026-07-15
+confidence: reviewed
+confidential: 사내
+---
+
+# 창고봇
+
+물류창고 입출고 자동화 소프트웨어. 중소 물류센터에 납품한다.
+작업자가 손으로 하던 입고 검수와 적치 위치 지정을 자동화한다.
+
+## 도입 현황
+| 고객 | 시점 | 규모 | 근거 노트 |
+|------|------|------|-----------|
+| A센터 | 2023-04 | 확인 필요 | [[2023-04-A센터-검수보고]] |
+| B센터 | 2024-09 | 확인 필요 | [[2024-09-B센터-계약]] |
+| C센터 | 2025-06 | 확인 필요 | [[2025-06-C센터-계약]] |
+
+## 이 제품이 쓰는 기술
+- [[CAP-객체인식]] : 입고 물품 자동 판별
+- [[CAP-경로최적화]] : 적치 위치와 피킹 동선 계산
+
+## 알려진 한계
+- 냉동창고 환경 인식률 데이터가 없음. 확인 필요
+- 3개 사이트의 정량 성과(처리량 개선율)가 노트에 없음
+
+## 근거 자료
+- [[PRJ-2025-스마트물류]] 최종보고서</code></pre>
+
+    <p>「확인 필요」가 네 번 나옵니다. 이게 정상입니다. 빈칸을 그럴듯하게 메운 노트보다 훨씬 쓸모가 있습니다.</p>
+
+    <h2 id="validate">검증 스크립트</h2>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">언제 쓰나 · 매일 아침 또는 매주 금요일</p>
+      <p><code>_ops/scripts/validate.py</code> 로 저장하고 자동으로 돌립니다. 다섯 가지를 잡습니다. 필수 필드 누락, 통제 어휘 밖 상태값, 금지 필드명, 끊어진 링크, 오래된 노트입니다. 외부 라이브러리가 없어 설치할 것이 없습니다.</p>
+      <p><strong>어디서 나왔나.</strong> 17장입니다. 스케줄에 거는 방법은 14장에 있습니다.</p>
+    </div>
+
+    <p>아래 네 덩어리를 이어 붙이면 한 파일이 됩니다. 설정과 파서, 검사 반복문, 지표 집계, 리포트 출력 순서입니다. <strong>지표가 리포트보다 먼저 와야 합니다.</strong> 마지막 덩어리가 지표에서 만든 값을 쓰기 때문입니다.</p>
+
+    <pre><code># _ops/scripts/validate.py
+# 볼트 규칙을 코드로 확인한다. 외부 라이브러리 없음.
+
+import re, sys, datetime
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]   # 볼트 최상위
+TODAY = datetime.date.today()
+STALE_DAYS = 30
+
+# 클래스별 필수 필드. 1층 설계서와 이 표가 어긋나면 설계서가 정본이다.
+# 공통 필수는 class·id·updated 셋이고, 그 뒤가 클래스마다 다른 부분이다.
+REQUIRED = {
+    # 9장의 뼈대 클래스 넷
+    "제품":     ["class", "id", "updated", "status", "owner", "since"],
+    "기술역량": ["class", "id", "updated", "trl", "evidence"],
+    "과제":     ["class", "id", "updated", "period", "funder", "budget"],
+    "기회":     ["class", "id", "updated", "stage", "due"],
+    # 9장의 보조 클래스 셋
+    "조직":     ["class", "id", "updated"],
+    "사람":     ["class", "id", "updated"],
+    "결정":     ["class", "id", "updated", "date"],
+    # 클래스가 아니라 40-Worklog 의 노트 종류다. 12장 참조.
+    # 빠지면 「class 값이 설계서 목록 밖」 ERROR 가 쏟아지므로 여기 함께 적는다.
+    "회의록":   ["class", "id", "updated", "date"],
+    "업무로그": ["class", "id", "updated", "owner"],
+}
+
+# status 어휘는 클래스마다 다르다. 전역 한 벌로 두면 오탐이 쏟아진다.
+STATUS_ENUM = {
+    "제품": {"기획", "개발", "운영", "중단"},
+    "과제": {"기획", "진행", "검토", "완료", "보류"},
+    "기회": {"기획", "진행", "검토", "완료", "보류"},
+}
+
+# 금지 이름. 뜻이 같은데 이름이 제각각이면 못 센다. 아래는 전부 나쁜 예다.
+FORBIDDEN = {"deadline": "due", "마감일": "due",
+             "uses_tech": "pdm_uses", "tech_used": "pdm_uses",
+             "사용기술": "pdm_uses"}
+
+findings = []
+metas = []                                   # 뒤의 지표 계산이 이 목록을 쓴다
+def add(level, where, msg):
+    findings.append((level, where, msg))
+
+FM = re.compile(r"\A---\n(.*?)\n---", re.S)
+
+def frontmatter(text):
+    m = FM.match(text)
+    if not m:
+        return None
+    meta, key = {}, None
+    for line in m.group(1).splitlines():
+        if line.lstrip().startswith("-") and key:      # 목록 항목
+            meta.setdefault(key, []).append(line.strip(" -").strip('"'))
+            continue
+        m2 = re.match(r"([A-Za-z_가-힣]+):\s*(.*)$", line)
+        if m2:
+            key = m2.group(1)
+            val = m2.group(2).strip().strip('"')
+            meta[key] = val if val else []
+    return meta</code></pre>
+
+    <pre><code>notes = {p.stem: p for p in (ROOT / "Sources").rglob("*.md")}
+LINK = re.compile(r"\[\[([^\]|#]+)")
+
+for stem, path in sorted(notes.items()):
+    where = path.relative_to(ROOT).as_posix()   # 파일명이 아니라 볼트 상대경로
+    text = path.read_text(encoding="utf-8")
+    meta = frontmatter(text)
+
+    if meta is None:
+        add("ERROR", where, "프론트매터 없음")
+        continue
+
+    metas.append(meta)                             # 지표용. 여기서 모아 둔다
+
+    cls = meta.get("class")
+    if cls not in REQUIRED:
+        add("ERROR", where, f"class 값이 설계서 목록 밖: {cls!r}")
+        continue
+
+    for field in REQUIRED[cls]:                       # 1. 필수 필드
+        if not meta.get(field):
+            add("ERROR", where, f"필수 필드 누락: {field}")
+
+    st = meta.get("status")                            # 2. 통제 어휘
+    if st and st not in STATUS_ENUM.get(cls, set()):
+        add("ERROR", where, f"{cls}의 status 어휘 밖: {st!r}")
+
+    for bad, good in FORBIDDEN.items():                # 3. 금지 이름
+        if bad in meta:
+            add("ERROR", where, f"금지 이름 {bad} 사용. {good} 로 바꿀 것")
+
+    for target in set(LINK.findall(text)):             # 4. 끊어진 링크
+        if target.strip() not in notes:
+            add("ERROR", where, f"끊어진 링크: [[{target.strip()}]]")
+
+    upd = meta.get("updated", "")                      # 5. 오래된 노트
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(upd)):
+        add("ERROR", where, "updated 가 YYYY-MM-DD 형식이 아님")
+    elif st in ("진행", "운영"):
+        age = (TODAY - datetime.date.fromisoformat(upd)).days
+        if age &gt; STALE_DAYS:
+            add("WARN", where, f"{age}일째 그대로 (status: {st})")
+
+    if meta.get("confidence") == "draft":
+        add("INFO", where, "사람 검토 대기")</code></pre>
+
+    <p>17장은 지표를 개수가 아니라 비율로 남기라고 합니다. 노트가 늘면 개수는 저절로 늘기 때문입니다.</p>
+
+    <pre><code># 지표는 개수가 아니라 비율로 남긴다
+
+def gr_body(text):                    # 프론트매터를 뺀 본문
+    m = FM.match(text)
+    return text[m.end():] if m else text
+
+total = len(notes)
+if not total:                                  # 도입 첫날 빈 볼트에서 0 으로 나누지 않게
+    add("INFO", "_", "노트가 없습니다. 지표는 노트가 생긴 뒤부터 셉니다")
+    total = 1
+grounded = 0
+for p in notes.values():
+    t = p.read_text(encoding="utf-8")
+    # 정의 그대로: 본문에 위키링크가 있거나 evidence 가 채워진 노트
+    if LINK.search(gr_body(t)) or (frontmatter(t) or {}).get("evidence"):
+        grounded += 1
+reviewed = sum(1 for m in metas if m.get("confidence") == "reviewed")
+
+add("INFO", "_", f"근거 있는 노트 {grounded}/{total}"
+                 f" ({grounded * 100 // total}%)")
+add("INFO", "_", f"검증된 노트 {reviewed}/{total}"
+                 f" ({reviewed * 100 // total}%)")</code></pre>
+
+    <pre><code>order = {"ERROR": 0, "WARN": 1, "INFO": 2}
+findings.sort(key=lambda f: (order[f[0]], f[1]))
+n = {lv: sum(1 for l, _, _ in findings if l == lv) for lv in order}
+
+lines = [f"# 볼트 점검 {TODAY}", "",
+         f"- ERROR {n['ERROR']} · WARN {n['WARN']} · INFO {n['INFO']}",
+         f"- 검사한 노트 {len(notes)}개", ""]
+for lv in ("ERROR", "WARN", "INFO"):
+    group = [(w, m) for l, w, m in findings if l == lv]
+    if not group:
+        continue
+    lines.append(f"## {lv} {len(group)}건")
+    lines += [f"- `{w}` {m}" for w, m in group]
+    lines.append("")
+
+(ROOT / "_reports").mkdir(exist_ok=True)
+(ROOT / "_reports" / f"점검-{TODAY}.md").write_text(
+    "\n".join(lines), encoding="utf-8")
+
+# 15장의 추이 그래프 재료. 한 줄씩 누적한다.
+# 열: 날짜, ERROR, WARN, INFO, 전체 노트 수, 검증된 노트 비율(%)
+# 마지막 열이 15장이 그리는 선이다. 이 열이 없으면 그래프를 못 그린다.
+with (ROOT / "_reports" / "validate-history.csv").open(
+        "a", encoding="utf-8") as f:
+    f.write(f"{TODAY},{n['ERROR']},{n['WARN']},{n['INFO']},"
+            f"{len(notes)},{reviewed * 100 // total}\n")
+
+sys.exit(1 if n["ERROR"] else 0)</code></pre>
+
+    <p>18장에서 업무로그 클래스를 추가하면 필수 필드 표에 한 줄을 더합니다.</p>
+
+    <pre><code># _ops/scripts/validate.py 의 REQUIRED 에 들어 있는 줄
+"업무로그": ["class", "id", "updated", "owner"],
+# status 를 쓰지 않으므로 STATUS_ENUM 에는 넣지 않는다.
+# 클래스가 아니라 40-Worklog 의 노트 종류지만, 여기 없으면
+# 「class 값이 설계서 목록 밖」 ERROR 가 로그마다 쏟아진다.</code></pre>
+
+    <p>Windows 작업 스케줄러에 거는 명령은 한 줄입니다. 관리자 권한 명령 프롬프트에서 실행합니다.</p>
+
+    <pre><code>schtasks /create /tn "위키 점검" /tr "python \"C:\Users\hong\OneDrive - 솔빛테크\솔빛테크 위키\_ops\scripts\validate.py\"" /sc daily /st 08:00 /f</code></pre>
+
+    <div class="callout">
+      <p class="callout-title">ERROR 를 0으로 만들려 하지 마세요</p>
+      <p>처음 돌리면 수십 건이 나옵니다. 정상입니다. <strong>지난주보다 줄었는지</strong>만 보세요. 끊어진 링크는 대개 아직 만들지 않은 노트를 가리킵니다. 잘못이 아니라 「다음에 채울 것」 목록입니다.</p>
+    </div>
+
+    <h2 id="skills">스킬 3종</h2>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">언제 쓰나 · 같은 프롬프트를 세 번 쓴 뒤</p>
+      <p>세 번 썼는데도 프롬프트가 거의 안 바뀌었다면 굳힐 때입니다. 각각 <code>SKILL.md</code> 파일 하나이고, 볼트에 동봉하거나 조직에 공유합니다.</p>
+      <p><strong>어디서 나왔나.</strong> 13장입니다. 왜 이 셋인지, 플러그인을 걷어낸 판단이 무엇이었는지가 그 장에 있습니다.</p>
+    </div>
+
+    <h3>wiki-ingest · 원문을 지식으로</h3>
+
+    <p>지식이 들어오는 입구입니다. 이것이 안 되면 나머지 자동화가 전부 「기록 없음」만 출력합니다.</p>
+
+    <pre><code>---
+name: wiki-ingest
+description: 회의록·녹취·외부 문서 원문에서 결정과 액션을 뽑아 볼트 노트로 만든다.
+  회의록을 정리하거나 받은 자료를 구조화할 때 쓴다.
+---
+
+# 원문 구조화
+
+## 언제 쓰나
+- 회의가 끝나고 메모를 볼트에 넣을 때
+- 고객에게 받은 문서나 공고문을 볼트에 넣을 때
+
+## 입력
+- 원문 텍스트 또는 파일 경로 하나
+- 없으면 시작하지 않는다. 원문을 달라고 요청한다
+
+## 절차
+1. 원문을 먼저 저장한다.
+   회의 메모는 Sources/40-Worklog/, 밖에서 받은 자료와 녹취는
+   Sources/90-Reference/ 에 넣는다.
+   파일명은 YYYY-MM-DD-제목 형식으로 한다.
+2. 원문에서 아래 네 가지를 뽑는다.
+   - 결정: 「~하기로 했다」에 해당하는 것. 대안과 이유를 함께
+   - 액션: 담당자와 기한이 있는 것
+   - 사실 변경: 기존 노트의 필드를 바꿔야 하는 것
+   - 신규 개체: 볼트에 아직 노트가 없는 조직·제품·기술
+3. 뽑은 것을 표로 보고한다. 파일은 아직 만들지 않는다.
+4. 승인을 받은 뒤에만 노트를 만들거나 고친다.
+5. 만든 노트에는 _ops/templates/ 의 해당 템플릿을 쓴다.
+6. 마지막에 원문 노트의 「여기서 나온 가공물」 절에 링크를 추가한다.
+
+## 규칙
+- 새로 만든 노트는 confidence: draft 로 만든다
+- 모든 가공물에 source: 로 원문을 링크한다
+- 기존 노트와 모순되는 내용은 고치지 말고 「모순」으로 따로 보고한다
+- 계약 전 고객은 confidential: 대외비 로 표시한다
+- 모호한 것은 매끄럽게 정리하지 말고 「확인 필요」로 남긴다
+
+## 산출물
+- 원문 노트 1개 (수정 금지)
+- 가공 노트 0개 이상
+- 보고 표 (대화창)
+
+## 하지 말 것
+- 원문을 고치지 않는다. 오타와 비문도 그대로 둔다
+- 원문에 없는 사실을 추론해 채우지 않는다
+- 사람 이름은 원문 표기 그대로 쓴다. 직함을 추측해 붙이지 않는다
+- confidence 를 reviewed 로 설정하지 않는다. 사람만 바꾼다
+- 승인 없이 Sources/ 아래 파일을 만들거나 고치지 않는다</code></pre>
+
+    <h3>wiki-retro · 의도와 실행 대조</h3>
+
+    <pre><code>---
+name: wiki-retro
+description: 업무로그와 과제 노트를 대조해 계획과 실제의 차이를 정리한다.
+  분기 회고를 할 때, 「이번 분기에 뭘 했지?」를 물을 때 쓴다.
+---
+
+# 의도와 실행 대조 회고
+
+## 언제 쓰나
+- 분기 마지막 주 분기 회고
+- 분기 계획을 중간에 고칠 때
+
+## 입력
+- 기간 (시작일과 종료일). 없으면 지난 분기로 한다
+
+## 절차
+1. Sources/40-Worklog/ 에서 해당 기간의 업무로그를 모은다.
+2. 각 로그의 pdm_intent_of 링크를 따라가 대상 과제·기회 노트를 연다.
+3. 과제별로 묶어 세 줄로 정리한다.
+   - 계획: 그 과제 노트의 stage 와 due
+   - 실제: 로그에 실제로 적힌 일
+   - 차이: 둘이 어긋난 지점
+4. pdm_intent_of 가 없는 로그는 「연결되지 않은 일」로 따로 모은다.
+5. 로그가 없는 날은 「기록 없음」으로 표시한다. 추측해 채우지 않는다.
+
+## 규칙
+- 「한 일」이 아니라 「진척과 막힌 것」 중심으로 쓴다
+- 차이를 발견하면 원인을 단정하지 않는다. 차이만 적는다
+- 사람을 평가하는 문장을 쓰지 않는다. 이름과 사실만 쓴다
+- 1500자 이내
+
+## 산출물
+- _reports/회고-YYYY-QQ.md
+- 첫 줄에 지난 회차 대비 「연결되지 않은 일」의 증감을 적는다
+
+## 하지 말 것
+- Sources/ 아래의 노트를 고치지 않는다
+- 로그가 비어 있으면 회고를 만들지 않는다. 「기록 없음」 한 줄만 남긴다
+- 계획에 없던 일을 사후에 계획에 넣지 않는다</code></pre>
+
+    <h3>wiki-audit · 볼트 규약 점검</h3>
+
+    <p>검증 스크립트가 잡지 못하는 것만 봅니다. 스크립트가 세고 스킬이 읽는 구조입니다.</p>
+
+    <pre><code>---
+name: wiki-audit
+description: 볼트 노트가 온톨로지 설계서와 어긋나는 지점을 찾아 리포트로 남긴다.
+  월간 점검을 할 때, 「우리 볼트 상태 어때?」를 물을 때 쓴다.
+---
+
+# 볼트 규약 점검
+
+## 언제 쓰나
+- 매월 첫 월요일
+- 온톨로지 설계서를 고친 직후
+
+## 입력
+- _ops/01-온톨로지-설계서.md 와 _ops/02-표준용어집.md
+- 없으면 시작하지 않는다
+
+## 절차
+1. _ops/scripts/validate.py 의 최근 결과를 먼저 읽는다.
+   거기서 이미 잡힌 항목은 다시 보지 않는다.
+2. 스크립트가 못 잡는 아래 네 가지만 본다.
+   - 수치가 적혀 있는데 근거 노트 링크가 없는 경우
+   - confidence: reviewed 인데 근거 자료 절이 비어 있는 경우
+   - frontmatter 의 값과 본문 서술이 어긋나는 경우
+   - 같은 개체에 대해 서로 다른 값이 적힌 경우
+3. 확실한 것만 보고한다. 애매하면 보고하지 않는다.
+4. 최대 3건. 그 이상이면 심각한 순으로 3건만 남긴다.
+5. 각 건에 어느 파일의 몇 번째 줄인지 적는다.
+
+## 규칙
+- 고치지 않는다. 목록만 만든다
+- 지난 회차 리포트와 비교해 증감을 첫 줄에 적는다
+- 위반이 하나도 없으면 「위반 없음」 한 줄만 쓴다
+
+## 산출물
+- _reports/감사-YYYY-MM-DD.md
+
+## 하지 말 것
+- Sources/ 아래 파일을 고치거나 만들지 않는다
+- 스크립트가 이미 보고한 항목을 중복해서 보고하지 않는다
+- 「개선 제안」을 쓰지 않는다. 사실만 적는다</code></pre>
+
+    <h2 id="schedules">예약 작업 10종</h2>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">언제 쓰나 · 사람이 기억하지 않아도 되게 만들 때</p>
+      <p>Claude Cowork 의 예약 작업에 붙여 넣습니다. 한 번에 다 만들지 말고 하나씩 2주 돌려 보세요. 화면 구성과 주기 옵션은 <strong>2026년 7월 기준</strong>입니다.</p>
+      <p><strong>어디서 나왔나.</strong> 14장·15장·16장·18장입니다. 경로 A부터 D까지의 뜻과 고르는 순서는 14장에 있습니다.</p>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>#</th><th>작업</th><th>경로</th><th>주기</th><th>프롬프트</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>월요일 주간 브리핑</td><td>B · 원격</td><td>매주 월 08:30</td><td>아래 1번</td></tr>
+        <tr><td>2</td><td>업무로그 미기록 확인</td><td>B · 원격</td><td>평일 18:00</td><td>아래 2번</td></tr>
+        <tr><td>3</td><td>주간 볼트 점검</td><td>A · 로컬</td><td>매주 금 17:00</td><td>아래 3번</td></tr>
+        <tr><td>4</td><td>주간 대시보드 갱신</td><td>A · 로컬</td><td>매주 월 08:00</td><td>아래 4번</td></tr>
+        <tr><td>5</td><td>주간보고 자동 생성</td><td>A · 로컬</td><td>매주 금 16:00</td><td>아래 5번</td></tr>
+        <tr><td>6</td><td>계약·과제 만료 감시</td><td>C + D</td><td>매주 월요일</td><td>파이썬 (아래 설명)</td></tr>
+        <tr><td>7</td><td>리스크·모순 스캔</td><td>A · 로컬</td><td>매월 첫 월요일</td><td>아래 6번</td></tr>
+        <tr><td>8</td><td>용어 표준화 감사</td><td>C · 파이썬</td><td>분기 1회</td><td>파이썬 (아래 설명)</td></tr>
+        <tr><td>9</td><td>미팅 전 상대방 브리핑</td><td>B · 원격</td><td>미팅 전날 저녁</td><td>아래 7번</td></tr>
+        <tr><td>10</td><td>분기 회고 대조</td><td>A · 로컬</td><td>분기 마지막 주</td><td>아래 8번</td></tr>
+      </tbody>
+    </table>
+
+    <p>6번과 8번에는 프롬프트가 없습니다. 16장이 <strong>날짜 계산과 문자열 검색에는 AI가 필요 없다</strong>고 못 박기 때문입니다. 결과가 항상 같아야 하는 일이라 파이썬으로 돌리고, 그 결과를 다른 예약 작업이 읽어 사람 말로 옮깁니다.</p>
+
+    <h3>1. 월요일 주간 브리핑</h3>
+
+    <pre><code>[작업 이름] 월요일 주간 브리핑
+[주기] 매주 월요일 08:30 (KST)
+[승인 모드] 자동
+[프롬프트]
+
+SharePoint의 「솔빛테크 위키」 폴더를 참고해 이번 주 브리핑을 작성한다.
+
+포함할 것:
+1. 마감이 14일 이내인 항목. Sources/20-Projects/ 의 due 필드를 기준으로 한다.
+   과제·기회를 구분해서 나열하고, 담당자(owner)를 함께 적는다.
+2. 지난 7일간 새로 생기거나 수정된 노트 목록 (updated 필드 기준).
+3. 지난 7일간 기록된 결정 사항. Sources/40-Worklog/ 에서 찾는다.
+4. 14일 이상 업데이트가 없는 「운영」 상태 제품. 방치 신호다.
+
+규칙:
+- 볼트에 없는 사실은 절대 추론하지 않는다. 없으면 「기록 없음」이라고 쓴다.
+- 각 항목 뒤에 근거 노트 이름을 [[대괄호]]로 적는다.
+- 1000자 이내. 표를 쓰지 말고 짧은 목록으로 쓴다.
+- 항목이 모두 비어 있으면 「이번 주 특이사항 없음」 한 줄만 쓴다.</code></pre>
+
+    <h3>2. 업무로그 미기록 확인</h3>
+
+    <pre><code>[작업 이름] 업무로그 미기록 확인
+[주기] 평일 18:00 (KST)
+[승인 모드] 자동
+[프롬프트]
+
+Sources/40-Worklog/ 에서 오늘 날짜(KST)로 작성된 업무로그 노트를 찾는다.
+
+- 팀원 목록은 Sources/00-Company/멤버.md 를 기준으로 한다.
+- 오늘 로그가 없는 사람 이름만 목록으로 만든다.
+- 전원이 작성했으면 「전원 기록 완료」 한 줄만 출력하고 끝낸다.
+- 누구를 탓하는 문장을 쓰지 않는다. 이름과 숫자만 쓴다.
+- 어제·그제 미기록까지 함께 세어 「연속 미기록 2일」처럼 표시한다.</code></pre>
+
+    <p>이 알림을 팀 전체 채널에 올리지 마세요. 본인에게만 보내거나 지식 담당자 한 명만 보게 합니다. 3주 연속 전원 기록이 되면 지웁니다. 목적을 달성한 자동화는 지우는 것이 맞습니다.</p>
+
+    <h3>3. 주간 볼트 점검</h3>
+
+    <pre><code>[작업 이름] 주간 볼트 점검
+[주기] 매주 금요일 17:00 (KST)
+[승인 모드] 파일 쓰기 전 확인
+[폴더] 솔빛테크 위키
+[프롬프트]
+
+1. _ops/scripts/validate.py 를 실행한다.
+2. 결과를 ERROR / WARN / INFO 로 나누어 정리한다.
+3. ERROR 중 아래 유형은 직접 고친다.
+   - 필수 필드 누락 중 updated 필드 → 파일 수정 시각으로 채운다
+   - class 값 오타 → _ops/01-온톨로지-설계서.md 의 목록과 대조해 고친다
+4. 나머지는 고치지 말고 목록만 남긴다. 특히 사실 관계 판단이 필요한 것은 손대지 않는다.
+5. 결과를 _reports/점검-YYYY-MM-DD.md 로 저장한다. 기존 파일을 덮어쓰지 않는다.
+6. 지난주 리포트(_reports/ 의 가장 최근 파일)와 비교해 ERROR 건수 증감을 첫 줄에 쓴다.
+
+절대 하지 말 것:
+- Sources/ 안의 본문(frontmatter 아래)을 수정하지 않는다
+- confidence: reviewed 인 노트는 어떤 필드도 고치지 않는다
+- 노트를 새로 만들지 않는다</code></pre>
+
+    <h3>4. 주간 대시보드 갱신</h3>
+
+    <pre><code>[작업 이름] 주간 대시보드 갱신
+[주기] 매주 월요일 08:00 (KST)
+[승인 모드] 자동
+[폴더] 솔빛테크 위키
+[프롬프트]
+
+Sources/20-Projects/ 의 모든 노트를 읽어 _moc/000-대시보드.md 를 다시 만든다.
+
+1. frontmatter 의 start, due, status, stage 를 읽는다.
+2. Mermaid gantt 코드 블록을 생성한다.
+   - status: 진행  → active 태그
+   - status: 완료  → done 태그
+   - due 가 21일 이내  → crit 태그
+   - start 나 due 가 없는 노트는 간트에서 제외하고, 표 아래에 「일정 미기재」 목록으로 따로 적는다
+   - section 은 class 값으로 나눈다
+3. 그 아래에 상태별 개수 표를 만든다.
+4. 그 아래에 「지난주 대비 변화」를 3줄 이내로 적는다.
+   (_reports/dashboard-history.csv 의 마지막 줄과 비교)
+5. 파일 맨 위에 생성 시각과 다음 문구를 넣는다:
+   「이 파일은 자동 생성됩니다. 직접 고치면 다음 월요일에 사라집니다.」
+
+절대 하지 말 것:
+- Sources/ 안의 노트를 수정하지 않는다
+- 날짜를 추론하지 않는다. 없으면 없다고 적는다</code></pre>
+
+    <h3>5. 주간보고 자동 생성</h3>
+
+    <pre><code>Sources/40-Worklog/ 에서 이번 주(월~금) 로그와 결정을 모아 주간보고를 만든다.
+- 「한 일」이 아니라 「진척과 막힌 것」 중심으로 쓴다
+- 각 항목에 관련 과제·제품 링크를 붙인다
+- 다음 주 마감 항목을 마지막에 붙인다
+- 로그가 없는 날은 「기록 없음」으로 표시하고 추측하지 않는다</code></pre>
+
+    <h3>6. 리스크·모순 스캔</h3>
+
+    <pre><code>볼트 전체에서 서로 모순되는 사실을 찾는다.
+- 같은 개체에 대해 다른 값이 적힌 경우 (TRL, 날짜, 수치, 상태)
+- 완료된 과제에 미완료 액션이 남아 있는 경우
+- 「운영 중」인데 60일 이상 업데이트가 없는 제품
+확실한 것만 보고한다. 애매하면 보고하지 않는다. 최대 3건.
+각 건에 어느 노트의 몇 번째 줄인지 적는다.</code></pre>
+
+    <h3>7. 미팅 전 상대방 브리핑</h3>
+
+    <pre><code>[[대성물류]] 와의 지난 접점을 전부 찾아 미팅 브리핑을 만든다.
+- 시간 역순으로 접점 정리 (날짜 · 무슨 이야기 · 누가)
+- 우리가 약속한 것 중 아직 이행 안 된 것을 맨 위에 둔다
+- 상대가 우려로 표현한 것을 목록화한다
+- 500자 이내</code></pre>
+
+    <h3>8. 분기 회고 대조</h3>
+
+    <pre><code>[작업 이름] 분기 회고 대조
+[주기] 수동 (분기 마지막 주에 실행)
+[승인 모드] 파일 쓰기 전 확인
+[폴더] 솔빛테크 위키
+[프롬프트]
+
+이번 분기(2026-07-01 ~ 2026-09-30)의 의도와 실행을 대조한다.
+
+1. 의도 쪽: Sources/40-Worklog/ 의 분기 계획 결정 노트에서
+   항목과 우선순위를 읽는다.
+2. 실행 쪽: 같은 기간의 업무로그를 모으고, pdm_intent_of 링크를
+   기준으로 항목별로 묶는다.
+3. 아래 네 묶음으로 나눈 표를 만든다.
+   - 계획에 있고 로그도 있는 것
+   - 계획에 있는데 로그가 없거나 아주 적은 것
+   - 계획에 없는데 로그가 많은 것
+   - pdm_intent_of 가 비어서 어디에도 못 묶은 로그
+4. 각 줄에 근거 로그를 [[대괄호]]로 적는다. 셋을 넘으면 「외 N건」으로 줄인다.
+5. 마지막에 「이 질문에 답할 기록이 없었다」 항목을 따로 모은다.
+6. 결과를 _reports/회고-2026-Q3.md 로 저장한다.
+
+절대 하지 말 것:
+- 왜 그랬는지 추측하지 않는다. 이유는 사람이 회의에서 적는다
+- 잘했다·못했다를 평가하지 않는다. 개수와 근거만 적는다
+- 사람 이름별로 집계하지 않는다
+- Sources/ 안의 노트를 수정하지 않는다</code></pre>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">열 개를 다 걸지 마세요</p>
+      <p>기술적으로는 얼마든지 만듭니다. 조직이 견디는 상한은 <strong>주 3회</strong>입니다. 그 이상이면 사람들이 채널 알림을 끄고, 알림을 끄면 정말 중요한 공지도 못 봅니다. 새 작업을 하나 만들 때마다 <strong>기존 작업 하나를 지울 후보로 검토</strong>하세요.</p>
+      <p>AI가 만든 노트에는 아래 세 줄을 남깁니다. 검증 안 된 것이 대외 문서로 새는 것을 막습니다.</p>
+    </div>
+
+    <pre><code>confidence: draft      # AI가 만들고 아무도 안 봤음
+confidence: reviewed   # 사람이 읽고 확인했음
+generated_by: schedule/주간-브리핑   # 어느 자동화가 만들었는지</code></pre>
+
+    <h2 id="dashboard">대시보드와 시각화</h2>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">언제 쓰나 · 기록의 이득이 안 보인다는 말이 나올 때</p>
+      <p>대시보드 노트는 4번 예약 작업이 매주 다시 만듭니다. 옵시디언을 안 쓰는 사람에게는 스크립트가 만든 HTML 한 장을 보냅니다. 손으로 유지하면 3주 만에 틀린 그림이 남습니다.</p>
+      <p><strong>어디서 나왔나.</strong> 15장입니다. 레이아웃 규칙과 <strong>측정하면 안 되는 것</strong>이 그 장에 있습니다.</p>
+    </div>
+
+    <h3>대시보드 생성 스크립트</h3>
+
+    <pre><code># _ops/scripts/dashboard.py · 핵심 부분만
+# frontmatter 를 읽어 단일 HTML 파일로 렌더링한다. 외부 라이브러리 없음.
+
+import re, datetime
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+rows = []
+for md in (ROOT / "Sources" / "20-Projects").glob("*.md"):
+    text = md.read_text(encoding="utf-8")
+    fm = re.match(r"---\n(.*?)\n---", text, re.S)
+    if not fm:
+        continue
+    meta = dict(
+        re.findall(r"^(\w+):\s*\"?([^\"\n]+)\"?$", fm.group(1), re.M)
+    )
+    rows.append((md.stem, meta.get("status", "미기재"),
+                  meta.get("due", ""), meta.get("owner", "")))
+
+rows.sort(key=lambda r: r[2] or "9999")
+today = datetime.date.today().isoformat()
+
+html = [f"&lt;h1&gt;과제 현황 &lt;small&gt;{today}&lt;/small&gt;&lt;/h1&gt;&lt;table&gt;"]
+for name, status, due, owner in rows:
+    d_day = ""
+    if due:
+        left = (datetime.date.fromisoformat(due) - datetime.date.today()).days
+        d_day = f"D{left:+d}"
+    cls = "urgent" if d_day and left &lt; 21 else ""
+    html.append(f"&lt;tr class='{cls}'&gt;&lt;td&gt;{name}&lt;/td&gt;&lt;td&gt;{status}&lt;/td&gt;"
+                f"&lt;td&gt;{due} {d_day}&lt;/td&gt;&lt;td&gt;{owner}&lt;/td&gt;&lt;/tr&gt;")
+html.append("&lt;/table&gt;")
+
+(ROOT / "_reports" / "dashboard.html").write_text(
+    "&lt;style&gt;.urgent{background:#FAEADF}&lt;/style&gt;" + "\n".join(html),
+    encoding="utf-8")</code></pre>
+
+    <h3>간트 차트 · Mermaid</h3>
+
+    <p>옵시디언 내장 기능이라 플러그인이 필요 없습니다. 태그는 네 개만 알면 됩니다. <code>active</code>(진행 중), <code>done</code>(완료), <code>crit</code>(중요), <code>milestone</code>(기간 없는 시점).</p>
+
+    <pre><code>```mermaid
+gantt
+    title 솔빛테크 2026 하반기
+    dateFormat YYYY-MM-DD
+    axisFormat %m월
+    todayMarker stroke-width:3px,stroke:#C2703C
+
+    section 정부 과제
+    스마트물류 R&D 구현      :active,  p1, 2026-03-01, 2026-08-31
+    스마트물류 R&D 검증      :         p2, after p1, 60d
+    최종보고서 제출          :crit,    p3, 2026-11-15, 15d
+
+    section 지자체 공모
+    제안서 작성              :active,  o1, 2026-07-25, 14d
+    접수 마감                :milestone, o2, 2026-08-08, 0d
+
+    section 제품
+    픽뷰 베타                :         d1, 2026-09-01, 45d
+    웨어트윈 실증 착수        :         d2, 2026-10-15, 30d
+```</code></pre>
+
+    <h3>단계 정의 · 설계서에 추가</h3>
+
+    <p>10장에서 정합니다. 진행률을 퍼센트로 쓰지 않는 이유는 15장에 한 번 더 나옵니다. 「3단계」는 확인할 수 있고 「70%」는 확인할 수 없습니다.</p>
+
+    <pre><code># _ops/01-온톨로지-설계서.md 에 추가
+
+## 단계 정의
+
+과제(PRJ-)의 5단계
+1. 착수: 계약·협약 체결
+2. 설계: 요구사항 확정
+3. 구현: 개발 진행
+4. 검증: 실증·시험
+5. 종료: 최종보고 제출
+
+기회(OPP-)의 4단계
+1. 발굴: 공고·리드 확인
+2. 검토: 참여 여부 판단
+3. 준비: 제안서 작성
+4. 제출: 접수 완료</code></pre>
+
+    <h3>표와 칸반 · Bases</h3>
+
+    <pre><code>filters:
+  and:
+    - file.inFolder("Sources/20-Projects")
+    - status != "완료"
+views:
+  - type: table
+    name: 마감 순
+    order:
+      - due
+    columns: [file.name, status, stage, owner, due]
+  - type: cards
+    name: 담당자별
+    groupBy: owner</code></pre>
+
+    <h3>추이 그래프 · Mermaid</h3>
+
+    <p>검증 스크립트가 <code>validate-history.csv</code> 에 한 줄씩 쌓아 둔 것을 그립니다. 이 선 하나가 도입 보고서 한 장보다 설득력이 있습니다.</p>
+
+    <pre><code>```mermaid
+xychart-beta
+    title "검증된 노트 비율 (%)"
+    x-axis [4월, 5월, 6월, 7월]
+    y-axis "비율" 0 --> 100
+    line [42, 58, 74, 81]
+```</code></pre>
+
+    <h2 id="prompts">자주 쓰는 프롬프트 16종</h2>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">언제 쓰나 · 예약할 만큼은 아니지만 손으로 자주 칠 때</p>
+      <p><code>_ops/prompts.md</code> 에 모아 두고 복사해 씁니다. 같은 것을 세 번 쓰게 되면 그때 스킬로 굳힙니다.</p>
+      <p><strong>어디서 나왔나.</strong> 7장·11장·16장입니다. 각 프롬프트가 어떤 실패를 겪고 지금 모양이 됐는지는 그 장들에 있습니다.</p>
+    </div>
+
+    <h3>연결하고 둘러볼 때</h3>
+
+    <p>7장에서 Cowork 에 볼트를 처음 연결할 때 쓰는 것들입니다. 먼저 폴더 지침에 이 세 줄을 넣습니다.</p>
+
+    <pre><code>이 폴더는 솔빛테크의 회사 지식 볼트다.
+
+1. 파일을 새로 만들거나 고치기 전에, 무엇을 어디에 할지 먼저 말하고 확인을 받는다.
+2. 볼트에 없는 사실을 채워 넣지 않는다. 모르면 「확인 필요」라고 적는다.
+3. 노트를 만들 때는 기존 노트의 형식을 먼저 확인하고 그대로 따른다.</code></pre>
+
+    <p>CLAUDE.md 를 만든 뒤에는 폴더 지침을 이 두 줄로 줄입니다. 규칙을 두 곳에서 관리하지 않기 위해서입니다.</p>
+
+    <pre><code>작업을 시작하기 전에 볼트 맨 위의 CLAUDE.md 를 먼저 읽고,
+거기 적힌 규칙을 이 폴더의 모든 작업에 적용한다.</code></pre>
+
+    <p>연결이 됐는지 확인하는 첫 질문입니다. 파일을 읽지 않으므로 안전합니다.</p>
+
+    <pre><code>볼트 최상위의 폴더 목록과, 각 폴더 안 .md 파일 개수를 표로 보여줘.
+파일 내용은 읽지 마. 이름과 개수만 필요하다.</code></pre>
+
+    <p>무엇이 들어 있는지 훑어볼 때 씁니다.</p>
+
+    <pre><code>Sources/ 아래 파일 이름만 훑어보고, 어떤 종류의 문서가 섞여 있는지 분류해줘.
+- 이름만으로 판단한 것은 「추정」이라고 표시한다.
+- 폴더 위치와 이름이 어긋나 보이는 파일이 있으면 따로 목록으로 뽑아줘.</code></pre>
+
+    <h3>만들 때</h3>
+
+    <pre><code>Sources/ 아래에 아래 폴더를 만들어줘.
+00-Company, 10-Products, 20-Projects, 30-Partners, 40-Worklog, 90-Reference
+
+- 이미 있는 폴더는 건드리지 마.
+- 각 폴더에 README.md 를 하나씩 만들고, 그 폴더에 무엇을 넣는지 한 줄로 적어줘.
+- 기존 파일은 옮기지 마. 이번에는 만들기만 한다.</code></pre>
+
+    <pre><code>창고봇.md 를 Sources/10-Products/ 로 옮기고 머리말을 채워줘.
+
+내가 알려주는 사실만 쓴다:
+- 물류창고 입출고 자동화 소프트웨어
+- 2023년 4월부터 운영 중
+- 담당은 김대표
+
+frontmatter 에 class, id, status, owner, since, updated 를 넣는다.
+내가 말하지 않은 필드는 「확인 필요」로 둔다. 추측해서 채우지 않는다.
+본문은 세 문장을 넘기지 않는다.</code></pre>
+
+    <p>만든 직후에 반드시 이어서 물어보는 질문입니다. 이 한 줄이 환각을 눈에 보이게 만듭니다.</p>
+
+    <pre><code>방금 채운 노트를 다시 읽고, 내가 말하지 않았는데 네가 적은 내용이 있으면 목록으로 알려줘.
+없으면 「없음」 한 줄만 쓴다.</code></pre>
+
+    <h3>물어볼 때</h3>
+
+    <p>7장은 같은 볼트에서도 질문에 따라 답이 세 줄이 되기도 하고 한 장이 되기도 한다고 합니다. 뒤쪽 질문이 이렇습니다.</p>
+
+    <pre><code>Sources/00-Company/ 와 Sources/10-Products/ 의 노트를 전부 읽어. 그중 객체인식·영상처리와 관련된 것을 골라 표로 정리해줘. 각 줄에 근거 노트 이름을 [[대괄호]]로 적고, 볼트에 근거가 없는 항목은 쓰지 마.</code></pre>
+
+    <p>11장의 「좋은 규칙」도 그대로 프롬프트로 씁니다. CLAUDE.md 가 없는 볼트에서 일할 때 앞에 붙이면 됩니다.</p>
+
+    <pre><code>Sources/ 아래 노트만 근거로 쓴다. 노트에 없는 수치는 「확인 필요」라고 쓴다. 문단 끝에 근거 노트 이름을 적는다.</code></pre>
+
+    <p>답이 비었을 때는 7장의 이 한 줄을 물어봅니다. <strong>「볼트에 없다」와 「안 찾아봤다」를 갈라줍니다.</strong></p>
+
+    <pre><code>방금 답을 만들면서 실제로 열어본 파일 목록을 알려줘.</code></pre>
+
+    <p>값이 어긋나는지 확인할 때는 판단을 시키지 말고 나열만 시킵니다.</p>
+
+    <pre><code>객체인식 기술의 trl 값이 적힌 노트를 전부 찾아줘.
+값이 서로 다르면 각각의 값과 근거 노트, 그 노트의 updated 날짜를 표로 보여줘.
+어느 쪽이 맞는지는 판단하지 마.</code></pre>
+
+    <p>볼트 전체에서 모순을 훑을 때는 11장의 이 프롬프트를 씁니다. 16장의 월간 스캔보다 범위가 넓습니다.</p>
+
+    <pre><code>Sources/ 아래 모든 노트를 읽고, 같은 대상에 대해 서로 다른 값이 적힌 곳을 찾는다.
+
+찾을 것:
+- 같은 제품·기술에 대한 숫자가 다른 경우 (TRL, 날짜, 금액, 비율)
+- 같은 회사·사람이 다른 이름으로 적힌 경우
+- 같은 사실이 두 노트에 서로 다르게 서술된 경우
+
+규칙:
+- 아무것도 고치지 않는다. 표로만 보고한다.
+- 각 항목마다 어느 노트에 무엇이 적혀 있는지 파일 이름을 함께 적는다.
+- 어느 쪽이 맞는지 판단하지 않는다. 판단은 사람이 한다.</code></pre>
+
+    <h3>산출물을 만들 때</h3>
+
+    <p>16장 레시피 1입니다. 이 책에서 가장 자주 쓰는 프롬프트이고, 세 번 고쳐서 지금 모양이 됐습니다.</p>
+
+    <pre><code>아래 회의록을 볼트 규칙에 맞게 구조화한다.
+
+## 순서
+1. 원문을 Sources/40-Worklog/2026-07-15-주간회의.md 로 먼저 저장한다.
+   원문은 한 글자도 고치지 않는다. 오타도 그대로 둔다.
+2. 원문에서 아래를 추출한다.
+   - 결정(decision): 「~하기로 했다」에 해당하는 것. 대안과 이유를 함께 적는다
+   - 액션(action): 담당자와 기한이 있는 것
+   - 사실 변경: 기존 노트의 필드를 바꿔야 하는 것
+   - 신규 개체: 볼트에 아직 노트가 없는 조직·제품·기술
+3. 추출한 것을 표로 먼저 보여준다. 파일은 아직 만들지 않는다.
+4. 내가 승인하면 노트를 만들거나 수정한다.
+
+## 규칙
+- 회의록에 없는 내용을 추론하지 않는다. 모호하면 「확인 필요」로 남긴다
+- 「~같다」, 「~라고 함」처럼 불확실한 진술은 confidence: draft 로 표시한다
+- 기존 노트와 모순되는 내용을 발견하면 고치지 말고 「모순」으로 따로 보고한다
+- 사람 이름은 원문 표기를 그대로 쓴다. 직함을 추측해 붙이지 않는다
+- 계약 전 고객의 이름은 confidential: 대외비 로 표시한다</code></pre>
+
+    <p>레시피 2. 1장의 금요일 오후를 다시 겪지 않으려고 만든 프롬프트입니다.</p>
+
+    <pre><code>OPP-2026-지자체공모 제안서의 「사업 수행 역량」 절 초안을 만든다.
+
+## 근거 수집 규칙
+1. Sources/ 에서 아래를 모은다.
+   - 운영 중인 제품과 그 도입 사이트 수
+   - 각 제품이 활용하는 기술역량, 그 기술의 TRL과 근거
+   - 정부·지자체 과제 수행 실적 (period, funder, 최종 결과)
+   - 보유 IP
+2. 각 문장 뒤에 근거 노트를 [[대괄호]]로 표시한다.
+3. confidence: draft 인 노트의 내용은 쓰지 않는다. 대신 「검증 필요」 목록에 적는다.
+4. 계약 전 고객(confidential: 대외비)은 이름을 쓰지 않고 「국내 물류기업」으로 쓴다.
+5. 근거가 없는 주장은 절대 쓰지 않는다. 대신 「근거 없음, 확인 필요」로 목록에 남긴다.
+
+## 산출물
+- _reports/제안서-역량절-초안-YYYY-MM-DD.md 로 저장
+- 본문 아래에 「검증 필요 목록」과 「볼트에 없는 정보 목록」을 반드시 붙인다</code></pre>
+
+    <p>레시피 4. 마지막 줄이 부수 효과를 냅니다. 온보딩 팩을 만들 때마다 문서화 구멍이 목록으로 나옵니다.</p>
+
+    <pre><code>신규 개발자 온보딩 자료를 만든다.
+- 첫날/첫주/첫달로 나누어 읽을 노트 순서를 정한다
+- confidential 이 「대외비」 이상인 노트는 제외한다
+- 각 노트에 「이걸 왜 읽는가」를 한 줄씩 붙인다
+- 마지막에 「아직 문서화되지 않아 사람에게 물어야 할 것」 목록을 붙인다</code></pre>
+
+    <p>레시피 12. AI에게 「참여할까요」를 묻지 않습니다. 무엇이 충족되고 무엇이 비었는지만 묻습니다.</p>
+
+    <pre><code>아래 공고 요구사항을 우리 볼트와 대조한다.
+각 요구사항에 대해 3열 표로: 요구사항 / 우리 근거(노트 링크) / 충족 여부
+- 근거가 없으면 「없음」이라고만 쓴다. 대체 가능한 것을 제안하지 않는다
+- 마지막에 「없음」 항목만 모아서 「준비 기간 추정에 필요한 것」으로 정리한다
+- 참여 여부를 판단하거나 권하지 않는다</code></pre>
+
+    <div class="callout">
+      <p class="callout-title">예약 작업으로 만들 때 붙는 여섯 줄</p>
+      <p>대화 중에는 결과가 이상하면 바로 고치면 되지만, 예약 작업에는 그럴 사람이 없습니다. 14장이 여섯 가지를 반드시 쓰라고 하는 이유가 그것입니다.</p>
+      <ul>
+        <li><strong>산출물의 정확한 위치.</strong> 없으면 결과가 대화창에만 남고 사라집니다</li>
+        <li><strong>빈 결과일 때의 행동.</strong> 없으면 「특별한 내용 없음」이 매주 장황하게 쌓입니다</li>
+        <li><strong>절대 하지 말 것 목록.</strong> 없으면 사람이 검증한 노트를 조용히 고쳐 놓습니다</li>
+        <li><strong>근거 표기 의무.</strong> 없으면 어디서 나온 숫자인지 몰라 결국 다시 확인합니다</li>
+        <li><strong>이전 회차와의 비교.</strong> 없으면 좋아지는지 나빠지는지 모릅니다</li>
+        <li><strong>길이 상한.</strong> 없으면 3주 뒤에 아무도 안 읽습니다</li>
+      </ul>
+    </div>
+
+    <div class="checklist">
+      <p class="checklist-title">가져가는 순서</p>
+      <ul>
+        <li><strong>첫날.</strong> CLAUDE.md 와 노트 템플릿. 나머지는 아직 쓸 데가 없습니다</li>
+        <li><strong>2주차.</strong> wiki-ingest 스킬과 7장의 연결 프롬프트. 지식이 들어오기 시작해야 나머지가 뜻을 갖습니다</li>
+        <li><strong>4주차.</strong> 검증 스크립트와 예약 작업 1번. 하나씩 걸고 2주 지켜봅니다</li>
+        <li><strong>2개월차.</strong> 대시보드와 예약 작업 4번. 이득이 눈에 보이기 시작하는 시점입니다</li>
+        <li><strong>3개월차.</strong> wiki-audit·wiki-retro 와 나머지 예약 작업. 데이터가 쌓이기 전에는 돌려도 빈 결과만 나옵니다</li>
+      </ul>
+    </div>
+  </article>
+
+
+  <nav class="chapter-nav">
+    <a href="appendix-a.html" class="back-to-toc">← 이전: 부록 A 용어 사전</a>
+    <a href="appendix-c.html" class="next">다음: 부록 C 자주 막히는 곳 →</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

@@ -1,0 +1,635 @@
+<!--META {
+  "file": "ch12.en.html",
+  "num": "12",
+  "title": "Templates and your first note",
+  "subtitle": "People fill boxes they can see",
+  "desc": "The frontmatter of all seven note templates, ready to use. Why source material and what you extract from it live in separate files, how one confidence box sets the trust of the whole vault, and one first note built end to end.",
+  "minutes": "21",
+  "prev_href": "ch11.en.html",
+  "prev_label": "Previous: Telling AI the rules with CLAUDE.md",
+  "next_href": "ch13.en.html",
+  "next_label": "Next: Automating repeat work with skills"
+} -->
+  <article>
+    <p>In Chapter 11 you wrote your company rules into <code>CLAUDE.md</code>. The AI now knows what your team must not do. But the <a href="appendix-a.en.html#vault" class="term-link">vault</a> is still nearly empty.</p>
+
+    <p>Week three of the Solbit Tech rollout produced this scene. Kim said "right, let's write the Warebot note first" and opened a new file. Twenty minutes later the screen held one heading, one sentence of description, and a cursor.</p>
+
+    <p>Not for lack of ideas. Kim could talk about Warebot all day. Kim stopped <strong>because there was no way to know how much to write before the note was finished</strong>.</p>
+
+    <div class="callout">
+      <p class="callout-title">What this chapter is for</p>
+      <p>Rules (Chapter 11) tell you what you must not do. Templates tell you <strong>what counts as done</strong>. Notes get written only when you have both.</p>
+      <p>In the layers from Chapter 3, a template is a piece of layer 3 machinery that turns the <a href="appendix-a.en.html#field" class="term-link">field</a> definitions in layer 1 (the <a href="appendix-a.en.html#ontology" class="term-link">ontology</a>) into <strong>a shape a person can actually fill in</strong>.</p>
+    </div>
+
+    <h2>People stop in front of an empty note</h2>
+
+    <p>Read a template as "a tool for consistent formatting" and you are half right. Consistent formatting is the third effect. The first two are much bigger.</p>
+
+    <table>
+      <thead>
+        <tr><th>What a template does</th><th>What happens without one</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. It sets an end</strong><br>eight boxes means you are done after eight</td>
+          <td>work with no visible end does not get started. Twenty minutes of blinking cursor</td>
+        </tr>
+        <tr>
+          <td><strong>2. It makes the gaps visible</strong><br>an empty box left over is a hole you can see</td>
+          <td>nobody can tell what is missing from a blank page. You find out when you write a proposal</td>
+        </tr>
+        <tr>
+          <td><strong>3. People and AI use the same format</strong></td>
+          <td>field names diverge, and every table and Gantt chart in Chapter 15 breaks</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The second one is the heart of this chapter. <strong>An empty box labelled "basis for the TRL call" sitting in a note keeps nagging at you.</strong> With no box at all, the absence of a basis is itself invisible. The accident Chapter 1 recorded as "last year's document says TRL 4, this year's says TRL 6" starts here. There was no evidence box, so nobody asked for evidence.</p>
+
+    <h2>Seven templates</h2>
+
+    <p>The four backbone classes from Chapter 9 (제품, 기술역량, 과제, 기회) plus three operating formats (업무로그, 결정, 회의록) make seven templates. The support classes from Chapter 9, 조직 and 사람, get no template. They carry three or four fields, which is not worth freezing into a format. You are better off not making more than these.</p>
+
+    <table>
+      <thead>
+        <tr><th>Template</th><th>Prefix</th><th>Where it goes</th><th>The accident it stops</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>제품</td><td><code>PRD-</code></td><td><code>Sources/10-Products/</code></td><td>ask about installed sites and every person gives a different number</td></tr>
+        <tr><td>기술역량</td><td><code>CAP-</code></td><td><code>Sources/00-Company/</code></td><td>the TRL number differs from document to document</td></tr>
+        <tr><td>과제</td><td><code>PRJ-</code></td><td><code>Sources/20-Projects/</code></td><td>the trail from a project output to the product it went into breaks</td></tr>
+        <tr><td>기회</td><td><code>OPP-</code></td><td><code>Sources/20-Projects/</code></td><td>you find out after the deadline has passed</td></tr>
+        <tr><td>업무로그</td><td>none</td><td><code>Sources/40-Worklog/</code></td><td>the retrospective in Chapter 18 has nothing to work with</td></tr>
+        <tr><td>결정</td><td><code>DEC-</code></td><td><code>Sources/40-Worklog/</code></td><td>six months later you have the same discussion from scratch</td></tr>
+        <tr><td>회의록</td><td>none</td><td><code>Sources/40-Worklog/</code></td><td>when the extract is wrong there is no source to go back to</td></tr>
+      </tbody>
+    </table>
+
+    <p>업무로그 and 회의록 carry no prefix. <strong>The date and the name become the <code>id</code></strong> directly. The other five use the prefixes settled in Chapter 9.</p>
+
+    <h3>1. 제품</h3>
+
+    <pre><code>---
+class: 제품
+id: PRD-
+status: 기획              # 기획 / 개발 / 운영 / 중단
+owner: "[[ ]]"
+since:
+pdm_uses:
+  - "[[ ]]"
+updated:
+confidence: draft
+confidential: 사내         # 공개 / 사내 / 대외비
+---
+
+# Product name
+
+In one sentence: what you sell, and to whom.
+
+## Installed sites
+| customer | when | size | evidence note |
+|----------|------|------|---------------|
+
+## Technology this product uses
+(one line each, expanding what is listed in pdm_uses)
+
+## Known limits
+-
+
+## Evidence
+- </code></pre>
+
+    <p><strong>"Known limits" is the most important box in this template.</strong> Read it while writing a proposal and you filter out your own overstatement. And a product note with that box empty is usually a product nobody has really put to work yet.</p>
+
+    <h3>2. 기술역량</h3>
+
+    <pre><code>---
+class: 기술역량
+id: CAP-
+trl:                      # 1 to 9. Leave blank when there is no evidence
+evidence:
+  - "[[ ]]"
+pdm_output_of: "[[ ]]"
+owner: "[[ ]]"
+updated:
+confidence: draft
+---
+
+# Capability name
+
+## What this technology does
+(three lines, no jargon)
+
+## Basis for the TRL call
+| claim | evidence note | checked by | checked on |
+|-------|---------------|------------|------------|
+
+## Reuse history
+- which products it went into
+
+## Not yet validated
+- </code></pre>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">A TRL is a pair: the value and the evidence</p>
+      <p>Write <code>trl: 6</code> alone and in six months nobody knows where the 6 came from. So this template puts the number box and an evidence table side by side. <strong>When the evidence table is empty, leave the <code>trl</code> box empty too.</strong> An empty box is honest, and a number with no evidence rides straight into a proposal later.</p>
+    </div>
+
+    <h3>3. 과제</h3>
+
+    <pre><code>---
+class: 과제
+id: PRJ-
+status: 진행              # 기획 / 진행 / 검토 / 완료 / 보류
+stage: 3/5                # per the 5-stage definitions in Chapter 15
+period: 2025-03-01 ~ 2026-02-28
+funder:
+budget:
+owner: "[[ ]]"
+start: 2025-03-01
+due: 2026-02-28
+updated:
+confidence: draft
+---
+
+# Project name
+
+## The part we own
+## Outputs
+| output | which note it became |
+|--------|----------------------|
+
+## Schedule against actual
+## Remaining risks</code></pre>
+
+    <p><code>period</code> looks like it overlaps <code>start</code> and <code>due</code>, but they play different parts. <strong><code>period</code> copies the wording from the agreement verbatim</strong>, while <strong><code>start</code> and <code>due</code> are dates machines read</strong>. The Gantt chart in Chapter 15 looks only at the latter two. If the two disagree, the check script in Chapter 17 catches it.</p>
+
+    <h3>4. 기회</h3>
+
+    <pre><code>---
+class: 기회
+id: OPP-
+status: 검토              # 기획 / 진행 / 검토 / 완료 / 보류
+stage: 2/4                # Found / Review / Prepare / Submit
+due: 2026-08-08           # submission date. Never use another name
+                          # (bad example: deadline, due_date)
+owner: "[[ ]]"
+priority: 상              # 상 / 중 / 하
+updated:
+confidence: draft
+---
+
+# Opportunity name
+
+## What it asks for
+| requirement | our evidence note | met |
+|-------------|-------------------|-----|
+
+## What we do not have yet
+## Record of the bid decision
+(a person decides. This box holds only the date and the reasoning)</code></pre>
+
+    <p>The "what we do not have yet" box connects to recipe 12 in Chapter 16. Compare the call against the vault and <strong>pull out only the empty items</strong>, and that becomes the next two weeks of work.</p>
+
+    <h3>5. 업무로그</h3>
+
+    <pre><code>---
+class: 업무로그
+id: 2026-07-15-Park
+date: 2026-07-15
+owner: "[[Park]]"
+pdm_intent_of: "[[OPP-2026-CityCall]]"
+updated: 2026-07-15
+confidence: reviewed
+---
+
+## What took the most time
+-
+
+## What is blocked
+-
+
+## Tomorrow
+- </code></pre>
+
+    <p>Three boxes. It has to finish inside three to five minutes a day, so do not grow it. The first box says "what took the most time" rather than "what I did" for a reason that shows up in Chapter 18. Label it "what I did" and people try to write down everything they did that day, which blows past five minutes. <code>pdm_intent_of</code> is the link pointing at <strong>"what this work was for"</strong>. The retrospective in Chapter 18 stands on that one line. Without the link there is no way to compare what was planned against what was done.</p>
+
+    <p>A work log starts <strong>at <code>confidence: reviewed</code></strong>, because the person who lived the day wrote it themselves. The next section pins down exactly what that value means.</p>
+
+    <h3>6. 결정</h3>
+
+    <pre><code>---
+class: 결정
+id: DEC-2026-0715-JoinCityCall
+date: 2026-07-15
+source: "[[2026-07-15-weekly-meeting]]"
+participants: ["Kim", "Park", "Lee"]
+related:
+  - "[[OPP-2026-CityCall]]"
+  - "[[Warebot]]"
+confidence: reviewed
+updated: 2026-07-15
+---
+
+# Decision title
+
+## The decision
+(what you decided to do. One paragraph)
+
+## Options considered and not taken
+| option | why it was dropped |
+|--------|--------------------|
+
+## Background
+## Actions
+- [ ] task · owner · YYYY-MM-DD</code></pre>
+
+    <p><strong>The "options considered and not taken" box is why this template exists.</strong> Meeting notes normally record only the conclusion. What the alternatives were and why you dropped them goes unwritten. So six months later you have the same discussion from scratch. Recipe 1 in Chapter 16 fills this box automatically.</p>
+
+    <h3>7. 회의록 (the source)</h3>
+
+    <pre><code>---
+class: 회의록
+id: 2026-07-15-weekly-meeting
+date: 2026-07-15
+participants: ["Kim", "Park", "Lee"]
+confidential: 사내
+confidence: reviewed
+updated: 2026-07-15
+---
+
+# 2026-07-15 weekly meeting
+
+&gt; What follows is the source. Do not edit it.
+&gt; Leave the typos. Summaries and corrections go in separate notes.
+
+## Source
+
+(exactly as it was taken down)
+
+## Extracted from this
+- [[DEC-2026-0715-JoinCityCall]]</code></pre>
+
+    <p>This template has a different character from the other six. <strong>It is a note you seal, not a note you fill.</strong> Why go that far is the next section.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">Do not make an eighth</p>
+      <p>You will want a 조직 template. Customer notes, like the one for Daesung Logistics. Do not make one at the start. <strong>An organization note carries three or four fields, which does not need a template.</strong></p>
+      <p>Every template you add adds one more "which template is this?" moment. It is the same trap as Solbit Tech writing 6 notes in two weeks with 19 classes in Chapter 8. <strong>Freeze a format into a template after you have written three notes in it</strong>, not before.</p>
+    </div>
+
+    <h2>Keep the source and the extract in separate files</h2>
+
+    <p>The split is simple.</p>
+
+    <ul>
+      <li><strong>Source</strong>: anything you did not create, or created but must not edit. Meeting transcripts, a request for proposals you received, a customer's email, an outside report</li>
+      <li><strong>Extract</strong>: whatever a person or AI pulled out of a source. Decision notes, updated fields on a product note, a newly created organization note</li>
+    </ul>
+
+    <div class="file-tree">Sources/
+├── 40-Worklog/
+│   ├── 2026-07-15-Park.md                    <span class="comment">work log · extract</span>
+│   ├── 2026-07-15-weekly-meeting.md          <span class="comment">meeting source · untouched</span>
+│   └── DEC-2026-0715-JoinCityCall.md         <span class="comment">decision · extract</span>
+└── 90-Reference/
+    ├── 2026-06-daesung-logistics-rfp.pdf     <span class="comment">received as it came</span>
+    ├── 2026-05-city-call-announcement.md     <span class="comment">the call, as published</span>
+    └── 2026-07-15-weekly-meeting-transcript.md   <span class="comment">transcript · untouched</span></div>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="330" fill="#FFFDF9"/>
+        <defs>
+          <marker id="a12" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#C2703C"/>
+          </marker>
+          <marker id="b12" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#6B5647"/>
+          </marker>
+        </defs>
+
+        <text x="360" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">One source yields many extracts. The source stays as it was</text>
+
+        <rect x="20" y="46" width="164" height="120" rx="10" fill="#FFF8F0" stroke="#C2703C" stroke-width="2"/>
+        <text x="102" y="70" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">Source</text>
+        <text x="102" y="90" text-anchor="middle" font-size="10" fill="#3D2B1F">40-Worklog/</text>
+        <text x="102" y="108" text-anchor="middle" font-size="9" fill="#3D2B1F">2026-07-15-weekly-meeting</text>
+        <text x="102" y="132" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#C2703C">Not one character edited</text>
+        <text x="102" y="150" text-anchor="middle" font-size="9.5" fill="#6B5647">not by people, AI or automation</text>
+
+        <line x1="184" y1="106" x2="248" y2="106" stroke="#C2703C" stroke-width="1.6" marker-end="url(#a12)"/>
+        <text x="216" y="98" text-anchor="middle" font-size="9.5" fill="#6B5647">extract</text>
+
+        <rect x="252" y="52" width="196" height="34" rx="7" fill="#FFFFFF" stroke="#8A857C" stroke-width="1.4"/>
+        <text x="350" y="73" text-anchor="middle" font-size="10.5" fill="#3D2B1F">decision note (new)</text>
+        <rect x="252" y="92" width="196" height="34" rx="7" fill="#FFFFFF" stroke="#8A857C" stroke-width="1.4"/>
+        <text x="350" y="113" text-anchor="middle" font-size="10.5" fill="#3D2B1F">product note fields updated</text>
+        <rect x="252" y="132" width="196" height="34" rx="7" fill="#FFFFFF" stroke="#8A857C" stroke-width="1.4"/>
+        <text x="350" y="153" text-anchor="middle" font-size="10.5" fill="#3D2B1F">organization note (new)</text>
+
+        <text x="350" y="186" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#6B5647">all of them confidence: draft</text>
+
+        <path d="M252,168 C210,206 150,196 122,172" fill="none" stroke="#6B5647" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#b12)"/>
+        <text x="176" y="204" text-anchor="middle" font-size="9.5" fill="#6B5647">source: links back</text>
+
+        <line x1="448" y1="106" x2="512" y2="106" stroke="#C2703C" stroke-width="1.6" marker-end="url(#a12)"/>
+        <text x="480" y="98" text-anchor="middle" font-size="9.5" fill="#6B5647">person checks</text>
+
+        <rect x="516" y="46" width="184" height="120" rx="10" fill="#EAF6F4" stroke="#0F766E" stroke-width="2"/>
+        <text x="608" y="70" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">Verified knowledge</text>
+        <text x="608" y="92" text-anchor="middle" font-size="10.5" fill="#3D2B1F">confidence: reviewed</text>
+        <text x="608" y="114" text-anchor="middle" font-size="10" fill="#3D2B1F">usable as proposal evidence</text>
+        <text x="608" y="134" text-anchor="middle" font-size="10" fill="#3D2B1F">automation leaves it alone</text>
+        <text x="608" y="154" text-anchor="middle" font-size="9.5" fill="#6B5647">one person changes it: the owner</text>
+
+        <rect x="20" y="240" width="680" height="66" rx="9" fill="#FAEADF" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="360" y="264" text-anchor="middle" font-size="11.5" fill="#3D2B1F">When an extract is wrong, the source is the only place to go back to.</text>
+        <text x="360" y="286" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">Delete the source and all that remains is what the AI happened to summarize</text>
+      </svg>
+      <figcaption>Always link an extract back to its source with <code>source:</code>. That one line is what makes review possible</figcaption>
+    </figure>
+
+    <p>Four reasons never to delete the source.</p>
+
+    <ol class="steps">
+      <li><strong>When an extract is wrong, the source is the only place to go back to</strong>
+        <p>A strange sentence in a decision note means opening the source and comparing. With no source there is nothing to compare against, and that sentence stays a fact forever.</p>
+      </li>
+      <li><strong>Summarizing removes information. You learn what got removed later</strong>
+        <p>The line in a meeting source that says "they're worried about the recognition rate because it's a freezer site" looks trivial at the time. Eight months later, preparing a freezer warehouse project, it turns out to be the most important thing in the file. When you summarize you do not know what will matter.</p>
+      </li>
+      <li><strong>Evidence needs its own evidence</strong>
+        <p>Chapter 3 said layer 2 is what makes review possible, because notes supply evidence. Which leaves the question, <strong>what is the evidence for that note?</strong> The source is the answer. Go that far and the chain holds.</p>
+      </li>
+      <li><strong>Later it becomes the only material for checking a fact</strong>
+        <p>Contract negotiation memos, the spec a customer asked for, the terms of a project agreement. You go looking for these after a dispute starts. At that point "the summary we wrote" is not evidence.</p>
+      </li>
+    </ol>
+
+    <p>Put these three lines into <code>CLAUDE.md</code>. Append them to the file you built in Chapter 11.</p>
+
+    <pre><code>## Handling source material
+
+- Never modify a note under Sources/90-Reference/, under any circumstances.
+  Leave the typos, the broken sentences and the line breaks exactly as they are.
+- Every note built from a source links back to it with source:.
+- Never delete or move a source file. If it has to move, tell a person.</code></pre>
+
+    <div class="pitfall">
+      <p class="pitfall-title">The most common accident: "tidy this up" overwrites the source</p>
+      <p>Open a meeting note file and say "tidy this up a bit," and the AI <strong>polishes the same file and saves it.</strong> It fixes typos, smooths the sentences and reorders things. It was trying to help.</p>
+      <p>At that moment the source is gone. And you do not notice it is gone, because the file name is unchanged. The fourth mistake in ⓕ of Chapter 16 is exactly this.</p>
+      <p>One way to stop it. <strong>Ask for the save and the extraction in one go, but ask for the save first.</strong> "Save the raw meeting note into 40-Worklog first, then pull out the decisions." Never reverse the order.</p>
+    </div>
+
+    <h3>Where do meeting memos go?</h3>
+
+    <p>One case sits on the boundary. <strong>The short memo you type yourself during a meeting.</strong> It did not come from outside, so putting it in 90-Reference feels off.</p>
+
+    <p>The test is "who made it." <strong>Anything from outside, and transcripts, go in <code>90-Reference/</code>.</strong> A meeting note you typed is of a piece with the decisions pulled out of it, so it goes in <code>40-Worklog/</code> as a source note. The table above, recipe 1 in Chapter 16 and the folder diagram in Chapter 18 all follow that.</p>
+
+    <p>Either way, the principle is the same: <strong>keep the source note and the extract in separate files</strong>. Which folder matters less than <strong>whether there are two files</strong>.</p>
+
+    <h2>One confidence box sets the trust of the whole vault</h2>
+
+    <p>The <a href="appendix-a.en.html#confidence" class="term-link">confidence field</a> settled in Chapter 11 looks like this in a note.</p>
+
+    <pre><code>confidence: draft      # AI wrote it, or a person wrote it in a hurry and nobody has checked
+confidence: reviewed   # a person read it and judged that it is still correct</code></pre>
+
+    <p>The rules are already nailed into <code>CLAUDE.md</code>. So here you look at <strong>running it</strong>. Even with rules, this box dies easily.</p>
+
+    <p>The first job is for <strong>the team to settle what <code>reviewed</code> means, in one sentence</strong>.</p>
+
+    <div class="callout">
+      <p class="callout-title">The sentence to use</p>
+      <p><strong>"I put my name on the facts in this note still being right."</strong></p>
+      <p>Not "I read it." Not "looks about right." Leave this sentence unsettled and in three months <code>reviewed</code> comes to mean "a note somebody once scrolled past," at which point the box may as well not exist.</p>
+      <p>The person putting their name on it is the <code>owner</code>. That is why the two fields travel together. A note that is <code>reviewed</code> with an empty <code>owner</code> is <strong>a fact nobody is answerable for</strong>, and the check in Chapter 17 catches that combination.</p>
+    </div>
+
+    <p>This one box does work in four places.</p>
+
+    <table>
+      <thead>
+        <tr><th>Where</th><th><code>draft</code></th><th><code>reviewed</code></th></tr>
+      </thead>
+      <tbody>
+        <tr><td>evidence in external documents (Chapter 16, recipe 2)</td><td>not used. Goes onto the "needs verifying" list</td><td>used as evidence</td></tr>
+        <tr><td>what automation may edit (Chapter 14)</td><td>may be edited</td><td>no field is touched</td></tr>
+        <tr><td>weekly dashboard (Chapter 15)</td><td colspan="2">the trend in the <code>reviewed</code> share becomes the vault's health metric</td></tr>
+        <tr><td>a person's to-do list</td><td colspan="2">the <code>draft</code> list is the review queue as it stands</td></tr>
+      </tbody>
+    </table>
+
+    <p>You can already guess what happens without this box. AI first passes become half the vault within months, and <strong>the next AI reads them as fact.</strong> Worse, people read them the same way. With no way to tell which facts were verified, <strong>you end up trusting none of it.</strong> Once that happens it takes months to undo, because every note has to be read again from scratch.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Stamping everything reviewed in the first month</p>
+      <p>It feels good. The vault looks clean. And at that moment the field dies.</p>
+      <p>There is a way to check. <strong>If the <code>reviewed</code> share is 100% or 0%, the box is not being used.</strong> There is no correct percentage. But a living vault always has some notes waiting for review.</p>
+      <p><code>reviewed</code> is <strong>a fact as of the day it was checked.</strong> It does not last forever. The check in Chapter 17 pulls out a list of <code>reviewed</code> notes whose <code>updated</code> has gone stale.</p>
+    </div>
+
+    <h2>Where templates live and how you call them</h2>
+
+    <p>Outside <code>Sources/</code>. A template is a format, not a company fact.</p>
+
+    <div class="file-tree">_ops/
+├── 01-ontology-design.md
+├── 02-terminology.md
+├── scripts/
+└── templates/                <span class="comment">← here</span>
+    ├── product.md
+    ├── capability.md
+    ├── project.md
+    ├── opportunity.md
+    ├── worklog.md
+    ├── decision.md
+    └── meeting-note.md</div>
+
+    <p>Put them inside <code>Sources/</code> and empty shell notes turn up in search results and the graph view. Ask "how many products do we have?" and the answer is one too many. It sounds trivial, but this kind of thing piles up until you cannot trust the AI's answers.</p>
+
+    <h3>Calling them in Obsidian</h3>
+
+    <p>Obsidian ships <strong>Templates</strong> already. It is a core feature, not a community plugin, so there is nothing to install. As of July 2026 it works like this.</p>
+
+    <ol class="steps">
+      <li><strong>Turn on "Templates" in Settings, Core plugins</strong>
+        <p>If it is not in the list, search for "Templates". The label varies with your language setting.</p>
+      </li>
+      <li><strong>Set the template folder to <code>_ops/templates</code></strong>
+        <p>Settings, Templates, "Template folder location".</p>
+      </li>
+      <li><strong>Check the shortcut</strong>
+        <p>Call "Insert template" from the command palette. You will use it often, so a keyboard shortcut is worth setting.</p>
+      </li>
+    </ol>
+
+    <h3>Getting AI to use them</h3>
+
+    <p>AI uses these templates more often than people do. Put three lines into <code>CLAUDE.md</code>.</p>
+
+    <pre><code>## When making a note
+
+- Always start a new note by copying the matching template from _ops/templates/.
+- Never delete a box from the template. If there is nothing to put in it, write 확인 필요.
+- The only places you may create files without human approval are _reports/ and _moc/.
+  When making a note under Sources/, show a table first and get approval.</code></pre>
+
+    <p><strong>The second line gets ignored most often.</strong> AI treats empty boxes as untidy and tries to remove them. Remove the empty boxes and the second effect from this chapter is gone. What is not written stops being visible.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">When you change a template, do not go back and apply it</p>
+      <p>Around the three-month mark you will want to add a box to a template. When you do, <strong>do not rewrite every existing note into the new format.</strong> Two things blow up at once. Touching hundreds of files at the same time triggers the OneDrive sync conflicts from Chapter 6, and every note you touch has to drop back to <code>draft</code>, so the review queue explodes.</p>
+      <p><strong>Apply it from the next note you make.</strong> Old notes get fixed the next time you work on them anyway. A vault is not somewhere you tidy in one pass. It is somewhere that improves a little as you walk through it.</p>
+    </div>
+
+    <h2>Building one first note end to end</h2>
+
+    <p>Let me build the Warebot note from start to finish. Six steps.</p>
+
+    <ol class="steps">
+      <li><strong>Decide which class it is</strong>
+        <p>The class test splits it. "Is it a unit you sell or deliver externally?" If yes, it is 제품. Warebot is in delivery talks with Daesung Logistics and already runs at three sites, so it is 제품.</p>
+      </li>
+      <li><strong>Copy the template</strong>
+        <p>Create <code>Sources/10-Products/Warebot.md</code> and paste in the product template.</p>
+      </li>
+      <li><strong>Fill the <a href="appendix-a.en.html#frontmatter" class="term-link">frontmatter</a> top to bottom</strong>
+        <p>For a box you do not know, do not leave it empty. Write <strong>확인 필요</strong>. Left empty, there is no telling whether it was skipped or genuinely absent.</p>
+      </li>
+      <li><strong>Three paragraphs of body is plenty</strong>
+        <p>Trying to write it perfectly means not writing it. One paragraph of "what you sell and to whom," the installed-sites table, and the list of known limits. That is your first version.</p>
+      </li>
+      <li><strong>Add the links</strong>
+        <p>Write <a href="appendix-a.en.html#wikilink" class="term-link">wikilinks</a> like <code>[[CAP-ObjectRecognition]]</code>. It is fine if that note does not exist yet. Obsidian shows it in grey. <strong>The list of grey links is the list of notes to make next.</strong></p>
+      </li>
+      <li><strong>Set the confidence</strong>
+        <p>If you checked it yourself as you wrote, <code>reviewed</code>. If you wrote from memory, <code>draft</code>. When unsure, <code>draft</code>.</p>
+      </li>
+    </ol>
+
+    <p>Here is the result.</p>
+
+    <pre><code>---
+class: 제품
+id: PRD-001
+status: 운영
+owner: "[[Kim]]"
+since: 2023-04
+pdm_uses:
+  - "[[CAP-ObjectRecognition]]"
+  - "[[CAP-RouteOptimization]]"
+updated: 2026-07-15
+confidence: reviewed
+confidential: 사내
+---
+
+# Warebot
+
+Inbound and outbound automation software for logistics warehouses. Sold to mid-sized
+distribution centres. It automates the goods-in inspection and put-away location
+decisions operators used to do by hand.
+
+## Installed sites
+| customer | when | size | evidence note |
+|----------|------|------|---------------|
+| Site A | 2023-04 | 확인 필요 | [[2023-04-SiteA-acceptance-report]] |
+| Site B | 2024-09 | 확인 필요 | [[2024-09-SiteB-contract]] |
+| Site C | 2025-06 | 확인 필요 | [[2025-06-SiteC-contract]] |
+
+## Technology this product uses
+- [[CAP-ObjectRecognition]] : identifies incoming goods automatically
+- [[CAP-RouteOptimization]] : computes put-away locations and picking routes
+
+## Known limits
+- No recognition-rate data for freezer warehouses. 확인 필요
+- No quantified results (throughput improvement) from the three sites in any note
+
+## Evidence
+- [[PRJ-2025-SmartLogistics]] final report</code></pre>
+
+    <p>What to notice here is that <strong>확인 필요 is left in four places</strong>. That is not a failure. First notes are supposed to look like this. Those four lines are <strong>your to-do list for the next two weeks</strong>.</p>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: 40 minutes on the first note</p>
+      <p>Kim took 40 minutes to finish the Warebot note. <strong>Thirty of those went into working out whether there were three installed sites or four.</strong> Asking Park, digging through the contracts folder, and finally concluding that one of them was a pilot and could not be counted as track record.</p>
+      <p>Those 30 minutes looked wasted, but in fact <strong>those 30 minutes were the entire value of the system.</strong> Until then, "four sites" and "three sites" had gone out in different proposals and nobody had noticed.</p>
+      <p>The second note took 12 minutes and the tenth took 4. The cost of checking is front-loaded. <strong>You do not check a fact twice once you have checked it.</strong></p>
+      <p>And the Warebot note built that day went straight into the proposal draft in recipe 2 of Chapter 16. As "three sites."</p>
+    </div>
+
+    <h2>Three ways templates fall apart</h2>
+
+    <div class="pitfall">
+      <p class="pitfall-title">1. Too many boxes</p>
+      <p>While designing a template they all look necessary. But the more required boxes there are, the fewer notes get written. It is exactly the trap of the 19 classes in Chapter 3.</p>
+      <p><strong>Do not go past five required boxes.</strong> Around <code>class</code>, <code>id</code>, <code>status</code>, <code>owner</code>, <code>updated</code>. Leave the rest optional and allow 확인 필요. You measure a template's quality not by its number of boxes but by <strong>how many notes get written</strong>.</p>
+    </div>
+
+    <div class="pitfall">
+      <p class="pitfall-title">2. Everyone uses a different template</p>
+      <p>It starts with "I'll just tweak mine a little." Two months later <code>owner</code>, <code>assignee</code> and <code>responsible</code> are all in play. Then the table in Chapter 15 grows three columns, and asking "what is the load per person" gets you a wrong answer.</p>
+      <p>Templates live in <strong>exactly one shared folder</strong>. When something needs changing, change that file and tell the team. The moment people make their own copies, the controlled vocabulary collapses.</p>
+    </div>
+
+    <div class="pitfall">
+      <p class="pitfall-title">3. You changed the template and not CLAUDE.md</p>
+      <p>The quietest failure of all. Add a box to a template while the field list in <code>CLAUDE.md</code> stays as it was, and <strong>notes people make and notes AI makes drift into different formats.</strong> No error appears. You find out two months later on the dashboard.</p>
+      <p>Templates, <code>CLAUDE.md</code> and <code>_ops/01-ontology-design.md</code> are <strong>one body.</strong> Get into the habit of opening the other two whenever you change one. You can also make the check script in Chapter 17 catch drift between the three.</p>
+    </div>
+
+    <div class="checklist">
+      <p class="checklist-title">Five things to check after your first note</p>
+      <ul>
+        <li><strong>Are <code>class</code>, <code>id</code> and <code>updated</code> all in the frontmatter?</strong> Those three are required in every note.</li>
+        <li><strong>Is there at least one 확인 필요?</strong> If there is none, you probably filled it in loosely. It is hard for a first note to contain nothing you are unsure of.</li>
+        <li><strong>Can you see grey links?</strong> Those are the notes to make next. None at all means this note connects to nothing.</li>
+        <li><strong>Did you set <code>confidence</code> deliberately?</strong> Leaving the template default is not the same as making a call.</li>
+        <li><strong>Did you set a confidentiality grade?</strong> Pre-contract customer names, unit prices, labour costs. These are the hardest items to find and fix later.</li>
+      </ul>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: one product note for your company, end to end</p>
+      <p>If you do one thing from this chapter, do this. Block out 40 minutes. Half of it goes into checking.</p>
+      <ol>
+        <li><strong>Pick one product.</strong> Not the one you know best. Pick <strong>the one you put in proposals most often</strong>. That way this note goes to work immediately.</li>
+        <li>Copy the product template and create a new note in <code>Sources/10-Products/</code>.</li>
+        <li><strong>Fill the frontmatter.</strong> Write 확인 필요 in the boxes you do not know. Do not leave them empty.</li>
+        <li><strong>You will get stuck at least once filling in the installed-sites table.</strong> Do not stop there. Actually go and check. Open the contracts folder or ask whoever owns it. These 30 minutes are the most valuable time in this chapter.</li>
+        <li>Write <strong>at least two lines</strong> under "known limits." If you think there are none, it means you have not sold this product enough yet.</li>
+        <li>Save the note and <strong>count the grey links.</strong> That number is how many notes you have coming.</li>
+        <li>Last, ask Claude. <strong>"Write the company introduction paragraph for a proposal using only this note. Do not write anything that is not in the note."</strong> How thin that paragraph comes out is the state of your vault right now. Do not be discouraged. It is a one-note vault.</li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li>A template's first job is not consistent formatting but <strong>setting what counts as done</strong></li>
+        <li>Its second job is <strong>making the gaps visible</strong>. You only see a hole when there is an empty box</li>
+        <li>There are seven templates: <strong>제품 · 기술역량 · 과제 · 기회 · 업무로그 · 결정 · 회의록</strong>. Make an eighth after you have written three notes in that format</li>
+        <li><strong>Keep the source and the extract in separate files.</strong> Anything from outside and transcripts go in <code>90-Reference/</code>, extracted decisions in <code>40-Worklog/</code></li>
+        <li>Why you never delete a source: somewhere to go back to, what the summary threw away, <strong>evidence for the evidence</strong>, and checking facts later</li>
+        <li>The most common accident is <strong>"tidy this up" overwriting the source</strong>. Ask for the save first</li>
+        <li>What keeps <code>confidence</code> from Chapter 11 alive is not rules but <strong>operation</strong>. The team settles the meaning in one sentence: <strong>"I put my name on this fact still being right"</strong></li>
+        <li>The person putting their name on it is the <code>owner</code>. <strong>A <code>reviewed</code> note with an empty <code>owner</code> is a fact nobody is answerable for</strong></li>
+        <li>A <code>reviewed</code> share of <strong>100% or 0% means the box is not being used.</strong> And <code>reviewed</code> is a fact as of the day it was checked, so it goes stale</li>
+        <li>Without this box, verified facts and AI first passes mix, and <strong>you end up trusting none of it</strong></li>
+        <li>The only places AI creates files without human approval are <code>_reports/</code> and <code>_moc/</code>, <strong>those two</strong></li>
+        <li>Templates go in <code>_ops/templates/</code>. Inside <code>Sources/</code> they put empty shells into search and the graph</li>
+        <li>Leaving 확인 필요 in a first note is normal. <strong>That list is your next two weeks of work</strong></li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>Coming up</h3>
+      <p>Once templates exist you start repeating the same work. The steps for structuring a meeting note, the steps for running a retrospective, the steps for checking rule violations. But <strong>re-explain those steps in a fresh prompt every time and they evolve differently for each person.</strong> The next chapter shows how to write a procedure into one file and call it by name. It also settles the decision not to use Obsidian community plugins.</p>
+    </div>
+  </article>

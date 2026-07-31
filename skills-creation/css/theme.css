@@ -1,0 +1,14 @@
+/* 나만의 AI 스킬을 만들자 — 책별 강조색. 구조와 조판은 ../../assets/css/book.css */
+:root {
+  --accent: #5B54C4;
+  --accent-ink: #463FA8;
+  --accent-tint: #EAE8F9;
+  --accent-line: #BDB9EC;
+}
+
+[data-theme="dark"] {
+  --accent: #A9A2F0;
+  --accent-ink: #C4BFF7;
+  --accent-tint: #241F4A;
+  --accent-line: #3A3370;
+}

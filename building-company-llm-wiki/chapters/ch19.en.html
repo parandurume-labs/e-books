@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 19: Where AX starts: the LLM Wiki · Building a Company LLM Wiki</title>
+  <meta name="description" content="How AX differs from DX, a five-stage maturity self-assessment, the four-phase rollout, a twelve-month roadmap, six metrics, and the five ways AX fails.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="alternate" hreflang="ko" href="ch19.html">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open contents"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Building a Company LLM Wiki</span>
+  <button class="search-trigger" type="button" aria-label="Search contents"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>Search</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="Toggle dark mode"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="Contents">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+    <span class="sidebar-title">Contents</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close contents">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.en.html" class="nav-link">Cover and contents</a></li>
+      <li class="nav-part">Part 1 · Why you need this</li>
+      <li><a href="ch01.en.html" class="nav-link">1. Where our knowledge lives</a></li>
+      <li><a href="ch02.en.html" class="nav-link">2. A wiki, not RAG</a></li>
+      <li><a href="ch03.en.html" class="nav-link">3. Ontology is not the wiki</a></li>
+      <li><a href="ch04.en.html" class="nav-link">4. Three tools, three jobs</a></li>
+      <li class="nav-part">Part 2 · Setup in 30 minutes</li>
+      <li><a href="ch05.en.html" class="nav-link">5. Obsidian and the vault</a></li>
+      <li><a href="ch06.en.html" class="nav-link">6. Sharing through Teams</a></li>
+      <li><a href="ch07.en.html" class="nav-link">7. Connecting the vault to Cowork</a></li>
+      <li class="nav-part">Part 3 · Designing the ontology</li>
+      <li><a href="ch08.en.html" class="nav-link">8. Six design principles</a></li>
+      <li><a href="ch09.en.html" class="nav-link">9. Choosing your classes</a></li>
+      <li><a href="ch10.en.html" class="nav-link">10. Relations and fields</a></li>
+      <li class="nav-part">Part 4 · Running it</li>
+      <li><a href="ch11.en.html" class="nav-link">11. CLAUDE.md</a></li>
+      <li><a href="ch12.en.html" class="nav-link">12. Templates and your first note</a></li>
+      <li><a href="ch13.en.html" class="nav-link">13. Automating with skills</a></li>
+      <li class="nav-part">Part 5 · Automation and visibility</li>
+      <li><a href="ch14.en.html" class="nav-link">14. Scheduling</a></li>
+      <li><a href="ch15.en.html" class="nav-link">15. Making progress visible</a></li>
+      <li><a href="ch16.en.html" class="nav-link">16. Twelve automation recipes</a></li>
+      <li class="nav-part">Part 6 · Keeping it alive</li>
+      <li><a href="ch17.en.html" class="nav-link">17. Quality as code</a></li>
+      <li><a href="ch18.en.html" class="nav-link">18. Intent versus execution</a></li>
+      <li class="nav-part">Part 7 · Scaling to AX</li>
+      <li><a href="ch19.en.html" class="nav-link">19. From wiki to AX</a></li>
+      <li class="nav-part">Appendices</li>
+      <li><a href="appendix-a.en.html" class="nav-link">Appendix A · Glossary</a></li>
+      <li><a href="appendix-b.en.html" class="nav-link">Appendix B · Copy-paste assets</a></li>
+      <li><a href="appendix-c.en.html" class="nav-link">Appendix C · Troubleshooting</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="Toggle dark mode"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">Dark mode</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 19</span>
+    <h1>Where AX starts: the LLM Wiki</h1>
+    <p class="chapter-subtitle">Adopting AI and changing the company are two different things</p>
+    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>about 14 min</span>
+  </header>
+
+<article>
+    <p>If you have come this far, your company now has a few things. Several hundred structured notes, the rules and scripts that keep them, a handful of automations that run themselves every week, one dashboard that opens on Monday.</p>
+
+    <p>Then your CEO asks you this. <strong>"So is this our company's AI transformation?"</strong></p>
+
+    <p>The accurate answer is <strong>"the foundation for it now exists, and the transformation itself starts here."</strong> This chapter is about that "here".</p>
+
+    <h2>What AX means: the simplest version</h2>
+
+    <p><strong>AX</strong> comes up a lot lately. It stands for AI transformation. The fastest way to explain it is alongside <strong>DX</strong> (digital transformation), the term everyone used before it.</p>
+
+    <table>
+      <thead>
+        <tr><th></th><th>DX · digital transformation</th><th>AX · AI transformation</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>What changes</td>
+          <td><strong>The tools you work with</strong></td>
+          <td><strong>The way you decide</strong></td>
+        </tr>
+        <tr>
+          <td>Example</td>
+          <td>Paper approvals → electronic approvals<br>Notebook → Excel → groupware</td>
+          <td>People gather the material and decide → <strong>AI gathers the material and people decide</strong></td>
+        </tr>
+        <tr>
+          <td>The sign it worked</td>
+          <td>The paper disappears</td>
+          <td><strong>One step of a workflow is replaced by AI</strong></td>
+        </tr>
+        <tr>
+          <td>How they relate</td>
+          <td colspan="2">The data DX produced becomes the raw material for AX. They do not have to happen in that order, though. They can run together</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p class="callout-title">The most common misunderstanding</p>
+      <p><strong>"We brought in AI tools, isn't that AX?"</strong> No. That is the starting line.</p>
+      <p>If your people are each writing email drafts with ChatGPT or Claude, <strong>individual productivity went up</strong>. Good news, but the company has not changed. <strong>The workflow is the same, and when that person leaves it goes with them.</strong></p>
+      <p>AX is <strong>AI entering the workflow as an official step</strong>. "When a customer enquiry arrives, AI does the first triage and drafts the reply, and people handle review and exceptions." Do that and the flow itself is different.</p>
+    </div>
+
+    <h2>AX always jams at the same place</h2>
+
+    <p>Here is the core claim of this book. Put briefly, it is this.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">The one sentence for the whole book</p>
+      <p><strong>AX does not get past the individual productivity stage not because AI is not good enough, but because there is no accurate knowledge about the company to give it.</strong></p>
+    </div>
+
+    <p>Which is obvious once you think about it. Say you decided to have AI write the first reply to customer enquiries. To write a reply the AI has to know things like these.</p>
+
+    <ul>
+      <li>what your product is and what it cannot do</li>
+      <li>what you discussed with this customer before, and what you promised</li>
+      <li>your pricing policy and its exceptions</li>
+      <li>what you answered to a similar enquiry last time</li>
+    </ul>
+
+    <p>If that information sits <strong>in people's heads and personal folders</strong>, you have no way to give it to the AI. So the AI says obvious things and people conclude "this is useless". <strong>The AI did not fail. The material was not there.</strong></p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="340" fill="#FFFDF9"/>
+
+        <text x="360" y="26" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">The real AX bottleneck is the bottom axis, not the left one</text>
+
+        <!-- axes -->
+        <line x1="120" y1="270" x2="660" y2="270" stroke="#8A857C" stroke-width="1.6"/>
+        <line x1="120" y1="270" x2="120" y2="56" stroke="#8A857C" stroke-width="1.6"/>
+        <text x="390" y="296" text-anchor="middle" font-size="11" font-weight="bold" fill="#6B5647">How structured your company knowledge is →</text>
+        <text x="104" y="160" font-size="11" font-weight="bold" fill="#6B5647" transform="rotate(-90 104 160)">AI model performance →</text>
+
+        <!-- quadrants -->
+        <rect x="122" y="58" width="266" height="210" fill="#FAEADF" opacity="0.65"/>
+        <rect x="390" y="58" width="268" height="210" fill="#EAF6F4" opacity="0.75"/>
+
+        <text x="255" y="96" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">Most companies are here</text>
+        <text x="255" y="122" text-anchor="middle" font-size="10.5" fill="#3D2B1F">Running the newest model</text>
+        <text x="255" y="140" text-anchor="middle" font-size="10.5" fill="#3D2B1F">"not much help with our work"</text>
+        <text x="255" y="170" text-anchor="middle" font-size="10.5" fill="#6B5647">Only used for personal drafts</text>
+        <text x="255" y="188" text-anchor="middle" font-size="10.5" fill="#6B5647">The workflow is unchanged</text>
+        <text x="255" y="222" text-anchor="middle" font-size="11" font-weight="bold" fill="#C2703C">The fix is not a new model</text>
+        <text x="255" y="240" text-anchor="middle" font-size="11" font-weight="bold" fill="#C2703C">You have to move right</text>
+
+        <text x="524" y="96" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">Where AX actually happens</text>
+        <text x="524" y="122" text-anchor="middle" font-size="10.5" fill="#3D2B1F">Same answer whoever asks</text>
+        <text x="524" y="140" text-anchor="middle" font-size="10.5" fill="#3D2B1F">Evidence notes come with it</text>
+        <text x="524" y="158" text-anchor="middle" font-size="10.5" fill="#3D2B1F">Unknowns come back "no record"</text>
+        <text x="524" y="188" text-anchor="middle" font-size="10.5" fill="#6B5647">→ so it fits into the workflow</text>
+        <text x="524" y="206" text-anchor="middle" font-size="10.5" fill="#6B5647">→ review works, so you can own it</text>
+        <text x="524" y="240" text-anchor="middle" font-size="11" font-weight="bold" fill="#0F766E">Chapters 1-18 make this move</text>
+
+        <!-- move arrow -->
+        <path d="M330,255 L448,255" fill="none" stroke="#0F766E" stroke-width="3"/>
+        <path d="M448,255 L440,250 L440,260 z" fill="#0F766E"/>
+
+        <text x="360" y="322" text-anchor="middle" font-size="11" fill="#3D2B1F">Models improve every year. <tspan font-weight="bold">Nobody builds your company knowledge but you</tspan></text>
+      </svg>
+      <figcaption>Waiting for a better model will never move you to the right</figcaption>
+    </figure>
+
+    <p>To say it once more: <strong>model performance improves every year whether or not you do anything.</strong> Your company's knowledge, meanwhile, <strong>nobody will build if you do not.</strong> So which side to invest in is clear.</p>
+
+    <h2>The five AX maturity stages: which one are you in</h2>
+
+    <p>"Let's do AX" is too big a sentence to act on. Break it into stages and what to do now becomes visible.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="360" fill="#FFFDF9"/>
+        <text x="360" y="26" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">The five AX maturity stages</text>
+
+        <!-- staircase -->
+        <rect x="30" y="266" width="126" height="46" rx="6" fill="#F0EDE6" stroke="#B8B3A9" stroke-width="1.4"/>
+        <text x="93" y="286" text-anchor="middle" font-size="11" font-weight="bold" fill="#6B5647">0 · On their own</text>
+        <text x="93" y="303" text-anchor="middle" font-size="9.5" fill="#8A857C">Answers differ by person</text>
+
+        <rect x="164" y="220" width="126" height="92" rx="6" fill="#F5EFE6" stroke="#C9A88A" stroke-width="1.4"/>
+        <text x="227" y="240" text-anchor="middle" font-size="11" font-weight="bold" fill="#A9713F">1 · Personal AI use</text>
+        <text x="227" y="258" text-anchor="middle" font-size="9.5" fill="#6B5647">Drafts and summaries</text>
+        <text x="227" y="274" text-anchor="middle" font-size="9.5" fill="#6B5647">Workflow unchanged</text>
+        <text x="227" y="296" text-anchor="middle" font-size="9.5" fill="#A9713F">Gone if they quit</text>
+
+        <rect x="298" y="152" width="126" height="160" rx="6" fill="#D7F2EE" stroke="#0F766E" stroke-width="2.4"/>
+        <text x="361" y="172" text-anchor="middle" font-size="11" font-weight="bold" fill="#0F766E">2 · Shared knowledge</text>
+        <text x="361" y="190" text-anchor="middle" font-size="9.5" fill="#3D2B1F">LLM Wiki</text>
+        <text x="361" y="206" text-anchor="middle" font-size="9.5" fill="#3D2B1F">Same answer for all</text>
+        <text x="361" y="222" text-anchor="middle" font-size="9.5" fill="#3D2B1F">Evidence comes too</text>
+        <text x="361" y="246" text-anchor="middle" font-size="10" font-weight="bold" fill="#0F766E">★ Where this</text>
+        <text x="361" y="262" text-anchor="middle" font-size="10" font-weight="bold" fill="#0F766E">book lands</text>
+        <text x="361" y="288" text-anchor="middle" font-size="9.5" fill="#6B5647">3 to 6 months</text>
+
+        <rect x="432" y="104" width="126" height="208" rx="6" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="495" y="124" text-anchor="middle" font-size="11" font-weight="bold" fill="#0F766E">3 · In the workflow</text>
+        <text x="495" y="142" text-anchor="middle" font-size="9.5" fill="#3D2B1F">AI is a real step</text>
+        <text x="495" y="158" text-anchor="middle" font-size="9.5" fill="#3D2B1F">People review</text>
+        <text x="495" y="174" text-anchor="middle" font-size="9.5" fill="#3D2B1F">Schedules always on</text>
+        <text x="495" y="198" text-anchor="middle" font-size="9.5" fill="#6B5647">Extends Chapters 14-16</text>
+
+        <rect x="566" y="56" width="126" height="256" rx="6" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.6" stroke-dasharray="5 3"/>
+        <text x="629" y="76" text-anchor="middle" font-size="11" font-weight="bold" fill="#0F766E">4 · Agents</text>
+        <text x="629" y="94" text-anchor="middle" font-size="9.5" fill="#3D2B1F">A task end to end</text>
+        <text x="629" y="110" text-anchor="middle" font-size="9.5" fill="#3D2B1F">Exceptions only</text>
+        <text x="629" y="132" text-anchor="middle" font-size="9.5" fill="#6B5647">Beyond this book</text>
+
+        <!-- no skipping -->
+        <path d="M227,196 Q361,120 495,88" fill="none" stroke="#C2703C" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="360" y="128" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#C2703C">Skipping 1 → 3 fails</text>
+        <text x="360" y="144" text-anchor="middle" font-size="9.5" fill="#C2703C">No evidence, no review, no trust</text>
+
+        <line x1="20" y1="326" x2="700" y2="326" stroke="#D8D2C8" stroke-width="1"/>
+        <text x="360" y="346" text-anchor="middle" font-size="10.5" fill="#6B5647">Conditions for each stage are in the table below</text>
+      </svg>
+      <figcaption>There is no way to skip stage 2. This book is the road from stage 0 or 1 to stage 2</figcaption>
+    </figure>
+
+    <table>
+      <thead>
+        <tr><th>Stage</th><th>Signs you are here</th><th>To get to the next one</th><th>The risk at this stage</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>0<br>Everyone on their own</strong></td>
+          <td>Your people each use AI but never put company knowledge in. The same question gets a different answer depending on who asks</td>
+          <td>Name a knowledge owner and build the vault (Part 2)</td>
+          <td>Nobody manages confidential material leaking into personal accounts</td>
+        </tr>
+        <tr>
+          <td><strong>1<br>Individual productivity</strong></td>
+          <td>It works well for drafts, summaries and translation. But somebody pastes the company-specific content in by hand every time</td>
+          <td><strong>Design the ontology and fill the notes (Parts 3 and 4)</strong></td>
+          <td>Easy to stop here. "We already use AI, don't we?" is what blocks any improvement</td>
+        </tr>
+        <tr>
+          <td><strong>2<br>Shared knowledge<br>★</strong></td>
+          <td>The same answer comes back whoever asks, evidence notes come with it, and what it does not know it calls "no record"</td>
+          <td>Pick one repeated task and put AI in as an official step (Chapters 14 to 16)</td>
+          <td>If keeping the vault rests on one person, it stops when that person takes leave</td>
+        </tr>
+        <tr>
+          <td><strong>3<br>Built into the workflow</strong></td>
+          <td>There is work that runs without anyone starting it. People take review and exceptions</td>
+          <td>Widen the scope once the review pass rate is stable</td>
+          <td>Once review turns into a formality, errors pass quietly</td>
+        </tr>
+        <tr>
+          <td><strong>4<br>Agents</strong></td>
+          <td>AI carries a particular task through to the end and people look only at exceptions</td>
+          <td>-</td>
+          <td>Accountability blurs. An audit trail becomes mandatory</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">Why skipping from stage 1 to stage 3 fails</p>
+      <p>Plenty of companies try it. They bolt on "automatic replies to customer enquiries" or "automatic report generation". The tools work. Output really does come out.</p>
+      <p>But <strong>you cannot review it.</strong> To check whether the AI's reply is right you need the evidence, and there is none. So the reviewer ends up checking everything again, which makes it <strong>slower than before</strong>. Three weeks later that automation is switched off.</p>
+      <p>What stage 2 is worth is not getting an answer. It is <strong>"being able to see where the answer came from in 30 seconds"</strong>. Stage 3 only stands on top of that.</p>
+    </div>
+
+    <h2>Putting the vault on the four rollout phases</h2>
+
+    <p>Material on AX generally lays the rollout out in four phases: <strong>Diagnose → Strategy → Pilot → Scale</strong>. The frame was written for large organizations, but a company of 5 to 50 people can use it as it is. Each phase is simply far smaller.</p>
+
+    <table>
+      <thead>
+        <tr><th>Phase</th><th>What it normally means</th><th>At our size</th><th>What the vault does</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>① Diagnose</strong></td>
+          <td>Assess the maturity of data, infrastructure and organizational capability</td>
+          <td><strong>Half a day.</strong> The four diagnostic questions from Chapter 1 plus the five-stage self-assessment in this chapter</td>
+          <td>"Which knowledge lives only in someone's head" is the diagnosis itself</td>
+        </tr>
+        <tr>
+          <td><strong>② Strategy</strong></td>
+          <td>Pick the priority initiatives by impact and feasibility, set the investment scope and the metrics</td>
+          <td><strong>Two meetings.</strong> List the repeated tasks and pick the top three</td>
+          <td>With a work log you pick "what we repeat" from the record instead of guessing</td>
+        </tr>
+        <tr>
+          <td><strong>③ Pilot</strong></td>
+          <td>Verify quality, cost and operability with real users and real data</td>
+          <td><strong>Four weeks.</strong> Put one recipe from Chapter 16 into real work</td>
+          <td>Evidence marks let you measure quality as a number</td>
+        </tr>
+        <tr>
+          <td><strong>④ Scale</strong></td>
+          <td>Standardize, embed governance</td>
+          <td><strong>Quarterly.</strong> Fix the prompts as skills and put the rules into CLAUDE.md</td>
+          <td>CLAUDE.md and the ontology design doc are the governance documents</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p class="callout-title">What to notice here</p>
+      <p>Phase 4, Scale, does not build a separate governance system. <strong>The <code>CLAUDE.md</code> and the ontology design doc you already have do that job.</strong></p>
+      <p>Large companies spend months on AI governance because they have to turn the rules into documents and train people on them. You <strong>wrote the rules into a file the AI reads every time.</strong> Change a rule and the next conversation applies it. This is where a small organization has the advantage.</p>
+    </div>
+
+    <h2>A twelve-month roadmap</h2>
+
+    <p>Here is what to do from month 1 to month 12. <strong>It lines up with the chapter numbers, so use it to check your progress.</strong></p>
+
+    <table>
+      <thead>
+        <tr><th>When</th><th>Goal</th><th>What you do</th><th>What you get by then</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Month 1</strong></td>
+          <td>Foundation</td>
+          <td>Vault setup (Part 2) · three to five hours of ontology design (Part 3) · enter the core company information · start recipe 1</td>
+          <td>50 to 80 notes. <strong>"What this company does" exists as files</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Months 2-3</strong></td>
+          <td>Habit</td>
+          <td>CLAUDE.md and templates (Part 4) · recipes 2 and 5 · minimum dashboard (Chapter 15)</td>
+          <td>Three to five minutes a day becomes a habit. <strong>First felt drop in proposal writing time</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Months 4-6</strong></td>
+          <td><strong>Reaching stage 2</strong></td>
+          <td>Three skills (Chapter 13) · three scheduled tasks (Chapter 14) · validation script (Chapter 17)</td>
+          <td>150+ notes. 70%+ reviewed. <strong>The same answer comes back whoever asks</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Months 7-9</strong></td>
+          <td>Entering stage 3</td>
+          <td>Fold <strong>one</strong> repeated task in as an official AI step · document the review criteria · start retrospectives (Chapter 18)</td>
+          <td>One task that runs without anyone starting it. Review pass rate measurement begins</td>
+        </tr>
+        <tr>
+          <td><strong>Months 10-12</strong></td>
+          <td>Deciding on scale</td>
+          <td>Review the metrics · widen to two or three folded-in tasks · first ontology revision</td>
+          <td>You can state ROI as a number. <strong>Decide here whether to go to stage 4</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">Hold the "one" in months 7 to 9</p>
+      <p>When you fold AI into a workflow, <strong>do two at once and both fail.</strong> One takes two to three months to settle, and you have to refine the review criteria over that period.</p>
+      <p>Here is how to choose. <strong>Done often, reversible when it goes wrong, and under five minutes to review.</strong> Structuring meeting notes or the weekly report make good first candidates. Contract review and quoting come later.</p>
+    </div>
+
+    <h2>What you measure and report: six metrics</h2>
+
+    <p>Around six months in you have to answer "so did it work?" <strong>Same principle as Chapter 15: you measure the system and the work, not people.</strong></p>
+
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>How you measure it</th><th>Target</th><th>Why this metric</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Time to produce repeated output</strong></td>
+          <td>Compare the hours spent on proposals and weekly reports before and after</td>
+          <td>Down 40% or more</td>
+          <td>The only number a CEO reads. Time is money</td>
+        </tr>
+        <tr>
+          <td><strong>2. Share of "no record" answers</strong></td>
+          <td>The share of AI answers where it found no evidence</td>
+          <td>Falling steadily</td>
+          <td>Direct proof the vault is filling up</td>
+        </tr>
+        <tr>
+          <td><strong>3. Share of reviewed notes</strong></td>
+          <td><code>confidence: reviewed</code> / total</td>
+          <td>Held at 70% or above</td>
+          <td>Stops AI output piling up unreviewed</td>
+        </tr>
+        <tr>
+          <td><strong>4. Rule violations (ERROR)</strong></td>
+          <td>The weekly trend from the Chapter 17 validation script</td>
+          <td>Should not rise</td>
+          <td>Shows whether quality holds as the notes grow</td>
+        </tr>
+        <tr>
+          <td><strong>5. Review pass rate</strong></td>
+          <td>The share of AI output that passes without edits</td>
+          <td>Widen stage 3 above 80%</td>
+          <td>The only basis for deciding whether to scale stage 3</td>
+        </tr>
+        <tr>
+          <td><strong>6. Time for a new hire to get up to speed</strong></td>
+          <td>When they can work independently on the onboarding pack alone</td>
+          <td>3 months → 1 month</td>
+          <td>The number that answers symptom 4 in Chapter 1 directly</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">To measure number 1 you have to measure it now</p>
+      <p>Ask "has proposal writing time come down?" six months after you start and nobody can answer. <strong>There is no number from before.</strong></p>
+      <p>So record one thing <strong>now</strong>. "How many hours did the last proposal take in total, adding up everyone's hours." One line does it. That one line becomes your AX results report six months from now.</p>
+    </div>
+
+    <h2>Five ways AX fails</h2>
+
+    <h3>1. You buy the tool first</h3>
+
+    <p>The most common one. You sign for an AI solution, then start wondering "what data do we put in?" The order is backwards. <strong>With the knowledge organized, the tools you already have are usually enough.</strong> Notice that this book had you buy nothing new.</p>
+
+    <h3>2. You pick an easy task so the pilot succeeds</h3>
+
+    <p>The pilot has to succeed for the next budget, so it is understandable. But <strong>an easy task is one that never took long anyway</strong>. Succeed and there is no effect, and then there is no case for scaling.</p>
+
+    <p>Pick instead <strong>the work you do often, that takes a long time, and where you reassemble the same material every time</strong>. Usually proposals, reports and customer replies. Harder, but succeed here and scaling happens on its own.</p>
+
+    <h3>3. You turn organizing knowledge into a "project"</h3>
+
+    <p>"We will run a company-wide knowledge task force for three months." Do that and three months later you have <strong>a well-organized snapshot</strong>, and six months later it is stale. The task force is over, so nobody maintains it.</p>
+
+    <p>Organizing knowledge is not a project. It is <strong>a way of working</strong>. That is why this book pushes <strong>three to five minutes a day</strong> so hard. The habit of putting things back in place beats the big clear-out.</p>
+
+    <h3>4. You build AI judgements people cannot review</h3>
+
+    <p>Automation that produces conclusions with no evidence always gets switched off. <strong>What you cannot review you cannot be accountable for, and what you cannot be accountable for you cannot use at work.</strong></p>
+
+    <p>That is why every prompt in this book carries <strong>"mark the evidence note in brackets"</strong>. It is not a preference. It is a condition for AX.</p>
+
+    <h3>5. You measure people</h3>
+
+    <p>Chapter 15 covered this. Start counting notes per person, AI hours per person, violations per person, and you get <strong>behavior aimed at filling the number</strong>. Numbers filled that way mean nothing.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">The most dangerous of the five</p>
+      <p>Number 3. The other four fail visibly, but <strong>number 3 fails while looking like a success.</strong> There is an organized wiki, so there is something to report and some praise to collect. And a year later nobody uses it.</p>
+      <p>There is a test. <strong>"When did new information last go into this system?"</strong> Two weeks or more and it is already a snapshot.</p>
+    </div>
+
+    <h2>The line before stage 4, agents</h2>
+
+    <p>Once you reach stage 3 the next question arrives on its own. <strong>"Can't we let the AI take it all the way now?"</strong></p>
+
+    <p>This book does not go that far. But here are <strong>the criteria for deciding whether you can cross</strong>. All three have to hold.</p>
+
+    <div class="checklist">
+      <p class="checklist-title">Three conditions for entering stage 4</p>
+      <ul>
+        <li><strong>The review pass rate has held above 80% for three months or more.</strong> One good month means nothing. It has to survive seasonality and a change of owner.</li>
+        <li><strong>There is a procedure for undoing a mistake.</strong> "If this automation sent out a wrong quote, how do we clean that up" needs an answer. Without one, not yet.</li>
+        <li><strong>What was done and why stays on the record.</strong> If people only look at exceptions, the evidence behind everything that was not an exception has to be there for a later audit.</li>
+      </ul>
+    </div>
+
+    <p>Look at the three conditions and they share something. <strong>All of them are about whether a person can check later.</strong> Not one of them is about AI performance. That is not an accident.</p>
+
+    <h3>What to take care of in Korea as well</h3>
+
+    <p>Once AI enters the workflow, personal data and confidential material flow with it. Two things to note.</p>
+
+    <ul>
+      <li><strong>The safest thing is to keep personal data out of the vault.</strong> Personal contact details for a customer's staff, CVs, HR records. If you truly need it, write only "that information is in the HR system" in the note and leave the actual values out. The confidentiality level design in Chapter 6 covers this.</li>
+      <li><strong>Set things up so there is a record of what you sent the AI.</strong> Work through the vault and "which notes were used as evidence" stays in the output. Where everyone pastes into their own chat window (stage 0) there is no such record. <strong>Moving from stage 0 to stage 2 is itself a security improvement.</strong></li>
+    </ul>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: six months</p>
+      <p>These are the numbers Solbit Tech put together six months in. Not only the good ones.</p>
+      <table>
+        <thead><tr><th>Metric</th><th>Before</th><th>After six months</th></tr></thead>
+        <tbody>
+          <tr><td>Writing the proposal "capability and track record" section</td><td>3 people · 9 hours total</td><td><strong>1 person · 2 hours</strong> (review included)</td></tr>
+          <tr><td>Number of notes</td><td>0</td><td>168</td></tr>
+          <tr><td>Share reviewed</td><td>-</td><td>81%</td></tr>
+          <tr><td>Weekly ERRORs</td><td>-</td><td>19 → 3</td></tr>
+          <tr><td>Work log completion rate</td><td>-</td><td>40% → 78%</td></tr>
+          <tr><td>AX maturity</td><td>Stage 1</td><td><strong>Stage 2, entering stage 3</strong></td></tr>
+        </tbody>
+      </table>
+      <p><strong>Some things fell short.</strong></p>
+      <ul>
+        <li>Vault use outside the CEO is <strong>still very uneven.</strong> One of the two developers barely touches it. It feels like "work outside the code" to them.</li>
+        <li>They revised the ontology twice. The first design was not perfect, and <strong>it took time to accept that this is normal.</strong></li>
+        <li>They never reached "all our knowledge is in the vault". They probably never will. <strong>They won clearly on three axes only: proposals, customers and projects.</strong> That was enough.</li>
+      </ul>
+      <p>That last item matters. <strong>Do not try to move everything.</strong> Win on the two or three axes where the repeat cost is highest and the system survives.</p>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: a 90-day AX plan for your company</p>
+      <p>The last exercise in the book. Thirty minutes is enough. The CEO or the knowledge owner does it.</p>
+      <ol>
+        <li><strong>Self-assess your maturity.</strong> Read the "signs you are here" column in the five-stage table above and pick your stage. Most companies are at 0 or 1. That is normal.</li>
+        <li><strong>Write down five repeated tasks.</strong> Things you reassembled from scratch twice or more in the last three months.</li>
+        <li>Write <strong>time per round × times per year</strong> next to each one. The biggest one is your pilot.</li>
+        <li><strong>Record the time now.</strong> "This task currently takes N hours in total." That one line is the baseline for your results report six months out.</li>
+        <li>Write the 90-day plan in three lines.
+          <br>· <strong>Month 1:</strong> vault setup + ontology design + fill the notes that task needs
+          <br>· <strong>Month 2:</strong> apply the recipe to that task + minimum dashboard
+          <br>· <strong>Month 3:</strong> measure the time again + one scheduled task
+        </li>
+        <li>Last, decide this. The rule that <strong>"if this number has not improved in 90 days, we stop"</strong>. Setting the stopping condition up front makes people far more comfortable starting.</li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li><strong>DX changes the tools you work with, AX changes the way you decide.</strong> Using AI tools and doing AX are different things</li>
+        <li>AX stops at individual productivity not because of model performance but because <strong>there is no accurate company knowledge to give the AI</strong></li>
+        <li>Models get better without you. <strong>Nobody builds your company knowledge but you</strong></li>
+        <li>The five maturity stages are <strong>0 everyone on their own · 1 individual productivity · 2 shared knowledge (this book) · 3 built into the workflow · 4 agents</strong></li>
+        <li><strong>Skipping 1 → 3 fails.</strong> No evidence means no review, and no review makes the work slower</li>
+        <li>What stage 2 is worth is not the answer but <strong>"being able to see where the answer came from in 30 seconds"</strong></li>
+        <li>Across the four rollout phases (Diagnose, Strategy, Pilot, Scale), <strong>CLAUDE.md and the ontology design doc stand in for the governance documents</strong></li>
+        <li>Fold in <strong>one</strong> task in months 7 to 9. Done often, reversible, under five minutes to review</li>
+        <li>All six metrics <strong>measure the system and the work.</strong> None of them measures people</li>
+        <li>The failure patterns: buying the tool first · an easy pilot · <strong>turning knowledge work into a project</strong> · automation you cannot review · measuring people</li>
+        <li>The three conditions for stage 4 all ask <strong>whether a person can check later</strong></li>
+        <li><strong>Do not try to move everything.</strong> Win on the two or three axes with the highest repeat cost and the system survives</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>What's left</h3>
+      <p>Chapter 19 is the last chapter. Three appendices remain. <strong>A glossary</strong> (each term marked by layer against the four-layer model), <strong>a copy-and-paste asset collection</strong> (the CLAUDE.md template, seven note templates, the full validation script, three skills, ten scheduled-task prompts), and <strong>where people get stuck</strong> (troubleshooting by symptom).</p>
+      <p>One more time, for the record. <strong>Knowledge you do not put in does not come out.</strong> The quality of this system is exactly proportional to how faithfully you record. You already have every tool you need.</p>
+    </div>
+  </article>
+
+
+  <nav class="chapter-nav">
+    <a href="ch18.en.html" class="back-to-toc">← Previous: Comparing intent against execution</a>
+    <a href="coming-soon.en.html" class="next">Next: Appendix A · Glossary →</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="On this page"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Search contents">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="Find a chapter" aria-label="Search">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

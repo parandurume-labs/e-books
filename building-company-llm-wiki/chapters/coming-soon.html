@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>준비 중 · 회사용 LLM Wiki 만들기</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="alternate" hreflang="en" href="coming-soon.en.html">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">회사용 LLM Wiki 만들기</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 필요한가</li>
+      <li><a href="ch01.html" class="nav-link">1장 우리 지식은 어디에</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 RAG가 아니라 위키다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 온톨로지와 위키의 구분</a></li>
+      <li><a href="ch04.html" class="nav-link">4장 도구 세 개의 역할</a></li>
+      <li class="nav-part">제2부: 준비 · 30분 셋업</li>
+      <li><a href="ch05.html" class="nav-link">5장 옵시디언과 볼트</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 Teams로 팀 연결</a></li>
+      <li><a href="ch07.html" class="nav-link">7장 Cowork에 볼트 연결</a></li>
+      <li class="nav-part">제3부: 온톨로지 설계</li>
+      <li><a href="ch08.html" class="nav-link">8장 설계 원칙 여섯 개</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 클래스 정하기</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 관계와 필드 설계</a></li>
+      <li class="nav-part">제4부: 운영</li>
+      <li><a href="ch11.html" class="nav-link">11장 CLAUDE.md</a></li>
+      <li><a href="ch12.html" class="nav-link">12장 템플릿과 첫 노트</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 스킬로 자동화</a></li>
+      <li class="nav-part">제5부: 자동화와 시각화</li>
+      <li><a href="ch14.html" class="nav-link">14장 스케줄링</a></li>
+      <li><a href="ch15.html" class="nav-link">15장 업무 진행 시각화</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 자동화 레시피 12선</a></li>
+      <li class="nav-part">제6부: 지속</li>
+      <li><a href="ch17.html" class="nav-link">17장 품질을 코드로</a></li>
+      <li><a href="ch18.html" class="nav-link">18장 의도와 실행의 대조</a></li>
+      <li class="nav-part">제7부: AX로 확장</li>
+      <li><a href="ch19.html" class="nav-link">19장 위키에서 AX로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 복붙용 자산</a></li>
+      <li><a href="appendix-c.html" class="nav-link">부록 C: 트러블슈팅</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">준비 중</span>
+    <h1>이 장은 아직 쓰는 중입니다</h1>
+    <p class="chapter-subtitle">지금은 1~4장, 14~16장, 19장을 읽으실 수 있습니다</p>
+  </header>
+
+  <article>
+    <p>이 책은 실제 도입 과정을 따라가며 씁니다. 한 번에 완성해 두는 대신 검증된 내용을 차례로 채워 넣습니다.</p>
+
+    <div class="callout">
+      <p class="callout-title">지금 읽을 수 있는 장</p>
+      <p><strong>제1부 · 왜 필요한가</strong><br>
+        <a href="ch01.html">1장 우리 회사 지식은 어디에 있나</a><br>
+        <a href="ch02.html">2장 RAG가 아니라 위키다</a><br>
+        <a href="ch03.html">3장 온톨로지와 LLM Wiki는 같은 말이 아니다</a><br>
+        <a href="ch04.html">4장 도구 세 개의 역할 분담</a>
+      </p>
+      <p><strong>제5부 · 자동화와 시각화</strong><br>
+        <a href="ch14.html">14장 스케줄링: 사람이 잊어도 돌아가게</a><br>
+        <a href="ch15.html">15장 업무 진행을 눈에 보이게</a><br>
+        <a href="ch16.html">16장 실무 자동화 레시피 12선</a>
+      </p>
+      <p><strong>제7부 · AX로 확장</strong><br>
+        <a href="ch19.html">19장 LLM Wiki에서 시작하는 AX</a>
+      </p>
+    </div>
+
+    <p>순서대로 읽지 않아도 됩니다. <strong>1~4장으로 「우리 회사에 필요한지」를 판단하고, 19장으로 「어디까지 갈 수 있나」를 먼저 보는 것도 좋은 순서</strong>입니다. 14~16장은 실제로 돌리는 방법이라 2~4부를 마친 뒤에 보시면 자연스럽습니다.</p>
+
+    <h2>남은 목차</h2>
+
+    <table>
+      <thead><tr><th>부</th><th>장</th><th>상태</th></tr></thead>
+      <tbody>
+        <tr><td>제1부 왜 필요한가</td><td>1~4장</td><td><strong>공개</strong></td></tr>
+        <tr><td>제2부 준비 · 30분 셋업</td><td>5장 옵시디언과 볼트 / 6장 Teams 연결 / 7장 Cowork 연결</td><td>집필 중</td></tr>
+        <tr><td>제3부 온톨로지 설계</td><td>8장 설계 원칙 / 9장 클래스 정하기 / 10장 관계와 필드</td><td>예정</td></tr>
+        <tr><td>제4부 운영</td><td>11장 CLAUDE.md / 12장 템플릿 / 13장 스킬 자동화</td><td>예정</td></tr>
+        <tr><td>제5부 자동화와 시각화</td><td>14~16장</td><td><strong>공개</strong></td></tr>
+        <tr><td>제6부 지속</td><td>17장 품질 검증 / 18장 회고</td><td>예정</td></tr>
+        <tr><td>제7부 AX로 확장</td><td>19장</td><td><strong>공개</strong></td></tr>
+        <tr><td>부록</td><td>A 용어 사전 / B 복붙용 자산 / C 트러블슈팅</td><td>예정</td></tr>
+      </tbody>
+    </table>
+
+    <div class="next-teaser">
+      <h3>알림을 받고 싶으시면</h3>
+      <p>GitHub 저장소를 Watch 해두시면 새 장이 올라올 때 알 수 있습니다. 내용 제안이나 오탈자 제보도 환영합니다.</p>
+    </div>
+  </article>
+
+  <nav class="chapter-nav">
+    <a href="../index.html" class="back-to-toc">← 목차로</a>
+    <a href="ch01.html" class="next">1장부터 읽기 →</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

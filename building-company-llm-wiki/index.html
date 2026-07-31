@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회사용 LLM Wiki 만들기: 흩어진 지식을 조직의 뇌로</title>
+  <meta name="description" content="Microsoft Teams + Obsidian + Claude Cowork로 회사 지식을 AI가 읽을 수 있는 자산으로 만드는 실전 가이드. 온톨로지와 LLM Wiki의 구분, 스케줄링 자동화, 업무 진행 시각화, 그리고 회사 AX 로드맵까지.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="alternate" hreflang="en" href="index.en.html">
+  <link rel="stylesheet" href="../assets/css/book.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+  <!-- Reading Progress Bar -->
+  <div class="progress-bar" id="progressBar"></div>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+  <!-- Mobile Header -->
+  <header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">회사용 LLM Wiki 만들기</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="#hero" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 필요한가</li>
+      <li><a href="#ch1" class="nav-link">1장 우리 지식은 어디에</a></li>
+      <li><a href="#ch2" class="nav-link">2장 RAG가 아니라 위키다</a></li>
+      <li><a href="#ch3" class="nav-link">3장 온톨로지와 위키의 구분</a></li>
+      <li><a href="#ch4" class="nav-link">4장 도구 세 개의 역할</a></li>
+      <li class="nav-part">제2부: 준비 · 30분 셋업</li>
+      <li><a href="#ch5" class="nav-link">5장 옵시디언과 볼트</a></li>
+      <li><a href="#ch6" class="nav-link">6장 Teams로 팀 연결</a></li>
+      <li><a href="#ch7" class="nav-link">7장 Cowork에 볼트 연결</a></li>
+      <li class="nav-part">제3부: 온톨로지 설계</li>
+      <li><a href="#ch8" class="nav-link">8장 설계 원칙 여섯 개</a></li>
+      <li><a href="#ch9" class="nav-link">9장 클래스 정하기</a></li>
+      <li><a href="#ch10" class="nav-link">10장 관계와 필드 설계</a></li>
+      <li class="nav-part">제4부: 운영</li>
+      <li><a href="#ch11" class="nav-link">11장 CLAUDE.md</a></li>
+      <li><a href="#ch12" class="nav-link">12장 템플릿과 첫 노트</a></li>
+      <li><a href="#ch13" class="nav-link">13장 스킬로 자동화</a></li>
+      <li class="nav-part">제5부: 자동화와 시각화</li>
+      <li><a href="#ch14" class="nav-link">14장 스케줄링</a></li>
+      <li><a href="#ch15" class="nav-link">15장 업무 진행 시각화</a></li>
+      <li><a href="#ch16" class="nav-link">16장 자동화 레시피 12선</a></li>
+      <li class="nav-part">제6부: 지속</li>
+      <li><a href="#ch17" class="nav-link">17장 품질을 코드로</a></li>
+      <li><a href="#ch18" class="nav-link">18장 의도와 실행의 대조</a></li>
+      <li class="nav-part">제7부: AX로 확장</li>
+      <li><a href="#ch19" class="nav-link">19장 위키에서 AX로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="#appendix-a" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="#appendix-b" class="nav-link">부록 B: 복붙용 자산</a></li>
+      <li><a href="#appendix-c" class="nav-link">부록 C: 트러블슈팅</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Main Content -->
+  <main class="main-content" id="main">
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="hero-inner">
+        <div class="hero-badge">Teams · Obsidian · Claude Cowork · 온톨로지 · AX · 한국어</div>
+        <h1 class="hero-title">
+          <span class="hero-title-sub">흩어진 지식을 조직의 뇌로</span>
+          회사용<br>LLM Wiki 만들기
+        </h1>
+        <p class="hero-tagline">
+          제안서를 쓸 때마다 실적을 처음부터 다시 정리하고 있나요?<br>
+          3개월 전 왜 그 결정을 했는지 아무도 기억하지 못하나요?<br>
+          <strong>회사 지식을 AI가 읽는 자산으로 바꾸고, 거기서 회사의 AX를 시작하는 법</strong>을 처음부터 끝까지 다룹니다.
+        </p>
+        <div class="hero-actions">
+          <a href="#toc" class="btn btn-primary">목차 보기</a>
+          <a href="chapters/ch01.html" class="btn btn-secondary">바로 읽기 →</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number">19</span>
+            <span class="stat-label">챕터</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">3</span>
+            <span class="stat-label">부록</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">8</span>
+            <span class="stat-label">장 공개</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-decoration">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+      </div>
+    </section>
+
+    <!-- Table of Contents -->
+    <section class="toc-section" id="toc">
+      <h2 class="section-title">목차</h2>
+      <p class="section-subtitle">7개의 파트, 19개의 챕터, 3개의 부록. 읽으면서 바로 만들 수 있게 구성했습니다.</p>
+
+      <div class="callout callout-tip">
+        <p class="callout-title">지금 읽을 수 있는 장 8개</p>
+        <p><strong>1~4장</strong>(왜 필요한가) · <strong>14~16장</strong>(자동화와 시각화) · <strong>19장</strong>(AX)이 공개되어 있습니다. 나머지는 순차 공개 중입니다.</p>
+        <p>처음이시면 <a href="chapters/ch01.html">1장</a>부터 읽으시고, 「이게 우리 회사에 왜 필요한가」를 먼저 확인하고 싶으시면 <a href="chapters/ch03.html">3장</a>과 <a href="chapters/ch19.html">19장</a>을 먼저 보셔도 됩니다.</p>
+      </div>
+
+
+      <!-- 제1부 -->
+      <div class="toc-part" id="part1">
+        <div class="part-header">
+          <span class="part-number">제1부</span>
+          <h3 class="part-title">왜 필요한가</h3>
+          <p class="part-desc">우리 회사 지식이 지금 어떤 상태인지 진단합니다. RAG와 LLM Wiki가 무엇이 다른지, 가장 헷갈리는 「온톨로지와 위키의 차이」를 네 층으로 정리합니다.</p>
+        </div>
+        <div class="chapter-grid">
+          <a href="chapters/ch01.html" class="chapter-card" id="ch1">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 1</span>
+              <h4 class="chapter-title">우리 회사 지식은 어디에 있나</h4>
+              <p class="chapter-excerpt">회의 내용은 각자 메모장에, 제품 스펙은 머릿속에. 지식 파편화의 네 가지 증상을 진단합니다.</p>
+            </div>
+          </a>
+          <a href="chapters/ch02.html" class="chapter-card" id="ch2">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 2</span>
+              <h4 class="chapter-title">RAG가 아니라 위키다</h4>
+              <p class="chapter-excerpt">문서를 통째로 넣고 검색하는 방식의 한계. 지식을 미리 구조화해두면 무엇이 달라지나.</p>
+            </div>
+          </a>
+          <a href="chapters/ch03.html" class="chapter-card" id="ch3">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 3</span>
+              <h4 class="chapter-title">온톨로지와 LLM Wiki는 같은 말이 아니다</h4>
+              <p class="chapter-excerpt">이 혼동 하나가 프로젝트를 멈춥니다. 4층 모델로 정리하고 흔히 보는 틀린 문장 여덟 개를 고칩니다.</p>
+            </div>
+          </a>
+          <a href="chapters/ch04.html" class="chapter-card" id="ch4">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 4</span>
+              <h4 class="chapter-title">도구 세 개의 역할 분담</h4>
+              <p class="chapter-excerpt">Teams는 배포, Obsidian은 창, Claude Cowork는 손. 왜 이 조합이고 MCP는 왜 필요 없는지.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 제2부 -->
+      <div class="toc-part" id="part2">
+        <div class="part-header">
+          <span class="part-number">제2부</span>
+          <h3 class="part-title">준비 · 30분 셋업</h3>
+          <p class="part-desc">설치하고 연결합니다. 여기서 한 번 걸리면 끝까지 고생하는 함정 하나를 반드시 넘어야 합니다.</p>
+        </div>
+        <div class="chapter-grid">
+          <a href="chapters/ch05.html" class="chapter-card" id="ch5">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 5</span>
+              <h4 class="chapter-title">옵시디언과 볼트 이해하기</h4>
+              <p class="chapter-excerpt">볼트는 그냥 폴더입니다. 왜 데이터베이스가 아니라 파일이어야 하는지.</p>
+            </div>
+          </a>
+          <a href="chapters/ch06.html" class="chapter-card" id="ch6">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 6</span>
+              <h4 class="chapter-title">Teams 공유폴더로 팀 전체에 연결하기</h4>
+              <p class="chapter-excerpt">「이 디바이스에 항상 유지」를 모르면 AI가 파일을 못 읽습니다. 동시 편집 충돌도 함께.</p>
+            </div>
+          </a>
+          <a href="chapters/ch07.html" class="chapter-card" id="ch7">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 7</span>
+              <h4 class="chapter-title">Claude Cowork에 볼트 연결하기</h4>
+              <p class="chapter-excerpt">폴더 하나 연결하면 AI가 회사 지식을 읽고 씁니다. 되는 것과 안 되는 것을 구분합니다.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 제3부 -->
+      <div class="toc-part" id="part3">
+        <div class="part-header">
+          <span class="part-number">제3부</span>
+          <h3 class="part-title">온톨로지 설계: 이 책의 심장</h3>
+          <p class="part-desc">남의 스키마를 베끼지 않습니다. 우리 회사의 지식 체계를 직접 설계합니다. 3~5시간이면 끝나야 하고, 그 이상 쓰면 오히려 실패합니다.</p>
+        </div>
+        <div class="chapter-grid">
+          <a href="chapters/ch08.html" class="chapter-card" id="ch8">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 8</span>
+              <h4 class="chapter-title">설계 원칙 여섯 개</h4>
+              <p class="chapter-excerpt">태그로 하면 안 되는 이유, 과설계의 비용, 그리고 설계 회의를 진행하는 방법.</p>
+            </div>
+          </a>
+          <a href="chapters/ch09.html" class="chapter-card" id="ch9">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 9</span>
+              <h4 class="chapter-title">우리 회사 클래스 정하기</h4>
+              <p class="chapter-excerpt">돈과 계약이 붙었으면 과제, 안 붙었으면 기회. 판정 기준을 명문화합니다.</p>
+            </div>
+          </a>
+          <a href="chapters/ch10.html" class="chapter-card" id="ch10">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 10</span>
+              <h4 class="chapter-title">관계와 필드 설계하기</h4>
+              <p class="chapter-excerpt">관계 술어, frontmatter, 통제 어휘. 회고를 가능하게 만드는 연결선 하나.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 제4부 -->
+      <div class="toc-part" id="part4">
+        <div class="part-header">
+          <span class="part-number">제4부</span>
+          <h3 class="part-title">운영: 실제로 돌리기</h3>
+          <p class="part-desc">규칙을 AI에게 알려주고, 템플릿을 만들고, 반복 작업을 스킬로 굳힙니다.</p>
+        </div>
+        <div class="chapter-grid">
+          <a href="chapters/ch11.html" class="chapter-card" id="ch11">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 11</span>
+              <h4 class="chapter-title">CLAUDE.md: AI에게 회사 규칙 알려주기</h4>
+              <p class="chapter-excerpt">파일 하나로 팀 전체에 규칙을 배포합니다. 틀리기 쉬운 사실 목록으로 할루시네이션을 막습니다.</p>
+            </div>
+          </a>
+          <a href="chapters/ch12.html" class="chapter-card" id="ch12">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 12</span>
+              <h4 class="chapter-title">템플릿과 첫 노트 만들기</h4>
+              <p class="chapter-excerpt">원문과 가공물을 분리합니다. 검증 플래그 하나가 신뢰도를 만듭니다.</p>
+            </div>
+          </a>
+          <a href="chapters/ch13.html" class="chapter-card" id="ch13">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 13</span>
+              <h4 class="chapter-title">스킬로 반복 작업 자동화하기</h4>
+              <p class="chapter-excerpt">구조화·회고·감사 세 가지를 스킬로 만듭니다. 팀 배포 문제도 함께 해결합니다.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 제5부 -->
+      <div class="toc-part" id="part5">
+        <div class="part-header">
+          <span class="part-number">제5부</span>
+          <h3 class="part-title">자동화와 시각화: 손을 떼고 눈에 보이게</h3>
+          <p class="part-desc">여기가 이 책의 실무 구간입니다. 사람이 기억해서 하던 일을 시계에 붙이고, 기록의 이득을 눈에 보이게 만들고, 실제 업무 레시피 12개를 돌립니다.</p>
+        </div>
+        <div class="chapter-grid">
+          <a href="chapters/ch14.html" class="chapter-card" id="ch14">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 14</span>
+              <h4 class="chapter-title">스케줄링: 사람이 잊어도 돌아가게</h4>
+              <p class="chapter-excerpt">Cowork 예약 작업의 핵심 제약과 우회 설계 네 가지. Windows 작업 스케줄러와 Power Automate까지.</p>
+            </div>
+          </a>
+          <a href="chapters/ch15.html" class="chapter-card" id="ch15">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 15</span>
+              <h4 class="chapter-title">업무 진행을 눈에 보이게</h4>
+              <p class="chapter-excerpt">플러그인 0개로 그리는 간트와 관계도, Bases 표·칸반, 매주 자동 갱신되는 대시보드 한 장.</p>
+            </div>
+          </a>
+          <a href="chapters/ch16.html" class="chapter-card" id="ch16">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 16</span>
+              <h4 class="chapter-title">실무 자동화 레시피 12선</h4>
+              <p class="chapter-excerpt">회의록 구조화부터 제안서 초안까지. 첫 레시피는 입력, 프롬프트, 결과물, 검증, 실패까지 전부 공개합니다.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 제6부 -->
+      <div class="toc-part" id="part6">
+        <div class="part-header">
+          <span class="part-number">제6부</span>
+          <h3 class="part-title">지속: 무너지지 않게</h3>
+          <p class="part-desc">대부분의 지식관리 시스템은 3개월 뒤에 죽습니다. 죽지 않게 만드는 두 가지 장치를 답니다.</p>
+        </div>
+        <div class="chapter-grid">
+          <a href="chapters/ch17.html" class="chapter-card" id="ch17">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 17</span>
+              <h4 class="chapter-title">품질을 코드로 지키기</h4>
+              <p class="chapter-excerpt">「잘 관리하세요」는 관리 방법이 아닙니다. 파이썬 스크립트로 규칙 위반을 잡습니다.</p>
+            </div>
+          </a>
+          <a href="chapters/ch18.html" class="chapter-card" id="ch18">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 18</span>
+              <h4 class="chapter-title">의도와 실행을 대조하는 회고</h4>
+              <p class="chapter-excerpt">기획만 쌓으면 계획서, 로그만 쌓으면 일지. 둘을 연결해야 회고가 됩니다.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 제7부 -->
+      <div class="toc-part" id="part7">
+        <div class="part-header">
+          <span class="part-number">제7부</span>
+          <h3 class="part-title">AX: 위키에서 회사 전체로</h3>
+          <p class="part-desc">AI를 도입하는 일과 회사가 바뀌는 일은 다릅니다. 성숙도 5단계로 지금 위치를 확인하고, 12개월 로드맵과 측정 지표까지 정리합니다.</p>
+        </div>
+        <div class="chapter-grid">
+          <a href="chapters/ch19.html" class="chapter-card" id="ch19">
+            <div class="chapter-illustration" aria-hidden="true">
+              <div class="illustration-placeholder"><span></span></div>
+            </div>
+            <div class="chapter-info">
+              <span class="chapter-number">Chapter 19</span>
+              <h4 class="chapter-title">LLM Wiki에서 시작하는 AX</h4>
+              <p class="chapter-excerpt">DX와 AX의 차이, 성숙도 5단계 자기진단, 추진 4단계, 지표 여섯 개, AX가 실패하는 다섯 가지 패턴.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+
+      <!-- Appendices -->
+      <div class="toc-part toc-appendix" id="appendices">
+        <div class="part-header">
+          <span class="part-number">부록</span>
+          <h3 class="part-title">부록</h3>
+          <p class="part-desc">읽고 나서 바로 쓸 수 있게. 복사해서 붙이면 되는 자산들.</p>
+        </div>
+        <div class="appendix-grid">
+          <a href="chapters/appendix-a.html" class="appendix-card" id="appendix-a">
+            <span class="appendix-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H19v3H6.5A2.5 2.5 0 0 1 4 20.5z"/></svg></span>
+            <div>
+              <h4>부록 A</h4>
+              <p>용어 사전</p>
+            </div>
+          </a>
+          <a href="chapters/appendix-b.html" class="appendix-card" id="appendix-b">
+            <span class="appendix-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H19v3H6.5A2.5 2.5 0 0 1 4 20.5z"/></svg></span>
+            <div>
+              <h4>부록 B</h4>
+              <p>복붙용 자산 모음</p>
+            </div>
+          </a>
+          <a href="chapters/appendix-c.html" class="appendix-card" id="appendix-c">
+            <span class="appendix-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H19v3H6.5A2.5 2.5 0 0 1 4 20.5z"/></svg></span>
+            <div>
+              <h4>부록 C</h4>
+              <p>자주 막히는 곳</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+      <div class="cta-inner">
+        <h2>넣지 않은 지식은 나오지 않습니다</h2>
+        <p>이 시스템의 품질은 우리가 얼마나 성실하게 기록하는지에 정확히 비례합니다.<br>그래서 이 책은 도구 사용법이 아니라 <strong>운영 습관</strong>을 다룹니다.</p>
+        <a href="chapters/ch01.html" class="btn btn-primary btn-large">1장부터 시작하기 →</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="footer-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+          <span>회사용 LLM Wiki 만들기</span>
+        </div>
+        <p class="footer-message">
+          이 책은 <strong>실제 도입 과정</strong>을 기록해 만들었습니다.<br>
+          성공한 것만 쓰지 않았습니다. 도입했다가 걷어낸 것, 틀렸던 판단도 함께 적었습니다.<br>
+          <span class="footer-highlight">흩어진 지식을 조직의 뇌로.</span>
+        </p>
+        <div class="footer-links">
+          <a href="../index.html">e-book 컬렉션</a>
+          <span class="footer-divider">·</span>
+          <a href="https://github.com/parandurume-labs/e-books" target="_blank" rel="noopener">GitHub</a>
+          <span class="footer-divider">·</span>
+          <a href="https://github.com/parandurume-labs/e-books/issues" target="_blank" rel="noopener">피드백</a>
+        </div>
+        <p class="footer-copy">
+          &copy; 2026 파란두루미 주식회사.
+          <br>Licensed under <a href="../LICENSE">GM-Social License v2.0</a>
+          <br>Made with AI in Gwangmyeong, Gyeonggi-do, South Korea.
+        </p>
+      </div>
+    </footer>
+
+  </main>
+
+  <div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+  <script src="../assets/js/book.js"></script>
+</body>
+</html>

@@ -3,20 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="프롬프트 엔지니어링 기초 — AI에게 역할을 부여하고 정확한 결과를 뽑아내는 기술">
+  <meta name="description" content="프롬프트 엔지니어링 기초 · AI에게 역할을 부여하고 정확한 결과를 뽑아내는 기술">
   <meta name="author" content="나만의 AI 스킬을 만들자">
-  <title>Chapter 9: 프롬프트 엔지니어링 기초 — AI에게 역할 부여하기 — 나만의 AI 스킬을 만들자</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <title>Chapter 9: 프롬프트 엔지니어링 기초 · AI에게 역할 부여하기 · 나만의 AI 스킬을 만들자</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
 </head>
 <body>
-
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">나만의 AI 스킬을 만들자</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10h3V7L6.5 3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1-3 3l-6-6a6 6 0 0 1-8-8L7 7z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 · 스킬이 필요한 세상</li>
+      <li><a href="ch01.html" class="nav-link">1장 AI와 대화한다는 것</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 반복은 지겹다: 자동화의 본능</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 내가 만든 도구를 나눠준다</a></li>
+      <li class="nav-part">제2부: 뭘 · 스킬 패키지 해부학</li>
+      <li><a href="ch04.html" class="nav-link">4장 스킬 패키지란?</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 뼈대 살펴보기</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 프론트매터: 스킬의 신분증</a></li>
+      <li><a href="ch07.html" class="nav-link">7장 references/ · 스킬의 참고서 폴더</a></li>
+      <li class="nav-part">제3부: 어떻게 · 나만의 스킬 만들기</li>
+      <li><a href="ch08.html" class="nav-link">8장 첫 번째 스킬: "인사하기"</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 프롬프트 엔지니어링 기초</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 도구 연결하기</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 references로 지식 확장하기</a></li>
+      <li><a href="ch12.html" class="nav-link">12장 템플릿과 변수</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 테스트하고 다듬기</a></li>
+      <li class="nav-part">제4부: 더 멀리 · 성장하는 스킬</li>
+      <li><a href="ch14.html" class="nav-link">14장 여러 스킬을 하나로</a></li>
+      <li><a href="ch15.html" class="nav-link">15장 팀과 함께 쓰는 스킬</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 커뮤니티에 기여하기</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전 (한-영 대조)</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 일러스트 프롬프트 모음</a></li>
+      <li><a href="appendix-c.html" class="nav-link">부록 C: 스킬 패키지 체크리스트</a></li>
+      <li><a href="appendix-d.html" class="nav-link">부록 D: 참고 자료 및 링크</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
 <div class="chapter-content">
 
   <!-- ====== Chapter Header ====== -->
   <header class="chapter-header">
     <span class="chapter-number">CHAPTER 9</span>
     <h1>프롬프트 엔지니어링 기초</h1>
-    <p class="chapter-subtitle">AI에게 역할 부여하기 — 영화 감독이 되어봅시다</p>
+    <p class="chapter-subtitle">AI에게 역할 부여하기: 영화 감독이 되어봅시다</p>
   </header>
 
   <figure class="illustration">
@@ -73,6 +128,7 @@
       <p><strong>v1 (모호한 버전):</strong></p>
 
 <pre><code>---
+name: text-summarizer
 description: "텍스트를 요약해주는 스킬"
 ---
 
@@ -85,6 +141,7 @@ description: "텍스트를 요약해주는 스킬"
       <p><strong>v2 (구체적인 버전):</strong></p>
 
 <pre><code>---
+name: three-line-summary
 description: "텍스트를 3줄로 핵심 요약해주는 스킬"
 ---
 
@@ -119,6 +176,7 @@ description: "텍스트를 3줄로 핵심 요약해주는 스킬"
       <p>실제로 스킬에 적용하면 이런 식이에요:</p>
 
 <pre><code>---
+name: code-review-helper
 description: "코드 리뷰를 해주는 시니어 개발자 스킬"
 ---
 
@@ -133,7 +191,7 @@ description: "코드 리뷰를 해주는 시니어 개발자 스킬"
 - 개선할 점을 건설적으로 제안하고
 - 왜 그렇게 해야 하는지 이유를 설명합니다</code></pre>
 
-      <p>"15년 경력의 시니어" — 이 설정 하나로 AI가 훨씬 깊이 있는 리뷰를 해요. 또한 "후배를 가르치는 것을 좋아한다" 덕분에 설명이 친절해지죠.</p>
+      <p>"15년 경력의 시니어"라는 설정 하나로 AI가 훨씬 깊이 있는 리뷰를 해요. "후배를 가르치는 것을 좋아한다" 덕분에 설명도 친절해지죠.</p>
     </section>
 
     <!-- ====== Principle 3 ====== -->
@@ -144,19 +202,21 @@ description: "코드 리뷰를 해주는 시니어 개발자 스킬"
 
 <pre><code>## 응답 예시
 
-### 입력: "오늘 날씨 어때?"
+### 입력: "안녕"
 ### 응답:
-"오늘 서울 날씨요? ☀️ 맑고 선선해요!
-최고 18도, 최저 8도. 가벼운 자켓 하나 걸치면 딱이에요.
-미세먼지는 '좋음' — 산책하기 완벽한 날이네요! 🚶‍♂️"
+"안녕하세요! 😊
+오늘은 3월 27일인데요, 1845년에 X선을 발견한 뢴트겐이 태어난 날이에요.
+눈에 안 보이던 걸 처음 본 날이라니, 멋지죠?
+오늘도 새로운 걸 하나 발견하는 하루가 되길 바랄게요!"
 
-### 입력: "내일 비 와?"
+### 입력: "좋은 아침"
 ### 응답:
-"내일은 오후부터 비 소식이 있어요 🌧️
-낮 기온 15도로 좀 쌀쌀하니, 우산이랑 따뜻한 옷 챙기세요!
-비 오는 날엔 따뜻한 국물 요리 어떨까요? 🍜"</code></pre>
+"좋은 아침이에요! ☀️
+오늘은 5월 20일, 1873년에 리바이 스트라우스가 청바지 특허를 받은 날이에요.
+작업복이 100년 뒤에 패션이 될 줄 누가 알았을까요?
+오늘 하신 일도 어딘가에서 오래 남기를!"</code></pre>
 
-      <p>이 예시를 본 AI는 "아, 이모지도 쓰고, 온도 정보도 넣고, 마지막에 활동 제안도 하는 거구나!"를 정확히 파악해요.</p>
+      <p>이 예시를 본 AI는 "아, 인사 한 줄에 이모지 하나 붙이고, 날짜에 얽힌 사실을 하나 소개하고, 마지막에 응원 한마디로 닫는 거구나!"를 정확히 파악해요.</p>
 
       <div class="callout">
         <p class="callout-title">예시의 힘</p>
@@ -210,7 +270,7 @@ description: "코드 리뷰를 해주는 시니어 개발자 스킬"
 - 키워드2
 - 키워드3
 
-### 💡 한줄 인사이트
+### 한줄 인사이트
 (이 글에서 얻을 수 있는 가장 중요한 교훈 한 줄)</code></pre>
 
       <p>이렇게 형식을 정해주면, AI가 매번 같은 구조로 응답해요. 일관성이 생기는 거예요.</p>
@@ -218,13 +278,14 @@ description: "코드 리뷰를 해주는 시니어 개발자 스킬"
 
     <!-- ====== Evolution Example ====== -->
     <section>
-      <h2>실전: 스킬의 진화 — v1에서 v3까지</h2>
+      <h2>실전: 스킬의 진화 (v1에서 v3까지)</h2>
 
       <p>이론은 충분해요. 이제 실전으로 가봅시다. 챕터 8에서 만든 인사하기 스킬을 5가지 원칙을 적용해서 업그레이드해볼게요.</p>
 
       <h3>v1: 우리가 처음 만든 버전</h3>
 
 <pre><code>---
+name: hello-skill
 description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
 ---
 
@@ -238,6 +299,7 @@ description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
       <h3>v2: 구체성 + 역할 강화</h3>
 
 <pre><code>---
+name: hello-skill
 description: "따뜻한 한국어 인사와 오늘의 이야기를 전해주는 스킬"
 ---
 
@@ -260,6 +322,7 @@ description: "따뜻한 한국어 인사와 오늘의 이야기를 전해주는 
       <h3>v3: 예시 + 제약 + 형식까지</h3>
 
 <pre><code>---
+name: hello-skill
 description: "따뜻한 한국어 인사와 오늘의 이야기를 전해주는 카페 바리스타 스킬"
 ---
 
@@ -306,16 +369,16 @@ description: "따뜻한 한국어 인사와 오늘의 이야기를 전해주는 
 
     <!-- ====== Practice ====== -->
     <section>
-      <h2>실습: 여러분의 스킬을 업그레이드하세요</h2>
+      <h2>실습: 스킬을 업그레이드하세요</h2>
 
       <p>챕터 8에서 만든 인사하기 스킬을 열어보세요. 그리고 오늘 배운 5가지 원칙을 적용해보세요:</p>
 
       <ol>
-        <li><strong>구체적으로</strong> — "따뜻하게"를 "동네 카페 바리스타처럼"으로</li>
-        <li><strong>역할 부여</strong> — "당신은 ___입니다" 추가</li>
-        <li><strong>예시 추가</strong> — 원하는 응답 예시 1-2개</li>
-        <li><strong>하지 말 것</strong> — 원하지 않는 행동 3개 이상</li>
-        <li><strong>출력 형식</strong> — 응답의 구조를 정해주기</li>
+        <li><strong>구체적으로</strong>: "따뜻하게"를 "동네 카페 바리스타처럼"으로</li>
+        <li><strong>역할 부여</strong>: "당신은 ___입니다" 추가</li>
+        <li><strong>예시 추가</strong>: 원하는 응답 예시 1-2개</li>
+        <li><strong>하지 말 것</strong>: 원하지 않는 행동 3개 이상</li>
+        <li><strong>출력 형식</strong>: 응답의 구조를 정해주기</li>
       </ol>
 
       <p>직접 해보면, "아, 이렇게 바꾸면 결과가 달라지는구나!"를 체감하실 거예요.</p>
@@ -328,11 +391,11 @@ description: "따뜻한 한국어 인사와 오늘의 이야기를 전해주는 
         <li><strong>프롬프트 엔지니어링</strong> = AI에게 정확한 결과를 뽑아내는 지시 기술이에요</li>
         <li><strong>5가지 핵심 원칙:</strong>
           <ol>
-            <li>구체적으로 말하기 — "요약해줘" 대신 "3문장으로 쉽게 요약해줘"</li>
-            <li>역할 부여하기 — "당신은 15년 경력의 시니어 개발자입니다"</li>
-            <li>예시 보여주기 — 원하는 응답의 샘플 2-3개</li>
-            <li>하지 말 것 정하기 — AI의 활동 범위에 울타리 치기</li>
-            <li>출력 형식 지정 — 응답의 구조를 미리 정해주기</li>
+            <li>구체적으로 말하기: "요약해줘" 대신 "3문장으로 쉽게 요약해줘"</li>
+            <li>역할 부여하기: "당신은 15년 경력의 시니어 개발자입니다"</li>
+            <li>예시 보여주기: 원하는 응답의 샘플 2-3개</li>
+            <li>하지 말 것 정하기: AI의 활동 범위에 울타리 치기</li>
+            <li>출력 형식 지정: 응답의 구조를 미리 정해주기</li>
           </ol>
         </li>
         <li>스킬의 본문 = 프롬프트. <strong>좋은 프롬프트 = 좋은 스킬</strong></li>
@@ -343,9 +406,9 @@ description: "따뜻한 한국어 인사와 오늘의 이야기를 전해주는 
     <!-- ====== Next Teaser ====== -->
     <div class="next-teaser">
       <h3>다음 챕터에서는...</h3>
-      <p>지금까지 우리 스킬은 "말만" 할 수 있었어요. 텍스트를 읽고 텍스트를 쓰는 것뿐이죠.<br>
-      근데 스킬이 <strong>파일을 읽고, 명령어를 실행하고, 코드를 검색</strong>할 수 있다면?<br>
-      다음 챕터에서는 <strong>도구 연결하기</strong> — <code>allowed-tools</code>의 세계에 들어갑니다.<br>
+      <p>지금까지 우리 스킬은 "말만" 했어요. 텍스트를 읽고 텍스트를 쓰는 것뿐이죠.<br>
+      근데 스킬이 <strong>파일을 읽고, 명령어를 실행하고, 코드를 검색</strong>한다면?<br>
+      다음 챕터에서는 <strong>도구 연결하기</strong>를 배워요. <code>allowed-tools</code>의 세계에 들어갑니다.<br>
       주방 도구 없는 셰프에서, 풀장비 셰프로 업그레이드하는 시간이에요!</p>
     </div>
 
@@ -358,6 +421,15 @@ description: "따뜻한 한국어 인사와 오늘의 이야기를 전해주는 
   </nav>
 
 </div>
-
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
 </body>
 </html>

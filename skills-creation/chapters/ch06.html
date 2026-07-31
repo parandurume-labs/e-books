@@ -3,20 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="프론트매터: 스킬의 신분증 — YAML 헤더로 스킬의 정체를 알려주는 방법">
+  <meta name="description" content="프론트매터: 스킬의 신분증. YAML 헤더로 스킬의 정체를 알려주는 방법">
   <meta name="author" content="나만의 AI 스킬을 만들자">
-  <title>Chapter 6: 프론트매터: 스킬의 신분증 — 나만의 AI 스킬을 만들자</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <title>Chapter 6: 프론트매터: 스킬의 신분증 · 나만의 AI 스킬을 만들자</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
 </head>
 <body>
-
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">나만의 AI 스킬을 만들자</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10h3V7L6.5 3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1-3 3l-6-6a6 6 0 0 1-8-8L7 7z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 · 스킬이 필요한 세상</li>
+      <li><a href="ch01.html" class="nav-link">1장 AI와 대화한다는 것</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 반복은 지겹다: 자동화의 본능</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 내가 만든 도구를 나눠준다</a></li>
+      <li class="nav-part">제2부: 뭘 · 스킬 패키지 해부학</li>
+      <li><a href="ch04.html" class="nav-link">4장 스킬 패키지란?</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 뼈대 살펴보기</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 프론트매터: 스킬의 신분증</a></li>
+      <li><a href="ch07.html" class="nav-link">7장 references/ · 스킬의 참고서 폴더</a></li>
+      <li class="nav-part">제3부: 어떻게 · 나만의 스킬 만들기</li>
+      <li><a href="ch08.html" class="nav-link">8장 첫 번째 스킬: "인사하기"</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 프롬프트 엔지니어링 기초</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 도구 연결하기</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 references로 지식 확장하기</a></li>
+      <li><a href="ch12.html" class="nav-link">12장 템플릿과 변수</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 테스트하고 다듬기</a></li>
+      <li class="nav-part">제4부: 더 멀리 · 성장하는 스킬</li>
+      <li><a href="ch14.html" class="nav-link">14장 여러 스킬을 하나로</a></li>
+      <li><a href="ch15.html" class="nav-link">15장 팀과 함께 쓰는 스킬</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 커뮤니티에 기여하기</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전 (한-영 대조)</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 일러스트 프롬프트 모음</a></li>
+      <li><a href="appendix-c.html" class="nav-link">부록 C: 스킬 패키지 체크리스트</a></li>
+      <li><a href="appendix-d.html" class="nav-link">부록 D: 참고 자료 및 링크</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
 <div class="chapter-content">
 
   <!-- ====== Chapter Header ====== -->
   <header class="chapter-header">
     <span class="chapter-number">CHAPTER 6</span>
     <h1>프론트매터: 스킬의 신분증</h1>
-    <p class="chapter-subtitle">이름, 설명, 자격증 — AI에게 "너 누구야?"라고 물으면 보여주는 카드</p>
+    <p class="chapter-subtitle">이름, 설명, 자격증. AI에게 "너 누구야?"라고 물으면 보여주는 카드</p>
   </header>
 
   <figure class="illustration">
@@ -29,7 +84,7 @@
     <section>
       <h2>주민등록증을 떠올려보세요</h2>
 
-      <p>여러분의 주민등록증(또는 운전면허증)을 한번 떠올려보세요.</p>
+      <p>주민등록증(또는 운전면허증)을 한번 떠올려보세요.</p>
 
       <p>거기에 뭐가 적혀있나요?</p>
 
@@ -40,11 +95,11 @@
         <li><strong>사진:</strong> (말 안 할게요... 신분증 사진은 다 못생기게 나오니까)</li>
       </ul>
 
-      <p>이 작은 카드 한 장으로 "이 사람이 누구인지"를 빠르게 알 수 있어요.</p>
+      <p>이 작은 카드 한 장이 "이 사람이 누구인지"를 단숨에 알려줘요.</p>
 
       <p>스킬 패키지에도 이런 "신분증"이 있어요. SKILL.md 파일을 열면 맨 위에 적혀 있는 특별한 영역인데, 이걸 <strong>프론트매터(frontmatter)</strong>라고 불러요.</p>
 
-      <p>오늘은 이 프론트매터를 뜯어볼 거예요. 어렵지 않아요 — 약속!</p>
+      <p>오늘은 이 프론트매터를 뜯어볼 거예요. 어렵지 않아요. 약속!</p>
     </section>
 
     <!-- ====== What is YAML ====== -->
@@ -63,7 +118,7 @@
         그냥 <code>키: 값</code> 형태로 정보를 적는 거예요. 설문조사 응답지처럼요.</p>
       </div>
 
-      <p>예를 들어볼게요. 여러분이 카페에서 주문서를 작성한다고 해봐요:</p>
+      <p>예를 들어볼게요. 카페에서 주문서를 작성한다고 해봐요:</p>
 
       <pre><code>이름: 홍길동
 음료: 아이스 아메리카노
@@ -104,6 +159,11 @@ allowed-tools:
   - Read
   - Write
   - Edit
+version: 1.0.0
+triggers:
+  - 주간 보고서 써줘
+  - 이번 주 현황 정리해줘
+  - 주간 보고 이메일
 ---
 
 # 주간 보고서 작성 스킬
@@ -124,7 +184,7 @@ allowed-tools:
 
       <p>프론트매터의 각 항목을 하나씩 살펴볼게요.</p>
 
-      <h3>1. name — 스킬의 이름</h3>
+      <h3>1. name: 스킬의 이름</h3>
 
       <pre><code>name: weekly-report-writer</code></pre>
 
@@ -149,7 +209,7 @@ allowed-tools:
         <code>asdf</code> (키보드를 발로 친 건가요?)</p>
       </div>
 
-      <h3>2. description — 스킬의 자기소개</h3>
+      <h3>2. description: 스킬의 자기소개</h3>
 
       <pre><code>description: >-
   매주 월요일 주간 현황 보고 이메일을 작성해주는 스킬입니다.
@@ -174,7 +234,7 @@ allowed-tools:
         <img src="../images/illu-6-2.png" alt="일러스트 6-2: AI 스킬 면접장">
       </figure>
 
-      <h3>3. allowed-tools — 스킬의 자격증</h3>
+      <h3>3. allowed-tools: 스킬의 자격증</h3>
 
       <pre><code>allowed-tools:
   - Bash
@@ -200,34 +260,138 @@ allowed-tools:
         <p><strong>안전 때문이에요.</strong> 모든 스킬이 모든 도구를 자유롭게 쓸 수 있으면, 실수로 중요한 파일을 삭제하거나 위험한 명령어를 실행할 수도 있거든요. allowed-tools는 "이 스킬은 이것만 해도 돼"라는 울타리 역할을 해요.</p>
       </div>
 
-      <h3>4. 그 외 선택 항목들</h3>
+      <h3>4. version: 스킬의 버전</h3>
 
-      <p>이 세 가지(name, description, allowed-tools)가 핵심이지만, 필요에 따라 더 추가할 수 있어요:</p>
+      <pre><code>version: 1.0.0</code></pre>
+
+      <p>앱 업데이트처럼 <code>1.0.0</code> → <code>1.1.0</code> → <code>2.0.0</code>으로 올려가는 번호예요. 스킬을 고칠 때마다 번호를 올려두면 "지금 쓰는 게 어느 판인지"를 바로 알 수 있죠.</p>
+
+      <p>이름만 보면 있어도 그만 없어도 그만인 항목 같지만, 실제로 쓰이는 스킬들은 거의 예외 없이 이 필드를 갖고 있어요. 처음 만들 때 <code>1.0.0</code>이라고 적어두고 시작하세요.</p>
+
+      <h3>5. triggers: 어떤 말이 나오면 불려 나올지</h3>
+
+      <pre><code>triggers:
+  - 주간 보고서 써줘
+  - 이번 주 현황 정리해줘
+  - 주간 보고 이메일</code></pre>
+
+      <p><code>triggers</code>(트리거)는 <strong>어떤 말이 나오면 이 스킬이 불려 나오는지</strong>를 적는 곳이에요. "방아쇠"라는 뜻인데, 이 말이 들리면 스킬이 튀어나온다는 느낌으로 붙은 이름이에요.</p>
+
+      <p>description이 "저는 이런 일을 해요"라는 자기소개라면, triggers는 "이런 말이 들리면 저를 불러주세요"라는 호출 신호예요. 자기소개는 길고 부드럽게 쓰지만, 호출 신호는 사용자가 실제로 입력할 법한 짧은 표현을 그대로 적는 게 요령이에요.</p>
+
+      <p>실물 스킬을 하나 볼까요? Claude Code에 설치된 <code>qa</code> 스킬의 프론트매터에는 이렇게 적혀 있어요:</p>
 
       <pre><code>---
-name: weekly-report-writer
-description: >-
-  매주 월요일 주간 현황 보고 이메일을 작성해주는 스킬입니다.
+name: qa
+version: 2.0.0
+description: Systematically QA test a web application and fix bugs found.
 allowed-tools:
+  - Bash
   - Read
   - Write
-version: 1.0.0
-author: hong-gildong
-license: MIT
-tags:
-  - productivity
-  - email
-  - korean
+triggers:
+  - qa test this
+  - find bugs on site
+  - test the site
 ---</code></pre>
 
+      <p>"test the site"라고 말하면 이 스킬이 반응한다는 뜻이에요. 어렵게 생각할 것 없이, 내가 이 스킬을 부를 때 뭐라고 말할지를 두세 개 적어두면 돼요.</p>
+
+      <h3>6. 실물은 어떤 필드를 쓰고 있을까?</h3>
+
+      <p>이론만 들으면 감이 잘 안 오죠. 실제로 설치되어 있는 스킬 52개의 프론트매터를 하나하나 세어봤어요 (2026년 7월 확인):</p>
+
+      <table style="width:100%; border-collapse:collapse; margin-bottom:var(--space-6);">
+        <thead>
+          <tr style="border-bottom:2px solid var(--color-border);">
+            <th style="text-align:left; padding:var(--space-3); width:40%;">필드</th>
+            <th style="text-align:left; padding:var(--space-3); width:30%;">쓰는 스킬 수</th>
+            <th style="text-align:left; padding:var(--space-3); width:30%;">비율</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>name</code></td>
+            <td style="padding:var(--space-3);">52개</td>
+            <td style="padding:var(--space-3);">100%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>description</code></td>
+            <td style="padding:var(--space-3);">52개</td>
+            <td style="padding:var(--space-3);">100%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>allowed-tools</code></td>
+            <td style="padding:var(--space-3);">52개</td>
+            <td style="padding:var(--space-3);">100%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>version</code></td>
+            <td style="padding:var(--space-3);">52개</td>
+            <td style="padding:var(--space-3);">100%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>triggers</code></td>
+            <td style="padding:var(--space-3);">52개</td>
+            <td style="padding:var(--space-3);">100%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>preamble-tier</code></td>
+            <td style="padding:var(--space-3);">41개</td>
+            <td style="padding:var(--space-3);">78%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>voice-triggers</code></td>
+            <td style="padding:var(--space-3);">8개</td>
+            <td style="padding:var(--space-3);">15%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>author</code></td>
+            <td style="padding:var(--space-3);">0개</td>
+            <td style="padding:var(--space-3);">0%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>license</code></td>
+            <td style="padding:var(--space-3);">0개</td>
+            <td style="padding:var(--space-3);">0%</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--color-border-light);">
+            <td style="padding:var(--space-3);"><code>tags</code></td>
+            <td style="padding:var(--space-3);">0개</td>
+            <td style="padding:var(--space-3);">0%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>위 다섯 개, 그러니까 <code>name</code> · <code>description</code> · <code>allowed-tools</code> · <code>version</code> · <code>triggers</code>는 52개가 전부 갖고 있어요. 이걸 기본 다섯 개로 외워두면 돼요.</p>
+
+      <div class="callout">
+        <p class="callout-title">그럼 다섯 개를 다 채워야 스킬이 돌아가나요?</p>
+        <p>아니에요. <strong>다섯 개가 표준이지만, 실제로 동작하는 최소 조건은 <code>name</code>과 <code>description</code> 둘이에요.</strong> 나머지 셋은 관리와 팀 협업을 위해 붙이는 거지, 없다고 스킬이 고장 나지는 않아요.<br><br>
+        그래서 <strong>이 책의 실습 예제는 최소 형태로 갑니다.</strong> 챕터 8부터 나오는 예제에 필드가 두세 개뿐인 걸 보고 "내 스킬이 고장난 건가?" 하고 놀라지 마세요. 일부러 줄인 거예요. 배우는 단계에서는 최소로 만들어서 동작을 확인하고, 남에게 나눠줄 스킬로 다듬을 때 나머지를 채우는 순서가 좋아요.</p>
+      </div>
+
+      <h3>잠깐, 무엇이 스킬을 불러내나요?</h3>
+
+      <p><code>description</code>과 <code>triggers</code>가 둘 다 "이 스킬을 언제 쓰는지"를 말하니까 헷갈릴 수 있어요. 관계는 이래요.</p>
+
+      <p><strong>스킬을 실제로 불러내는 건 <code>description</code>이에요.</strong> 사용자가 뭐라고 했는지와 각 스킬의 <code>description</code>을 견줘서 "이게 맞겠다"를 고르거든요. <code>triggers</code>는 그 판단을 돕는 힌트, 그러니까 "이런 말이 나오면 특히 저를 봐주세요"라는 예시 목록이에요.</p>
+
+      <p>그래서 우선순위는 명확해요. <code>description</code>을 잘 쓰는 데 시간을 쓰세요. <code>triggers</code>만 잔뜩 적고 <code>description</code>이 부실하면 스킬이 잘 안 불려 나와요. 반대는 괜찮고요.</p>
+
+      <h3>7. 도구에 따라 지원 여부가 다른 확장 항목</h3>
+
+      <p>책이나 블로그에서 이런 항목들을 본 적이 있을 거예요:</p>
+
       <ul>
-        <li><code>version</code>: 스킬의 버전 (앱 업데이트처럼, 1.0 → 1.1 → 2.0)</li>
         <li><code>author</code>: 누가 만들었는지</li>
         <li><code>license</code>: 다른 사람이 이 스킬을 어떻게 쓸 수 있는지 (챕터 3에서 배운 오픈소스 라이선스!)</li>
         <li><code>tags</code>: 검색할 때 찾기 쉽게 해주는 키워드</li>
       </ul>
 
-      <p>이것들은 선택사항이에요. 없어도 스킬은 작동해요. 하지만 있으면 스킬을 관리하고 공유할 때 편해요. 마치 책에 ISBN 번호가 없어도 읽을 수 있지만, 있으면 도서관에서 찾기 쉬운 것처럼요.</p>
+      <p>그런데 위에서 센 52개 중에 이 셋을 쓰는 스킬은 <strong>한 건도 없었어요.</strong> 도구에 따라 아예 인식하지 않기도 하고요.</p>
+
+      <p>그러니 이건 "넣으면 좋은 기본 항목"이 아니라 <strong>확장 항목</strong>으로 알아두세요. 쓰려는 도구가 그 항목을 읽어주는지 먼저 확인하고 넣으면 돼요. 반대로 <code>preamble-tier</code>나 <code>voice-triggers</code>처럼 특정 도구에만 있는 항목도 있어요. 표에 보이듯 쓰는 스킬만 쓰죠.</p>
     </section>
 
     <!-- ====== Common Mistakes ====== -->
@@ -298,7 +462,8 @@ name:weekly-report-writer</code></pre>
       <ul>
         <li><strong>제목</strong>을 보고 → "아, 이런 주제구나" (= name)</li>
         <li><strong>뒷표지 소개글</strong>을 읽고 → "아, 이런 내용이구나" (= description)</li>
-        <li><strong>저자, 출판사</strong>를 확인하고 → "아, 이 사람이 썼구나" (= author, version)</li>
+        <li><strong>띠지의 홍보 문구</strong>를 보고 → "아, 이럴 때 집어들면 되는구나" (= triggers)</li>
+        <li><strong>판차 표시</strong>를 확인하고 → "아, 이게 몇 번째 판이구나" (= version)</li>
       </ul>
 
       <p>표지만 보고 "이 책 읽어볼까 말까"를 결정하잖아요?</p>
@@ -314,8 +479,10 @@ name:weekly-report-writer</code></pre>
       <ul>
         <li><strong>프론트매터</strong>는 SKILL.md 맨 위에 <code>---</code>로 감싸진 영역이에요. 스킬의 "신분증"이에요.</li>
         <li><strong>YAML</strong>은 <code>키: 값</code> 형태의 간단한 데이터 형식이에요. 설문조사 응답지와 비슷해요.</li>
-        <li>핵심 3개 항목: <strong>name</strong>(이름), <strong>description</strong>(설명), <strong>allowed-tools</strong>(사용 가능 도구)</li>
-        <li><strong>description이 가장 중요해요!</strong> Claude가 스킬을 쓸지 말지 판단하는 기준이에요.</li>
+        <li>기본 5개 항목: <strong>name</strong>(이름), <strong>description</strong>(설명), <strong>allowed-tools</strong>(사용 가능 도구), <strong>version</strong>(버전), <strong>triggers</strong>(호출 신호). 실제 스킬 52개가 전부 갖고 있는 것들이에요.</li>
+        <li>다섯 개가 표준이지만, <strong>동작하는 최소 조건은 <code>name</code>과 <code>description</code> 둘</strong>이에요. 이 책의 실습 예제는 최소 형태로 갑니다.</li>
+        <li><strong>description이 가장 중요해요!</strong> Claude가 스킬을 쓸지 말지 판단하는 기준이에요. <code>triggers</code>는 그 판단을 돕는 힌트고요.</li>
+        <li><code>author</code> · <code>license</code> · <code>tags</code>는 기본 항목이 아니라 <strong>확장 항목</strong>이에요. 쓰는 도구가 인식하는지 먼저 확인하세요.</li>
         <li>YAML 실수 방지: <strong>탭 금지, 들여쓰기 맞추기, 콜론 뒤 공백</strong>. 이 세 가지만 기억하세요!</li>
       </ul>
     </aside>
@@ -325,7 +492,7 @@ name:weekly-report-writer</code></pre>
       <h3>다음 챕터에서는...</h3>
       <p>스킬에 들어있는 <strong>references/ 폴더</strong>를 살펴봅니다.<br>
       SKILL.md가 "메인 교과서"라면, references/는 "참고 도서 모음"이에요.<br>
-      왜 모든 걸 SKILL.md에 넣으면 안 되는지, 어떻게 지식을 나눠서 관리하는지 — <strong>모듈화의 마법</strong>을 알아봐요!</p>
+      왜 모든 걸 SKILL.md에 넣으면 안 되는지, 어떻게 지식을 나눠서 관리하는지, <strong>모듈화의 마법</strong>을 알아봐요!</p>
     </div>
 
   </article>
@@ -337,6 +504,15 @@ name:weekly-report-writer</code></pre>
   </nav>
 
 </div>
-
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
 </body>
 </html>

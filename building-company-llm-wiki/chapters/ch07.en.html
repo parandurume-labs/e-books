@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 7: Connecting the vault to Claude Cowork · Building a Company LLM Wiki</title>
+  <meta name="description" content="Connect the vault folder to Claude Cowork and run the first five conversations. How folder instructions differ from CLAUDE.md, what the file tools actually do, and what you may and may not ask for.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="alternate" hreflang="ko" href="ch07.html">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open contents"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Building a Company LLM Wiki</span>
+  <button class="search-trigger" type="button" aria-label="Search contents"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>Search</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="Toggle dark mode"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="Contents">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+    <span class="sidebar-title">Contents</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close contents">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.en.html" class="nav-link">Cover and contents</a></li>
+      <li class="nav-part">Part 1 · Why you need this</li>
+      <li><a href="ch01.en.html" class="nav-link">1. Where our knowledge lives</a></li>
+      <li><a href="ch02.en.html" class="nav-link">2. A wiki, not RAG</a></li>
+      <li><a href="ch03.en.html" class="nav-link">3. Ontology is not the wiki</a></li>
+      <li><a href="ch04.en.html" class="nav-link">4. Three tools, three jobs</a></li>
+      <li class="nav-part">Part 2 · Setup in 30 minutes</li>
+      <li><a href="ch05.en.html" class="nav-link">5. Obsidian and the vault</a></li>
+      <li><a href="ch06.en.html" class="nav-link">6. Sharing through Teams</a></li>
+      <li><a href="ch07.en.html" class="nav-link">7. Connecting the vault to Cowork</a></li>
+      <li class="nav-part">Part 3 · Designing the ontology</li>
+      <li><a href="ch08.en.html" class="nav-link">8. Six design principles</a></li>
+      <li><a href="ch09.en.html" class="nav-link">9. Choosing your classes</a></li>
+      <li><a href="ch10.en.html" class="nav-link">10. Relations and fields</a></li>
+      <li class="nav-part">Part 4 · Running it</li>
+      <li><a href="ch11.en.html" class="nav-link">11. CLAUDE.md</a></li>
+      <li><a href="ch12.en.html" class="nav-link">12. Templates and your first note</a></li>
+      <li><a href="ch13.en.html" class="nav-link">13. Automating with skills</a></li>
+      <li class="nav-part">Part 5 · Automation and visibility</li>
+      <li><a href="ch14.en.html" class="nav-link">14. Scheduling</a></li>
+      <li><a href="ch15.en.html" class="nav-link">15. Making progress visible</a></li>
+      <li><a href="ch16.en.html" class="nav-link">16. Twelve automation recipes</a></li>
+      <li class="nav-part">Part 6 · Keeping it alive</li>
+      <li><a href="ch17.en.html" class="nav-link">17. Quality as code</a></li>
+      <li><a href="ch18.en.html" class="nav-link">18. Intent versus execution</a></li>
+      <li class="nav-part">Part 7 · Scaling to AX</li>
+      <li><a href="ch19.en.html" class="nav-link">19. From wiki to AX</a></li>
+      <li class="nav-part">Appendices</li>
+      <li><a href="appendix-a.en.html" class="nav-link">Appendix A · Glossary</a></li>
+      <li><a href="appendix-b.en.html" class="nav-link">Appendix B · Copy-paste assets</a></li>
+      <li><a href="appendix-c.en.html" class="nav-link">Appendix C · Troubleshooting</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="Toggle dark mode"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">Dark mode</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 7</span>
+    <h1>Connecting the vault to Claude Cowork</h1>
+    <p class="chapter-subtitle">Connecting a folder does not mean the AI has read it</p>
+    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>about 14 min</span>
+  </header>
+
+<article>
+    <p>The vault exists, and it has come down onto every PC on the team. Time to attach the hands.</p>
+
+    <p>The first question Solbit Tech asked after finishing the connection was this: "summarize our company's computer vision capability." Kim typed it personally, with some expectation, having read in Chapter 4 that the AI reads the folder directly.</p>
+
+    <p>The answer came back short. Three lines, sourced from the single Warebot note, and then "I could not find related material in the vault." Kim asked: <strong>"is the connection wrong?"</strong></p>
+
+    <p>The connection was fine. This chapter explains why those three lines were only three lines.</p>
+
+    <div class="callout">
+      <p class="callout-title">What this chapter is for</p>
+      <p>Connecting the folder takes five minutes. The rest goes to <strong>what connecting actually means</strong>. Misread this part and you will never find the cause of any problem that follows.</p>
+      <p>An empty answer has two causes. <strong>Either it is not in the vault, or the AI did not go looking.</strong> Telling those two apart is the heart of this chapter.</p>
+    </div>
+
+    <h2>Connecting the folder</h2>
+
+    <p><a href="appendix-a.en.html#cowork" class="term-link">Claude Cowork</a> is a feature of the Claude desktop app. The steps below are as checked in July 2026, and if a button name differs, look for "folder" or something close. This feature is still changing quickly.</p>
+
+    <ol class="steps">
+      <li><strong>Open Cowork in the desktop app</strong>
+        <p>Claude in a web browser will not do. It works with local folders, so it needs the app.</p>
+      </li>
+      <li><strong>Create a workspace and point it at the folder</strong>
+        <p>When the folder picker opens, choose <code>C:\Users\hong\OneDrive - Solbit Tech\Solbit Tech Wiki</code>.</p>
+      </li>
+      <li><strong>Pick the top of the vault</strong>
+        <p>Do not pick only <code>Sources/</code>. Do that and the ontology design doc in <code>_ops/</code> and the <code>CLAUDE.md</code> you build in Chapter 11 stay invisible to the AI. It answers properly only when it <strong>sees where the rules live alongside where the facts live</strong>.</p>
+      </li>
+      <li><strong>Approve the access request</strong>
+        <p>A confirmation appears the first time. Approve it and the AI reads and writes inside that folder and nowhere else.</p>
+      </li>
+      <li><strong>Confirm the connection</strong>
+        <p>Ask this straight away: <code>List the top-level items in this folder. Do not read file contents.</code> A list means you are connected.</p>
+      </li>
+    </ol>
+
+    <p>If step 5 gives you "the folder is empty" or "I cannot access it," go back to Chapter 6. Nine times out of ten <strong>"Always keep on this device" was never applied, or syncing has not finished</strong>.</p>
+
+    <h2>Connected is not "has read everything"</h2>
+
+    <p>This is the most important passage in the chapter.</p>
+
+    <p>It is easy to assume that connecting a folder loads the whole vault into the AI's head. It does not. Cowork works by <strong>using tools to open files one at a time, as it needs them</strong>. It is close to what you do in File Explorer: open a folder, look at the filenames, pick a few and open those.</p>
+
+    <p>Four consequences follow from that difference.</p>
+
+    <table>
+      <thead>
+        <tr><th>What follows</th><th>In practice</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>It knows nothing about files it did not open</strong></td>
+          <td>"There is nothing like that in the vault" does not mean there is nothing like that in the vault</td>
+        </tr>
+        <tr>
+          <td><strong>Telling it where to look makes it accurate</strong></td>
+          <td>Putting a folder path in the prompt changes answer quality dramatically</td>
+        </tr>
+        <tr>
+          <td><strong>A bigger vault does not get slower</strong></td>
+          <td>At 500 notes or 5,000, it reads only a handful in any given run</td>
+        </tr>
+        <tr>
+          <td><strong>Filenames are search performance</strong></td>
+          <td>It decides whether to open a file from the name alone. <code>meeting notes final_v3.md</code> never gets opened</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The fourth gives you an unexpected conclusion. <strong>Naming files well is AI performance work.</strong> That is half the reason Chapter 9 puts prefixes like <code>PRD-001</code> on your IDs.</p>
+
+    <p>Back to Kim's first question.</p>
+
+    <div class="prompt-example">
+      <p><span class="label bad-label">The question that got three lines</span></p>
+      <p class="bad">"Summarize our company's computer vision capability."</p>
+      <p><span class="label good-label">The question that pulled a full page out of the same vault</span></p>
+      <p class="good">"Read every note under Sources/00-Company/ and Sources/10-Products/. Pick out the ones about object recognition and image processing and lay them out in a table. Put the source note name in [[double brackets]] on every row, and leave out anything the vault has no evidence for."</p>
+    </div>
+
+    <p>Three differences. <strong>You said where to look, you said what to pick, and you demanded evidence.</strong> Not one character of the vault changed, and the answer got five times longer.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">One sentence to ask when the answer comes back empty</p>
+      <p><code>List the files you actually opened while producing that answer.</code></p>
+      <p>That one line <strong>separates "not in the vault" from "did not go looking."</strong> A short list means the prompt is the problem. A full list with an empty answer means the vault is the problem, and a vault problem is ours to fix, not the AI's.</p>
+    </div>
+
+    <h2>Folder instructions and CLAUDE.md are different things</h2>
+
+    <p>Cowork lets you write <strong>instructions</strong> for each workspace. The feature exists so you do not repeat the same explanation every time. But the <a href="appendix-a.en.html#claude-md" class="term-link">CLAUDE.md</a> you build in Chapter 11 is also a file that tells the AI your rules. The two look like they overlap.</p>
+
+    <p>They do not. <strong>They live in different places, so they spread differently.</strong></p>
+
+    <table>
+      <thead>
+        <tr><th></th><th>Folder instructions</th><th>CLAUDE.md</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Where it lives</td><td>Inside your Claude account</td><td>A file inside the vault</td></tr>
+        <tr><td>Does it reach the team</td><td>No. Everyone has their own</td><td>Yes. Syncing carries it to all of them</td></tr>
+        <tr><td>Do you see it change</td><td>Only the owner does</td><td>It is a file, so version history keeps a record</td></tr>
+        <tr><td>What belongs in it</td><td>Your own working habits</td><td><strong>Company rules</strong></td></tr>
+      </tbody>
+    </table>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="320" fill="#FFFDF9"/>
+        <text x="360" y="26" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">Where you put the rule decides the outcome</text>
+
+        <rect x="30" y="48" width="300" height="240" rx="10" fill="#FAEBE2" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="180" y="72" text-anchor="middle" font-size="12" font-weight="bold" fill="#C2703C">Rules in folder instructions</text>
+
+        <rect x="52" y="88" width="76" height="48" rx="7" fill="#FFFDF9" stroke="#C2703C" stroke-width="1.3"/>
+        <text x="90" y="108" text-anchor="middle" font-size="10" fill="#3D2B1F">Kim</text>
+        <text x="90" y="124" text-anchor="middle" font-size="9" fill="#6B5647">Rule A</text>
+
+        <rect x="142" y="88" width="76" height="48" rx="7" fill="#FFFDF9" stroke="#C2703C" stroke-width="1.3"/>
+        <text x="180" y="108" text-anchor="middle" font-size="10" fill="#3D2B1F">Lee</text>
+        <text x="180" y="124" text-anchor="middle" font-size="9" fill="#6B5647">Rule B</text>
+
+        <rect x="232" y="88" width="76" height="48" rx="7" fill="#FFFDF9" stroke="#C2703C" stroke-width="1.3"/>
+        <text x="270" y="108" text-anchor="middle" font-size="10" fill="#3D2B1F">Park</text>
+        <text x="270" y="124" text-anchor="middle" font-size="9" fill="#6B5647">No rule</text>
+
+        <text x="180" y="166" text-anchor="middle" font-size="10.5" fill="#3D2B1F">Three people, one vault,</text>
+        <text x="180" y="184" text-anchor="middle" font-size="10.5" fill="#3D2B1F">three different note formats</text>
+        <rect x="52" y="204" width="256" height="60" rx="8" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="180" y="226" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#C2703C">Six months later</text>
+        <text x="180" y="246" text-anchor="middle" font-size="10" fill="#3D2B1F">nobody can explain why</text>
+        <text x="180" y="260" text-anchor="middle" font-size="10" fill="#3D2B1F">results differ per person</text>
+
+        <rect x="390" y="48" width="300" height="240" rx="10" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.8"/>
+        <text x="540" y="72" text-anchor="middle" font-size="12" font-weight="bold" fill="#0F766E">Rules in CLAUDE.md</text>
+
+        <rect x="452" y="88" width="176" height="42" rx="7" fill="#0F766E"/>
+        <text x="540" y="106" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#ffffff">CLAUDE.md in the vault</text>
+        <text x="540" y="122" text-anchor="middle" font-size="9.5" fill="#D7F2EE">One file · one set of rules</text>
+
+        <path d="M500,130 L440,150" fill="none" stroke="#0F766E" stroke-width="1.4"/>
+        <path d="M540,130 L540,150" fill="none" stroke="#0F766E" stroke-width="1.4"/>
+        <path d="M580,130 L640,150" fill="none" stroke="#0F766E" stroke-width="1.4"/>
+
+        <rect x="404" y="152" width="72" height="44" rx="7" fill="#FFFDF9" stroke="#0F766E" stroke-width="1.3"/>
+        <text x="440" y="172" text-anchor="middle" font-size="10" fill="#3D2B1F">Kim</text>
+        <text x="440" y="187" text-anchor="middle" font-size="9" fill="#0F766E">Same rules</text>
+
+        <rect x="504" y="152" width="72" height="44" rx="7" fill="#FFFDF9" stroke="#0F766E" stroke-width="1.3"/>
+        <text x="540" y="172" text-anchor="middle" font-size="10" fill="#3D2B1F">Lee</text>
+        <text x="540" y="187" text-anchor="middle" font-size="9" fill="#0F766E">Same rules</text>
+
+        <rect x="604" y="152" width="72" height="44" rx="7" fill="#FFFDF9" stroke="#0F766E" stroke-width="1.3"/>
+        <text x="640" y="172" text-anchor="middle" font-size="10" fill="#3D2B1F">Park</text>
+        <text x="640" y="187" text-anchor="middle" font-size="9" fill="#0F766E">Same rules</text>
+
+        <rect x="412" y="212" width="256" height="52" rx="8" fill="#D7F2EE" stroke="#0F766E" stroke-width="1.4"/>
+        <text x="540" y="234" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#0F766E">Fix the rule, everyone gets it</text>
+        <text x="540" y="252" text-anchor="middle" font-size="10" fill="#3D2B1F">Who changed it and when is kept</text>
+      </svg>
+      <figcaption>Putting rules in an account or in a file is what decides team-wide consistency</figcaption>
+    </figure>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">One call this chapter makes</p>
+      <p><strong>Company rules do not go in folder instructions. They all go to <code>CLAUDE.md</code>.</strong></p>
+      <p>Folder instructions feel convenient, so rules pile up there. Those are <strong>rules that exist only in your account</strong>, and they never reach your teammates. Then the same vault gets notes in a different format per person, and six months on there is no way to trace the cause. Put it in a file and at least "who added this line, and when" survives.</p>
+    </div>
+
+    <p>So what does go in the folder instructions? The shorter the better. Three lines is plenty at this stage.</p>
+
+    <pre><code>This folder is Solbit Tech's company knowledge vault.
+
+1. Before creating or changing any file, say what you will do and where, and wait for confirmation.
+2. Do not fill in facts the vault does not have. If you do not know, write 확인 필요.
+3. When creating a note, check the format of existing notes first and follow it exactly.</code></pre>
+
+    <p>Once you build <code>CLAUDE.md</code> in Chapter 11, you add one more line here: <code>Before working, read CLAUDE.md at the top of the vault and follow its rules. Where it conflicts with these instructions, CLAUDE.md wins.</code> From then on the folder instructions become <strong>a signpost pointing at where the real rules live</strong>.</p>
+
+    <h2>The first five conversations</h2>
+
+    <p>The order matters. You go <strong>from reading to writing, from safe to risky</strong>. Have it create notes on day one and the wrong format gets baked straight into the vault.</p>
+
+    <h3>1. Count what is there</h3>
+
+    <pre><code>Show me a table of the top-level folders in the vault and the number of .md files in each.
+Do not read file contents. I only need names and counts.</code></pre>
+
+    <p>The safest first conversation. It also confirms that the syncing from Chapter 6 finished properly. If the count differs from what you counted in Explorer, some files have not come down yet.</p>
+
+    <h3>2. Diagnose the current state</h3>
+
+    <pre><code>Skim only the filenames under Sources/ and classify what kinds of documents are mixed in there.
+- Mark anything judged from the name alone as "inferred".
+- If a file's folder and name look inconsistent with each other, pull those out into a separate list.</code></pre>
+
+    <p>That "looks inconsistent" list becomes raw material when you start designing in Chapter 8. <strong>It is better to begin with a number for how tangled the vault currently is.</strong></p>
+
+    <h3>3. Build the empty folder skeleton</h3>
+
+    <pre><code>Create the following folders at the top of the vault.
+_ops, _ops/templates, _ops/scripts, _moc, _reports
+
+And create the following folders under Sources/.
+00-Company, 10-Products, 20-Projects, 30-Partners, 40-Worklog, 90-Reference
+
+- Do not touch folders that already exist.
+- Create one README.md in each folder under Sources/ with a single line saying what goes in it.
+- Do not move existing files. This time you only create.</code></pre>
+
+    <p>The first writing job. You deliberately have it write <strong>something that is not knowledge</strong>, because if it goes wrong you delete a folder and you are done. The last line matters. Leave out "do not move" and the AI helpfully rearranges your existing files, and at that moment the links from Chapter 6 snap by the dozen.</p>
+
+    <p>The first five are the things that sat outside <code>Sources/</code> in the folder diagram in Chapter 4. They are all empty right now. <code>_ops/</code> receives the design doc and the terminology list in Part 3, <code>_ops/templates/</code> gets filled in Chapter 12, <code>_ops/scripts/</code> in Chapter 17. <code>_moc/</code> and <code>_reports/</code> get filled by automation. <strong>You create them now because the later chapters start with these paths already written into them.</strong> Without the folders, those chapters quietly fail to run.</p>
+
+    <h3>4. Fill in one note</h3>
+
+    <pre><code>Move Warebot.md into Sources/10-Products/ and fill in its frontmatter.
+
+Write only the facts I give you:
+- warehouse in-and-out automation software
+- in service since April 2023
+- owned by Kim
+
+Put class, id, status, owner, since and updated in the frontmatter.
+Leave any field I did not mention as 확인 필요. Do not guess and fill it in.
+Keep the body to three sentences or fewer.</code></pre>
+
+    <p>There is one thing to check here: <strong>whether <code>확인 필요</code> (unverified) is actually still sitting there.</strong> If the blanks have been filled with plausible sentences, those are fake facts headed for a proposal. This exact habit is what <code>CLAUDE.md</code> in Chapter 11 sets out to stop.</p>
+
+    <h3>5. Verify what you just made</h3>
+
+    <pre><code>Read the note you just filled in again. If you wrote anything I did not tell you, list it.
+If there is nothing, write one line saying "none".</code></pre>
+
+    <p>This fifth one becomes a habit you repeat forever. <strong>Having the AI verify its own output</strong> is a miniature of the day-one work you saw in Chapter 4. It is not perfect. It is far better than nothing, and in Chapter 17 a script takes over the role.</p>
+
+    <h2>What to ask for and what not to</h2>
+
+    <p>Two or three weeks of use gives you the feel. Written out ahead of time, it looks like this.</p>
+
+    <table>
+      <thead>
+        <tr><th>Does it well</th><th>Should not, or cannot, be asked</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Finding a word or field across the whole vault</td><td>Judging a fact the vault does not hold</td></tr>
+        <tr><td>Bringing scattered formats into line</td><td><strong>Deciding which of two conflicting records is true</strong></td></tr>
+        <tr><td>Pulling structure out of long source text into a table</td><td>Overwriting a note a person has verified</td></tr>
+        <tr><td>Finding broken links and empty notes</td><td>Bulk deleting or moving files</td></tr>
+        <tr><td>Writing a check script and running it</td><td>Driving Obsidian app features such as graph view</td></tr>
+        <tr><td>Writing drafts, on the assumption of review</td><td>Working from mobile</td></tr>
+      </tbody>
+    </table>
+
+    <p>The second row on the right is a point this book keeps coming back to. The last two rows on the right are a different kind of thing. They are not forbidden. As Chapter 4 showed, they are simply impossible.</p>
+
+    <h3>Three grey areas</h3>
+
+    <p>Some jobs are awkward to put in that table. They work, with a condition attached.</p>
+
+    <table>
+      <thead>
+        <tr><th>Job</th><th>Condition</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Summarizing</strong></td>
+          <td>Only when the source stays in the vault. Delete the source and keep the summary, and six months later <strong>there is no way left to verify it</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Merging duplicate notes</strong></td>
+          <td>Ask for <strong>"show me a merge proposal"</strong>, not "merge them". Two notes often hold subtly different facts</td>
+        </tr>
+        <tr>
+          <td><strong>Standardizing terminology</strong></td>
+          <td>Only after the approved term list exists. Without a list the AI standardizes on its own judgement, and your company's proper nouns quietly change</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The three share something. <strong>Doing them now is easy and expensive later.</strong> Early in a vault's life, put all three off.</p>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: is it TRL 4 or TRL 6</p>
+      <p>Solbit Tech has an old headache. Last year's project report records the object recognition technology as <code>trl: 4</code>. This year's proposal says <code>trl: 6</code>. Nobody knows which is right.</p>
+      <p>Kim asked about it. "What TRL is our object recognition at?"</p>
+      <p>If the AI answers that with a single number, <strong>the answer is necessarily wrong.</strong> There are two pieces of evidence in the vault and they disagree. Choosing one is a judgement, and the AI has no grounds to judge on.</p>
+      <p>Asked properly, it goes like this.</p>
+      <pre><code>Find every note that records a trl value for the object recognition technology.
+Where the values differ, show me each value, its source note, and that note's updated date as a table.
+Do not decide which one is correct.</code></pre>
+      <p>Asked that way you get a two-row table. With that table in hand the CTO settled it in five minutes. <strong>What the AI did was collation, not adjudication.</strong> And collation is the job that suits it.</p>
+      <p>This incident keeps reappearing in the book for a reason. It is not an AI problem. It is <strong>the problem of writing the same fact in two places</strong>, and it is exactly what the ontology design in Part 3 aims at from the start.</p>
+    </div>
+
+    <h2>What bites you in week one</h2>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Pitfall 1 · the file is plainly there and it cannot be read</p>
+      <p>The cloud-only file problem from Chapter 6. Half of everything that goes wrong in week one is this, and the symptom is confusing, because some files read fine and others do not.</p>
+      <p>Diagnose with one line: <code>Read the first line of every .md file under Sources/ and list any file you could not read.</code></p>
+      <p>If you get a list, go back to Chapter 6 and check "Always keep on this device" again.</p>
+    </div>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Pitfall 2 · confusing the practice vault with the real one</p>
+      <p>If the practice vault from Chapter 5 is still sitting in <code>Documents\Practice Vault</code>, you have two sets of similarly named notes. Pick the wrong workspace and <strong>the AI diligently improves your practice vault.</strong> You find out several days later.</p>
+      <p>Once the connection is done, <strong>delete the practice vault.</strong> If that feels wasteful, rename it to something like <code>_archive-practice-vault</code> and move it somewhere that is not a vault.</p>
+    </div>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Pitfall 3 · asking for bulk work on day one</p>
+      <p>"Turn all 105 existing files into notes" is not a week-one job. You have no ontology yet, so <strong>you get 105 notes made to no standard</strong>, and undoing that by hand takes longer than building them properly would have.</p>
+      <p>For the first two weeks, attach this line to your prompts: <code>Before changing anything, show me what you will change and how, then wait.</code> Bulk tidying comes after Part 3.</p>
+    </div>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Pitfall 4 · AI writing and human writing get mixed together</p>
+      <p>A week is enough to forget who made which note. Then the next AI reads that note <strong>as verified fact.</strong></p>
+      <p>Make the <a href="appendix-a.en.html#confidence" class="term-link">confidence marker</a> a habit starting now. Notes the AI produced get <code>confidence: draft</code>. Notes a person has read and confirmed get <code>confidence: reviewed</code>. This field keeps coming back in the templates in Chapter 12 and the automation in Chapter 14.</p>
+    </div>
+
+    <div class="callout">
+      <p class="callout-title">Long conversations forget their early rules</p>
+      <p>Work in one conversation for a long stretch and the instructions you gave at the start fade. You said "do not touch <code>Sources/</code>" thirty minutes ago and now it sometimes does not hold.</p>
+      <p>Two responses. <strong>When the job changes, open a new conversation.</strong> And <strong>put important rules in a file rather than in a conversation.</strong> This is why you need <code>CLAUDE.md</code> in Chapter 11. Rules written in a file get read again every time, however long the conversation runs.</p>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: only the first three of the five</p>
+      <p>Today, stop after 1, 2 and 3. Numbers 4 and 5 lose nothing by waiting until you have a first ontology draft.</p>
+      <ol>
+        <li><strong>Connect the top of the vault as a workspace and run 1.</strong> Compare the file counts with what you counted in Explorer. If they differ, stop here and go back to Chapter 6.</li>
+        <li><strong>Run 2 and save the result.</strong> That diagnosis becomes the opening material for the design session in Chapter 8.</li>
+        <li><strong>Pick three "looks inconsistent" files from 2 and explain each one to yourself.</strong> If you get stuck explaining one, that is a classification rule your company does not have yet.</li>
+        <li><strong>Build the folder skeleton with 3.</strong> Then read one of the <code>README.md</code> files the AI wrote. You will notice <strong>a place where it is not written in your company's own words</strong>, and that jarring feeling is a trailer for Part 3.</li>
+        <li><strong>Put in the three lines of folder instructions as they are.</strong> If you feel the urge to add company rules here, resist it. Wait for Chapter 11.</li>
+        <li><strong>Finally, memorize the sentence to ask instead of "is the connection wrong?"</strong> <code>List the files you actually opened while producing that answer.</code></li>
+      </ol>
+    </div>
+
+    <div class="checklist">
+      <p class="checklist-title">Checks as Part 2 closes</p>
+      <ul>
+        <li>The <strong>top</strong> of the vault is connected as the workspace</li>
+        <li>The folder listing question returns a proper answer, and the counts match Explorer</li>
+        <li>Three lines of folder instructions are in place, and no company rules yet</li>
+        <li>The practice vault is deleted, or moved outside the vault</li>
+        <li>You have used "list the files you opened" at least once</li>
+      </ul>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li>Connect at <strong>the top of the vault</strong>. Pick only <code>Sources/</code> and the rule files stay invisible to the AI</li>
+        <li><strong>Connecting a folder is not "has read everything."</strong> The AI opens files one at a time, as it needs them</li>
+        <li>So <strong>telling it where to look</strong> changes the answer. Quality goes up without touching the vault</li>
+        <li>Filenames are search performance. <strong>Naming is AI performance work</strong></li>
+        <li>When an answer is empty, ask <code>list the files you opened</code>. <strong>"Not in the vault" and "did not go looking" are different problems</strong></li>
+        <li>Company rules go in <strong><code>CLAUDE.md</code></strong>, not folder instructions. Instructions stay in your account and never reach the team</li>
+        <li>First conversations run <strong>read, diagnose, write empty folders, write a note, verify</strong></li>
+        <li>The AI goes <strong>as far as collation</strong>. Deciding which side is true is <strong>a person's job</strong></li>
+        <li>For two weeks, attach <code>show me before you change anything</code>. Undoing 105 notes made to no standard takes longer than building them</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>Coming up</h3>
+      <p>Part 2 is done. Every tool is attached, and the vault holds six folders and a few notes. Start piling notes up from here and six months later you have a searchable heap of files. Part 3 is the heart of this book. You decide what becomes a class, what becomes a field, and <strong>what you deliberately do not design</strong>. Chapter 8 starts with the six principles that hold those decisions up.</p>
+    </div>
+  </article>
+
+
+  <nav class="chapter-nav">
+    <a href="ch06.en.html" class="back-to-toc">← Previous: Connecting the whole team through a Teams shared folder</a>
+    <a href="ch08.en.html" class="next">Next: Six design principles →</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="On this page"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Search contents">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="Find a chapter" aria-label="Search">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

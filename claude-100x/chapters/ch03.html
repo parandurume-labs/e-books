@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 3: 프롬프트의 기술 · Claude 100배 활용법</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">Claude 100배 활용법</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5 10.1 12 4.5 10l5.6-1.4z"/><path d="M18 16l.8 2.2L21 19l-2.2.8L18 22l-.8-2.2L15 19l2.2-.8z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 마인드 전환</li>
+      <li><a href="ch01.html" class="nav-link">1장 검색 vs 지시</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 Claude를 만나다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 프롬프트의 기술</a></li>
+      <li class="nav-part">제2부: Claude.ai & Desktop</li>
+      <li><a href="ch04.html" class="nav-link">4장 Claude.ai 200%</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 Claude Desktop</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 사무직의 하루</a></li>
+      <li class="nav-part">제3부: Claude Code</li>
+      <li><a href="ch07.html" class="nav-link">7장 Claude Code 시작</a></li>
+      <li><a href="ch08.html" class="nav-link">8장 CLAUDE.md와 컨텍스트</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 Skills</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 Hooks</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 MCP 서버</a></li>
+      <li class="nav-part">제4부: 실전 워크플로</li>
+      <li><a href="ch12.html" class="nav-link">12장 비개발자의 앱 만들기</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 멀티 에이전트 협업</a></li>
+      <li><a href="ch14.html" class="nav-link">14장 보안과 안전</a></li>
+      <li class="nav-part">제5부: 더 멀리 가기</li>
+      <li><a href="ch15.html" class="nav-link">15장 Claude 생태계</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 나만의 워크플로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 프롬프트 레시피</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 3</span>
+    <h1>프롬프트의 기술: 검색어가 아닌 업무 지시서</h1>
+    <p class="chapter-subtitle">AI에게 일을 잘 시키는 4가지 원칙</p>
+  </header>
+
+  <article>
+    <p>신입사원에게 "자료 좀 정리해줘"라고만 하면 어떤 결과가 나올까요? 아마 원하던 게 아닐 거예요. "어떤 자료? 어떤 형식으로? 언제까지? 누가 볼 건데?" 이런 걸 안 알려줬으니까요.</p>
+
+    <p>AI도 마찬가지예요. <strong>프롬프트는 검색어가 아니라 업무 지시서</strong>입니다. 지시서를 잘 쓸수록 결과물이 좋아져요. 오늘은 그 지시서를 잘 쓰는 4가지 원칙을 배울 거예요.</p>
+
+    <div class="fun-box">
+      <p class="fun-box-title">쉬운 비유</p>
+      <p>카페에서 커피를 주문한다고 생각해 보세요. "커피 주세요"라고 하면 아메리카노가 나올 수도 있고, 라떼가 나올 수도 있어요. 하지만 "아이스 아메리카노, 샷 추가, 덜 달게, 텀블러에 담아주세요"라고 하면? 정확히 원하는 게 나오죠. 프롬프트도 같아요.</p>
+    </div>
+
+    <h2>원칙 1: 구체적으로 지시하라</h2>
+
+    <p>가장 중요하고, 가장 많이 놓치는 원칙이에요. "좋은 프롬프트"와 "나쁜 프롬프트"의 차이는 거의 항상 <strong>구체성</strong>에서 갈려요.</p>
+
+    <div class="prompt-example">
+      <p><span class="label bad-label">애매한 지시</span></p>
+      <p class="bad">"보고서 써줘"</p>
+      <p><span class="label good-label">구체적인 지시</span></p>
+      <p class="good">"Q1 마케팅 실적 보고서 써줘. 3페이지 분량, 표 포함, 경영진 대상으로. 핵심 성과 3가지를 먼저 요약하고, 그 다음에 채널별 상세 실적, 마지막으로 Q2 개선 방향을 넣어줘."</p>
+    </div>
+
+    <p>구체적인 지시에 포함할 것들을 체크리스트로 만들어 볼게요.</p>
+    <ul>
+      <li><strong>무엇을</strong>: 어떤 결과물을 원하는지 (보고서? 이메일? 코드?)</li>
+      <li><strong>얼마나</strong>: 분량, 개수, 길이</li>
+      <li><strong>누구를 위해</strong>: 독자/수신자가 누구인지</li>
+      <li><strong>어떤 스타일로</strong>: 격식체? 캐주얼? 학술적?</li>
+      <li><strong>어떤 구조로</strong>: 표? 불릿? 번호 매기기?</li>
+    </ul>
+
+    <h2>원칙 2: 역할을 부여하라</h2>
+
+    <p>AI에게 역할을 주면 답변의 질이 확 달라져요. 마치 배우에게 "그냥 연기해"라고 하는 것과 "넌 지금 40대 형사 역이야. 범인을 쫓고 있어"라고 하는 것의 차이처럼요.</p>
+
+    <div class="prompt-example">
+      <p><span class="label bad-label">역할 없음</span></p>
+      <p class="bad">"우리 제품의 타겟 고객 분석을 해줘."</p>
+      <p><span class="label good-label">역할 부여</span></p>
+      <p class="good">"너는 10년 경력의 마케팅 디렉터야. 소비재 브랜드 전문이고, 한국 시장에 대해 잘 알아. 우리는 20-30대 여성 타겟의 비건 화장품 브랜드야. 타겟 고객을 3개 세그먼트로 나누고, 각 세그먼트별로 페르소나, 핵심 니즈, 구매 동기를 분석해줘."</p>
+    </div>
+
+    <p>자주 쓰는 역할 예시들이에요.</p>
+    <ul>
+      <li><strong>"너는 시니어 개발자야"</strong>: 코드 리뷰, 아키텍처 설계</li>
+      <li><strong>"너는 편집장이야"</strong>: 글 교정, 톤 조절, 구조 개선</li>
+      <li><strong>"너는 재무 분석가야"</strong>: 재무제표 분석, 투자 검토</li>
+      <li><strong>"너는 UX 디자이너야"</strong>: 사용자 경험 개선, 인터페이스 피드백</li>
+      <li><strong>"너는 변호사야"</strong>: 계약서 검토, 법적 리스크 분석</li>
+    </ul>
+
+    <h2>원칙 3: 맥락을 제공하라</h2>
+
+    <p>같은 질문이라도 맥락이 달라지면 답이 완전히 달라져요. "좋은 운동 추천해줘"라고 하면 AI는 일반적인 답을 줘요. 하지만 "40대 남성, 사무직, 허리가 안 좋음, 운동 경험 없음, 집 근처에 헬스장 없음"이라는 맥락을 주면? 완전히 맞춤형 답변이 나와요.</p>
+
+    <h3>맥락의 3가지 유형</h3>
+
+    <ol>
+      <li><strong>배경 정보</strong>: "우리 회사는 ~이고, 현재 ~한 상황이야"</li>
+      <li><strong>제약 조건</strong>: "예산은 100만원 이내, 시간은 2주, 팀원은 3명"</li>
+      <li><strong>이전 맥락 참조</strong>: "아까 분석한 데이터를 기반으로" 또는 직접 데이터를 붙여넣기</li>
+    </ol>
+
+    <div class="scenario-box">
+      <p><strong>실전 예시:</strong> 박과장이 경영진에게 보여줄 시장 분석 보고서를 만들고 있어요.</p>
+      <p><strong>맥락 없이:</strong> "전기차 시장 분석해줘" → 위키피디아 같은 일반적인 내용이 나옴</p>
+      <p><strong>맥락 포함:</strong> "우리 회사는 전기차 충전기 제조업체야. 매출 500억, 국내 시장 점유율 15%. 경쟁사는 A사(30%), B사(20%). 경영진에게 2026년 사업 확장 방향을 제안하는 시장 분석 보고서가 필요해. 특히 유럽 시장 진출 타당성을 중점적으로 다뤄줘." → 훨씬 실용적인 분석이 나옴</p>
+    </div>
+
+    <h2>원칙 4: 출력 형식을 지정하라</h2>
+
+    <p>AI의 답변이 장문의 텍스트로만 나와서 읽기 힘들었던 적 있으시죠? 출력 형식을 지정하면 바로 쓸 수 있는 형태로 답변이 와요.</p>
+
+    <div class="prompt-example">
+      <p><span class="label bad-label">형식 지정 없음</span></p>
+      <p class="bad">"우리 팀 주간 보고 정리해줘"</p>
+      <p><span class="label good-label">형식 지정</span></p>
+      <p class="good">"우리 팀 주간 보고를 아래 형식으로 정리해줘:<br>
+      1. 핵심 성과 (불릿 3개)<br>
+      2. 진행 중인 업무 (마크다운 표: 업무명 | 담당자 | 진행률 | 마감일)<br>
+      3. 이슈 및 리스크 (불릿)<br>
+      4. 다음 주 계획 (번호 매기기)"</p>
+    </div>
+
+    <p>자주 쓰는 형식 지정 표현들이에요.</p>
+    <ul>
+      <li>"<strong>마크다운 표로</strong> 정리해줘"</li>
+      <li>"<strong>불릿 포인트 5개로</strong> 요약해줘"</li>
+      <li>"<strong>이메일 형식으로</strong> 써줘 (제목, 수신자, 본문)"</li>
+      <li>"<strong>JSON 형식으로</strong> 출력해줘"</li>
+      <li>"<strong>MECE 프레임워크로</strong> 분류해줘"</li>
+      <li>"<strong>찬반 양쪽으로</strong> 나눠서 정리해줘"</li>
+    </ul>
+
+    <h2>고급 기법</h2>
+
+    <p>4가지 원칙만 알아도 프롬프트 실력이 크게 올라가지만, 더 잘 쓰고 싶다면 아래 기법들도 알아두세요.</p>
+
+    <h3>단계별 사고 요청</h3>
+    <p>복잡한 문제를 풀 때, "step by step으로 생각해줘"라고 추가하면 AI가 더 정확한 답을 내놓아요. 특히 계산, 논리 추론, 비교 분석에서 효과적이에요.</p>
+
+    <div class="prompt-example">
+      <p><span class="label good-label">단계별 사고 예시</span></p>
+      <p class="good">"우리 회사가 일본 시장에 진출해야 할지 판단해줘. step by step으로 분석해줘. 시장 규모, 경쟁 강도, 진입 장벽, 우리의 강점/약점을 순서대로 검토하고, 최종 추천을 해줘."</p>
+    </div>
+
+    <h3>예시 제공 (Few-shot)</h3>
+    <p>원하는 출력의 예시를 하나 보여주면, AI가 그 패턴을 따라해요. 특히 특정한 톤이나 형식이 필요할 때 강력해요.</p>
+
+    <div class="prompt-example">
+      <p><span class="label good-label">예시 제공</span></p>
+      <p class="good">"아래 예시처럼 제품 설명을 써줘:<br><br>
+      [예시]<br>
+      제품명: 스마트 텀블러<br>
+      한 줄 설명: 당신의 커피 온도를 12시간 지켜주는 똑똑한 친구<br>
+      핵심 특징: 온도 유지 12시간 | 앱 연동 | 식기세척기 가능<br><br>
+      이제 '무선 이어폰'에 대해 같은 형식으로 써줘."</p>
+    </div>
+
+    <h3>반복 개선</h3>
+    <p>첫 번째 결과가 완벽하지 않아도 괜찮아요. AI와의 대화는 한 번에 끝나는 게 아니라 <strong>반복 개선</strong>의 과정이에요.</p>
+    <ul>
+      <li>"좀 더 짧게 줄여줘"</li>
+      <li>"톤을 더 격식체로 바꿔줘"</li>
+      <li>"3번 항목을 더 구체적으로 설명해줘"</li>
+      <li>"전문 용어를 줄이고 쉬운 말로 바꿔줘"</li>
+    </ul>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 700 350" xmlns="http://www.w3.org/2000/svg">
+        <!-- Title -->
+        <text x="350" y="35" text-anchor="middle" font-size="20" font-weight="bold" fill="#6B4EE6">좋은 프롬프트의 4가지 구성요소</text>
+        <!-- Center circle -->
+        <circle cx="350" cy="195" r="55" fill="#6B4EE6" opacity="0.1" stroke="#6B4EE6" stroke-width="2"/>
+        <text x="350" y="190" text-anchor="middle" font-size="14" font-weight="bold" fill="#6B4EE6">좋은</text>
+        <text x="350" y="208" text-anchor="middle" font-size="14" font-weight="bold" fill="#6B4EE6">프롬프트</text>
+        <!-- 1. Specificity - top -->
+        <rect x="280" y="60" width="140" height="55" rx="10" fill="#EDE8FF" stroke="#6B4EE6" stroke-width="2"/>
+        <text x="350" y="85" text-anchor="middle" font-size="13" font-weight="bold" fill="#6B4EE6">1. 구체적 지시</text>
+        <text x="350" y="103" text-anchor="middle" font-size="11" fill="#5A4F6B">무엇을, 얼마나, 어떻게</text>
+        <line x1="350" y1="115" x2="350" y2="140" stroke="#6B4EE6" stroke-width="2"/>
+        <!-- 2. Role - left -->
+        <rect x="100" y="168" width="140" height="55" rx="10" fill="#E0F5F5" stroke="#2B8C8C" stroke-width="2"/>
+        <text x="170" y="193" text-anchor="middle" font-size="13" font-weight="bold" fill="#2B8C8C">2. 역할 부여</text>
+        <text x="170" y="211" text-anchor="middle" font-size="11" fill="#5A4F6B">전문가처럼 생각하게</text>
+        <line x1="240" y1="195" x2="295" y2="195" stroke="#2B8C8C" stroke-width="2"/>
+        <!-- 3. Context - right -->
+        <rect x="460" y="168" width="140" height="55" rx="10" fill="#FFF9E6" stroke="#F5C542" stroke-width="2"/>
+        <text x="530" y="193" text-anchor="middle" font-size="13" font-weight="bold" fill="#D4A017">3. 맥락 제공</text>
+        <text x="530" y="211" text-anchor="middle" font-size="11" fill="#5A4F6B">배경, 제약, 상황</text>
+        <line x1="405" y1="195" x2="460" y2="195" stroke="#D4A017" stroke-width="2"/>
+        <!-- 4. Format - bottom -->
+        <rect x="280" y="275" width="140" height="55" rx="10" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+        <text x="350" y="300" text-anchor="middle" font-size="13" font-weight="bold" fill="#2E7D32">4. 출력 형식</text>
+        <text x="350" y="318" text-anchor="middle" font-size="11" fill="#5A4F6B">표, 불릿, 이메일</text>
+        <line x1="350" y1="250" x2="350" y2="275" stroke="#4CAF50" stroke-width="2"/>
+      </svg>
+      <figcaption>좋은 프롬프트 = 구체적 지시 + 역할 + 맥락 + 출력 형식</figcaption>
+    </figure>
+
+    <div class="exercise-box">
+      <p class="exercise-title">실습: 내 업무에 4원칙 적용하기</p>
+      <p>지금 하고 있는 (또는 가장 최근의) 실제 업무 하나를 골라보세요. 그리고 아래 템플릿을 채워서 프롬프트를 만들어 보세요.</p>
+      <ol>
+        <li><strong>역할:</strong> "너는 [      ]야."</li>
+        <li><strong>맥락:</strong> "배경 상황은 [      ]이고, 제약 조건은 [      ]야."</li>
+        <li><strong>구체적 지시:</strong> "[      ]을/를 해줘."</li>
+        <li><strong>출력 형식:</strong> "[      ] 형식으로 출력해줘."</li>
+      </ol>
+      <p>완성된 프롬프트를 Claude에 입력해 보고, 결과가 어떤지 확인해 보세요. 그리고 한두 번 반복 개선을 해보세요!</p>
+    </div>
+
+    <aside class="recap-box">
+      <h3>잠깐, 정리!</h3>
+      <ul>
+        <li><strong>원칙 1:</strong> 구체적으로 지시하라 (무엇을, 얼마나, 누구 대상, 어떤 스타일)</li>
+        <li><strong>원칙 2:</strong> 역할을 부여하라 (전문가 관점에서 답변하게)</li>
+        <li><strong>원칙 3:</strong> 맥락을 제공하라 (배경, 제약, 이전 정보)</li>
+        <li><strong>원칙 4:</strong> 출력 형식을 지정하라 (표, 불릿, 이메일 등)</li>
+        <li><strong>고급:</strong> 단계별 사고 + 예시 제공 + 반복 개선</li>
+        <li>프롬프트는 검색어가 아니라 <strong>업무 지시서</strong>다!</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>다음 챕터에서는...</h3>
+      <p>프롬프트 원칙을 배웠으니, 이제 Claude.ai의 숨겨진 기능들을 파헤쳐 볼 거예요. Projects, Artifacts, 파일 업로드... "대화만 하면 끝"이라고 생각했다면, 아직 절반도 못 쓴 거예요!</p>
+    </div>
+  </article>
+
+  <nav class="chapter-nav">
+    <a href="ch02.html" class="prev">이전: Claude를 만나다</a>
+    <a href="ch04.html" class="next">다음: Claude.ai 200% 활용하기</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

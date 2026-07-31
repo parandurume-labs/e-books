@@ -3,13 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="references로 지식 확장하기 — 스킬의 지식을 깔끔하게 분리하고 관리하는 방법">
+  <meta name="description" content="references로 지식 확장하기 · 스킬의 지식을 깔끔하게 분리하고 관리하는 방법">
   <meta name="author" content="나만의 AI 스킬을 만들자">
-  <title>Chapter 11: references로 지식 확장하기 — 나만의 AI 스킬을 만들자</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <title>Chapter 11: references로 지식 확장하기 · 나만의 AI 스킬을 만들자</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
 </head>
 <body>
-
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">나만의 AI 스킬을 만들자</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10h3V7L6.5 3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1-3 3l-6-6a6 6 0 0 1-8-8L7 7z"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 · 스킬이 필요한 세상</li>
+      <li><a href="ch01.html" class="nav-link">1장 AI와 대화한다는 것</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 반복은 지겹다: 자동화의 본능</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 내가 만든 도구를 나눠준다</a></li>
+      <li class="nav-part">제2부: 뭘 · 스킬 패키지 해부학</li>
+      <li><a href="ch04.html" class="nav-link">4장 스킬 패키지란?</a></li>
+      <li><a href="ch05.html" class="nav-link">5장 뼈대 살펴보기</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 프론트매터: 스킬의 신분증</a></li>
+      <li><a href="ch07.html" class="nav-link">7장 references/ · 스킬의 참고서 폴더</a></li>
+      <li class="nav-part">제3부: 어떻게 · 나만의 스킬 만들기</li>
+      <li><a href="ch08.html" class="nav-link">8장 첫 번째 스킬: "인사하기"</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 프롬프트 엔지니어링 기초</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 도구 연결하기</a></li>
+      <li><a href="ch11.html" class="nav-link">11장 references로 지식 확장하기</a></li>
+      <li><a href="ch12.html" class="nav-link">12장 템플릿과 변수</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 테스트하고 다듬기</a></li>
+      <li class="nav-part">제4부: 더 멀리 · 성장하는 스킬</li>
+      <li><a href="ch14.html" class="nav-link">14장 여러 스킬을 하나로</a></li>
+      <li><a href="ch15.html" class="nav-link">15장 팀과 함께 쓰는 스킬</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 커뮤니티에 기여하기</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전 (한-영 대조)</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 일러스트 프롬프트 모음</a></li>
+      <li><a href="appendix-c.html" class="nav-link">부록 C: 스킬 패키지 체크리스트</a></li>
+      <li><a href="appendix-d.html" class="nav-link">부록 D: 참고 자료 및 링크</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
 <div class="chapter-content">
 
   <!-- ====== Chapter Header ====== -->
@@ -57,8 +112,9 @@
       <p><strong>1. SKILL.md가 100줄을 넘어갈 때</strong></p>
       <p>너무 길면 AI도 핵심을 놓칠 수 있어요. 핵심 지시는 SKILL.md에, 부가 지식은 references/에.</p>
 
-      <p><strong>2. 여러 스킬이 같은 지식을 공유할 때</strong></p>
-      <p>"격식체 가이드"를 이메일 스킬, 보고서 스킬, 공지사항 스킬이 모두 참고한다면? 한 곳에 적어두고 세 스킬이 모두 참조하면 돼요.</p>
+      <p><strong>2. 한 스킬 안에서 여러 지시가 같은 자료를 볼 때</strong></p>
+      <p>"격식체 가이드"를 미팅 요청 절차에서도 보고, 감사 메일 절차에서도 보고, 마무리 점검에서도 본다면? 같은 내용을 세 번 적는 대신 <code>references/</code>에 한 번 적어두고 세 군데에서 가리키면 돼요.</p>
+      <p><code>references/</code>는 스킬 폴더 안의 하위 폴더라서, 다른 스킬은 이 파일을 보지 못해요. <strong>여러 스킬이 같은 자료를 봐야 한다면 챕터 14의 <code>shared-references/</code></strong>를 보세요. 그건 별개의 기법이에요.</p>
 
       <p><strong>3. 지식이 자주 업데이트될 때</strong></p>
       <p>이메일 템플릿 모음이 매달 바뀐다면? SKILL.md를 통째로 고칠 필요 없이, references/ 안의 템플릿 파일만 업데이트하면 돼요.</p>
@@ -77,7 +133,7 @@
 
       <p>references/의 힘을 제대로 느끼려면, 직접 만들어보는 게 최고죠. 실용적인 스킬을 하나 만들어봅시다.</p>
 
-      <p><strong>한국어 비즈니스 이메일 작성기</strong> — 상황에 맞는 격식의 비즈니스 이메일을 자동으로 생성해주는 스킬이에요.</p>
+      <p>만들 스킬은 <strong>한국어 비즈니스 이메일 작성기</strong>예요. 상황에 맞는 격식의 비즈니스 이메일을 자동으로 생성해주는 스킬이죠.</p>
 
       <h3>폴더 구조</h3>
 
@@ -94,9 +150,12 @@
 
       <p>부록부터 만들어볼게요. 먼저 폴더를 만드세요:</p>
 
-<pre><code>mkdir -p korean-email-writer/references</code></pre>
+<pre><code>mkdir korean-email-writer
+mkdir korean-email-writer/references</code></pre>
 
-      <p><strong>references/TONE-GUIDE.md — 격식/비격식 가이드:</strong></p>
+      <p>Mac이나 Linux라면 <code>mkdir -p korean-email-writer/references</code>로 한 줄에 끝낼 수 있는데, Windows PowerShell에서는 <code>-p</code>가 에러라서 위처럼 두 줄로 나눴어요. 탐색기나 Finder로 폴더 두 개를 만들어도 똑같고요.</p>
+
+      <p><strong>references/TONE-GUIDE.md (격식/비격식 가이드):</strong></p>
 
 <pre><code># 한국어 이메일 톤 가이드
 
@@ -141,7 +200,7 @@
 - 너무 캐주얼하지 않게 (비즈니스 상황임을 기억)
 - 이모지는 1-2개 정도 괜찮음</code></pre>
 
-      <p><strong>references/TEMPLATES.md — 이메일 템플릿:</strong></p>
+      <p><strong>references/TEMPLATES.md (이메일 템플릿):</strong></p>
 
 <pre><code># 이메일 템플릿 모음
 
@@ -206,7 +265,7 @@
 다시 한번 감사드리며, 좋은 하루 되세요.
 [마무리 인사]</code></pre>
 
-      <p><strong>references/COMMON-PHRASES.md — 자주 쓰는 표현:</strong></p>
+      <p><strong>references/COMMON-PHRASES.md (자주 쓰는 표현):</strong></p>
 
 <pre><code># 이메일 자주 쓰는 표현
 
@@ -239,10 +298,13 @@
 
       <h3>2단계: SKILL.md 작성하기</h3>
 
-      <p>이제 메인 레시피, SKILL.md를 만들어요:</p>
+      <p>이제 메인 레시피, SKILL.md를 만들어요. 이 스킬은 <code>references/</code> 안의 파일 셋을 읽어야 하니까, 챕터 10에서 배운 대로 <code>allowed-tools</code>에 <code>Read</code>를 넣어줘요:</p>
 
 <pre><code>---
+name: korean-email-writer
 description: "상황에 맞는 한국어 비즈니스 이메일을 작성해주는 스킬"
+allowed-tools:
+  - Read
 ---
 
 # 한국어 이메일 작성기
@@ -278,8 +340,8 @@ description: "상황에 맞는 한국어 비즈니스 이메일을 작성해주�
 
 ---
 
-💡 작성 노트:
-- 톤: [격식/비격식] — [선택 이유]
+작성 노트:
+- 톤: [격식/비격식] ([선택 이유])
 - 예상 읽기 시간: [N]초
 ```
 
@@ -303,15 +365,16 @@ description: "상황에 맞는 한국어 비즈니스 이메일을 작성해주�
       <p><strong>1. 업데이트가 쉬워요</strong></p>
       <p>새로운 이메일 템플릿을 추가하고 싶으면? <code>TEMPLATES.md</code>만 수정하면 돼요. SKILL.md는 건드릴 필요 없어요. 마치 요리책의 부록에 새 도구 설명을 추가하는 것처럼요.</p>
 
-      <p><strong>2. 재사용할 수 있어요</strong></p>
-      <p><code>TONE-GUIDE.md</code>를 다른 스킬에서도 쓸 수 있어요. "한국어 보고서 작성기" 스킬을 만들 때, 같은 톤 가이드를 참조하면 되니까요.</p>
+      <p><strong>2. 스킬 안에서 재사용할 수 있어요</strong></p>
+      <p><code>TONE-GUIDE.md</code> 하나를 이 스킬의 여러 절차가 돌려 쓸 수 있어요. 미팅 요청도, 감사 메일도, 진행 상황 공유도 같은 톤 가이드를 가리키면 되니까요. 나중에 "한국어 보고서 작성기" 같은 <strong>다른 스킬</strong>과 이 가이드를 나눠 쓰고 싶어지면, 그때는 챕터 14의 <code>shared-references/</code>로 옮기는 게 답이에요.</p>
 
       <p><strong>3. 읽기 쉬워요</strong></p>
       <p>SKILL.md가 300줄짜리 한 파일이면 누가 읽고 싶겠어요? 각 파일이 30-50줄이면 훨씬 관리하기 편하죠.</p>
 
       <div class="callout">
         <p class="callout-title">실제 사용 팁</p>
-        <p>references/ 파일은 마크다운(.md) 형식으로 작성하세요. AI가 마크다운을 가장 잘 이해해요. 그리고 파일명은 영어 대문자로, 내용을 바로 알 수 있게 지으세요. <code>ref1.md</code>보다 <code>TONE-GUIDE.md</code>가 훨씬 명확하죠.</p>
+        <p>references/ 파일은 마크다운(.md) 형식으로 작성하세요. AI가 마크다운을 가장 잘 이해해요. 그리고 파일명은 내용을 바로 알 수 있게 지으세요. <code>ref1.md</code>보다 <code>TONE-GUIDE.md</code>가 훨씬 명확하죠.</p>
+        <p>대소문자는 규칙이 아니라 취향이에요. 한 스킬 안에서만 일관되면 돼요. 챕터 5에서 본 <code>style-guide.md</code>처럼 소문자로 가도 되고, 여기처럼 <code>TONE-GUIDE.md</code>로 가도 돼요. 둘을 섞어 쓰는 것만 피하세요. 딱 하나 예외가 <code>SKILL.md</code>인데, 이건 취향이 아니라 규칙이라 반드시 대문자예요.</p>
       </div>
     </section>
 
@@ -333,7 +396,7 @@ description: "상황에 맞는 한국어 비즈니스 이메일을 작성해주�
       <p><strong>3. 너무 많은 파일은 피하기</strong></p>
       <p>references/ 파일이 10개를 넘어가면, AI가 어떤 파일을 참고해야 할지 헷갈릴 수 있어요. 3-5개 정도가 적당해요.</p>
 
-      <p><strong>4. SKILL.md에서 명시적으로 참조하기</strong></p>
+      <p><strong>4. SKILL.md에서 직접 참조하기</strong></p>
       <p>"references/TONE-GUIDE.md를 참고하여"처럼 어떤 파일을 언제 참고해야 하는지 SKILL.md에 명확히 적어주세요.</p>
     </section>
 
@@ -343,7 +406,9 @@ description: "상황에 맞는 한국어 비즈니스 이메일을 작성해주�
       <ul>
         <li><strong>references/</strong>는 스킬의 "부록"이에요. 배경 지식, 데이터, 템플릿을 분리해서 보관하는 곳.</li>
         <li><strong>SKILL.md</strong> = "뭘 해야 하는지" (행동 지시), <strong>references/</strong> = "뭘 알아야 하는지" (참고 자료)</li>
-        <li>references 사용이 필요한 때: SKILL.md가 너무 길어질 때, 여러 스킬이 같은 지식을 공유할 때, 지식이 자주 바뀔 때</li>
+        <li>references 사용이 필요한 때: SKILL.md가 너무 길어질 때, 한 스킬 안에서 여러 지시가 같은 자료를 볼 때, 지식이 자주 바뀔 때</li>
+        <li>스킬끼리 자료를 나눠 쓰는 건 <code>references/</code>로 안 돼요. <strong>챕터 14의 <code>shared-references/</code></strong>가 그 역할이에요</li>
+        <li><code>references/</code> 파일을 읽는 스킬은 <code>allowed-tools</code>에 <code>Read</code>를 넣어주세요</li>
         <li><strong>한 파일 한 주제</strong>, <strong>명확한 파일명</strong>, <strong>3-5개 이내</strong>가 베스트 프랙티스</li>
         <li>references/ 파일을 수정하면 스킬이 <strong>즉시 새 지식을 반영</strong>해요</li>
       </ul>
@@ -354,7 +419,7 @@ description: "상황에 맞는 한국어 비즈니스 이메일을 작성해주�
       <h3>다음 챕터에서는...</h3>
       <p>"코드 리뷰 스킬"을 JavaScript용, Python용, Go용으로 만들고 싶은데... 매번 처음부터 만들어야 할까요?<br>
       쿠키 커터처럼 같은 틀에서 다양한 스킬을 찍어내는 방법이 있어요!<br>
-      다음 챕터에서는 <strong>템플릿과 변수</strong> — <code>SKILL.md.tmpl</code>의 세계를 탐험합니다.</p>
+      다음 챕터에서는 <strong>템플릿과 변수</strong>를 다뤄요. <code>SKILL.md.tmpl</code>의 세계를 탐험합니다.</p>
     </div>
 
   </article>
@@ -366,6 +431,15 @@ description: "상황에 맞는 한국어 비즈니스 이메일을 작성해주�
   </nav>
 
 </div>
-
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
 </body>
 </html>

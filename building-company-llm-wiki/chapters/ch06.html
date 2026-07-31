@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 6: Teams 공유폴더로 팀 전체에 연결하기 · 회사용 LLM Wiki 만들기</title>
+  <meta name="description" content="볼트를 Teams 공유 폴더에 올려 팀 전원의 PC에 연결합니다. 「이 디바이스에 항상 유지」 함정, 동시 편집 충돌을 막는 운영 규칙, 볼트에 넣으면 안 되는 자료의 경계를 다룹니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="alternate" hreflang="en" href="ch06.en.html">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">회사용 LLM Wiki 만들기</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 필요한가</li>
+      <li><a href="ch01.html" class="nav-link">1장 우리 지식은 어디에</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 RAG가 아니라 위키다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 온톨로지와 위키의 구분</a></li>
+      <li><a href="ch04.html" class="nav-link">4장 도구 세 개의 역할</a></li>
+      <li class="nav-part">제2부: 준비 · 30분 셋업</li>
+      <li><a href="ch05.html" class="nav-link">5장 옵시디언과 볼트</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 Teams로 팀 연결</a></li>
+      <li><a href="ch07.html" class="nav-link">7장 Cowork에 볼트 연결</a></li>
+      <li class="nav-part">제3부: 온톨로지 설계</li>
+      <li><a href="ch08.html" class="nav-link">8장 설계 원칙 여섯 개</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 클래스 정하기</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 관계와 필드 설계</a></li>
+      <li class="nav-part">제4부: 운영</li>
+      <li><a href="ch11.html" class="nav-link">11장 CLAUDE.md</a></li>
+      <li><a href="ch12.html" class="nav-link">12장 템플릿과 첫 노트</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 스킬로 자동화</a></li>
+      <li class="nav-part">제5부: 자동화와 시각화</li>
+      <li><a href="ch14.html" class="nav-link">14장 스케줄링</a></li>
+      <li><a href="ch15.html" class="nav-link">15장 업무 진행 시각화</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 자동화 레시피 12선</a></li>
+      <li class="nav-part">제6부: 지속</li>
+      <li><a href="ch17.html" class="nav-link">17장 품질을 코드로</a></li>
+      <li><a href="ch18.html" class="nav-link">18장 의도와 실행의 대조</a></li>
+      <li class="nav-part">제7부: AX로 확장</li>
+      <li><a href="ch19.html" class="nav-link">19장 위키에서 AX로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 복붙용 자산</a></li>
+      <li><a href="appendix-c.html" class="nav-link">부록 C: 트러블슈팅</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 6</span>
+    <h1>Teams 공유폴더로 팀 전체에 연결하기</h1>
+    <p class="chapter-subtitle">이 책에서 가장 중요한 클릭 한 번이 여기 있습니다</p>
+    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>약 13분</span>
+  </header>
+
+<article>
+    <p>5장에서 만든 볼트는 아직 내 노트북 안에만 있습니다. 이대로 두면 잘 정리된 개인 메모장입니다. 개인 메모장은 3개월쯤 잘 돌아가다가 담당자가 휴가를 가는 주에 조용히 멈춥니다.</p>
+
+    <p>솔빛테크에서 이 지점을 알려준 건 한 문장이었습니다. 박사업이 대성물류 미팅을 앞두고 물었습니다. 「창고봇 실적 정리해둔 거, 저한테 좀 보내주세요.」</p>
+
+    <p><strong>「보내주세요」가 나오는 순간 이 시스템은 이미 실패했습니다.</strong> 보내는 순간 사본이 생기고, 사본은 이틀 뒤에 원본과 달라지고, 그 다음 미팅에서 누가 최신인지 다시 물어보게 됩니다. 1장에서 진단한 파편화가 새 폴더 안에서 재현됩니다.</p>
+
+    <div class="callout">
+      <p class="callout-title">이 장이 하는 일</p>
+      <p>볼트를 <strong>팀 전원이 동시에 보는 폴더</strong>로 만듭니다. 그리고 그 대가로 따라오는 세 가지 문제를 미리 처리합니다. 클라우드 전용 파일, 동시 편집 충돌, 기밀 자료의 경계입니다.</p>
+      <p>이 장의 절차 자체는 20분이면 끝납니다. 나머지 분량은 <strong>안 하면 반드시 걸리는 것들</strong>입니다.</p>
+    </div>
+
+    <h2>볼트를 Teams 공유 폴더에 올립니다</h2>
+
+    <p>4장에서 정한 대로 <a href="appendix-a.html#teams" class="term-link">Teams</a>와 OneDrive는 <strong>배포</strong>만 담당합니다. 할 일은 폴더 하나를 만들어 각자 PC에 내려오게 하는 것뿐입니다.</p>
+
+    <ol class="steps">
+      <li><strong>Teams에서 팀 하나를 정합니다</strong>
+        <p>새로 만들어도 되고 이미 있는 팀을 써도 됩니다. 중요한 건 <strong>볼트를 볼 사람과 팀 구성원이 같아야 한다</strong>는 점입니다. 여기가 이후의 권한 경계 전부입니다. 별도의 계정도, 별도의 권한 설정도 없습니다.</p>
+      </li>
+      <li><strong>채널의 「파일」 탭을 엽니다</strong>
+        <p>Teams 채널마다 파일 저장 공간이 하나씩 붙어 있습니다. 실체는 SharePoint 문서 라이브러리인데, 그 사실을 몰라도 쓰는 데 지장이 없습니다.</p>
+      </li>
+      <li><strong>「OneDrive에 바로 가기 추가」를 누릅니다</strong>
+        <p>2026년 7월 기준 파일 탭 상단에 있습니다. 이름이 다르면 「바로 가기」나 「Add shortcut」으로 찾으시면 됩니다. 이걸 누르면 그 폴더가 내 OneDrive 안에 나타나고, 자동으로 내 PC에 동기화됩니다.</p>
+      </li>
+      <li><strong>파일 탐색기에서 경로를 확인합니다</strong>
+        <p><code>C:\Users\hong\OneDrive - 솔빛테크\</code> 아래에 그 폴더가 보입니다. 여기가 앞으로 이 책에서 계속 나오는 경로입니다.</p>
+      </li>
+      <li><strong>그 안에 볼트 폴더를 만듭니다</strong>
+        <p>솔빛테크는 <code>솔빛테크 위키</code>로 지었습니다. 최종 경로는 <code>C:\Users\hong\OneDrive - 솔빛테크\솔빛테크 위키</code>가 됩니다.</p>
+      </li>
+      <li><strong>옵시디언에서 「폴더를 볼트로 열기」로 그 폴더를 지정합니다</strong>
+        <p>5장의 연습 볼트에서 만든 노트가 있으면 파일 탐색기로 복사해 넣은 다음에 엽니다. <code>.obsidian</code> 폴더는 복사하지 마세요. 새 볼트에서 다시 만들어집니다.</p>
+      </li>
+      <li><strong>팀원 각자가 3번과 6번을 자기 PC에서 반복합니다</strong>
+        <p>이 두 단계는 사람 수만큼 반복됩니다. 대신 한 번만 하면 끝입니다.</p>
+      </li>
+    </ol>
+
+    <p>「동기화」 버튼도 파일 탭에 함께 있습니다. 둘 중 무엇을 써도 파일은 내려옵니다. 다만 폴더가 놓이는 자리가 다릅니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>방식</th><th>PC에 생기는 경로</th><th>이 책의 선택</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OneDrive에 바로 가기 추가</td><td><code>OneDrive - 회사이름\폴더이름</code></td><td><strong>권장.</strong> 경로가 짧고, 팀을 여러 개 써도 한자리에 모입니다</td></tr>
+        <tr><td>동기화</td><td><code>회사이름\팀이름 - 채널이름</code></td><td>됩니다. 다만 경로에 채널 이름까지 들어가 길어집니다</td></tr>
+      </tbody>
+    </table>
+
+    <p>경로 길이를 따지는 이유가 있습니다. 이 경로는 앞으로 예약 작업 프롬프트에도, 파이썬 스크립트에도, 팀원에게 알려주는 안내문에도 반복해서 들어갑니다. 짧을수록 오타가 줍니다.</p>
+
+    <h2>이 책에서 가장 중요한 클릭 한 번</h2>
+
+    <p>여기까지 하면 파일이 전부 보입니다. 옵시디언에서도 잘 열립니다. 그런데 이 상태에서 Claude Cowork에 폴더를 연결하면 이런 일이 벌어집니다.</p>
+
+    <div class="prompt-example">
+      <p><span class="label bad-label">나</span></p>
+      <p class="bad">"볼트 폴더 안의 노트를 전부 읽고 목록을 만들어줘."</p>
+      <p><span class="label good-label">Claude</span></p>
+      <p class="good">"해당 폴더에서 읽을 수 있는 파일을 찾지 못했습니다."</p>
+    </div>
+
+    <p>탐색기에는 노트가 그대로 보이는데 말입니다. 4장에서 미리 알려드린 함정이 여기입니다.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">핵심 함정 · 보이는 파일과 있는 파일은 다릅니다</p>
+      <p>OneDrive는 기본 설정에서 <strong>파일 이름만 PC에 두고 내용은 클라우드에 남겨둡니다.</strong> 디스크 공간을 아끼려고 만든 기능입니다. 탐색기에는 이름과 크기가 정상으로 보이지만, 그 자리에 실제 내용은 없습니다.</p>
+      <p>사람이 옵시디언으로 열 때는 문제가 안 됩니다. 여는 순간 OneDrive가 내려받기 때문입니다. <strong>그런데 AI와 스크립트는 폴더를 훑으면서 수십, 수백 개를 한꺼번에 읽으려 합니다.</strong> 그러면 내려받기가 밀려서 아주 느려지거나, 도중에 실패하거나, 인터넷이 끊겨 있으면 아예 못 읽습니다.</p>
+      <p>해결은 클릭 한 번입니다. <strong>볼트 폴더를 우클릭해서 「이 디바이스에 항상 유지」</strong>를 고릅니다. 이 책 전체에서 가장 중요한 조작입니다.</p>
+    </div>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="330" fill="#FFFDF9"/>
+        <defs>
+          <marker id="a06" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#6B5647"/>
+          </marker>
+        </defs>
+
+        <text x="360" y="26" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">같은 폴더인데 사람은 되고 AI는 안 되는 이유</text>
+
+        <rect x="230" y="44" width="260" height="46" rx="8" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="360" y="63" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">OneDrive 기본 설정</text>
+        <text x="360" y="80" text-anchor="middle" font-size="10" fill="#3D2B1F">이름은 PC에, 내용은 클라우드에</text>
+
+        <line x1="360" y1="90" x2="360" y2="112" stroke="#6B5647" stroke-width="1.4" marker-end="url(#a06)"/>
+        <rect x="248" y="116" width="224" height="34" rx="7" fill="#FFFDF9" stroke="#8A857C" stroke-width="1.4"/>
+        <text x="360" y="138" text-anchor="middle" font-size="10.5" fill="#3D2B1F">탐색기에는 파일이 정상으로 보인다</text>
+
+        <path d="M300,150 L300,172" fill="none" stroke="#6B5647" stroke-width="1.4"/>
+        <path d="M300,172 L150,172 L150,192" fill="none" stroke="#0F766E" stroke-width="1.4" marker-end="url(#a06)"/>
+        <path d="M420,150 L420,172" fill="none" stroke="#6B5647" stroke-width="1.4"/>
+        <path d="M420,172 L570,172 L570,192" fill="none" stroke="#C2703C" stroke-width="1.4" marker-end="url(#a06)"/>
+
+        <rect x="34" y="196" width="232" height="74" rx="8" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.8"/>
+        <text x="150" y="218" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">사람 · 옵시디언</text>
+        <text x="150" y="238" text-anchor="middle" font-size="10" fill="#3D2B1F">한 번에 한 개씩 연다</text>
+        <text x="150" y="256" text-anchor="middle" font-size="10" fill="#3D2B1F">열 때 자동으로 내려받는다</text>
+
+        <rect x="454" y="196" width="232" height="74" rx="8" fill="#FAEBE2" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="570" y="218" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">AI · 스크립트</text>
+        <text x="570" y="238" text-anchor="middle" font-size="10" fill="#3D2B1F">수백 개를 한꺼번에 훑는다</text>
+        <text x="570" y="256" text-anchor="middle" font-size="10" fill="#3D2B1F">밀리거나, 실패하거나, 빈손</text>
+
+        <rect x="150" y="288" width="420" height="34" rx="8" fill="#0F766E"/>
+        <text x="360" y="310" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#ffffff">해결: 볼트 폴더 우클릭 → 「이 디바이스에 항상 유지」</text>
+      </svg>
+      <figcaption>사람의 사용 방식으로는 이 문제가 절대 드러나지 않습니다. 그래서 늦게 발견됩니다</figcaption>
+    </figure>
+
+    <h2>제대로 됐는지 확인하고, 풀리지 않게 지킵니다</h2>
+
+    <p>설정하고 나면 폴더 옆 아이콘이 바뀝니다. 다만 아이콘 모양을 외우는 것보다 확실한 방법이 있습니다.</p>
+
+    <ol class="steps">
+      <li><strong>볼트 폴더 속성에서 크기를 봅니다</strong>
+        <p>디스크 상의 크기가 0에 가까우면 아직 안 내려온 상태입니다. 노트가 수백 개라도 텍스트라서 몇 MB면 충분합니다. 이 정도 용량 때문에 「항상 유지」를 망설일 이유가 없습니다.</p>
+      </li>
+      <li><strong>동기화가 끝날 때까지 기다립니다</strong>
+        <p>파일이 많으면 몇 분 걸립니다. 작업 표시줄의 OneDrive 아이콘이 「최신 상태」로 바뀌면 끝났습니다.</p>
+      </li>
+      <li><strong>인터넷을 끊고 노트를 열어봅니다</strong>
+        <p>가장 확실한 검사입니다. 와이파이를 끄고 옵시디언에서 아무 노트나 열었을 때 정상으로 보이면 성공입니다.</p>
+      </li>
+    </ol>
+
+    <div class="pitfall">
+      <p class="pitfall-title">함정 · 설정이 저절로 풀립니다</p>
+      <p>Windows에는 저장 공간이 부족해지면 <strong>오래 안 쓴 OneDrive 파일을 자동으로 클라우드로 돌려보내는 기능</strong>이 있습니다. 설정 화면의 저장 공간 항목에 있습니다. 이게 켜져 있으면 몇 달 뒤에 볼트가 조용히 예전 상태로 돌아갑니다.</p>
+      <p>더 나쁜 건 증상입니다. 볼트 전체가 아니라 <strong>안 열어본 노트만 골라서</strong> 사라집니다. 그러면 AI 답변에서 오래된 자료만 빠지고, 사람은 그걸 눈치채기 어렵습니다.</p>
+      <p>두 가지를 하시면 됩니다. 볼트 폴더에 「항상 유지」를 다시 걸어두고, 저장 공간 자동 정리 기능을 꺼 둡니다. 17장의 주간 점검에 <strong>「볼트 폴더 용량이 지난주와 비슷한가」</strong> 한 줄을 넣어두면 그다음부터는 점검이 대신 지켜봅니다.</p>
+    </div>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">팀원이 늘어날 때마다 다시 해야 합니다</p>
+      <p>「항상 유지」는 <strong>폴더가 아니라 PC에 걸리는 설정</strong>입니다. 새 팀원이 들어오거나 누가 노트북을 바꾸면 그 PC에서 한 번 더 해야 합니다.</p>
+      <p>그래서 이 절차를 볼트 안 <code>_ops/00-시작하기.md</code>에 적어둡니다. 온보딩 문서에서 이 항목을 맨 앞에 둡니다. 「옵시디언 설치」보다 위입니다.</p>
+    </div>
+
+    <h2>동시 편집 충돌을 운영 규칙으로 막습니다</h2>
+
+    <p>OneDrive는 워드 문서라면 두 사람이 동시에 고쳐도 합쳐줍니다. <strong>마크다운 같은 일반 텍스트 파일은 합쳐주지 않습니다.</strong> 두 사람이 같은 노트를 각자 고치면 원본 옆에 사본이 하나 더 생깁니다. 이름 뒤에 누가 냈는지 표시가 붙는데, 정확한 형태는 환경에 따라 다릅니다. 4장에서 예로 든 <code>파일명 1.md</code>가 그런 사본입니다.</p>
+
+    <p>사본이 생기는 것 자체는 큰일이 아닙니다. 진짜 문제는 <strong>아무도 그게 생긴 걸 모른다</strong>는 데 있습니다. 옵시디언에서 검색하면 같은 내용이 두 번 나오고, AI는 그 둘을 서로 다른 사실로 읽습니다.</p>
+
+    <p>기술로 막을 방법이 없습니다. 규칙으로 막습니다. 네 개면 충분합니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>규칙</th><th>구체적으로</th><th>막아지는 것</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. 축마다 주인을 정한다</strong></td>
+          <td><code>10-Products/</code>는 이CTO, <code>30-Partners/</code>는 박사업, <code>00-Company/</code>는 김대표</td>
+          <td>같은 노트를 두 사람이 여는 상황 자체가 드물어집니다</td>
+        </tr>
+        <tr>
+          <td><strong>2. 여럿이 적는 것은 파일을 쪼갠다</strong></td>
+          <td>업무로그는 <code>40-Worklog/2026-07-30-김대표.md</code>처럼 날짜와 사람으로 파일을 나눕니다</td>
+          <td>한 파일에 여러 명이 줄을 추가하는 상황이 사라집니다</td>
+        </tr>
+        <tr>
+          <td><strong>3. 남의 노트는 짧게 고친다</strong></td>
+          <td>고칠 게 있으면 그 자리에서 고치고 닫습니다. 열어둔 채 회의에 들어가지 않습니다</td>
+          <td>옵시디언은 계속 자동 저장하므로, 열어둔 시간이 곧 충돌 확률입니다</td>
+        </tr>
+        <tr>
+          <td><strong>4. 회의 중에는 한 사람만 적는다</strong></td>
+          <td>회의록 작성자를 시작할 때 정합니다. 나머지는 끝나고 덧붙입니다</td>
+          <td>충돌이 가장 많이 나는 상황을 통째로 없앱니다</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>1번이 실제로 제일 크게 듣습니다. 이건 파일 규칙처럼 보이지만 사실 <strong>조직 규칙</strong>입니다. 9장에서 클래스를 정할 때 「이 축의 주인은 누구인가」를 함께 정하게 되는데, 그 결정이 여기서 쓰입니다.</p>
+
+    <h2>충돌본이 이미 생겼을 때</h2>
+
+    <p>규칙을 정해도 처음 몇 주는 몇 건 생깁니다. 발견하면 그날 처리합니다. 미루면 어느 쪽이 최신인지 아무도 기억하지 못합니다.</p>
+
+    <ol class="steps">
+      <li><strong>두 파일을 나란히 엽니다</strong>
+        <p>옵시디언에 자동 비교 기능은 없습니다. 다만 텍스트라서 눈으로 보면 다른 줄이 금방 찾아집니다.</p>
+      </li>
+      <li><strong>손으로 합쳐서 원본에 저장합니다</strong>
+        <p>둘 중 하나를 고르지 말고 <strong>양쪽 내용을 다 살립니다.</strong> 대개 두 사람이 서로 다른 부분을 고쳤기 때문에 합쳐집니다.</p>
+      </li>
+      <li><strong>사본을 지웁니다</strong>
+        <p>남겨두면 다음 검색과 다음 AI 답변을 계속 오염시킵니다.</p>
+      </li>
+      <li><strong>필요하면 OneDrive 버전 기록을 봅니다</strong>
+        <p>웹에서 파일을 우클릭하면 이전 버전 목록이 나옵니다. 잘못 합쳤을 때 되돌리는 안전망입니다.</p>
+      </li>
+    </ol>
+
+    <div class="pitfall">
+      <p class="pitfall-title">함정 · <code>.obsidian</code> 폴더가 계속 충돌합니다</p>
+      <p>5장에서 본 설정 폴더가 여기서 말썽을 부립니다. 이 폴더 안에는 <strong>지금 어떤 탭을 열어놨는지</strong>를 기록하는 파일이 있습니다. 사람마다 다르고, 노트를 열 때마다 바뀝니다. 볼트 전체를 동기화하면 이 파일이 팀원 수만큼 충돌합니다.</p>
+      <p>깔끔한 해법은 없습니다. 다만 실제 피해도 없습니다. <strong>그 폴더 안에는 지식이 한 글자도 없기 때문</strong>입니다. 4장에서 플러그인을 쓰지 않기로 했으니 설정과 테마뿐입니다.</p>
+      <p>그래서 이렇게 다룹니다. <code>.obsidian</code> 안에 생긴 충돌본은 <strong>내용을 보지 말고 그냥 지웁니다.</strong> 월 1회 정리 항목에 넣어두면 됩니다. 대신 <code>Sources/</code> 안에 생긴 충돌본은 절대 그냥 지우지 않습니다. 그건 지식입니다.</p>
+    </div>
+
+    <div class="case-box">
+      <p class="case-title">사례 · 솔빛테크의 첫 충돌</p>
+      <p>연결한 지 나흘째, 대성물류 미팅 준비 중에 벌어진 일입니다. 박사업이 <code>30-Partners/대성물류.md</code>에 미팅 일정을 적고 있었고, 같은 시간에 김대표가 같은 노트를 열어 「계약 전이라 실적으로 쓸 수 없음」이라는 줄을 넣었습니다.</p>
+      <p>충돌본이 생겼고, 아무도 몰랐습니다. 사흘 뒤 제안서 초안을 만들면서 AI가 대성물류를 두 번 언급했고, 한 번은 실적처럼, 한 번은 계약 전으로 적었습니다. <strong>같은 볼트 안에서 서로 반대되는 두 문장이 나왔습니다.</strong></p>
+      <p>그날 정한 규칙이 앞의 네 개입니다. 특히 「고객 축의 주인은 박사업」을 정하고 나서 충돌이 사실상 사라졌습니다. 김대표가 고칠 게 있으면 노트를 직접 열지 않고 박사업에게 말합니다. 손이 한 번 더 가는 대신, <strong>누가 무엇을 아는지가 조직 안에서 정리됩니다.</strong></p>
+    </div>
+
+    <h2>볼트에 넣으면 안 되는 것</h2>
+
+    <p>공유 폴더가 되는 순간 새 질문이 생깁니다. 「이것도 넣어도 되나?」</p>
+
+    <p>기준은 하나입니다. <strong>볼트는 팀 전원이 봐도 되는 것만 담습니다.</strong> 폴더마다 권한을 쪼개는 방법도 있긴 합니다. 다만 그렇게 하면 AI가 볼트의 절반만 보고 답하게 되고, 사람은 그 사실을 모른 채 답을 믿습니다. <strong>반쪽만 보는 AI는 아예 못 보는 AI보다 위험합니다.</strong></p>
+
+    <p>그래서 권한을 쪼개는 대신 <strong>경계 밖으로 뺍니다.</strong></p>
+
+    <table>
+      <thead>
+        <tr><th>자료</th><th>볼트에</th><th>대신 이렇게</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>급여·평가·인사 기록</td><td>넣지 않습니다</td><td>기존 인사 시스템에 그대로 둡니다</td></tr>
+        <tr><td>주민등록번호, 개인 연락처 명부</td><td>넣지 않습니다</td><td>사람 노트에는 이름과 역할만 적습니다</td></tr>
+        <tr><td>비밀번호, API 키, 인증서</td><td>넣지 않습니다</td><td>비밀번호 관리 도구를 씁니다. 볼트에는 「어디에 있다」만</td></tr>
+        <tr><td>고객이 비밀유지 조건으로 준 원문</td><td>넣지 않습니다</td><td>볼트에는 받은 사실, 날짜, 보관 위치, 사용 제약만 적습니다</td></tr>
+        <tr><td>계약서 원본</td><td>대개 넣지 않습니다</td><td><code>period</code>, <code>funder</code>, <code>budget</code>, <code>due</code> 같은 사실만 노트로 옮깁니다</td></tr>
+        <tr><td>미공개 기술 문서, 출원 준비 중인 내용</td><td>등급을 붙여 넣습니다</td><td><code>confidential: 대외비</code>를 프론트매터에 적습니다</td></tr>
+      </tbody>
+    </table>
+
+    <p>마지막 줄이 중요합니다. 민감한 것을 전부 빼면 볼트가 껍데기가 됩니다. 그래서 <strong>등급을 붙여서 넣는 층</strong>을 하나 둡니다. 등급 체계는 10장에서 관계·필드와 함께 설계합니다. 지금은 <code>confidential</code>이라는 필드 이름 하나만 기억하시면 됩니다.</p>
+
+    <h3>「등급을 붙여서 넣는다」가 무슨 뜻인가</h3>
+
+    <p>폴더 권한을 쪼개는 대신, <strong>노트 안에 등급을 적어두고 AI가 그걸 읽게 합니다.</strong> <a href="appendix-a.html#frontmatter" class="term-link">프론트매터</a>에 한 줄이면 됩니다.</p>
+
+    <pre><code>---
+class: 과제
+id: PRJ-2025-스마트물류
+status: 진행
+confidential: 대외비
+period: 2025-04 ~ 2026-03
+funder: 산업통상자원부
+budget: 확인 필요
+updated: 2026-07-20
+---</code></pre>
+
+    <p>이 한 줄이 혼자서는 아무것도 막지 못합니다. 파일에 적힌 글자일 뿐이니까요. 짝이 되는 규칙이 11장의 <code>CLAUDE.md</code>에 들어가야 작동합니다. <strong>「<code>confidential: 대외비</code>인 노트의 내용은 대외 문서 초안에 인용하지 않는다. 필요하면 그 사실이 있다는 것만 알리고 사람에게 확인을 요청한다.」</strong></p>
+
+    <p>구조가 폴더 권한과 다릅니다. 폴더 권한은 아예 안 보이게 만들고, 이 방식은 <strong>보이되 쓰이지 않게</strong> 만듭니다. 그래서 AI가 볼트 전체를 보면서도 「그 과제는 대외비라 여기 못 씁니다」라고 답합니다. 반쪽만 보는 것보다 낫습니다.</p>
+
+    <p>대신 전제가 하나 있습니다. <strong>이건 사후 규칙이지 강제 차단이 아닙니다.</strong> 4장에서 MCP를 미룬 이유와 같은 구조입니다. 정말 새어 나가면 안 되는 자료는 애초에 앞 표대로 볼트 밖에 둡니다. 등급은 <strong>중간 지대를 다루는 도구</strong>입니다.</p>
+
+    <div class="callout">
+      <p class="callout-title">넣을지 말지 30초 만에 정하는 세 질문</p>
+      <p><strong>1. 이게 새어 나가면 누가 다칩니까?</strong> 회사가 아니라 개인이 다치는 자료라면 넣지 않습니다.</p>
+      <p><strong>2. 팀 전원이 봐도 됩니까?</strong> 한 사람이라도 안 되면 볼트가 아니라 다른 곳에 둡니다.</p>
+      <p><strong>3. AI가 이걸 요약해서 제안서에 넣어도 됩니까?</strong> 이 질문이 제일 잘 듣습니다. 볼트에 넣는다는 건 <strong>언젠가 대외 문서에 인용될 수 있다는 뜻</strong>이기 때문입니다.</p>
+    </div>
+
+    <p>세 번째 질문이 대성물류 자료를 걸러냅니다. 대성물류는 아직 계약 전입니다. 미팅에서 받은 창고 도면과 물동량 자료를 볼트에 넣으면, 몇 달 뒤 AI가 다른 제안서를 쓰면서 그 숫자를 근거로 끌어다 씁니다. 그때 아무도 그게 남의 자료였다는 걸 기억하지 못합니다. <strong>볼트에 넣는 순간 그 자료는 회사의 지식처럼 행동하기 시작합니다.</strong></p>
+
+    <div class="exercise-box">
+      <p class="exercise-title">직접 해보기: 팀에 연결하고 충돌을 일부러 내보기</p>
+      <p>마지막 항목이 이상하게 들리겠지만, 처음 충돌을 안전한 노트에서 겪어보는 게 훨씬 낫습니다.</p>
+      <ol>
+        <li><strong>공유 폴더에 볼트를 만들고 최소 두 사람의 PC에 연결하세요.</strong> 혼자서는 이 장의 절반을 검증할 수 없습니다.</li>
+        <li><strong>두 PC 모두에서 「이 디바이스에 항상 유지」를 걸고, 와이파이를 끈 채 노트를 열어보세요.</strong> 이게 통과 기준입니다.</li>
+        <li><strong>연습용 노트를 하나 만들어 두 사람이 동시에 다른 줄을 고쳐보세요.</strong> 각자 저장하고 5분쯤 기다립니다. 충돌본이 어떤 이름으로 생기는지 <strong>우리 환경에서 직접 확인</strong>하세요. 형태가 환경마다 다르기 때문에 이건 직접 봐야 압니다.</li>
+        <li><strong>확인한 이름 형태를 <code>_ops/00-시작하기.md</code>에 적어두세요.</strong> 나중에 그 파일이 보였을 때 팀원이 당황하지 않습니다.</li>
+        <li><strong>축마다 주인을 정하세요.</strong> 종이에 폴더 여섯 개를 적고 옆에 이름을 씁니다. 이름이 안 정해지는 폴더가 있으면, 그 폴더는 아직 필요 없는 폴더일 가능성이 큽니다.</li>
+        <li><strong>「볼트에 넣지 않을 것」 목록을 팀과 함께 다섯 줄로 적으세요.</strong> 나중에 결정하려 하면 이미 들어간 뒤입니다.</li>
+      </ol>
+    </div>
+
+    <div class="checklist">
+      <p class="checklist-title">7장으로 넘어가기 전 확인</p>
+      <ul>
+        <li>볼트가 <code>OneDrive - 회사이름</code> 아래에 있고, 팀원 PC에서 같은 파일이 보입니다</li>
+        <li>모든 PC에서 <strong>「이 디바이스에 항상 유지」</strong>가 걸려 있고, 오프라인에서 노트가 열립니다</li>
+        <li>축마다 주인이 정해져 있고, 업무로그는 사람·날짜별로 파일이 나뉩니다</li>
+        <li>볼트에 넣지 않을 자료 목록이 있고, <code>_ops/00-시작하기.md</code>에 적혀 있습니다</li>
+      </ul>
+    </div>
+
+    <aside class="recap-box">
+      <h3>잠깐, 정리!</h3>
+      <ul>
+        <li>「보내주세요」가 나오면 시스템이 실패한 것이다. 공유 폴더 하나로 <strong>사본을 없앤다</strong></li>
+        <li>Teams 채널 파일 탭에서 <strong>「OneDrive에 바로 가기 추가」</strong>를 쓴다. 경로가 짧아야 프롬프트와 스크립트에서 오타가 준다</li>
+        <li><strong>「이 디바이스에 항상 유지」가 이 책에서 가장 중요한 클릭이다.</strong> 안 하면 파일이 보이는데도 AI가 못 읽는다</li>
+        <li>확인은 <strong>인터넷을 끊고 노트를 열어보는 것</strong>으로 한다. 아이콘 모양보다 확실하다</li>
+        <li>저장 공간 자동 정리가 이 설정을 조용히 되돌린다. <strong>안 열어본 노트만 골라서</strong> 사라지므로 눈치채기 어렵다</li>
+        <li>텍스트 파일은 병합되지 않는다. <strong>축마다 주인, 여럿이 적는 것은 파일 분리, 짧게 고치기, 회의 중 한 명</strong> 네 규칙으로 막는다</li>
+        <li><code>.obsidian</code> 충돌본은 그냥 지운다. <code>Sources/</code> 충돌본은 절대 그냥 지우지 않는다</li>
+        <li>볼트는 <strong>팀 전원이 봐도 되는 것만</strong> 담는다. 권한을 쪼개면 AI가 반쪽만 보고 답한다</li>
+        <li>판정은 세 질문으로 한다. 누가 다치나, 전원이 봐도 되나, <strong>AI가 요약해서 제안서에 넣어도 되나</strong></li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>다음 장에서는...</h3>
+      <p>폴더가 팀 전체에 퍼졌습니다. 이제 손을 붙일 차례입니다. Claude Cowork에 볼트를 연결하고 첫 대화를 나눕니다. 그런데 여기서 대부분이 같은 오해를 합니다. <strong>「폴더를 연결했다」는 「AI가 볼트를 다 읽었다」가 아닙니다.</strong> 이 차이를 모르면 답이 비었을 때 원인을 영영 못 찾습니다.</p>
+    </div>
+  </article>
+
+
+  <nav class="chapter-nav">
+    <a href="ch05.html" class="back-to-toc">← 이전: 옵시디언과 볼트 이해하기</a>
+    <a href="ch07.html" class="next">다음: Claude Cowork에 볼트 연결하기 →</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

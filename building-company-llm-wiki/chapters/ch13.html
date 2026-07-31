@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 13: 스킬로 반복 작업 자동화하기 · 회사용 LLM Wiki 만들기</title>
+  <meta name="description" content="반복하는 절차를 SKILL.md 파일 하나에 적어 이름으로 부릅니다. ingest·retro·audit 세 스킬을 실물로 설계하고, 볼트 동봉과 조직 공유 중 무엇을 고를지, 옵시디언 커뮤니티 플러그인을 왜 걷어냈는지 정리합니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="alternate" hreflang="en" href="ch13.en.html">
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">회사용 LLM Wiki 만들기</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 필요한가</li>
+      <li><a href="ch01.html" class="nav-link">1장 우리 지식은 어디에</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 RAG가 아니라 위키다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 온톨로지와 위키의 구분</a></li>
+      <li><a href="ch04.html" class="nav-link">4장 도구 세 개의 역할</a></li>
+      <li class="nav-part">제2부: 준비 · 30분 셋업</li>
+      <li><a href="ch05.html" class="nav-link">5장 옵시디언과 볼트</a></li>
+      <li><a href="ch06.html" class="nav-link">6장 Teams로 팀 연결</a></li>
+      <li><a href="ch07.html" class="nav-link">7장 Cowork에 볼트 연결</a></li>
+      <li class="nav-part">제3부: 온톨로지 설계</li>
+      <li><a href="ch08.html" class="nav-link">8장 설계 원칙 여섯 개</a></li>
+      <li><a href="ch09.html" class="nav-link">9장 클래스 정하기</a></li>
+      <li><a href="ch10.html" class="nav-link">10장 관계와 필드 설계</a></li>
+      <li class="nav-part">제4부: 운영</li>
+      <li><a href="ch11.html" class="nav-link">11장 CLAUDE.md</a></li>
+      <li><a href="ch12.html" class="nav-link">12장 템플릿과 첫 노트</a></li>
+      <li><a href="ch13.html" class="nav-link">13장 스킬로 자동화</a></li>
+      <li class="nav-part">제5부: 자동화와 시각화</li>
+      <li><a href="ch14.html" class="nav-link">14장 스케줄링</a></li>
+      <li><a href="ch15.html" class="nav-link">15장 업무 진행 시각화</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 자동화 레시피 12선</a></li>
+      <li class="nav-part">제6부: 지속</li>
+      <li><a href="ch17.html" class="nav-link">17장 품질을 코드로</a></li>
+      <li><a href="ch18.html" class="nav-link">18장 의도와 실행의 대조</a></li>
+      <li class="nav-part">제7부: AX로 확장</li>
+      <li><a href="ch19.html" class="nav-link">19장 위키에서 AX로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-b.html" class="nav-link">부록 B: 복붙용 자산</a></li>
+      <li><a href="appendix-c.html" class="nav-link">부록 C: 트러블슈팅</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">CHAPTER 13</span>
+    <h1>스킬로 반복 작업 자동화하기</h1>
+    <p class="chapter-subtitle">세 번째로 같은 설명을 하고 있다면 적어 둘 때입니다</p>
+    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>약 19분</span>
+  </header>
+
+<article>
+    <p>솔빛테크에서 회의록 구조화가 자리를 잡는 데 6주가 걸렸습니다. 그 6주째에 이런 일이 벌어졌습니다.</p>
+
+    <p>박사업이 만든 결정 노트에는 원문 링크가 없었습니다. <code>source:</code> 칸이 비어 있었습니다. 이CTO가 만든 노트에는 대성물류 이름이 그대로 적혀 있었습니다. 계약 전 고객이라 <code>confidential: 대외비</code>를 걸었어야 했습니다. 김대표가 만든 노트는 둘 다 맞았지만 「검토했으나 채택하지 않은 안」 칸이 없었습니다.</p>
+
+    <p>셋 다 성실했습니다. 셋 다 <strong>서로 다른 프롬프트를 쓰고 있었을 뿐입니다.</strong> 처음에 한 사람이 만든 프롬프트를 각자 복사해 갔고, 각자 조금씩 고쳤고, 6주 동안 세 갈래로 갈라졌습니다.</p>
+
+    <div class="callout">
+      <p class="callout-title">이 장이 하는 일</p>
+      <p>프롬프트는 <strong>말</strong>입니다. 말은 사람을 거칠 때마다 조금씩 달라집니다. <a href="appendix-a.html#skill" class="term-link">스킬</a>은 그 말을 <strong>파일 하나로 굳혀 두고 이름으로 부르는 것</strong>입니다.</p>
+      <p>3장의 층위로 말하면, 스킬은 3층의 장치입니다. 회사 사실은 한 줄도 들어가지 않습니다. 절차만 들어갑니다. 이 구분이 이 장 전체를 관통합니다.</p>
+    </div>
+
+    <h2>스킬은 업무 매뉴얼입니다</h2>
+
+    <p>신입이 들어왔다고 해보겠습니다. 「회의록 정리하는 법」을 매번 말로 설명하면 세 번째쯤에는 앞에서 말한 것 하나를 빠뜨립니다. 그래서 한 번 적어 두고 「이거 보고 하세요」라고 합니다. 그 문서가 업무 매뉴얼입니다.</p>
+
+    <p>스킬은 <strong>AI에게 주는 업무 매뉴얼</strong>입니다. 매번 설명하는 대신 한 번 적어 두고 이름으로 부릅니다. "회의록 정리 스킬로 이거 처리해 줘"라고 하면 그 파일에 적힌 절차대로 움직입니다.</p>
+
+    <p>11장에서 규칙(<code>CLAUDE.md</code>)과 서식(템플릿)과 절차(스킬)를 갈랐습니다. 가르는 질문이 <strong>「이 규칙이 모든 작업에 걸리나, 한 작업에만 걸리나?」</strong>였습니다. 그 표는 다시 펴지 않고, 스킬 쪽만 두 가지 덧붙입니다.</p>
+
+    <p>첫째, <strong>스킬은 부를 때만 읽힙니다.</strong> <code>CLAUDE.md</code>는 모든 대화에 늘 들어가지만 스킬은 이름이 불릴 때 열립니다. 그래서 길게 써도 평소 대화가 무거워지지 않습니다. 회의록 처리 절차를 스무 줄로 적어도 제안서 쓰는 대화에는 아무 영향이 없습니다.</p>
+
+    <p>둘째, <strong>스킬은 단계가 두 개 이상일 때만 만듭니다.</strong> 「원문 저장 → 추출 → 표로 보고 → 승인 후 생성」처럼 순서가 있는 일입니다. 한 단계짜리는 스킬로 만들 값어치가 없습니다. <code>_ops/prompts.md</code>에 프롬프트로 적어 두고 복사해 쓰시면 됩니다.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">언제 스킬로 굳히나</p>
+      <p>기준은 하나입니다. <strong>같은 프롬프트를 세 번 썼고, 그 세 번 사이에 프롬프트가 거의 안 바뀌었을 때</strong>입니다. 16장에서 레시피 열두 개를 놓고 이 기준을 다시 적용합니다.</p>
+      <p>아직 고치는 중이라면 스킬로 만들지 마세요. 스킬을 고치는 일이 프롬프트를 고치는 일보다 번거롭습니다. <strong>스킬은 안정된 절차를 보존하는 도구이지, 절차를 발명하는 도구가 아닙니다.</strong></p>
+    </div>
+
+    <h2>SKILL.md는 이렇게 생겼습니다</h2>
+
+    <p>2026년 7월 기준으로 스킬 하나는 <strong>폴더 하나에 <code>SKILL.md</code> 파일 하나</strong>가 최소 구성입니다. 폴더 이름이 스킬 이름이 됩니다.</p>
+
+    <div class="file-tree">솔빛테크 위키/
+├── .claude/
+│   └── skills/
+│       ├── wiki-ingest/
+│       │   └── SKILL.md          <span class="comment">원문에서 노트 뽑기</span>
+│       ├── wiki-retro/
+│       │   └── SKILL.md          <span class="comment">회고</span>
+│       └── wiki-audit/
+│           └── SKILL.md          <span class="comment">규칙 위반 점검</span>
+├── _ops/
+└── Sources/</div>
+
+    <p>파일 맨 위에 <a href="appendix-a.html#frontmatter" class="term-link">frontmatter</a>가 있고, 그 아래는 그냥 마크다운 문서입니다. frontmatter에 필요한 것은 두 개입니다.</p>
+
+    <pre><code>---
+name: wiki-ingest
+description: 회의록·녹취·외부 문서 원문에서 결정과 액션을 뽑아 볼트 노트로 만든다.
+  회의록을 정리하거나 받은 자료를 구조화할 때 쓴다.
+---</code></pre>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">description이 이 파일에서 제일 중요합니다</p>
+      <p>본문은 <strong>불린 다음에</strong> 읽힙니다. <code>description</code>은 <strong>부를지 말지를 정하는 데</strong> 쓰입니다. 여기가 부실하면 아무리 잘 쓴 본문도 실행되지 않습니다.</p>
+      <p>그래서 두 가지를 다 적습니다. <strong>무엇을 하는지</strong>와 <strong>언제 쓰는지</strong>입니다. 「회의록을 처리한다」로 끝내면 "이 녹취 파일 좀 정리해 줘"라고 했을 때 안 불립니다. 사용자가 실제로 쓸 법한 말을 <code>description</code>에 넣어 두세요.</p>
+    </div>
+
+    <p>본문은 여섯 개 절로 씁니다. 이 여섯 개가 이 책이 쓰는 표준 골격입니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>절</th><th>무엇을 적나</th><th>빠뜨리면</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>언제 쓰나</strong></td><td>이 스킬을 부르는 상황 두세 개</td><td>엉뚱한 상황에서 불린다</td></tr>
+        <tr><td><strong>입력</strong></td><td>무엇을 받아야 시작하나</td><td>재료가 없는데 시작해서 지어낸다</td></tr>
+        <tr><td><strong>절차</strong></td><td>번호가 붙은 단계</td><td>순서가 매번 달라진다</td></tr>
+        <tr><td><strong>규칙</strong></td><td>단계마다 지킬 것</td><td>12장의 필드 규약이 무너진다</td></tr>
+        <tr><td><strong>산출물</strong></td><td>어디에 무슨 이름으로 남기나</td><td>대화창에만 남고 사라진다</td></tr>
+        <tr><td><strong>하지 말 것</strong></td><td>금지 목록</td><td><strong>AI가 도와주려다 사고를 낸다</strong></td></tr>
+      </tbody>
+    </table>
+
+    <p>마지막 절이 가장 깁니다. AI가 도와주려다 저지르는 실수가 네 가지 있습니다. 배경을 채워 주고, 오래된 값을 고쳐 주고, 이름을 완성해 주고, 문장을 다듬어 준 일. 전부 도와주려고 한 일이었고 전부 사고였습니다. <strong>회사 사실을 다루는 스킬은 「잘 해 줘」가 아니라 「하지 마」의 목록이 됩니다.</strong> 이 네 가지가 실제 프롬프트에서 어떻게 드러나고 어떤 한 줄로 막았는지는 16장 레시피 1의 ⓕ에서 그대로 봅니다.</p>
+
+    <h2>스킬 세 개면 충분합니다</h2>
+
+    <p>처음에는 셋만 만듭니다. 볼트의 생애에서 서로 다른 세 지점에 붙습니다.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="320" fill="#FFFDF9"/>
+        <defs>
+          <marker id="a13" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#C2703C"/>
+          </marker>
+        </defs>
+
+        <text x="360" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">세 스킬은 볼트의 세 지점에 붙습니다</text>
+
+        <rect x="18" y="112" width="128" height="70" rx="9" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="82" y="136" text-anchor="middle" font-size="11" font-weight="bold" fill="#C2703C">원문</text>
+        <text x="82" y="155" text-anchor="middle" font-size="9.5" fill="#3D2B1F">회의록 · 녹취</text>
+        <text x="82" y="170" text-anchor="middle" font-size="9.5" fill="#3D2B1F">받은 자료</text>
+
+        <line x1="146" y1="147" x2="206" y2="147" stroke="#C2703C" stroke-width="1.6" marker-end="url(#a13)"/>
+        <text x="176" y="139" text-anchor="middle" font-size="10" font-weight="bold" fill="#C2703C">ingest</text>
+
+        <rect x="210" y="92" width="180" height="110" rx="10" fill="#EAF6F4" stroke="#0F766E" stroke-width="2.2"/>
+        <text x="300" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#0F766E">Sources/</text>
+        <text x="300" y="140" text-anchor="middle" font-size="10" fill="#3D2B1F">2층 · 지식 그래프</text>
+        <text x="300" y="162" text-anchor="middle" font-size="10" fill="#3D2B1F">사람이 승인한 노트만</text>
+        <text x="300" y="184" text-anchor="middle" font-size="9.5" fill="#6B5647">스킬이 직접 못 쓴다</text>
+
+        <line x1="390" y1="120" x2="450" y2="92" stroke="#C2703C" stroke-width="1.6" marker-end="url(#a13)"/>
+        <text x="416" y="94" text-anchor="middle" font-size="10" font-weight="bold" fill="#C2703C">audit</text>
+        <line x1="390" y1="176" x2="450" y2="204" stroke="#C2703C" stroke-width="1.6" marker-end="url(#a13)"/>
+        <text x="416" y="208" text-anchor="middle" font-size="10" font-weight="bold" fill="#C2703C">retro</text>
+
+        <rect x="456" y="56" width="242" height="76" rx="9" fill="#FFFFFF" stroke="#8A857C" stroke-width="1.5"/>
+        <text x="577" y="80" text-anchor="middle" font-size="11" font-weight="bold" fill="#6B5647">_reports/감사-YYYY-MM-DD.md</text>
+        <text x="577" y="100" text-anchor="middle" font-size="9.5" fill="#3D2B1F">온톨로지와 어긋난 노트 목록</text>
+        <text x="577" y="118" text-anchor="middle" font-size="9.5" fill="#3D2B1F">고치지 않는다. 목록만 남긴다</text>
+
+        <rect x="456" y="166" width="242" height="76" rx="9" fill="#FFFFFF" stroke="#8A857C" stroke-width="1.5"/>
+        <text x="577" y="190" text-anchor="middle" font-size="11" font-weight="bold" fill="#6B5647">_reports/회고-YYYY-QQ.md</text>
+        <text x="577" y="210" text-anchor="middle" font-size="9.5" fill="#3D2B1F">계획과 실제의 차이</text>
+        <text x="577" y="228" text-anchor="middle" font-size="9.5" fill="#3D2B1F">그리고 차이의 이유</text>
+
+        <rect x="18" y="262" width="680" height="42" rx="8" fill="#FAEADF" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="358" y="288" text-anchor="middle" font-size="11.5" fill="#3D2B1F">들어오게 하고(ingest), 돌아보고(retro), 어긋난 것을 찾는다(audit)</text>
+      </svg>
+      <figcaption>세 스킬이 쓰는 곳은 <code>_reports/</code>와 <code>_moc/</code>뿐입니다. <code>Sources/</code>에는 사람의 승인을 거쳐 들어갑니다</figcaption>
+    </figure>
+
+    <table>
+      <thead>
+        <tr><th>스킬</th><th>무엇을 하나</th><th>언제 부르나</th><th>16장 레시피</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>wiki-ingest</code></td><td>원문에서 결정·액션·사실 변경을 뽑는다</td><td>회의 직후 (수동)</td><td>1, 5의 입력</td></tr>
+        <tr><td><code>wiki-retro</code></td><td>의도와 실행을 대조한다</td><td>분기 마지막 주</td><td>11</td></tr>
+        <tr><td><code>wiki-audit</code></td><td>온톨로지 규약과 어긋난 노트를 찾는다</td><td>월 1회</td><td>9</td></tr>
+      </tbody>
+    </table>
+
+    <p>오른쪽 열은 16장에서 다룰 실무 레시피와의 대응입니다. 16장이 스킬로 굳힐 만하다고 꼽는 레시피 1·9·11이 여기 세 개와 하나씩 짝을 이룹니다. 주간보고(레시피 3)는 스킬로 만들지 않고 프롬프트로 둡니다. 주 단위로는 대조할 만한 차이가 안 생겨서 절차를 굳힐 것이 없기 때문입니다. 용어 표준화 감사(레시피 10)도 스킬이 아닙니다. 16장이 「문자열 검색이므로 AI가 필요 없다」로 못 박은 파이썬 몫입니다. 나머지는 이벤트성이거나(채용 공고, 온보딩 팩) 프롬프트가 아직 자주 바뀌어서 굳히지 않습니다.</p>
+
+    <p>만드는 순서도 정해져 있습니다. <strong><code>wiki-ingest</code>를 먼저 만들고 한 달 뒤에 나머지 둘을 만듭니다.</strong> 이유는 단순합니다. <code>wiki-retro</code>는 업무로그가 쌓여 있어야 돌아가고, <code>wiki-audit</code>은 점검할 노트가 있어야 돌아갑니다. 빈 볼트에 회고 스킬을 걸면 「기록 없음」만 세 줄 나옵니다. 16장에서 솔빛테크가 순서를 어겼다가 겪는 일과 같은 종류의 실망입니다.</p>
+
+    <h3>wiki-ingest</h3>
+
+    <p>가장 자주 쓰고 가장 중요한 스킬입니다. 이것 하나만 만들어도 절반은 한 셈입니다.</p>
+
+    <pre><code>---
+name: wiki-ingest
+description: 회의록·녹취·외부 문서 원문에서 결정과 액션을 뽑아 볼트 노트로 만든다.
+  회의록을 정리하거나 받은 자료를 구조화할 때 쓴다.
+---
+
+# 원문 구조화
+
+## 언제 쓰나
+- 회의가 끝나고 메모를 볼트에 넣을 때
+- 고객에게 받은 문서나 공고문을 볼트에 넣을 때
+
+## 입력
+- 원문 텍스트 또는 파일 경로 하나
+- 없으면 시작하지 않는다. 원문을 달라고 요청한다
+
+## 절차
+1. 원문을 먼저 저장한다.
+   회의 메모는 Sources/40-Worklog/, 밖에서 받은 자료와 녹취는
+   Sources/90-Reference/ 에 넣는다.
+   파일명은 YYYY-MM-DD-제목 형식으로 한다.
+2. 원문에서 아래 네 가지를 뽑는다.
+   - 결정: 「~하기로 했다」에 해당하는 것. 대안과 이유를 함께
+   - 액션: 담당자와 기한이 있는 것
+   - 사실 변경: 기존 노트의 필드를 바꿔야 하는 것
+   - 신규 개체: 볼트에 아직 노트가 없는 조직·제품·기술
+3. 뽑은 것을 표로 보고한다. 파일은 아직 만들지 않는다.
+4. 승인을 받은 뒤에만 노트를 만들거나 고친다.
+5. 만든 노트에는 _ops/templates/ 의 해당 템플릿을 쓴다.
+6. 마지막에 원문 노트의 「여기서 나온 가공물」 절에 링크를 추가한다.
+
+## 규칙
+- 새로 만든 노트는 confidence: draft 로 만든다
+- 모든 가공물에 source: 로 원문을 링크한다
+- 기존 노트와 모순되는 내용은 고치지 말고 「모순」으로 따로 보고한다
+- 계약 전 고객은 confidential: 대외비 로 표시한다
+- 모호한 것은 매끄럽게 정리하지 말고 「확인 필요」로 남긴다
+
+## 산출물
+- 원문 노트 1개 (수정 금지)
+- 가공 노트 0개 이상
+- 보고 표 (대화창)
+
+## 하지 말 것
+- 원문을 고치지 않는다. 오타와 비문도 그대로 둔다
+- 원문에 없는 사실을 추론해 채우지 않는다
+- 사람 이름은 원문 표기 그대로 쓴다. 직함을 추측해 붙이지 않는다
+- confidence 를 reviewed 로 설정하지 않는다. 사람만 바꾼다
+- 승인 없이 Sources/ 아래 파일을 만들거나 고치지 않는다</code></pre>
+
+    <p>절차 1번과 3번이 이 스킬의 뼈대입니다. <strong>원문을 먼저 봉인하고, 표로 먼저 보고합니다.</strong> 이 둘을 빼면 노트 여덟 개가 한꺼번에 생기고 그중 둘이 틀렸는데 어느 것인지 찾기가 어려워집니다.</p>
+
+    <h3>wiki-retro</h3>
+
+    <p>회고 스킬입니다. 설계의 근거는 18장에 있고, 여기서는 절차만 굳힙니다.</p>
+
+    <pre><code>---
+name: wiki-retro
+description: 업무로그와 과제 노트를 대조해 계획과 실제의 차이를 정리한다.
+  분기 회고를 할 때, 「이번 분기에 뭘 했지?」를 물을 때 쓴다.
+---
+
+# 의도와 실행 대조 회고
+
+## 언제 쓰나
+- 분기 마지막 주 분기 회고
+- 분기 계획을 중간에 고칠 때
+
+## 입력
+- 기간 (시작일과 종료일). 없으면 지난 분기로 한다
+
+## 절차
+1. Sources/40-Worklog/ 에서 해당 기간의 업무로그를 모은다.
+2. 각 로그의 pdm_intent_of 링크를 따라가 대상 과제·기회 노트를 연다.
+3. 과제별로 묶어 세 줄로 정리한다.
+   - 계획: 그 과제 노트의 stage 와 due
+   - 실제: 로그에 실제로 적힌 일
+   - 차이: 둘이 어긋난 지점
+4. pdm_intent_of 가 없는 로그는 「연결되지 않은 일」로 따로 모은다.
+5. 로그가 없는 날은 「기록 없음」으로 표시한다. 추측해 채우지 않는다.
+
+## 규칙
+- 「한 일」이 아니라 「진척과 막힌 것」 중심으로 쓴다
+- 차이를 발견하면 원인을 단정하지 않는다. 차이만 적는다
+- 사람을 평가하는 문장을 쓰지 않는다. 이름과 사실만 쓴다
+- 1500자 이내
+
+## 산출물
+- _reports/회고-YYYY-QQ.md
+- 첫 줄에 지난 회차 대비 「연결되지 않은 일」의 증감을 적는다
+
+## 하지 말 것
+- Sources/ 아래의 노트를 고치지 않는다
+- 로그가 비어 있으면 회고를 만들지 않는다. 「기록 없음」 한 줄만 남긴다
+- 계획에 없던 일을 사후에 계획에 넣지 않는다</code></pre>
+
+    <div class="callout">
+      <p class="callout-title">「사람을 평가하는 문장을 쓰지 않는다」가 이 스킬의 생존 조건입니다</p>
+      <p>회고 리포트에 「박사업의 진척이 부진함」 같은 문장이 한 번 나오면, 그 다음 주부터 업무로그가 잘 쓰입니다. 잘 보이게 쓰입니다. 그리고 <strong>잘 보이게 쓴 로그는 회고에 쓸 수 없습니다.</strong></p>
+      <p>14장에서 나올 「미기록 알림을 팀 채널에 올리지 않는다」와 같은 이유입니다. 기록이 평가로 연결되는 순간 기록의 품질이 무너집니다.</p>
+    </div>
+
+    <h3>wiki-audit</h3>
+
+    <p>점검 스킬입니다. 여기서 17장의 검증 스크립트와 역할을 나눠야 합니다.</p>
+
+    <table>
+      <thead>
+        <tr><th></th><th>파이썬 <code>validate.py</code> · 17장</th><th><code>wiki-audit</code> 스킬</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>무엇을 보나</td><td><strong>셀 수 있는 것</strong></td><td><strong>읽어야 아는 것</strong></td></tr>
+        <tr><td>예</td><td>필수 필드 누락, 통제 어휘 밖의 <code>status</code> 값, 깨진 링크, 날짜 형식</td><td>근거 없는 수치, <code>reviewed</code>인데 근거 링크가 없는 노트, 본문과 필드가 어긋난 노트</td></tr>
+        <tr><td>결과</td><td>항상 같다</td><td>회차마다 조금 다르다</td></tr>
+        <tr><td>비용</td><td>0원</td><td>사용량을 쓴다</td></tr>
+      </tbody>
+    </table>
+
+    <p>겹치게 만들면 안 됩니다. <strong>스크립트가 잡을 수 있는 것을 스킬에게 시키면 돈을 내고 더 부정확한 답을 받습니다.</strong> 14장의 경로 C와 경로 A를 나눈 기준이 그대로 적용됩니다.</p>
+
+    <pre><code>---
+name: wiki-audit
+description: 볼트 노트가 온톨로지 설계서와 어긋나는 지점을 찾아 리포트로 남긴다.
+  월간 점검을 할 때, 「우리 볼트 상태 어때?」를 물을 때 쓴다.
+---
+
+# 볼트 규약 점검
+
+## 언제 쓰나
+- 매월 첫 월요일
+- 온톨로지 설계서를 고친 직후
+
+## 입력
+- _ops/01-온톨로지-설계서.md 와 _ops/02-표준용어집.md
+- 없으면 시작하지 않는다
+
+## 절차
+1. _ops/scripts/validate.py 의 최근 결과를 먼저 읽는다.
+   거기서 이미 잡힌 항목은 다시 보지 않는다.
+2. 스크립트가 못 잡는 아래 네 가지만 본다.
+   - 수치가 적혀 있는데 근거 노트 링크가 없는 경우
+   - confidence: reviewed 인데 근거 자료 절이 비어 있는 경우
+   - frontmatter 의 값과 본문 서술이 어긋나는 경우
+   - 같은 개체에 대해 서로 다른 값이 적힌 경우
+3. 확실한 것만 보고한다. 애매하면 보고하지 않는다.
+4. 최대 3건. 그 이상이면 심각한 순으로 3건만 남긴다.
+5. 각 건에 어느 파일의 몇 번째 줄인지 적는다.
+
+## 규칙
+- 고치지 않는다. 목록만 만든다
+- 지난 회차 리포트와 비교해 증감을 첫 줄에 적는다
+- 위반이 하나도 없으면 「위반 없음」 한 줄만 쓴다
+
+## 산출물
+- _reports/감사-YYYY-MM-DD.md
+
+## 하지 말 것
+- Sources/ 아래 파일을 고치거나 만들지 않는다
+- 스크립트가 이미 보고한 항목을 중복해서 보고하지 않는다
+- 「개선 제안」을 쓰지 않는다. 사실만 적는다</code></pre>
+
+    <p><code>입력</code> 절의 두 파일이 없으면 이 스킬은 시작하지 않습니다. 일부러 그렇게 적었습니다. 대조할 기준이 없으면 점검은 그냥 인상 비평이 되니까요. 설계서는 3부에서 만들었는데, <strong>표준용어집은 아직 만든 적이 없습니다.</strong> 두 열짜리 최소 서식을 부록 B에 실어 두었으니 거기서 복사해 <code>_ops/02-표준용어집.md</code>로 저장하세요. <strong>세 줄로 시작해도 됩니다.</strong></p>
+
+    <p>「최대 3건」이 중요합니다. 16장 레시피 9가 같은 상한을 씁니다. 스물세 건짜리 리포트는 아무도 안 고칩니다. <strong>세 건은 한 시간이면 고칠 수 있고, 다음 달에 다시 세 건이 옵니다.</strong> 이렇게 하면 위반이 줄어듭니다. 스물세 건을 한 번 받으면 그날로 이 스킬은 꺼집니다.</p>
+
+    <h2>팀에 배포하는 두 가지 방법</h2>
+
+    <p>스킬을 혼자 쓰면 이 장의 절반은 의미가 없습니다. 서두의 문제는 <strong>세 사람이 서로 다른 절차를 쓴다는 것</strong>이었습니다. 배포 방법이 둘입니다.</p>
+
+    <table>
+      <thead>
+        <tr><th></th><th>볼트 동봉</th><th>조직 공유</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>어디에 두나</td><td>볼트 안 <code>.claude/skills/</code></td><td>조직 관리 화면에서 배포</td></tr>
+        <tr><td>어떻게 퍼지나</td><td>Teams 공유폴더 동기화를 그대로 탄다</td><td>관리자가 올리면 전원에게 보인다</td></tr>
+        <tr><td>고칠 때</td><td>파일을 고치면 끝</td><td>관리자를 거친다</td></tr>
+        <tr><td>버전</td><td>볼트와 항상 같이 움직인다</td><td>볼트 구조가 바뀌면 어긋난다</td></tr>
+        <tr><td>새 팀원</td><td>볼트를 받으면 같이 온다</td><td>아무것도 안 해도 된다</td></tr>
+        <tr><td>볼트 밖에서</td><td>안 된다</td><td>된다</td></tr>
+        <tr><td>기밀</td><td>볼트 권한을 그대로 따른다</td><td><strong>조직 전체가 본다</strong></td></tr>
+      </tbody>
+    </table>
+
+    <p>결정적인 차이는 <strong>버전</strong> 줄입니다. 스킬은 폴더 이름과 필드 이름을 참조합니다. <code>Sources/90-Reference/</code>를 <code>Sources/95-Archive/</code>로 바꾸면 스킬도 같이 고쳐야 합니다. 볼트에 동봉해 두면 둘이 한 폴더에 있어서 같이 움직입니다. 따로 두면 어느 날 조용히 어긋납니다.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">권하는 순서</p>
+      <p><strong>처음 3개월은 볼트 동봉입니다.</strong> 이 시기에는 스킬을 자주 고치게 되고, 고칠 때마다 관리자를 거치면 아무도 안 고칩니다. 안 고쳐진 스킬은 안 쓰이게 됩니다.</p>
+      <p><strong>3개월 동안 한 번도 안 고친 스킬이 생기면</strong> 그때 조직 공유로 올릴 후보입니다. 절차가 굳었다는 뜻이니까요. 그리고 조직 공유로 올릴 때는 스킬 본문에 <strong>회사 폴더 구조와 필드 이름이 그대로 적혀 있다</strong>는 점을 기억하세요. 조직 밖으로 나가면 안 되는 정보입니다.</p>
+    </div>
+
+    <p>조직 단위로 스킬을 공유하는 기능은 <strong>2026년 7월 기준</strong>으로 플랜과 관리자 설정에 따라 다릅니다. 도입 전에 관리자에게 확인하시고, 안 되면 볼트 동봉으로 충분합니다.</p>
+
+    <p>솔빛테크처럼 <strong>다섯 명이 볼트 하나를 쓰는 회사라면 볼트 동봉으로 끝납니다.</strong> 스킬을 고친 사람이 옆자리에 있고, 고쳤다고 말하면 그날 전원이 압니다. 조직 공유는 <strong>볼트가 둘 이상이 되거나</strong>, 볼트를 안 쓰는 사람에게도 같은 절차를 주고 싶을 때 검토하시면 됩니다.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">동기화 지연이 만드는 유령 버그</p>
+      <p>볼트 동봉에는 함정이 하나 있습니다. 스킬 파일을 고쳐도 <strong>다른 사람 PC에 내려오기까지 시간이 걸립니다.</strong> 그 사이에 같은 스킬을 부른 두 사람이 다른 결과를 받습니다.</p>
+      <p>게다가 이게 버그처럼 보입니다. "어제는 됐는데 오늘은 안 되는데요?" 실은 파일이 두 벌입니다.</p>
+      <p>막는 방법은 단순합니다. <strong>스킬을 고치면 팀에 한 줄 알리세요.</strong> 그리고 스킬 본문 맨 아래에 마지막으로 고친 날짜를 적어 두세요. 결과가 이상할 때 그 날짜부터 확인하면 됩니다.</p>
+    </div>
+
+    <h2>플러그인을 걷어낸 판단</h2>
+
+    <p>솔직하게 적겠습니다. 이 장에서 만든 세 스킬이 하는 일 중 상당 부분은 <strong>옵시디언 커뮤니티 플러그인으로도 됩니다.</strong> 템플릿 자동 삽입, 노트 자동 생성, 필드 집계, 대시보드 갱신. 이미 좋은 플러그인들이 있습니다.</p>
+
+    <p>그런데 이 책은 4장에서 플러그인을 쓰지 않기로 정했습니다. 4장이 「그 판단 과정은 13장에서」라며 미뤄 둔 자리가 여기입니다. 그때 적어 둔 것은 실제로 겪은 네 가지였습니다.</p>
+
+    <ul>
+      <li>플러그인이 쓰는 AI 모델이 우리 회사 온톨로지를 이해하지 못했습니다.</li>
+      <li>한국어 원문에서 뽑은 노트를 영어로 만들어서 회사 고유명사가 번역·왜곡됐습니다.</li>
+      <li>사람이 검증한 노트와 경쟁하는 저품질 중복 노트가 생길 구조였습니다.</li>
+      <li>같은 일을 Claude Cowork가 더 잘했습니다.</li>
+    </ul>
+
+    <p>넷 다 그 플러그인 하나의 사정처럼 읽힙니다. 그런데 왜 그랬는지를 하나씩 따라가면 <strong>플러그인이라는 방식 자체에서 나오는 이유 셋</strong>으로 모입니다. 다른 플러그인을 골랐어도 같은 자리에서 걸립니다. 그 셋을 아래에 적고, 15장에서 다시 확인합니다.</p>
+
+    <h3>1. 설치 상태를 팀 전체에 강제할 방법이 없습니다</h3>
+
+    <p>플러그인은 <strong>각자의 옵시디언에 각자 설치합니다.</strong> 볼트를 공유해도 플러그인은 안 따라갑니다. 그러니까 「팀 전체가 같은 절차를 쓴다」는 이 장의 목적이 처음부터 성립하지 않습니다.</p>
+
+    <p>사람이 들어올 때마다 설치 안내를 하게 되고, 꼭 한 명은 안 합니다. 그리고 그 한 사람이 만든 노트만 서식이 다릅니다. 다섯 명짜리 회사에서는 <strong>그 한 명이 전체의 20%</strong>입니다. <strong>서두의 문제가 도구를 바꿔서 그대로 돌아옵니다.</strong></p>
+
+    <p>4장의 셋째 항목, 사람이 검증한 노트와 경쟁하는 중복 노트가 여기서 나옵니다. 플러그인을 깐 사람의 볼트에서만 노트가 자동으로 생기고, 그 노트는 팀이 합의한 서식 밖에 있습니다. 같은 개체에 노트가 둘이 되는 순간 2층이 갈립니다.</p>
+
+    <h3>2. 업데이트로 깨집니다</h3>
+
+    <p>플러그인을 쓰면 우리 볼트가 <strong>남의 릴리스 일정에 묶입니다.</strong> 어느 날 업데이트가 되고, 문법이 바뀌고, 대시보드가 빈 화면이 됩니다. 그때 고칠 사람이 회사에 없습니다.</p>
+
+    <p>더 나쁜 경우도 있습니다. <strong>개발자가 유지보수를 그만두는</strong> 때입니다. 회사 지식 시스템의 수명이 얼굴도 모르는 사람의 사정에 달리게 됩니다.</p>
+
+    <p>4장의 첫째와 넷째가 여기 걸립니다. 플러그인이 어느 모델을 부르는지도, 그 모델이 우리 온톨로지를 읽게 만들 방법이 있는지도 우리가 정하지 못합니다. 같은 일을 Cowork가 더 잘한 이유가 그것이었습니다. 지침 파일 한 장으로 규칙을 바꿀 수 있느냐 없느냐의 차이입니다.</p>
+
+    <h3>3. 지식이 도구 안에 갇힙니다</h3>
+
+    <p>이게 가장 중요한 이유입니다. 어떤 플러그인은 쿼리 문법으로 화면을 만듭니다. 그 문법으로 쓴 노트를 <strong>플러그인 없이 열면 빈 칸</strong>입니다. 텍스트는 남아 있지만 읽을 수가 없습니다.</p>
+
+    <p>5장에서 왜 데이터베이스가 아니라 파일을 골랐는지 이야기했습니다. <strong>도구가 사라져도 지식이 남기 때문</strong>이었습니다. 플러그인 문법으로 쓴 노트는 그 장점을 반납합니다.</p>
+
+    <p>4장의 둘째, 한국어 고유명사가 영어로 왜곡된 일이 이 항목의 가벼운 판입니다. 도구가 정한 형식이 우리 지식의 모양을 정해 버린 것이고, 창고봇이 WarehouseBot이 되는 순간 그 노트는 우리 표준용어집 밖으로 나갑니다.</p>
+
+    <div class="callout">
+      <p class="callout-title">판단 기준은 질문 하나입니다</p>
+      <p><strong>「이 도구가 사라지면 내 지식이 사라지나?」</strong></p>
+      <p>그렇다면 쓰지 않습니다. 아니라면 써도 됩니다. 15장에서 다시 확인하겠지만 <strong>보기만 바꾸는 플러그인은 상대적으로 안전합니다.</strong> 지워도 노트는 마크다운 그대로 남습니다.</p>
+      <p>이 기준 때문에 이 책은 Mermaid를 씁니다. 옵시디언에 원래 들어 있는 기능이고, 마크다운 코드 블록이라 다른 편집기에서도 글자로 읽힙니다. 12장의 템플릿 기능도 같은 이유로 코어 기능만 씁니다.</p>
+    </div>
+
+    <p>대신 치르는 값이 있습니다. <strong>손이 더 갑니다.</strong> 플러그인이라면 버튼 하나로 될 일을 프롬프트로 시킵니다. 자동 갱신되던 표를 스크립트로 다시 만듭니다.</p>
+
+    <p>이 값을 치를 만한지는 회사마다 다릅니다. 혼자 쓰는 개인 볼트라면 플러그인이 훨씬 편합니다. <strong>팀 전체가 같은 볼트를 쓰고, 3년 뒤에도 읽혀야 한다면</strong> 이 책의 선택이 낫습니다. 판단의 근거를 적어 두었으니 다르게 정하셔도 됩니다. 다만 <strong>정하지 않은 채로 하나씩 깔기 시작하는 것</strong>이 가장 나쁩니다.</p>
+
+    <h2>스킬이 실패하는 세 가지 방식</h2>
+
+    <div class="pitfall">
+      <p class="pitfall-title">1. 스킬 안에 회사 사실을 적습니다</p>
+      <p>가장 흔합니다. 스킬을 쓰다 보면 이런 줄을 넣고 싶어집니다. <strong>「액션의 담당자는 대개 박사업이다」</strong>, 「창고봇 관련 결정은 PRD-001에 링크한다」.</p>
+      <p>편해 보이지만 사고입니다. 박사업이 퇴사하면 스킬을 고쳐야 하는데, 아무도 스킬에 그 이름이 있다는 걸 기억하지 못합니다. 그리고 <strong>회사 사실이 두 곳에 적히면 반드시 어긋납니다.</strong></p>
+      <p>규칙은 하나입니다. <strong>사실은 2층에, 절차는 3층에.</strong> 스킬에는 사람 이름, 제품 이름, 숫자를 넣지 않습니다. 폴더 경로와 필드 이름은 넣어도 됩니다. 그건 사실이 아니라 구조입니다.</p>
+    </div>
+
+    <div class="pitfall">
+      <p class="pitfall-title">2. 스킬이 너무 많아집니다</p>
+      <p>만들기가 쉬워서 열 개가 됩니다. 그러면 두 가지가 벌어집니다. <code>description</code>이 겹쳐서 엉뚱한 스킬이 불리고, 사람이 어느 스킬이 있는지 기억하지 못합니다.</p>
+      <p>셋으로 시작하세요. 넷째를 만들 때는 <strong>기존 셋 중 하나를 지울 후보로 검토하세요.</strong> 14장에서 나올 알림 규칙과 같은 이유입니다.</p>
+      <p>스킬을 새로 만들기 전에 한 번 더 물어보세요. <strong>「기존 스킬의 절차 한 줄로 안 되나?」</strong> 대개 됩니다.</p>
+    </div>
+
+    <div class="pitfall">
+      <p class="pitfall-title">3. 스킬이 조용히 낡습니다</p>
+      <p>12장의 세 번째 함정이 여기서 한 번 더 커집니다. 템플릿에 칸을 하나 넣었는데 스킬은 옛 칸 목록을 봅니다. 아무 오류도 안 납니다. 두 달 뒤에 대시보드에서 발견합니다.</p>
+      <p>이제 한 몸인 파일이 넷입니다. <strong><code>_ops/01-온톨로지-설계서.md</code> · <code>CLAUDE.md</code> · <code>_ops/templates/</code> · <code>.claude/skills/</code></strong>. 하나를 고치면 나머지 셋을 여세요.</p>
+      <p>이 넷의 어긋남을 사람이 매번 기억하기는 어렵습니다. 그래서 17장에서 검증 스크립트에 이 대조를 넣습니다. <strong>기억해서 해야 하는 일은 결국 안 하게 되기 때문입니다.</strong></p>
+    </div>
+
+    <div class="case-box">
+      <p class="case-title">사례 · 솔빛테크가 세 스킬을 6주 돌린 결과</p>
+      <p>서두의 세 갈래 프롬프트를 <code>wiki-ingest</code> 하나로 합친 뒤 6주가 지났습니다. 세 스킬의 운명이 갈렸습니다.</p>
+      <table>
+        <thead><tr><th>스킬</th><th>6주 뒤</th></tr></thead>
+        <tbody>
+          <tr><td><code>wiki-ingest</code></td><td><strong>유지.</strong> 회의 다음 날 아침에 세 사람이 같은 모양의 노트를 만들게 됐음</td></tr>
+          <tr><td><code>wiki-audit</code></td><td><strong>고쳐서 유지.</strong> 첫 달 리포트가 23건이라 아무도 안 고쳤음. 「최대 3건」을 넣고 나서 살아남았음</td></tr>
+          <tr><td><code>wiki-retro</code></td><td><strong>범위를 좁혀 유지.</strong> 주간분은 매주 같은 내용이라 만들지 않았고, 분기 회고 하나만 남겼음</td></tr>
+        </tbody>
+      </table>
+      <p>세 줄 중 가운데가 중요합니다. <code>wiki-audit</code>은 처음에 <strong>성실했기 때문에</strong> 죽을 뻔했습니다. 볼트의 위반을 하나도 빠짐없이 찾아 스물세 줄로 정리해 왔고, 김대표는 그 리포트를 두 번 열어보고 세 번째부터 안 열었습니다.</p>
+      <p><strong>다 찾아내는 점검은 아무것도 못 고칩니다.</strong> 상한을 걸고 나서야 매달 세 건씩 실제로 줄기 시작했습니다.</p>
+      <p>그리고 주간분을 스킬로 만들지 않은 것도 실패가 아닙니다. 주간 단위로는 대조할 만한 차이가 안 생겨서 16장 레시피 3의 주간보고로 남겼을 뿐입니다. 14장에서 나올 것처럼 <strong>필요 없어질 자동화는 애초에 만들지 않습니다.</strong></p>
+    </div>
+
+    <div class="checklist">
+      <p class="checklist-title">스킬 하나가 쓸 만한지 판정하는 다섯 질문</p>
+      <ul>
+        <li><strong>회사 사실이 한 줄이라도 들어 있나요?</strong> 있으면 빼세요. 사람 이름, 제품 이름, 숫자.</li>
+        <li><strong>「하지 말 것」 절이 세 줄 이상인가요?</strong> 두 줄 이하면 아직 이 절차를 충분히 안 돌려 봤다는 뜻입니다.</li>
+        <li><strong>산출물의 파일 경로가 적혀 있나요?</strong> 없으면 결과가 대화창에만 남습니다.</li>
+        <li><strong>결과가 비었을 때의 행동이 적혀 있나요?</strong> 없으면 매번 장황한 「특이사항 없음」이 쌓입니다.</li>
+        <li><strong><code>description</code>만 읽고 언제 부를지 알 수 있나요?</strong> 다른 사람에게 보여주고 물어보세요.</li>
+      </ul>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">직접 해보기: ingest 스킬 하나를 만들고 두 번 돌리기</p>
+      <p>셋을 다 만들지 마세요. <code>wiki-ingest</code> 하나면 됩니다. 30분입니다.</p>
+      <ol>
+        <li><strong>폴더는 Cowork 에게 시킵니다.</strong> 대화창에 이렇게 적으세요. <code>볼트 최상위에 .claude/skills/wiki-ingest/ 폴더를 만들고 아래 내용을 SKILL.md 로 저장해줘.</code> 그 아래에 위 본문을 붙여 넣되, <strong>폴더 경로와 클래스 이름을 우리 볼트에 맞게 고치세요.</strong> 그대로 쓰면 안 돕니다.</li>
+        <li><strong>지난주 회의록으로 한 번 돌리세요.</strong> 표까지만 받고 멈추세요.</li>
+        <li>표를 원문과 대조하세요. <strong>원문에 없는 문장을 찾으면 그게 「하지 말 것」에 추가할 줄입니다.</strong></li>
+        <li>승인하고 노트를 만드세요. 그리고 <code>source:</code> 링크가 다 걸렸는지 확인하세요.</li>
+        <li><strong>다른 회의록으로 한 번 더 돌리세요.</strong> 여기가 핵심입니다. 두 번째 결과가 첫 번째와 <strong>같은 모양인지</strong> 보세요. 다르면 절차가 아직 덜 적혔다는 뜻입니다.</li>
+        <li>고친 <code>SKILL.md</code>를 팀에 알리고, 다른 사람에게 같은 회의록으로 돌려 보게 하세요. <strong>세 사람의 결과가 같아지면 이 장의 목적을 이룬 셈입니다.</strong></li>
+      </ol>
+      <p>탐색기에서 직접 만들고 싶으시면 요령이 하나 필요합니다. 윈도우 탐색기는 점으로 시작하는 폴더 이름을 거부하는데, <strong>이름 끝에도 점을 찍어 <code>.claude.</code>로 입력하면</strong> 만들어집니다. 만든 뒤에는 5장의 <code>.obsidian</code>처럼 옵시디언 목록에 안 보입니다. 그게 정상입니다.</p>
+    </div>
+
+    <aside class="recap-box">
+      <h3>잠깐, 정리!</h3>
+      <ul>
+        <li>스킬은 <strong>AI에게 주는 업무 매뉴얼</strong>이다. 반복하는 절차를 파일에 적어 두고 이름으로 부른다</li>
+        <li>스킬은 <strong>부를 때만 읽힌다.</strong> 그래서 길게 써도 평소 대화가 무거워지지 않는다. 단계가 <strong>두 개 이상</strong>일 때만 만든다</li>
+        <li>스킬로 굳히는 시점은 <strong>같은 프롬프트를 세 번 쓴 뒤</strong>다. 아직 고치는 중이면 만들지 않는다</li>
+        <li><code>SKILL.md</code>는 폴더 하나에 파일 하나. frontmatter의 <code>name</code>과 <code>description</code>이 필수다 (2026년 7월 기준)</li>
+        <li><strong><code>description</code>이 부를지 말지를 정한다.</strong> 무엇을 하는지와 언제 쓰는지를 둘 다 적는다</li>
+        <li>본문 여섯 절: 언제 쓰나 · 입력 · 절차 · 규칙 · 산출물 · <strong>하지 말 것</strong>. 마지막이 가장 길다</li>
+        <li>세 스킬로 시작한다 <strong>ingest(들어오게) · retro(돌아보게) · audit(어긋난 것 찾게)</strong></li>
+        <li><code>wiki-audit</code>은 <strong>읽어야 아는 것</strong>만 본다. 셀 수 있는 것은 17장의 파이썬이 맡는다</li>
+        <li>배포는 둘이다. <strong>처음 3개월은 볼트 동봉.</strong> 다섯 명이 볼트 하나를 쓰는 회사라면 그걸로 끝난다. 조직 공유는 볼트가 둘 이상이 될 때 검토한다</li>
+        <li>볼트 동봉의 함정은 <strong>동기화 지연</strong>이다. 고치면 팀에 알리고 스킬에 수정 날짜를 남긴다</li>
+        <li>커뮤니티 플러그인을 쓰지 않는 이유 셋: <strong>설치를 강제 못 한다 · 업데이트로 깨진다 · 지식이 도구에 갇힌다</strong></li>
+        <li>기준은 질문 하나다 <strong>「이 도구가 사라지면 내 지식이 사라지나?」</strong></li>
+        <li><strong>사실은 2층에, 절차는 3층에.</strong> 스킬에 사람 이름과 숫자를 넣지 않는다</li>
+        <li>한 몸인 파일이 넷이다 <strong>온톨로지 설계서 · <code>CLAUDE.md</code> · 템플릿 · 스킬</strong>. 하나를 고치면 셋을 연다</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>다음 장에서는...</h3>
+      <p>여기까지 오면 사람이 시킬 때 꽤 많은 일이 됩니다. 문제는 그 다음입니다. <strong>사람이 안 시킵니다.</strong> 5부에서는 이 일들을 사람의 기억에서 떼어내 시계에 붙입니다. 예약 작업, 작업 스케줄러, 그리고 원격 실행이 로컬 볼트에 닿지 못한다는 <strong>핵심 제약</strong>과 그 우회 설계까지 다룹니다.</p>
+    </div>
+  </article>
+
+
+  <nav class="chapter-nav">
+    <a href="ch12.html" class="back-to-toc">← 이전: 템플릿과 첫 노트 만들기</a>
+    <a href="ch14.html" class="next">다음: 스케줄링: 사람이 잊어도 돌아가게 →</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>

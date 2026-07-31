@@ -1,0 +1,524 @@
+<!--META {
+  "file": "ch15.html",
+  "num": "15",
+  "title": "업무 진행을 눈에 보이게",
+  "subtitle": "온톨로지를 설계해두면 시각화는 공짜로 따라옵니다",
+  "desc": "상태 필드 설계, 플러그인 없이 그리는 Mermaid 간트와 관계도, Bases 표·칸반, 매주 자동 갱신되는 대시보드 노트까지. 기록의 이득을 눈에 보이게 만드는 방법.",
+  "minutes": "16",
+  "prev_href": "ch14.html",
+  "prev_label": "이전: 스케줄링: 사람이 잊어도 돌아가게",
+  "next_href": "ch16.html",
+  "next_label": "다음: 실무 자동화 레시피 12선"
+} -->
+  <article>
+    <p>14장의 자동화가 돌기 시작하면 리포트가 쌓입니다. 그러면 이런 일이 벌어집니다.</p>
+
+    <p>첫 주에는 다 읽습니다. 둘째 주에는 제목만 봅니다. <strong>셋째 주부터는 안 엽니다.</strong></p>
+
+    <p>글로 된 리포트의 운명입니다. 「ERROR 3건, WARN 12건, 마감 임박 2건」이라고 적혀 있어도 그게 지난주보다 나은지 나쁜지, 어디에 손을 대야 하는지가 <strong>한눈에 안 들어옵니다.</strong> 그래서 읽는 데 노력이 들고, 노력이 드는 것은 결국 안 읽습니다.</p>
+
+    <div class="callout">
+      <p class="callout-title">이 장이 푸는 진짜 문제</p>
+      <p>1장에서 이 시스템이 실패하는 이유를 이렇게 적었습니다. <strong>「쓰는 비용은 지금 발생하고, 이득은 나중에 발생한다. 그리고 그 이득이 눈에 보이지 않는다.」</strong></p>
+      <p>이 장은 그 마지막 문장을 고칩니다. <strong>이득을 눈에 보이게 만듭니다.</strong> 그래야 사람이 계속 기록합니다.</p>
+    </div>
+
+    <h2>먼저 좋은 소식, 시각화는 이미 절반 끝났습니다</h2>
+
+    <p>보통 「대시보드를 만들자」고 하면 새로운 도구를 도입하고, 데이터를 옮기고, 연동을 붙입니다. 여기서는 그럴 필요가 없습니다.</p>
+
+    <p>왜냐하면 3부에서 <strong>1층(<a href="appendix-a.html#ontology" class="term-link">온톨로지</a>)을 설계할 때 이미 시각화의 재료를 다 만들어뒀기 때문</strong>입니다.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="340" fill="#FFFDF9"/>
+        <defs>
+          <marker id="a15" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#0F766E"/>
+          </marker>
+        </defs>
+
+        <text x="360" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">같은 필드 하나가 세 가지 그림이 됩니다</text>
+
+        <!-- 왼쪽: frontmatter -->
+        <rect x="20" y="46" width="230" height="230" rx="10" fill="#FFFFFF" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="135" y="70" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">노트의 frontmatter (2층)</text>
+        <text x="36" y="98" font-size="10.5" font-family="monospace" fill="#3D2B1F">class: 과제</text>
+        <text x="36" y="118" font-size="10.5" font-family="monospace" fill="#0F766E">status: 진행</text>
+        <text x="36" y="138" font-size="10.5" font-family="monospace" fill="#0F766E">start: 2026-03-01</text>
+        <text x="36" y="158" font-size="10.5" font-family="monospace" fill="#0F766E">due: 2026-11-30</text>
+        <text x="36" y="178" font-size="10.5" font-family="monospace" fill="#0F766E">stage: 3/5</text>
+        <text x="36" y="198" font-size="10.5" font-family="monospace" fill="#3D2B1F">owner: "[[김대표]]"</text>
+        <text x="36" y="218" font-size="10.5" font-family="monospace" fill="#3D2B1F">pdm_uses: "[[객체인식]]"</text>
+        <text x="36" y="252" font-size="10" fill="#6B5647">1층에서 정한 필드 이름 그대로.</text>
+        <text x="36" y="267" font-size="10" fill="#6B5647">새로 입력할 것이 없습니다</text>
+
+        <!-- 화살표 -->
+        <line x1="252" y1="160" x2="292" y2="160" stroke="#0F766E" stroke-width="2" marker-end="url(#a15)"/>
+
+        <!-- 오른쪽 3개 -->
+        <rect x="298" y="46" width="404" height="66" rx="9" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="316" y="68" font-size="11.5" font-weight="bold" fill="#0F766E">간트 차트 · 언제까지인가</text>
+        <text x="316" y="88" font-size="10.5" fill="#3D2B1F">start + due 필드만 있으면 그려진다</text>
+        <text x="316" y="104" font-size="10" fill="#6B5647">Mermaid · 플러그인 0개 · 옵시디언 내장</text>
+
+        <rect x="298" y="122" width="404" height="66" rx="9" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="316" y="144" font-size="11.5" font-weight="bold" fill="#0F766E">칸반 / 표 · 지금 어디에 있나</text>
+        <text x="316" y="164" font-size="10.5" fill="#3D2B1F">status 값으로 열이 나뉜다</text>
+        <text x="316" y="180" font-size="10" fill="#6B5647">Bases · 옵시디언 코어 기능</text>
+
+        <rect x="298" y="198" width="404" height="66" rx="9" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="316" y="220" font-size="11.5" font-weight="bold" fill="#0F766E">관계도 · 무엇에 걸려 있나</text>
+        <text x="316" y="240" font-size="10.5" fill="#3D2B1F">pdm_uses 같은 링크가 곧 선이 된다</text>
+        <text x="316" y="256" font-size="10" fill="#6B5647">그래프 뷰 · Mermaid flowchart</text>
+
+        <rect x="20" y="292" width="682" height="36" rx="8" fill="#FAEADF" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="361" y="315" text-anchor="middle" font-size="11.5" fill="#3D2B1F">시각화가 안 되는 볼트는 시각화 도구가 없는 게 아니라 <tspan font-weight="bold">필드 이름이 제각각인 것</tspan>입니다</text>
+      </svg>
+      <figcaption>온톨로지 설계가 지루했던 이유가 여기서 보상됩니다</figcaption>
+    </figure>
+
+    <p>이게 3부를 건너뛰면 안 되는 진짜 이유입니다. <strong>필드 이름이 통일되어 있으면 시각화는 거의 자동이고, 통일되어 있지 않으면 어떤 도구를 사서 와도 안 됩니다.</strong> 어제는 <code>due</code>, 오늘은 <code>deadline</code>, 내일은 <code>마감일</code>로 적힌 노트 200개를 간트로 그릴 방법은 없습니다.</p>
+
+    <h2>1단계 · 시각화를 위한 상태 필드 아홉 개</h2>
+
+    <p>10장에서 관계와 필드를 설계했습니다. 여기서는 <strong>진행 상황을 보여주기 위해 꼭 필요한 필드</strong>만 따로 정리합니다. 아홉 개면 충분합니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>필드</th><th>값</th><th>어떤 그림이 되나</th><th>필수</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>status</code></td><td>기획 / 진행 / 검토 / 완료 / 보류</td><td>칸반 열, 상태별 개수</td><td>✅</td></tr>
+        <tr><td><code>owner</code></td><td><code>"[[사람]]"</code> 링크</td><td>담당자별 부하 확인</td><td>✅</td></tr>
+        <tr><td><code>start</code></td><td><code>2026-03-01</code></td><td>간트 시작점</td><td>과제·기회만</td></tr>
+        <tr><td><code>due</code></td><td><code>2026-11-30</code></td><td>간트 끝점, 마감 임박 경고</td><td>과제·기회만</td></tr>
+        <tr><td><code>stage</code></td><td><code>3/5</code> 형태</td><td>진행률 (아래 설명 참고)</td><td>권장</td></tr>
+        <tr><td><code>priority</code></td><td>상 / 중 / 하</td><td>정렬 기준, 색</td><td>권장</td></tr>
+        <tr><td><code>blocked_by</code></td><td><code>"[[노트]]"</code> 링크</td><td>병목 관계도</td><td>선택</td></tr>
+        <tr><td><code>updated</code></td><td><code>2026-07-30</code></td><td>방치 노트 탐지</td><td>✅</td></tr>
+        <tr><td><code>confidence</code></td><td>draft / reviewed</td><td>검증된 비율 추이</td><td>✅</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">여기서 반드시 지켜야 할 <a href="appendix-a.html#controlled-vocab" class="term-link">통제 어휘</a></p>
+      <p><strong>과제·기회의</strong> <code>status</code>는 <strong>다섯 개 중 하나여야 합니다.</strong> (제품은 3장 설계서의 <code>기획 / 개발 / 운영 / 중단</code>을 씁니다.) 「진행중」, 「진행 중」, 「진행」, 「in progress」가 섞이면 칸반에 열이 네 개 생깁니다. 그림이 망가지는 것으로 끝나지 않고, <strong>「진행 중인 과제 몇 개야?」에 AI가 틀린 답을 합니다.</strong></p>
+      <p>그래서 1층 설계서에 이렇게 못 박습니다. <code>status ∈ {기획, 진행, 검토, 완료, 보류}</code>. 17장의 검증 스크립트가 이걸 매주 확인합니다. <strong>통제 어휘는 시각화의 전제 조건입니다.</strong></p>
+    </div>
+
+    <h3>진행률을 퍼센트로 쓰면 안 됩니다</h3>
+
+    <p><code>progress: 70%</code> 같은 필드를 만들고 싶어질 겁니다. 권하지 않습니다. 세 가지 이유입니다.</p>
+
+    <ul>
+      <li>70%가 무슨 뜻인지 <strong>사람마다 다릅니다.</strong> 일정의 70%인지, 산출물의 70%인지, 체감의 70%인지.</li>
+      <li>업데이트가 안 됩니다. 70%로 적어놓고 두 달간 그대로인 노트가 반드시 생깁니다.</li>
+      <li><strong>90%에서 영원히 멈춥니다.</strong> 모든 프로젝트가 그렇습니다.</li>
+    </ul>
+
+    <p>대신 <strong>단계(stage)</strong>를 씁니다. 10장에서 정한 단계를 그대로 씁니다. 과제는 착수·설계·구현·검증·종료 다섯 단계, 기회는 발굴·검토·준비·제출 네 단계였고, 그 목록은 <code>_ops/01-온톨로지-설계서.md</code>의 「단계 정의」 절에 이미 적혀 있습니다.</p>
+
+    <p>노트에는 <code>stage: 3/5</code>라고만 적습니다. 이게 퍼센트보다 나은 이유는 명확합니다. <strong>「3단계」는 검증할 수 있습니다.</strong> 요구사항이 확정됐는지 아닌지는 확인 가능한 사실이고, 70%는 확인할 수 없는 느낌입니다.</p>
+
+    <h2>2단계 · 플러그인 없이 그리는 간트 차트</h2>
+
+    <p>옵시디언은 <strong>Mermaid</strong>를 내장하고 있습니다. 플러그인을 깔 필요가 없습니다. 4장에서 「플러그인을 쓰지 않는다」고 했던 원칙이 유지됩니다.</p>
+
+    <p>노트 안에 이렇게 적으면 됩니다.</p>
+
+    <pre><code>```mermaid
+gantt
+    title 솔빛테크 2026 하반기
+    dateFormat YYYY-MM-DD
+    axisFormat %m월
+    todayMarker stroke-width:3px,stroke:#C2703C
+
+    section 정부 과제
+    스마트물류 R&D 구현      :active,  p1, 2026-03-01, 2026-08-31
+    스마트물류 R&D 검증      :         p2, after p1, 60d
+    최종보고서 제출          :crit,    p3, 2026-11-15, 15d
+
+    section 지자체 공모
+    제안서 작성              :active,  o1, 2026-07-25, 14d
+    접수 마감                :milestone, o2, 2026-08-08, 0d
+
+    section 제품
+    픽뷰 베타                :         d1, 2026-09-01, 45d
+    웨어트윈 실증 착수        :         d2, 2026-10-15, 30d
+```</code></pre>
+
+    <p>렌더링하면 이런 그림이 됩니다.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="300" fill="#FFFDF9"/>
+        <text x="360" y="26" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">솔빛테크 2026 하반기</text>
+
+        <!-- 월 축 -->
+        <line x1="180" y1="46" x2="690" y2="46" stroke="#D8D2C8" stroke-width="1"/>
+        <text x="215" y="40" text-anchor="middle" font-size="9.5" fill="#8A857C">3월</text>
+        <text x="283" y="40" text-anchor="middle" font-size="9.5" fill="#8A857C">5월</text>
+        <text x="351" y="40" text-anchor="middle" font-size="9.5" fill="#8A857C">7월</text>
+        <text x="419" y="40" text-anchor="middle" font-size="9.5" fill="#8A857C">9월</text>
+        <text x="487" y="40" text-anchor="middle" font-size="9.5" fill="#8A857C">11월</text>
+        <text x="555" y="40" text-anchor="middle" font-size="9.5" fill="#8A857C">1월</text>
+
+        <!-- 오늘 -->
+        <line x1="368" y1="52" x2="368" y2="256" stroke="#C2703C" stroke-width="2.5" stroke-dasharray="4 3"/>
+        <text x="368" y="272" text-anchor="middle" font-size="10" font-weight="bold" fill="#C2703C">오늘</text>
+
+        <!-- section 1 -->
+        <text x="16" y="72" font-size="10.5" font-weight="bold" fill="#6B5647">정부 과제</text>
+        <text x="16" y="92" font-size="10" fill="#3D2B1F">R&amp;D 구현</text>
+        <rect x="180" y="82" width="222" height="14" rx="3" fill="#0F766E"/>
+        <text x="16" y="114" font-size="10" fill="#3D2B1F">R&amp;D 검증</text>
+        <rect x="402" y="104" width="70" height="14" rx="3" fill="#A8D8D0"/>
+        <text x="16" y="136" font-size="10" fill="#3D2B1F">최종보고 제출</text>
+        <rect x="490" y="126" width="20" height="14" rx="3" fill="#C2703C"/>
+
+        <!-- section 2 -->
+        <text x="16" y="164" font-size="10.5" font-weight="bold" fill="#6B5647">지자체 공모</text>
+        <text x="16" y="184" font-size="10" fill="#3D2B1F">제안서 작성</text>
+        <rect x="360" y="174" width="18" height="14" rx="3" fill="#0F766E"/>
+        <text x="16" y="206" font-size="10" fill="#3D2B1F">접수 마감</text>
+        <path d="M385,192 L392,199 L385,206 L378,199 z" fill="#C2703C"/>
+
+        <!-- section 3 -->
+        <text x="16" y="234" font-size="10.5" font-weight="bold" fill="#6B5647">제품</text>
+        <text x="16" y="252" font-size="10" fill="#3D2B1F">픽뷰 베타</text>
+        <rect x="411" y="242" width="52" height="14" rx="3" fill="#A8D8D0"/>
+
+        <text x="600" y="92" font-size="9.5" fill="#6B5647">진한 색 = 진행 중</text>
+        <text x="600" y="110" font-size="9.5" fill="#6B5647">연한 색 = 예정</text>
+        <text x="600" y="128" font-size="9.5" fill="#C2703C">주황 = 중요(crit)</text>
+      </svg>
+      <figcaption>Mermaid 코드 20줄이 이 그림이 됩니다. 도구 설치는 없습니다</figcaption>
+    </figure>
+
+    <p>여기서 알아야 할 태그가 네 개 있습니다. <code>active</code>(진행 중), <code>done</code>(완료), <code>crit</code>(중요), <code>milestone</code>(기간 없는 시점). 그리고 <code>after p1</code>처럼 <strong>다른 작업 뒤에 붙이면 앞이 밀릴 때 뒤도 같이 밀립니다.</strong></p>
+
+    <h3>Mermaid의 진짜 문제와 해법</h3>
+
+    <div class="pitfall">
+      <p class="pitfall-title">이걸 손으로 유지하면 3주 만에 낡습니다</p>
+      <p>Mermaid 코드는 <strong>노트의 frontmatter와 자동으로 연결되지 않습니다.</strong> 과제 노트의 <code>due</code>를 바꿔도 간트 차트의 날짜는 그대로입니다. 두 곳을 손으로 맞춰야 합니다.</p>
+      <p>두 곳을 손으로 맞추는 일은 반드시 안 하게 됩니다. 3주 뒤에 <strong>틀린 간트 차트</strong>가 남는데, 이건 없는 것보다 나쁩니다. 사람들이 그걸 믿기 때문입니다.</p>
+    </div>
+
+    <p>해법은 <strong>손으로 쓰지 않는 것</strong>입니다. 14장에서 만든 예약 작업이 매주 이 코드를 다시 생성하게 합니다.</p>
+
+    <pre><code>[작업 이름] 주간 대시보드 갱신
+[주기] 매주 월요일 08:00 (KST)
+[승인 모드] 자동
+[폴더] 솔빛테크 위키
+[프롬프트]
+
+Sources/20-Projects/ 의 모든 노트를 읽어 _moc/000-대시보드.md 를 다시 만든다.
+
+1. frontmatter 의 start, due, status, stage 를 읽는다.
+2. Mermaid gantt 코드 블록을 생성한다.
+   - status: 진행  → active 태그
+   - status: 완료  → done 태그
+   - due 가 21일 이내  → crit 태그
+   - start 나 due 가 없는 노트는 간트에서 제외하고, 표 아래에 「일정 미기재」 목록으로 따로 적는다
+   - section 은 class 값으로 나눈다
+3. 그 아래에 상태별 개수 표를 만든다.
+4. 그 아래에 「지난주 대비 변화」를 3줄 이내로 적는다.
+   (_reports/dashboard-history.csv 의 마지막 줄과 비교)
+5. 파일 맨 위에 생성 시각과 다음 문구를 넣는다:
+   「이 파일은 자동 생성됩니다. 직접 고치면 다음 월요일에 사라집니다.」
+
+절대 하지 말 것:
+- Sources/ 안의 노트를 수정하지 않는다
+- 날짜를 추론하지 않는다. 없으면 없다고 적는다</code></pre>
+
+    <p>5번 항목이 중요합니다. 자동 생성 파일에 사람이 손으로 뭔가 적어두면 <strong>다음 주에 사라지고 그 사람은 시스템을 신뢰하지 않게 됩니다.</strong> 경고를 파일 안에 박아두세요.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">「일정 미기재」 목록이 사실은 가장 유용합니다</p>
+      <p>간트에 안 나오는 항목을 따로 보여주면, <strong>기록이 빠진 곳이 저절로 드러납니다.</strong> 「우리 과제 8개 중 3개가 마감일이 없다」는 사실은 대시보드 없이는 아무도 모릅니다.</p>
+      <p>시각화의 첫 번째 효용은 예쁜 그림이 아니라 <strong>빈칸을 눈에 보이게 만드는 것</strong>입니다.</p>
+    </div>
+
+    <h2>3단계 · 관계도로 병목 찾기</h2>
+
+    <p>간트는 시간을 보여줍니다. 그런데 실무에서 더 자주 필요한 질문은 <strong>「이게 왜 안 되고 있나」</strong>입니다. 그건 관계로 봅니다.</p>
+
+    <pre><code>```mermaid
+flowchart LR
+    PRJ["PRJ-2025 스마트물류<br/>3/5단계"] --> CAP["CAP-객체인식<br/>TRL 6"]
+    CAP --> PRD1["창고봇<br/>운영"]
+    CAP --> PRD2["픽뷰<br/>개발"]
+    OPP["OPP-2026 지자체공모<br/>제안서 작성"] -.근거로 사용.-> PRD1
+    OPP -.근거로 사용.-> CAP
+    PRD2 --- BLK["실증 데이터 없음<br/>확인 필요"]
+
+    style BLK fill:#FAEADF,stroke:#C2703C,stroke-width:2px
+    style OPP fill:#EAF6F4,stroke:#0F766E,stroke-width:2px
+```</code></pre>
+
+    <p>이 그림 하나가 알려주는 것을 보세요. <strong>지자체 공모 제안서는 창고봇과 객체인식을 근거로 쓰는데, 픽뷰는 실증 데이터가 없어서 근거로 못 쓴다.</strong> 이 판단을 회의에서 말로 하면 10분 걸리고, 그림으로 보면 5초입니다.</p>
+
+    <p>이 코드도 손으로 쓰지 않습니다. <strong>노트의 링크가 이미 관계를 담고 있으므로</strong>, "Sources/ 의 pdm_uses·blocked_by 링크를 읽어서 flowchart를 그려줘"라고 하면 됩니다.</p>
+
+    <div class="callout">
+      <p class="callout-title"><a href="appendix-a.html#obsidian" class="term-link">옵시디언</a> 그래프 뷰와 무엇이 다른가</p>
+      <p>옵시디언에는 이미 그래프 뷰가 있습니다. 노트 전체의 링크를 점과 선으로 보여줍니다. 훌륭하지만 <strong>노트가 100개를 넘으면 털뭉치가 됩니다.</strong> 모든 링크를 다 보여주기 때문입니다.</p>
+      <p>Mermaid는 반대입니다. <strong>「이번 제안서와 관련된 것만」</strong> 골라서 그릴 수 있습니다. 그래프 뷰는 탐색용, Mermaid는 설명용입니다. 회의 자료로는 후자가 훨씬 낫습니다.</p>
+    </div>
+
+    <h2>4단계 · Bases로 표와 칸반</h2>
+
+    <p>옵시디언의 <strong>Bases</strong>는 노트의 frontmatter를 읽어 <strong>표·카드·목록 형태로 보여주는 코어 기능</strong>입니다. 코어 기능이므로 설치할 것이 없습니다. 데이터는 그대로 마크다운에 남고, <strong>보는 방식만</strong> <code>.base</code> 파일에 저장됩니다.</p>
+
+    <p>만드는 법부터 적겠습니다. <strong>명령 팔레트에서 「새 Base」를 부르고</strong>, 만들어진 파일을 <code>_moc/과제현황</code>으로 이름 붙인 다음, <strong>소스 보기로 바꿔</strong> 아래 내용을 붙여 넣습니다. 명령 팔레트는 <kbd>Ctrl</kbd>+<kbd>P</kbd>입니다.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">이 절은 건너뛰어도 됩니다</p>
+      <p>화면 이름이 안 맞거나 「새 Base」가 안 보이면 그냥 넘어가세요. <strong>대시보드는 다음 절의 5단계로 돌아갑니다.</strong> Bases 는 표를 직접 고칠 수 있어 편한 도구이지, 이 장이 성립하는 데 필요한 조건이 아닙니다.</p>
+    </div>
+
+    <p><code>_moc/과제현황.base</code>의 내용은 이렇습니다.</p>
+
+    <pre><code>filters:
+  and:
+    - file.inFolder("Sources/20-Projects")
+    - status != "완료"
+views:
+  - type: table
+    name: 마감 순
+    order:
+      - due
+    columns: [file.name, status, stage, owner, due]
+  - type: cards
+    name: 담당자별
+    groupBy: owner</code></pre>
+
+    <p>표에서 값을 고치면 <strong>노트의 frontmatter가 바로 바뀝니다.</strong> 이게 실무에서 Bases가 좋은 점입니다. 노트를 하나하나 열지 않고 상태를 한 번에 갱신합니다. 「금요일에 과제 상태 한 번에 업데이트」가 2분 안에 끝납니다.</p>
+
+    <p>칸반 보드도 같은 원리입니다. <code>status</code>를 열로 쓰면 됩니다. 2026년 7월 기준으로 Bases의 칸반·캘린더 뷰는 공식 로드맵에 올라가 있고, 그전까지는 커뮤니티 플러그인(Kanban Bases View)으로 같은 일을 할 수 있습니다.</p>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">여기서 플러그인 원칙을 다시 확인합니다</p>
+      <p>4장에서 「플러그인을 쓰지 않는다」고 했습니다. 정확히 말하면 <strong>「AI가 노트를 생성·수정하는 플러그인은 쓰지 않는다」</strong>입니다. 지식의 품질을 두 곳에서 관리하게 되기 때문입니다.</p>
+      <p><strong>보기만 바꾸는 플러그인은 상대적으로 안전합니다.</strong> 지워도 노트는 그대로 남습니다. 그래도 판단 기준은 하나로 하세요. <strong>「이 플러그인이 사라지면 내 지식이 사라지나?」</strong> 아니라면 써도 됩니다.</p>
+    </div>
+
+    <h2>5단계 · 주간 대시보드 노트 한 장</h2>
+
+    <p>지금까지 만든 것을 노트 한 장에 모읍니다. <code>_moc/000-대시보드.md</code>입니다. 팀원이 월요일에 여는 유일한 파일이 됩니다.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="420" fill="#FFFDF9"/>
+
+        <rect x="40" y="24" width="640" height="372" rx="10" fill="#FFFFFF" stroke="#D8D2C8" stroke-width="1.6"/>
+
+        <!-- 헤더 -->
+        <text x="60" y="52" font-size="13" font-weight="bold" fill="#3D2B1F">솔빛테크 위키 대시보드</text>
+        <text x="60" y="70" font-size="9.5" fill="#C2703C">자동 생성 · 2026-07-27 08:00 · 직접 고치면 다음 월요일에 사라집니다</text>
+        <line x1="60" y1="80" x2="660" y2="80" stroke="#E8DDD4" stroke-width="1"/>
+
+        <!-- 1행: 숫자 카드 4개 -->
+        <rect x="60" y="94" width="140" height="56" rx="7" fill="#EAF6F4" stroke="#A8D8D0" stroke-width="1.2"/>
+        <text x="130" y="118" text-anchor="middle" font-size="18" font-weight="bold" fill="#0F766E">147</text>
+        <text x="130" y="138" text-anchor="middle" font-size="9.5" fill="#6B5647">전체 노트  ▲12</text>
+
+        <rect x="212" y="94" width="140" height="56" rx="7" fill="#EAF6F4" stroke="#A8D8D0" stroke-width="1.2"/>
+        <text x="282" y="118" text-anchor="middle" font-size="18" font-weight="bold" fill="#0F766E">81%</text>
+        <text x="282" y="138" text-anchor="middle" font-size="9.5" fill="#6B5647">검증됨(reviewed)  ▲4%p</text>
+
+        <rect x="364" y="94" width="140" height="56" rx="7" fill="#FAEADF" stroke="#E0A57E" stroke-width="1.2"/>
+        <text x="434" y="118" text-anchor="middle" font-size="18" font-weight="bold" fill="#C2703C">3</text>
+        <text x="434" y="138" text-anchor="middle" font-size="9.5" fill="#6B5647">마감 21일 이내</text>
+
+        <rect x="516" y="94" width="144" height="56" rx="7" fill="#FAEADF" stroke="#E0A57E" stroke-width="1.2"/>
+        <text x="588" y="118" text-anchor="middle" font-size="18" font-weight="bold" fill="#C2703C">5</text>
+        <text x="588" y="138" text-anchor="middle" font-size="9.5" fill="#6B5647">30일 이상 방치</text>
+
+        <!-- 2행: 간트 자리 -->
+        <text x="60" y="176" font-size="11" font-weight="bold" fill="#3D2B1F">일정</text>
+        <rect x="60" y="184" width="600" height="76" rx="6" fill="#FBFAF7" stroke="#E8DDD4" stroke-width="1"/>
+        <rect x="120" y="196" width="180" height="10" rx="2" fill="#0F766E"/>
+        <rect x="300" y="212" width="90" height="10" rx="2" fill="#A8D8D0"/>
+        <rect x="430" y="228" width="30" height="10" rx="2" fill="#C2703C"/>
+        <rect x="140" y="244" width="60" height="10" rx="2" fill="#0F766E"/>
+        <line x1="322" y1="190" x2="322" y2="256" stroke="#C2703C" stroke-width="1.6" stroke-dasharray="3 2"/>
+        <text x="70" y="203" font-size="8.5" fill="#6B5647">R&amp;D</text>
+        <text x="70" y="219" font-size="8.5" fill="#6B5647">검증</text>
+        <text x="70" y="235" font-size="8.5" fill="#6B5647">보고</text>
+        <text x="70" y="251" font-size="8.5" fill="#6B5647">공모</text>
+
+        <!-- 3행: 좌우 분할 -->
+        <text x="60" y="286" font-size="11" font-weight="bold" fill="#3D2B1F">상태별</text>
+        <rect x="60" y="294" width="290" height="86" rx="6" fill="#FBFAF7" stroke="#E8DDD4" stroke-width="1"/>
+        <text x="76" y="314" font-size="10" fill="#3D2B1F">기획 2  ·  진행 5  ·  검토 1  ·  완료 9  ·  보류 1</text>
+        <rect x="76" y="326" width="24" height="12" fill="#D8D2C8"/>
+        <rect x="102" y="326" width="60" height="12" fill="#0F766E"/>
+        <rect x="164" y="326" width="12" height="12" fill="#A8D8D0"/>
+        <rect x="178" y="326" width="108" height="12" fill="#8FBF8F"/>
+        <rect x="288" y="326" width="12" height="12" fill="#C2703C"/>
+        <text x="76" y="360" font-size="9.5" fill="#6B5647">일정 미기재 3건 → 채워야 간트에 나옵니다</text>
+
+        <text x="370" y="286" font-size="11" font-weight="bold" fill="#3D2B1F">이번 주 해야 할 일</text>
+        <rect x="370" y="294" width="290" height="86" rx="6" fill="#FBFAF7" stroke="#E8DDD4" stroke-width="1"/>
+        <text x="386" y="314" font-size="9.5" fill="#3D2B1F">· 지자체 공모 접수, 8/8 (D-12) · 김대표</text>
+        <text x="386" y="334" font-size="9.5" fill="#3D2B1F">· 웨어트윈 실증 데이터 확보, 미착수</text>
+        <text x="386" y="354" font-size="9.5" fill="#3D2B1F">· ERROR 3건 수정, _reports/점검-0724</text>
+        <text x="386" y="372" font-size="9" fill="#6B5647">근거: [[OPP-2026-지자체공모]] 외 2건</text>
+      </svg>
+      <figcaption>한 화면. 스크롤 없음. 숫자 네 개, 그림 두 개, 할 일 세 줄</figcaption>
+    </figure>
+
+    <p>이 레이아웃에는 규칙이 있습니다.</p>
+
+    <ol class="steps">
+      <li><strong>한 화면을 넘지 않습니다</strong>
+        <p>스크롤이 생기면 아래는 안 봅니다. 넘칠 것 같으면 항목을 줄이는 게 맞습니다.</p>
+      </li>
+      <li><strong>모든 숫자에 증감을 붙입니다</strong>
+        <p>「147개」는 정보가 아니고 「147개 ▲12」는 정보입니다. 절대값보다 방향이 중요합니다.</p>
+      </li>
+      <li><strong>빨간 숫자에는 반드시 행동이 붙습니다</strong>
+        <p>「방치 5건」만 있으면 아무도 안 합니다. 「방치 5건 → 목록 보기」로 연결하세요.</p>
+      </li>
+      <li><strong>근거 링크를 남깁니다</strong>
+        <p>대시보드 숫자가 틀렸을 때 어느 노트를 봐야 하는지 알 수 있어야 합니다. 이게 없으면 대시보드를 믿지 못하게 됩니다.</p>
+      </li>
+    </ol>
+
+    <h2>6단계 · 추이를 남깁니다</h2>
+
+    <p>대시보드는 「지금」을 보여줍니다. 그런데 도입 3개월째에 대표가 묻는 질문은 <strong>「이게 좋아지고 있나?」</strong>입니다. 그건 추이가 있어야 답합니다.</p>
+
+    <p>14장에서 파이썬 스크립트가 <code>validate-history.csv</code>에 한 줄씩 누적하게 해뒀습니다. 그걸 그리면 됩니다. Mermaid에도 간단한 차트가 있습니다.</p>
+
+    <pre><code>```mermaid
+xychart-beta
+    title "검증된 노트 비율 (%)"
+    x-axis [4월, 5월, 6월, 7월]
+    y-axis "비율" 0 --> 100
+    line [42, 58, 74, 81]
+```</code></pre>
+
+    <p>이 선 하나가 <strong>도입 보고서 한 장보다 설득력이 있습니다.</strong> 이 선이 꺾이면 그 달에 무슨 일이 있었는지 확인하게 됩니다. 그게 18장 회고의 재료입니다.</p>
+
+    <h3>옵시디언을 안 쓰는 사람에게 보여줘야 할 때</h3>
+
+    <p>대표님이 옵시디언을 안 깔았을 수 있습니다. 그러면 <strong>HTML 파일 한 장</strong>으로 만들어서 Teams에 올립니다. 파이썬 스크립트가 매주 생성하게 하면 됩니다.</p>
+
+    <pre><code># _ops/scripts/dashboard.py · 핵심 부분만
+# frontmatter 를 읽어 단일 HTML 파일로 렌더링한다. 외부 라이브러리 없음.
+
+import re, datetime
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+rows = []
+for md in (ROOT / "Sources" / "20-Projects").glob("*.md"):
+    text = md.read_text(encoding="utf-8")
+    fm = re.match(r"---\n(.*?)\n---", text, re.S)
+    if not fm:
+        continue
+    meta = dict(
+        re.findall(r"^(\w+):\s*\"?([^\"\n]+)\"?$", fm.group(1), re.M)
+    )
+    rows.append((md.stem, meta.get("status", "미기재"),
+                  meta.get("due", ""), meta.get("owner", "")))
+
+rows.sort(key=lambda r: r[2] or "9999")
+today = datetime.date.today().isoformat()
+
+html = [f"&lt;h1&gt;과제 현황 &lt;small&gt;{today}&lt;/small&gt;&lt;/h1&gt;&lt;table&gt;"]
+for name, status, due, owner in rows:
+    d_day = ""
+    if due:
+        left = (datetime.date.fromisoformat(due) - datetime.date.today()).days
+        d_day = f"D{left:+d}"
+    cls = "urgent" if d_day and left &lt; 21 else ""
+    html.append(f"&lt;tr class='{cls}'&gt;&lt;td&gt;{name}&lt;/td&gt;&lt;td&gt;{status}&lt;/td&gt;"
+                f"&lt;td&gt;{due} {d_day}&lt;/td&gt;&lt;td&gt;{owner}&lt;/td&gt;&lt;/tr&gt;")
+html.append("&lt;/table&gt;")
+
+(ROOT / "_reports" / "dashboard.html").write_text(
+    "&lt;style&gt;.urgent{background:#FAEADF}&lt;/style&gt;" + "\n".join(html),
+    encoding="utf-8")</code></pre>
+
+    <p>이 파일을 Teams 공유 폴더에 두면 클릭 한 번으로 열립니다. 그리고 14장의 Power Automate가 매주 월요일 링크를 채널에 올립니다. <strong>옵시디언을 모르는 사람도 이 시스템의 결과를 봅니다.</strong> 이게 생각보다 중요합니다. 결과를 보는 사람이 늘면 기록의 정당성이 생깁니다.</p>
+
+    <h2>측정하면 안 되는 것</h2>
+
+    <p>여기까지 읽으면 이런 생각이 듭니다. <strong>「누가 노트를 몇 개 썼는지 세면 되겠네.」</strong></p>
+
+    <p>하지 마세요.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">개인별 기록 수를 순위로 만들면 시스템이 죽습니다</p>
+      <p>정확히 이렇게 됩니다. 첫 주에 노트 수가 급증합니다. 그리고 그 노트들은 <strong>내용이 없습니다.</strong> 「오늘 개발 진행」 같은 한 줄 로그가 쌓입니다. 숫자를 채우는 것이 목적이 됐기 때문입니다.</p>
+      <p>더 나쁜 쪽은 그 다음입니다. <strong>내용 없는 노트가 AI 답변의 품질을 떨어뜨립니다.</strong> 사람들은 「이거 해봤는데 별로였다」는 결론에 도달합니다. 측정 지표 하나가 프로젝트를 죽입니다.</p>
+    </div>
+
+    <p>대신 <strong>시스템을 측정합니다.</strong> 사람이 아니라요.</p>
+
+    <table>
+      <thead>
+        <tr><th>측정하세요</th><th>측정하지 마세요</th><th>왜</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>검증된(reviewed) 노트 비율</td><td>개인별 노트 작성 수</td><td>품질 대 분량. 분량은 조작하기 쉽다</td></tr>
+        <tr><td>규칙 위반(ERROR) 건수 추이</td><td>개인별 위반 건수</td><td>고칠 대상은 규칙이거나 템플릿이다</td></tr>
+        <tr><td>30일 이상 방치된 노트 수</td><td>담당자별 방치 순위</td><td>방치는 대개 담당자가 바쁜 것이지 게으른 게 아니다</td></tr>
+        <tr><td>제안서 작성 소요 시간</td><td>해당 없음</td><td>이 시스템의 실제 목적. 줄어들면 성공이다</td></tr>
+        <tr><td>「기록 없음」 답변 비율</td><td>해당 없음</td><td>줄어들면 볼트가 채워지고 있다는 뜻</td></tr>
+        <tr><td>대시보드를 연 사람 수</td><td>해당 없음</td><td>0이면 이 장의 작업이 헛수고다</td></tr>
+      </tbody>
+    </table>
+
+    <p>마지막 지표를 눈여겨보세요. <strong>대시보드를 아무도 안 열면 대시보드를 고쳐야 합니다.</strong> 사람들이 게으른 게 아니라 그 화면이 도움이 안 될 뿐입니다.</p>
+
+    <div class="case-box">
+      <p class="case-title">사례 · 솔빛테크의 대시보드가 실제로 바꾼 것</p>
+      <p>솔빛테크는 대시보드를 도입하기 전 2개월 동안 업무로그 작성률이 <strong>40% 근처</strong>였습니다. 시키면 쓰고, 안 시키면 안 썼습니다.</p>
+      <p>대시보드에 항목 하나를 추가했습니다. <strong>「이번 주 결정 사항」</strong>입니다. 업무로그에서 결정으로 표시된 항목을 모아 보여주는 칸이었습니다.</p>
+      <p>3주 뒤 작성률이 <strong>78%</strong>가 됐습니다. 아무도 독촉하지 않았습니다.</p>
+      <p>이유는 나중에 회고에서 나왔습니다. 사업담당자가 이렇게 말했습니다. <em>"내가 쓴 게 월요일에 대표님이 보는 화면에 뜨더라고요. 그래서 쓰기 시작했어요."</em></p>
+      <p><strong>기록의 이득이 눈에 보이면 사람은 기록합니다.</strong> 독촉은 필요 없었습니다. 필요한 것은 「내가 쓴 것이 어디에 쓰이는지 보이는 것」이었습니다.</p>
+      <p>덧붙여 실패한 것도 있습니다. 처음 만든 대시보드에는 항목이 <strong>14개</strong>였습니다. 스크롤이 세 번 필요했고, 아무도 아래쪽을 안 봤습니다. 지금은 8개입니다.</p>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">직접 해보기: 대시보드 최소판 만들기</p>
+      <p>완성된 대시보드를 목표로 하지 마세요. <strong>숫자 두 개</strong>로 시작합니다.</p>
+      <ol>
+        <li>볼트의 노트를 세어 보세요. 그리고 그중 <code>confidence: reviewed</code>인 것을 세어 보세요. 이 두 숫자를 <code>_moc/000-대시보드.md</code>에 적습니다. <strong>손으로 적어도 됩니다.</strong> 오늘은.</li>
+        <li>과제·기회 노트를 열어 <code>start</code>와 <code>due</code>가 있는지 확인하세요. <strong>없는 게 대부분일 겁니다.</strong> 몇 개가 비어 있는지 세어서 대시보드에 「일정 미기재 N건」으로 적으세요.</li>
+        <li>이 장의 gantt 예제를 복사해서 우리 과제 <strong>세 개만</strong> 넣어 보세요. 옵시디언에서 렌더링되는지 확인합니다.</li>
+        <li>이제 이 세 가지를 만드는 프롬프트를 써서 <strong>Cowork에 한 번 시켜 보세요.</strong> 손으로 만든 것과 비교합니다. 다르면 어느 쪽이 틀렸는지 확인하세요. 대개 볼트의 필드가 비어 있는 게 원인입니다.</li>
+        <li>잘 나오면 14장의 방법으로 <strong>매주 월요일 08:00에 걸어두세요.</strong> 여기까지 하면 이 장이 끝납니다.</li>
+        <li>2주 뒤 자문하세요. <strong>「월요일에 이 파일을 열었나?」</strong> 안 열었으면 항목을 절반으로 줄이세요.</li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>잠깐, 정리!</h3>
+      <ul>
+        <li>글로 된 리포트는 3주 뒤에 안 읽힌다. <strong>이득이 눈에 보여야 사람이 기록한다</strong></li>
+        <li><strong>시각화가 안 되는 볼트는 도구가 없는 게 아니라 필드 이름이 제각각인 것이다.</strong> 통제 어휘가 전제 조건</li>
+        <li>시각화용 필드는 아홉 개다. <code>status · owner · start · due · stage · priority · blocked_by · updated · confidence</code></li>
+        <li>진행률은 <strong>퍼센트가 아니라 단계</strong>로 쓴다. 「3/5단계」는 검증할 수 있고 「70%」는 확인할 수 없다</li>
+        <li>간트와 관계도는 <strong>Mermaid로 플러그인 없이</strong> 그린다. 옵시디언 내장 기능이다</li>
+        <li>Mermaid를 손으로 유지하면 3주 만에 틀린 그림이 남는다. <strong>예약 작업이 매주 다시 생성하게 한다</strong></li>
+        <li>시각화의 첫 효용은 예쁜 그림이 아니라 <strong>빈칸이 눈에 보이는 것</strong>이다. 「일정 미기재 3건」처럼</li>
+        <li>대시보드 규칙은 넷이다. <strong>한 화면 · 증감 표기 · 빨간 숫자에는 행동 · 근거 링크</strong></li>
+        <li>자동 생성 파일에는 <strong>「직접 고치면 사라집니다」</strong>를 박아둔다</li>
+        <li><strong>개인별 기록 수를 측정하지 않는다.</strong> 시스템을 측정한다. 사람을 측정하면 내용 없는 노트가 쌓인다</li>
+        <li>대시보드를 아무도 안 열면 <strong>사람이 아니라 대시보드를 고친다</strong></li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>다음 장에서는...</h3>
+      <p>이제 재료가 다 모였습니다. <a href="appendix-a.html#vault" class="term-link">볼트</a>, 온톨로지, 규칙, 스킬, 스케줄, 대시보드. 다음 장은 <strong>이것들을 조합한 실무 레시피 12개</strong>입니다. 회의록 구조화부터 제안서 초안, 온보딩 팩, 계약 만료 감시까지 다룹니다. 첫 번째 레시피는 <strong>처음부터 끝까지 전부</strong> 따라갈 수 있게 적었습니다. 입력, 프롬프트, 결과물, 검증, 실패했을 때까지 전부요.</p>
+    </div>
+  </article>
