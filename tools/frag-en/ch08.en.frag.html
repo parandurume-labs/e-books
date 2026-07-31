@@ -1,0 +1,445 @@
+<!--META {
+  "file": "ch08.en.html",
+  "num": "8",
+  "title": "Six design principles",
+  "subtitle": "The rules that keep a design document alive three months later",
+  "desc": "Six ontology design principles, drawn from the two weeks a company spent stalled after defining nineteen classes. The cost of over-design, why relations cannot be tags, and how to run a three-hour design session.",
+  "minutes": "20",
+  "prev_href": "ch07.en.html",
+  "prev_label": "Previous: Connecting the vault to Claude Cowork",
+  "next_href": "ch09.en.html",
+  "next_label": "Next: Choosing your company's classes"
+} -->
+  <article>
+    <p>Chapter 3 passed over the story of Solbit Tech growing the class list to nineteen and then cutting it back to seven in a single paragraph. It recorded only the outcome. This chapter starts with what actually happened during those two weeks.</p>
+
+    <p>The first design session ran 90 minutes and it was fun. Sticky notes kept going up on the whiteboard. "Patents are company assets too, let us make that a class." "Contacts from trade shows are scattered everywhere, put trade shows in." Nobody objected. There was no reason to. <strong>In the room, adding one more looks like it costs nothing.</strong></p>
+
+    <p>The design document came to six pages. The next day the sales lead sat down to write the first note. There was one thing to record.</p>
+
+    <p><em>"Met the Daesung Logistics contact at last week's trade show and asked whether Warebot can work in a freezer warehouse."</em></p>
+
+    <p>Then nothing got written for fifteen minutes.</p>
+
+    <p>The reason is simple. That one line had <strong>four</strong> places it could go. Trade show, organization, customer enquiry, or meeting. Reopening the design document gave no answer, because all four classes were written to accept exactly this. The note was never made that day.</p>
+
+    <p>Two weeks on there were six notes in the vault. Four of them were written by the person who had led the design. The other four people had produced <strong>two</strong> notes in two weeks.</p>
+
+    <div class="callout">
+      <p class="callout-title">The diagnosis</p>
+      <p>The design was not wrong. <strong>It was too good.</strong> Nineteen classes described the company called Solbit Tech quite accurately. The problem is not the accuracy of the description. It is that writing a single note demanded <strong>a nineteen-way judgement</strong>.</p>
+      <p>The sentence Chapter 3 promised gets used again here. <strong>You measure layer 1 by how much layer 2 gets filled, not by how refined it is.</strong> A design document nobody can fill is not a well-made design document.</p>
+    </div>
+
+    <p>All six principles in this chapter came out of those two weeks. Here they are at a glance, then one at a time. The right-hand column is the real content of the chapter, because <strong>what happens when you break a principle</strong> matters more than the principle.</p>
+
+    <table>
+      <thead>
+        <tr><th>#</th><th>Principle</th><th>What happens if you break it</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>1</strong></td><td>Never go past seven classes</td><td>Every note means agonizing over where it goes, until people stop writing</td></tr>
+        <tr><td><strong>2</strong></td><td>If you cannot write the test in one sentence, it is not a class</td><td>Everyone files differently, counts diverge, and what the company tells the world is wrong</td></tr>
+        <tr><td><strong>3</strong></td><td>Build fields backwards from the questions you must answer</td><td>More than half the fields sit empty, templates get abandoned, and the AI invents the blanks</td></tr>
+        <tr><td><strong>4</strong></td><td>Write relations as fields, not tags</td><td>Direction and meaning vanish, links cannot be followed, and layer 2 never forms</td></tr>
+        <tr><td><strong>5</strong></td><td>Settle names once and do not change them</td><td>One idea splits across three names and your counts and charts die outright</td></tr>
+        <tr><td><strong>6</strong></td><td>Finish the design in three to five hours and fix the rest in use</td><td>You are left with a design document and an empty vault. State A from Chapter 3</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Principle 1 · never go past seven classes</h2>
+
+    <p>There is no grand justification for the number seven. The list fits on one screen, and roughly there is the limit of what a person carries in their head. It comes from experience. If you genuinely need eight, use eight. What matters is <strong>setting the ceiling in advance</strong>. Without a ceiling, the meeting always goes past ten.</p>
+
+    <p>Classes grow for a reason. In a design session, proposing one more class always <strong>looks conscientious.</strong> It says "our company has this too," and that is true. Saying "let us drop that," on the other hand, sounds like treating somebody's job as unimportant. Left alone, the meeting always drifts toward more. That is why you need a ceiling. A ceiling says "let us drop that" so no person has to.</p>
+
+    <h3>Over-design bills you in four ways</h3>
+
+    <p>Start with why adding one class is not free.</p>
+
+    <ol class="steps">
+      <li><strong>Decision cost, paid on every note</strong>
+        <p>More classes means more time spent on "where does this go." <strong>The person writing the note</strong> pays this cost, not the designer. The designer has the structure memorized and never feels it. Which is why the designer is the only one writing good notes.</p>
+      </li>
+      <li><strong>Boundary cost, growing with the square of the class count</strong>
+        <p>With n classes there are n(n-1)/2 boundaries between them. Seven classes gives 21 boundaries. Nineteen gives <strong>171</strong>. You multiplied by two and a half and the places to get confused multiplied by eight. The spot where the Solbit Tech sales lead stalled for fifteen minutes was one of those 171.</p>
+      </li>
+      <li><strong>Maintenance cost, because each class drags things along</strong>
+        <p>One class brings one template (Chapter 12), a few lines of check rules (Chapter 17) and a paragraph of explanation inside a prompt (Chapter 11). Nineteen classes means building and maintaining nineteen templates. What actually happens is you get tired halfway, build nine, and the classes without templates end up formatted every which way.</p>
+      </li>
+      <li><strong>Trust cost, because the numbers stop matching</strong>
+        <p>When the same fact splits across two classes, the counts diverge. The number on the dashboard stops matching what people feel, and the first time somebody says "that number is wrong" in a meeting, nobody opens the dashboard again.</p>
+      </li>
+    </ol>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="330" fill="#FFFDF9"/>
+
+        <text x="360" y="26" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3D2B1F">Same company, same people, only the design differs</text>
+
+        <rect x="20" y="44" width="330" height="222" rx="12" fill="#FAEADF" stroke="#C2703C" stroke-width="2"/>
+        <text x="185" y="70" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#C2703C">Design A · 19 classes</text>
+        <text x="40" y="96" font-size="10.5" fill="#6B5647">Notes created in two weeks</text>
+        <rect x="40" y="106" width="20" height="18" rx="3" fill="#C2703C"/>
+        <text x="70" y="120" font-size="12" font-weight="bold" fill="#C2703C">6</text>
+        <text x="40" y="152" font-size="10.5" fill="#6B5647">Boundaries the team runs into</text>
+        <text x="40" y="176" font-size="20" font-weight="bold" fill="#C2703C">171</text>
+        <text x="86" y="176" font-size="10.5" fill="#6B5647">(19 × 18 ÷ 2)</text>
+        <text x="40" y="208" font-size="10.5" fill="#3D2B1F">Six pages. An accurate portrait</text>
+        <text x="40" y="228" font-size="10.5" fill="#3D2B1F">4 of the 6 written by the designer</text>
+        <text x="40" y="250" font-size="10" fill="#6B5647">The other four people wrote 2</text>
+
+        <rect x="370" y="44" width="330" height="222" rx="12" fill="#EAF6F4" stroke="#0F766E" stroke-width="2"/>
+        <text x="535" y="70" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#0F766E">Design B · 7 classes</text>
+        <text x="390" y="96" font-size="10.5" fill="#6B5647">Notes created in two weeks</text>
+        <rect x="390" y="106" width="237" height="18" rx="3" fill="#0F766E"/>
+        <text x="637" y="120" font-size="12" font-weight="bold" fill="#0F766E">71</text>
+        <text x="390" y="152" font-size="10.5" fill="#6B5647">Boundaries the team runs into</text>
+        <text x="390" y="176" font-size="20" font-weight="bold" fill="#0F766E">21</text>
+        <text x="424" y="176" font-size="10.5" fill="#6B5647">(7 × 6 ÷ 2)</text>
+        <text x="390" y="208" font-size="10.5" fill="#3D2B1F">The twelve dropped were not lost</text>
+        <text x="390" y="228" font-size="10.5" fill="#3D2B1F">They moved to fields, body, tags</text>
+        <text x="390" y="250" font-size="10" fill="#6B5647">You build that table in Chapter 9</text>
+
+        <rect x="20" y="282" width="680" height="34" rx="8" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="360" y="304" text-anchor="middle" font-size="11.5" fill="#3D2B1F">Design A was the more accurate one. What filled the vault was <tspan font-weight="bold">B</tspan></text>
+      </svg>
+      <figcaption>Multiply the classes by two and a half and the places to get confused multiply by eight</figcaption>
+    </figure>
+
+    <h3>The order in which nobody uses it three months later</h3>
+
+    <p>An over-designed vault does not die suddenly one day. It dies in a fixed order. Learn the order and you can tell which week your own company is in.</p>
+
+    <table>
+      <thead>
+        <tr><th>Timing</th><th>What you see</th><th>What is happening underneath</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Week 1</strong></td><td>It runs well. Notes accumulate by the rules</td><td>The designer is writing alone, and the designer has the structure memorized</td></tr>
+        <tr><td><strong>Weeks 2 to 3</strong></td><td>"Where does this one go?" starts arriving</td><td>The designer answers every time. <strong>The designer becomes the bottleneck</strong></td></tr>
+        <tr><td><strong>Weeks 4 to 6</strong></td><td>Note counts rise while the formatting wobbles</td><td>People who do not want to wait for an answer file it "somewhere for now." The same fact appears in two classes</td></tr>
+        <tr><td><strong>Weeks 7 to 9</strong></td><td>The counts stop matching what people feel</td><td>Duplicates and gaps have piled up. "That number is wrong" gets said in a meeting</td></tr>
+        <tr><td><strong>Weeks 10 to 12</strong></td><td>Nobody opens the dashboard</td><td>It gets written off as "it did not suit us." The tool takes the blame</td></tr>
+      </tbody>
+    </table>
+
+    <p>The collapse point is <strong>week 4</strong>. Until then the designer was holding the rules up by hand. Most companies misdiagnose the cause at this moment. They conclude "the team does not record things" and start chasing people, and chasing reduces the decision cost by exactly zero.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Cutting classes always produces "so we are throwing that information away?"</p>
+      <p>Propose dropping patents as a class and whoever handles patents objects. Of course they do. It sounds like their work is being erased.</p>
+      <p>So <strong>a cutting session has to record where each thing goes down to.</strong> Dropping something from the class list does not mean discarding the information. It means <strong>not giving it its own note</strong>. Patents move down to a section in the body of the capability note. The information stays and the number of judgement branches drops by one.</p>
+      <p>Delete without recording the destination and the meeting turns into a fight. Chapter 9 shows you the table of where each of the nineteen went.</p>
+    </div>
+
+    <h2>Principle 2 · if you cannot write the test in one sentence, it is not a class</h2>
+
+    <p>Every class needs <strong>one sentence that decides whether a note belongs in it</strong>. That sentence has to satisfy three conditions.</p>
+
+    <ul>
+      <li><strong>It answers yes or no.</strong> If "sort of" is possible, it is not a test.</li>
+      <li><strong>The person writing the note can check it on the spot.</strong> If you have to ask someone, nobody asks. They just file it.</li>
+      <li><strong>There is physical evidence to check.</strong> A contract, a budget allocation, an invoice, a delivery confirmation: something you look at with your eyes.</li>
+    </ul>
+
+    <p>The third is the most important. That is why <strong>money and contracts make good tests</strong>. Either there is a signed piece of paper or there is not, and that does not shift with anyone's taste.</p>
+
+    <div class="prompt-example">
+      <p><span class="label bad-label">A bad test</span></p>
+      <p class="bad">"An opportunity is a piece of business that is strategically important to us."</p>
+      <p><span class="label good-label">A good test</span></p>
+      <p class="good">"An opportunity is a piece of business with no contract and no budget allocation yet."</p>
+    </div>
+
+    <p>Look at the adjective and you see why the first sentence is dangerous. Judging "strategically important" requires human judgement, judgement differs between people, and when it differs the same piece of business lands in two different classes for two people.</p>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: the day "how many active projects?" got two answers</p>
+      <p>Solbit Tech's first design document drew the line between 과제 (project) and 기회 (opportunity) like this: <em>"A project is work actually under way. An opportunity is work still under consideration."</em> It looked reasonable.</p>
+      <p>Three months later Kim asked: "how many projects do we have running right now?"</p>
+      <p>The sales lead said <strong>twelve</strong>, counting everything with a proposal in progress or a meeting on the calendar as "actually under way." The technical lead said <strong>four</strong>, counting only the ones with a contract.</p>
+      <p>Both were conscientious and both followed the design document. They diverged because the test sentence asked for human judgement.</p>
+      <p>This does not stop at a formatting problem. The proposal that went out that week said "12 projects under way." If the funding body asks for evidence, there are four contracts to produce. <strong>A blurry test makes the company say wrong things in public.</strong></p>
+      <p>Since the test changed to "is there a contract or a budget attached," that question has never produced two answers.</p>
+    </div>
+
+    <h2>Principle 3 · build fields backwards from the questions you must answer</h2>
+
+    <p>Most people start choosing fields like this: <strong>"what information should go in a product note?"</strong> Start there and you end up with twenty fields, because the information about a product is unbounded.</p>
+
+    <p>Reverse the direction. <strong>"What questions do we answer over and over?"</strong> Start there and you finish with three or four per class. Class names stay in the vault's own vocabulary below, so the values read as they are written: 제품 (product), 기술역량 (capability), 과제 (project) and 기회 (opportunity).</p>
+
+    <table>
+      <thead>
+        <tr><th>The question you keep getting</th><th>The field that holds the answer</th><th>Which class</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>"Do we still sell this product?"</td><td><code>status</code></td><td>제품</td></tr>
+        <tr><td>"Who do I ask about this?"</td><td><code>owner</code></td><td>All of them</td></tr>
+        <tr><td>"How long have we been doing this?"</td><td><code>since</code></td><td>제품</td></tr>
+        <tr><td>"How far along is that technology?"</td><td><code>trl</code></td><td>기술역량</td></tr>
+        <tr><td>"What is the basis for saying that?"</td><td><code>evidence</code></td><td>기술역량</td></tr>
+        <tr><td>"When does this project end?"</td><td><code>due</code></td><td>과제 · 기회</td></tr>
+        <tr><td>"Where is the money coming from?"</td><td><code>funder</code></td><td>과제</td></tr>
+      </tbody>
+    </table>
+
+    <p>Fields with nothing in the left column do not get made. Whenever you want to add a field, <strong>if you cannot name the question it answers within three seconds, drop it.</strong> Add it later if you turn out to need it. Adding a field later costs almost nothing, and an empty field that has been there from the start costs you every day.</p>
+
+    <h3>Required fields hold only "what you know right now"</h3>
+
+    <p>One more condition catches you here. Marking a field required carries an extra requirement. <strong>It has to be a value you already know at the moment you create the note.</strong></p>
+
+    <p>Think about when an opportunity note gets created. The day you spot the call for proposals. What you know that day is the submission deadline and roughly which stage you are at. So the required fields for 기회 are <code>stage</code> and <code>due</code>. What happens if you also require the budget size? You do not know it yet, so one of two things happens.</p>
+
+    <ul>
+      <li>The note never gets made. When a required box cannot be filled, people close the screen.</li>
+      <li>A plausible number goes in. <strong>This one is far worse.</strong> The moment a groundless number enters the vault, it gets quoted in a proposal three months later.</li>
+    </ul>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Fields added "in case we need them later" stay empty the longest</p>
+      <p>That phrase comes up at least once in every design session. And fields that get in that way almost never get filled. An empty field is not idling harmlessly. It <strong>makes the template longer, and it tells whoever opens the note "you have left something out."</strong></p>
+      <p>Once more than half the boxes are blank, people delete the template and write plain body text. Then the frontmatter disappears, and with the frontmatter gone the dashboards in Chapter 15 do not draw at all.</p>
+    </div>
+
+    <h2>Principle 4 · write relations as fields, not tags</h2>
+
+    <p>The most common objection to this chapter is this one. <strong>"Can we not do it with tags? Obsidian has tags."</strong></p>
+
+    <p>Chapter 3 put tags at layer 0. Here is why tags cannot climb out of layer 0. Four things get in the way.</p>
+
+    <ol class="steps">
+      <li><strong>They have no direction</strong>
+        <p>Put <code>#object-recognition</code> on the Warebot note and on the <code>PRJ-2025-SmartLogistics</code> note, and all you learn is "both are related to object recognition." Whether Warebot <em>uses</em> that technology or <em>produced</em> it, a tag cannot tell you. And that distinction is exactly the sentence a proposal needs.</p>
+      </li>
+      <li><strong>They carry only one meaning</strong>
+        <p>Relations between notes come in kinds: uses, was produced by, owns, is blocked by. Expressing that with tags means cramming the predicate into the tag name, as in <code>#uses-object-recognition</code> and <code>#output-object-recognition</code>, and at that moment the tag count explodes. You get one tag per relation kind times target note.</p>
+      </li>
+      <li><strong>They cannot hold a value</strong>
+        <p>With <code>due: 2026-11-30</code> written down, you can compute right away whether that is within 21 days of today. <code>#due-soon</code> tells you nothing about who added it or when, and it does not fall off by itself once the deadline passes. A tag <strong>remembers a state. It does not update one.</strong></p>
+      </li>
+      <li><strong>What they point at is not a note</strong>
+        <p>A tag is just a string, so clicking it gives you a list. <code>"[[CAP-ObjectRecognition]]"</code> points at a real note, so you can follow it into that note's fields. From Warebot to object recognition, from object recognition to the project that produced it. <strong>This is where two-hop answers come from.</strong> It is the graph traversal Chapter 3 described.</p>
+      </li>
+    </ol>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 350" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="350" fill="#FFFDF9"/>
+        <defs>
+          <marker id="a8" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#0F766E"/>
+          </marker>
+        </defs>
+
+        <text x="360" y="26" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3D2B1F">The same fact written as a tag and as a field</text>
+
+        <rect x="20" y="44" width="326" height="252" rx="12" fill="#FAEADF" stroke="#C2703C" stroke-width="2"/>
+        <text x="183" y="70" text-anchor="middle" font-size="12" font-weight="bold" fill="#C2703C">As a tag: stuck at layer 0</text>
+
+        <rect x="48" y="86" width="270" height="42" rx="7" fill="#FFFFFF" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="64" y="104" font-size="11" fill="#3D2B1F">Warebot.md</text>
+        <text x="64" y="120" font-size="10.5" font-family="monospace" fill="#C2703C">tags: object-recognition</text>
+
+        <text x="183" y="152" text-anchor="middle" font-size="17" font-weight="bold" fill="#C2703C">?</text>
+        <line x1="183" y1="128" x2="183" y2="140" stroke="#C2703C" stroke-width="1.4" stroke-dasharray="3 3"/>
+        <line x1="183" y1="158" x2="183" y2="170" stroke="#C2703C" stroke-width="1.4" stroke-dasharray="3 3"/>
+
+        <rect x="48" y="170" width="270" height="42" rx="7" fill="#FFFFFF" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="64" y="188" font-size="11" fill="#3D2B1F">PRJ-2025-SmartLogistics.md</text>
+        <text x="64" y="204" font-size="10.5" font-family="monospace" fill="#C2703C">tags: object-recognition</text>
+
+        <text x="183" y="238" text-anchor="middle" font-size="10.5" fill="#3D2B1F">You learn only that both relate</text>
+        <text x="183" y="256" text-anchor="middle" font-size="10.5" fill="#3D2B1F">Not which uses and which made</text>
+        <text x="183" y="278" text-anchor="middle" font-size="10" fill="#6B5647">So the proposal sentence cannot be written</text>
+
+        <rect x="374" y="44" width="326" height="252" rx="12" fill="#EAF6F4" stroke="#0F766E" stroke-width="2"/>
+        <text x="537" y="70" text-anchor="middle" font-size="12" font-weight="bold" fill="#0F766E">As a field: layer 2 appears</text>
+
+        <rect x="402" y="84" width="270" height="34" rx="7" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.4"/>
+        <text x="418" y="106" font-size="11" fill="#3D2B1F">Warebot</text>
+
+        <line x1="537" y1="118" x2="537" y2="146" stroke="#0F766E" stroke-width="1.8" marker-end="url(#a8)"/>
+        <text x="548" y="138" font-size="10" font-family="monospace" fill="#0F766E">pdm_uses</text>
+
+        <rect x="402" y="152" width="270" height="34" rx="7" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.4"/>
+        <text x="418" y="174" font-size="11" fill="#3D2B1F">CAP-ObjectRecognition</text>
+
+        <line x1="537" y1="186" x2="537" y2="214" stroke="#0F766E" stroke-width="1.8" marker-end="url(#a8)"/>
+        <text x="548" y="206" font-size="10" font-family="monospace" fill="#0F766E">pdm_output_of</text>
+
+        <rect x="402" y="220" width="270" height="34" rx="7" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.4"/>
+        <text x="418" y="242" font-size="11" fill="#3D2B1F">PRJ-2025-SmartLogistics</text>
+
+        <text x="537" y="276" text-anchor="middle" font-size="10.5" fill="#3D2B1F">Direction and meaning. Follow the line</text>
+        <text x="537" y="292" text-anchor="middle" font-size="10.5" fill="#3D2B1F">and you get "born of a government project"</text>
+
+        <rect x="20" y="308" width="680" height="32" rx="8" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="360" y="329" text-anchor="middle" font-size="11.5" fill="#3D2B1F">Tags only <tspan font-weight="bold">gather</tspan>. Fields <tspan font-weight="bold">connect</tspan>. The answers come from the connected side</text>
+      </svg>
+      <figcaption>However carefully you tag, you never get out of layer 0</figcaption>
+    </figure>
+
+    <h3>So where do tags belong</h3>
+
+    <p>None of this says stop using tags. They just belong somewhere else. One test settles it.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">If it must still mean something in three months, use a field. If it comes off next week, use a tag</p>
+      <p>Things like <code>#this-week</code>, <code>#needs-review</code> and <code>#check-before-meeting</code> are properly tags. Short lifespan, no harm if they are wrong, and nobody counts anything with them.</p>
+      <p>Keep one more rule. <strong>The tag list does not go in the design document.</strong> Write it there and you have to maintain it, and a rule you cannot maintain sitting in the design document drags down trust in the whole thing.</p>
+    </div>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">Folders fail to hold relations for the same reason</p>
+      <p>A folder gives a note <strong>one place</strong>. Warebot is a product and at the same time an output of a government project, and a folder makes you pick one.</p>
+      <p>The usual workaround is to copy the note into both folders, and at that moment one fact splits into two files. A month later the two files differ and nobody knows which is right. <strong>The TRL 4 versus TRL 6 incident between Solbit Tech's last-year and this-year documents has exactly this shape.</strong> Write relations as links and keep one file.</p>
+    </div>
+
+    <h2>Principle 5 · settle names once and do not change them</h2>
+
+    <p>There are three places where names get settled: <strong>field names</strong>, <strong>the values that go in fields</strong>, and <strong>ID prefixes</strong>. When any of the three wobbles you get the same symptom. Nothing can be counted.</p>
+
+    <p>Pulling a sentence forward from Chapter 15: there is no way to draw a Gantt chart from 200 notes where yesterday it was written as <code>due</code>, today as <code>deadline</code> and tomorrow as <code>due_date</code>. Values behave the same. Mix 「진행」, 「진행중」 and 「진행 중」 and your kanban grows three columns, and the AI gives a wrong answer to "how many projects are running?"</p>
+
+    <p>So the design document nails it down.</p>
+
+    <pre><code>## Controlled vocabulary
+
+status (제품)         : 기획 / 개발 / 운영 / 중단
+status (과제 · 기회)  : 기획 / 진행 / 검토 / 완료 / 보류
+confidence            : reviewed / draft
+priority              : 상 / 중 / 하
+
+## Canonical field names
+
+A closing date is always written as due. No other name is used.
+Relations take the pdm_ prefix: pdm_uses, pdm_output_of, pdm_owner</code></pre>
+
+    <p>Look closely at the first two lines. <strong>It is the same <code>status</code> field with two vocabularies.</strong> Products and projects have different lifespans. A product sits in 운영 (in service) for years. A project ends at 완료 (done). The temptation to merge the two into one set always arrives, and merging produces values that fit neither. <strong>Write the fact that the vocabulary differs by class into the design document itself.</strong></p>
+
+    <p>The third place, ID prefixes, gets the same rule. If product notes that started with <code>PRD-</code> start being issued as <code>PROD-</code> one day, then "how many product notes do we have?" has to count both sets. One prefix per class, and no prefix shared between two classes. You settle the prefix scheme in Chapter 9 along with the class table.</p>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">When a name really does have to change</p>
+      <p>Run the vault for a while and a moment arrives when a name has to change. One rule applies then. <strong>Change all of it at once.</strong> Replace every existing note with a script, update the date on the design document, and tell the team. It takes an hour.</p>
+      <p>The worst choice is "new notes use the new name from now on." That leaves two vocabularies <strong>coexisting permanently.</strong> Every counting script from then on has to check both names, and a new joiner has no way to tell which one is right.</p>
+    </div>
+
+    <h2>Principle 6 · finish the design in three to five hours and fix the rest in use</h2>
+
+    <p>Chapter 3 fixed ontology design at three to five hours. Two reasons.</p>
+
+    <p>First, <strong>some things cannot be known in a meeting room.</strong> Which required field actually sits empty, and which boundary makes people stop typing, only surfaces after about thirty notes. No amount of sitting there beforehand produces it.</p>
+
+    <p>Second, <strong>the longer you spend designing, the less you want to change it.</strong> Nobody touches a design document that took two days. Proposing a change sounds like denying those two days. A three-hour design document gets edited without a second thought.</p>
+
+    <p>In exchange, <strong>schedule the fixing in advance.</strong> As the design session ends, put one hour three months out in the calendar. Three things get looked at that day.</p>
+
+    <ul>
+      <li><strong>Is there a class with no notes at all?</strong> Drop it. Three months unused means it stays unused.</li>
+      <li><strong>Is there a required field that is more than half empty?</strong> Demote it from required, or decide a default to write when the value is unknown.</li>
+      <li><strong>Is there a boundary people asked about repeatedly?</strong> The same question three times means the test sentence is not good enough.</li>
+    </ul>
+
+    <p>At the top of the design document, write two dates: the day it was last changed, and the day you look at it next.</p>
+
+    <pre><code>---
+updated: 2026-07-31
+next_review: 2026-10-31
+---
+
+# Solbit Tech ontology design v1</code></pre>
+
+    <h2>How to run the design session</h2>
+
+    <p>That is the principles. Now the session itself. Follow this order and you have a draft within three and a half hours.</p>
+
+    <p><strong>Three or four people attend.</strong> One from leadership, one from sales, one from engineering is enough. Solbit Tech is five people, small enough that everyone could have joined, and they still started with three. One extra person adds two classes. Everyone else reviews the result and comments.</p>
+
+    <p><strong>What you bring is paper.</strong> Two recent proposals, one weekly report from last month, and a list of the questions you actually got asked last quarter. You pull the classes out of those documents rather than imagining them in a meeting room. Imagined classes have pretty names and nobody uses them. Classes pulled from a proposal have clumsy names and get used every week.</p>
+
+    <ol class="steps">
+      <li><strong>30 minutes · write down ten questions</strong>
+        <p>Write "questions we answered over and over in the past year." Things like "which project did that technology come out of?" and "who is handling the Daesung Logistics deal now?" These ten are the purpose of the vault, and at the end of the session you audit the design against them.</p>
+      </li>
+      <li><strong>40 minutes · pull the nouns out of the documents</strong>
+        <p>Underline them in the two proposals. Twenty to forty come out. Cut nothing at this stage. Start cutting and the pulling stops.</p>
+      </li>
+      <li><strong>30 minutes · group the same kinds together</strong>
+        <p>Each group is a class candidate. Usually twelve to twenty. Solbit Tech's nineteen is the output of this stage. <strong>Up to here it is normal.</strong></p>
+      </li>
+      <li><strong>40 minutes · cut. This is the core of the session</strong>
+        <p>Attach a one-sentence test to each candidate, one that answers yes or no. Drop the ones you cannot write a test for. If you are still past seven, ask "in the past year, did we ever go looking for this kind specifically?" Two times or fewer and it goes down to a field or the body. <strong>Always record where it went down to.</strong></p>
+      </li>
+      <li><strong>30 minutes · name the relations</strong>
+        <p>Lay the surviving classes on the whiteboard and draw lines. Name each line. Do not go past five. The detailed design happens in Chapter 10.</p>
+      </li>
+      <li><strong>20 minutes · settle the fields</strong>
+        <p>Three or fewer required per class. Include only what is needed to answer the ten questions from step 1. When "we might need it later" comes up, ask on the spot when later is.</p>
+      </li>
+      <li><strong>10 minutes · put it in a file</strong>
+        <p>Save it as <code>_ops/01-ontology-design.md</code> and write <code>updated</code> and <code>next_review</code>. What lives in your head is not layer 1.</p>
+      </li>
+    </ol>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Sessions fail to end for one reason, always</p>
+      <p>It is the moment "so where does A go?" gets asked. Make a new class there and that class makes new boundaries, and the session never ends.</p>
+      <p>Settle the rule beforehand. <strong>If no answer arrives within three minutes, put it on the "parked" list and move on.</strong> Look at the parked list at the end of the session. Usually half of it fits inside classes you have already settled, and the rest answers itself once you have written about thirty notes.</p>
+      <p>Tool talk works the same way. Plugins, databases and automation are not the subject of this session. When they come up, write them on a separate list and move on.</p>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: measure your own over-design index</p>
+      <p>Fifteen minutes. A warm-up before you do the real design in Chapter 9.</p>
+      <ol>
+        <li><strong>Write down every class candidate currently in your head.</strong> Write first, count later. Cutting comes afterwards.</li>
+        <li>Count them and compute <strong>n(n-1)/2</strong>. That number is how many boundaries your teammates meet every time they write a note. Twelve candidates gives 66.</li>
+        <li>Beside each candidate, write <strong>a one-sentence test</strong> that answers yes or no. Mark the ones you could not write.</li>
+        <li>Delete the marked ones. How many are left?</li>
+        <li>Of what remains, delete anything that gets a no to <strong>"in the past year, did we ever go looking for this kind specifically?"</strong></li>
+        <li>Eight or fewer means you can move on to Chapter 9. Still too many and you run step 5 again, this time asking whether you went looking <strong>three or more times</strong>.</li>
+      </ol>
+      <p>Do not throw the deleted list away. Chapter 9 decides where each of them goes down to.</p>
+    </div>
+
+    <div class="checklist">
+      <p class="checklist-title">Seven things to check before you close the design document</p>
+      <ul>
+        <li>Are there <strong>seven classes or fewer</strong></li>
+        <li>Does every class have one <strong>yes-or-no test sentence</strong></li>
+        <li>Are the tests free of adjectives like "important" and "strategic"</li>
+        <li>Are required fields <strong>three or fewer per class</strong>, and are they all <strong>values you know at the moment you create the note</strong></li>
+        <li>Is there anywhere you expressed a relation as a tag or a folder</li>
+        <li>Is the controlled vocabulary written into the design document, with <code>status</code> split by class</li>
+        <li>Are <code>updated</code> and <code>next_review</code> at the top of the file</li>
+      </ul>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li>The cost of one more class is paid by <strong>the person writing notes, not the designer</strong>. Which is why the designer cannot feel it</li>
+        <li><strong>Seven classes maximum.</strong> Boundaries grow as n(n-1)/2, so seven gives 21 and nineteen gives 171</li>
+        <li>An over-designed vault <strong>collapses in week 4.</strong> Until then the designer was holding the rules up by hand</li>
+        <li>Dropping a class does not mean discarding information. <strong>Record where it goes down to</strong> and the session does not turn into a fight</li>
+        <li><strong>A test answers yes or no, and it has physical evidence.</strong> Which is why money and contracts make good tests</li>
+        <li>Put an adjective like "strategically important" in a test and the same item lands in different classes for different people. Then <strong>the company says wrong things in public</strong></li>
+        <li>Build fields <strong>backwards from the questions you must answer</strong>. Required fields hold only values you know as you create the note</li>
+        <li>Require a value people do not know and they either skip the note or <strong>invent it.</strong> The second is far worse</li>
+        <li>Tags only <strong>gather</strong>. Fields <strong>connect.</strong> Direction, meaning, value and target: tags have none of the four</li>
+        <li>If it must still mean something in three months, a field. If it comes off next week, a tag. <strong>The tag list does not go in the design document</strong></li>
+        <li>When a name has to change, change <strong>all of it at once</strong>. "From the new ones onward" makes two vocabularies coexist forever</li>
+        <li>Three to five hours of design. In exchange, <strong>put one hour three months out in the calendar now</strong></li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>Coming up</h3>
+      <p>With the principles standing, you <strong>actually settle your own company's classes.</strong> You get the full table of how Solbit Tech went from nineteen to seven and where each of the twelve dropped ones went down to. You also set the one test this book quotes more than any other. <strong>과제 and 기회 are separated by "is there a contract or a budget attached."</strong> Settle the ID prefix scheme after that and half the design document is finished.</p>
+    </div>
+  </article>

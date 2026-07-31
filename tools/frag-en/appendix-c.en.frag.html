@@ -1,0 +1,270 @@
+<!--META {
+  "file": "appendix-c.en.html",
+  "num": "C",
+  "title_prefix": "Appendix ",
+  "eyebrow": "APPENDIX",
+  "title": "Where people get stuck",
+  "subtitle": "Start from the symptom. The cause comes after",
+  "desc": "OneDrive sync, YAML errors, sync conflict copies, broken links and scheduled tasks that do not run, sorted by symptom. Find what you are seeing in the index at the top and jump straight there.",
+  "minutes": "14",
+  "prev_href": "appendix-b.en.html",
+  "prev_label": "Previous: Appendix B · Copy-paste assets",
+  "next_href": "../index.en.html",
+  "next_label": "Next: back to the cover and contents"
+} -->
+  <article>
+    <p>If you are here, something is already stuck. So instead of an explanation, the <strong>symptoms</strong> come first. Find the row in the table below that looks most like what is on your screen and follow the link on the right. Tool screens and menu names are <strong>as of July 2026</strong>.</p>
+
+    <h2 id="index">Symptom index</h2>
+
+    <table>
+      <thead>
+        <tr><th>If this is what you see</th><th>The cause is usually</th><th>Go to</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>The AI says "I cannot find the file"</td><td>The notes are only in the cloud</td><td><a href="#onedrive">Sync</a></td></tr>
+        <tr><td>You have 100 notes and it reads five or six</td><td>The rest have not come down yet</td><td><a href="#onedrive">Sync</a></td></tr>
+        <tr><td>Something that worked stops working a few days later</td><td>Storage Sense pushed the files back up</td><td><a href="#onedrive">Sync</a></td></tr>
+        <tr><td>The frontmatter shows as text in the body instead of a table</td><td>The YAML is broken</td><td><a href="#yaml">YAML</a></td></tr>
+        <tr><td><code>owner</code> shows as bracket characters instead of a link</td><td>No quotes around it</td><td><a href="#yaml">YAML</a></td></tr>
+        <tr><td>One particular note keeps missing from the dashboard</td><td>A typo in a field name, or the date format</td><td><a href="#yaml">YAML</a></td></tr>
+        <tr><td>Files like "Warebot 1.md" appear</td><td>The same file was edited in two places</td><td><a href="#conflict">Conflict copies</a></td></tr>
+        <tr><td>What you wrote yesterday is gone</td><td>It survives in the conflict copy</td><td><a href="#conflict">Conflict copies</a></td></tr>
+        <tr><td>A link is grey and clicking it opens nothing</td><td>The note was renamed, or does not exist yet</td><td><a href="#links">Links</a></td></tr>
+        <tr><td>Broken links in the check report jumped suddenly</td><td>Something was renamed in File Explorer</td><td><a href="#links">Links</a></td></tr>
+        <tr><td>The scheduled task has a run history but the result is empty</td><td>The remote run could not reach the vault</td><td><a href="#schedule">Scheduled tasks</a></td></tr>
+        <tr><td>The scheduled task never ran at all</td><td>The PC was off at that hour</td><td><a href="#schedule">Scheduled tasks</a></td></tr>
+        <tr><td>You get "python is not recognized"</td><td>The PATH, or the Store alias</td><td><a href="#script">Scripts</a></td></tr>
+        <tr><td>Non-Latin characters in the script output are mangled</td><td>Console encoding</td><td><a href="#script">Scripts</a></td></tr>
+        <tr><td>The AI states a number that is not in the vault, convincingly</td><td>The rules file is empty</td><td><a href="#answer">Answer quality</a></td></tr>
+        <tr><td>Everything you ask comes back "no record"</td><td>The vault is still empty</td><td><a href="#answer">Answer quality</a></td></tr>
+        <tr><td>A colleague cannot open the vault folder at all</td><td>They were never invited to the Teams team</td><td><a href="#permission">Permissions</a></td></tr>
+        <tr><td>The pack you gave a new hire had contract pricing in it</td><td>There was no confidentiality filter</td><td><a href="#permission">Permissions</a></td></tr>
+        <tr><td>Mermaid code shows as literal text</td><td>The code fence marker</td><td><a href="#render">Rendering</a></td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="onedrive">Sync: the AI cannot read the files</h2>
+
+    <p><strong>Symptom.</strong> You connected the vault folder and the AI says "I cannot find that file". Or you clearly have 100 notes and it reads five or six and says the rest are not there. Open the folder and every filename is visible.</p>
+
+    <p><strong>Cause.</strong> OneDrive <strong>keeps files you rarely touch in the cloud and leaves only the name behind.</strong> Turn on the status column in File Explorer and you will see a cloud icon on them. Double-click and it downloads and opens, but <strong>when a program reads it, none of that happens and it simply fails.</strong> This is the pitfall from Chapter 6. It is also the single most common place people get stuck in practice.</p>
+
+    <ol class="steps">
+      <li><strong>Right-click the vault folder</strong>
+        <p>In File Explorer, right-click the top-level vault folder (for example <code>Solbit Tech Wiki</code>).</p>
+      </li>
+      <li><strong>Turn on "Always keep on this device"</strong>
+        <p>If it is not in the menu, it is under "Show more options". It applies to every subfolder, so doing it once at the top is enough.</p>
+      </li>
+      <li><strong>Wait until the status icons turn into green circles</strong>
+        <p>Even several hundred notes take a few minutes. If one cloud icon is left, it is not done.</p>
+      </li>
+      <li><strong>Turn off Storage Sense</strong>
+        <p>Under Windows Settings, "System → Storage → Storage Sense", turn off the item that pushes unused cloud files back up. Leave it on and <strong>the same symptom comes back in a few weeks.</strong></p>
+      </li>
+    </ol>
+
+    <div class="pitfall">
+      <p class="pitfall-title">What "but it worked yesterday" really is</p>
+      <p>When you first set things up, the files were just created, so they are all local. So it works. A few weeks on, notes you have not touched go up to the cloud one by one, and from then the AI <strong>reads only some of them.</strong> The worse half is that the AI does not say "they are missing". It <strong>answers from what it read.</strong> The answer sounds right and nobody notices.</p>
+      <p>Once a month, sweep the vault folder for cloud icons. Thirty seconds does it.</p>
+    </div>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: the report they believed for three weeks</p>
+      <p>Lee, the CTO, set up the weekly check and got "no problems" three weeks running. In reality only twelve notes in the vault were being read. Everything else had a cloud icon.</p>
+      <p>They found it by accident. Park asked "why doesn't the Daesung Logistics note come up in search", and only then did anyone look at the folder status.</p>
+      <p>The lesson here is not the setting. It is that <strong>you have to be able to tell "nothing to report" from "could not read anything".</strong> Make the first line of the report carry <strong>the number of notes read</strong>. A sudden drop in that number is how you catch it.</p>
+    </div>
+
+    <h2 id="yaml">YAML: the frontmatter breaks</h2>
+
+    <p><strong>Symptom.</strong> You open a note and what is between the <code>---</code> markers shows as literal text in the body instead of a table. Or the dashboard and the validation script keep skipping that one note.</p>
+
+    <p><strong>Cause.</strong> Frontmatter is a format called YAML, and YAML is very sensitive about a few characters. The five below cover nearly everything that happens in practice.</p>
+
+    <pre><code># 1) A colon inside a value. With a space after it, YAML takes it for a key
+title: Warebot: logistics automation      (broken)
+title: "Warebot: logistics automation"    (fine)
+
+# 2) A wikilink. Starting with a bracket makes it a list
+owner: [[Kim]]                   (broken)
+owner: "[[Kim]]"                 (fine)
+
+# 3) The space after the colon. Run them together and the key is not seen
+status:진행                      (broken)
+status: 진행                     (fine)
+
+# 4) Dates. A one-digit month or day reads as text, not a date
+due: 2026-8-8                    (sorts wrong)
+due: 2026-08-08                  (fine)
+
+# 5) Indentation. Tabs do not work, only spaces
+pdm_uses:
+&#9;- "[[Warebot]]"                 (a tab, so broken)
+pdm_uses:
+  - "[[Warebot]]"                (two spaces, fine)</code></pre>
+
+    <p>There is one more thing people hit often. <strong>The <code>---</code> has to be the very first line of the file.</strong> One blank line in front of it and Obsidian does not read it as frontmatter. Paste from somewhere else and invisible characters sometimes ride along in front too. If you suspect that, delete the first line and type <code>---</code> again by hand.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">Values need quotes only sometimes</p>
+      <p>Values like <code>status: 진행</code> or <code>funder: MOTIE</code> are fine as they are. <strong>Quotes are needed only for values that start with or contain a colon, a bracket, a brace or a hash.</strong> If you are unsure, wrapping everything in double quotes causes no harm.</p>
+    </div>
+
+    <p><strong>How to check.</strong> Switch Obsidian from edit mode to reading mode with the control at the top right. If the frontmatter shows <strong>as a properties table, it is fine</strong>. If it shows as literal text, it is broken. To check many notes at once, run the validation script from Appendix B. It catches them as "no frontmatter".</p>
+
+    <h2 id="conflict">Sync conflict copies appear</h2>
+
+    <p><strong>Symptom.</strong> Files like <code>Warebot 1.md</code> or <code>Warebot-DESKTOP-A1B2.md</code> turn up in the folder. Or a whole paragraph you wrote yesterday is gone.</p>
+
+    <p><strong>Cause.</strong> The same file was edited in two places at once. Two people opening the same note is the most common, and after that comes <strong>a scheduled task running overnight touching a file somebody left open</strong>. You come in the next morning and there is one extra copy with no obvious explanation.</p>
+
+    <table>
+      <thead>
+        <tr><th>How to prevent it</th><th>Why it works</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Automation writes to <code>_reports/</code> and <code>_moc/</code>, nowhere else</td><td>The notes people open and the files automation writes never overlap</td></tr>
+        <tr><td>During a meeting, only one person opens the meeting note</td><td>There is no real-time co-editing. Merging afterwards is too late</td></tr>
+        <tr><td>Close the tab when you finish editing a note</td><td>Sometimes just having it open counts as editing</td></tr>
+        <tr><td>Keep notes small</td><td>One file that gathers several people's interests conflicts often</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Cleaning up a conflict copy you already have.</strong> Keep to the order.</p>
+
+    <ol class="steps">
+      <li><strong>Open both files side by side</strong>
+        <p>Open one in a right-hand split in Obsidian and you see them together. Decide which is newer by <strong>content</strong>, not by modification time.</p>
+      </li>
+      <li><strong>Move sentences that exist on only one side into the original</strong>
+        <p>There is often a paragraph that exists only in the conflict copy. Skip this step and that content disappears.</p>
+      </li>
+      <li><strong>Delete the copy only after you have checked what you moved</strong>
+        <p>Delete before checking and there is no way back. It stays in the OneDrive recycle bin for 30 days, but finding it is a nuisance.</p>
+      </li>
+      <li><strong>Set <code>updated</code> to today's date</strong>
+        <p>A merge is an edit too. Leave that field stale and the note gets flagged as abandoned.</p>
+      </li>
+    </ol>
+
+    <h2 id="links">Links break</h2>
+
+    <p><strong>Symptom.</strong> <code>[[Warebot]]</code> shows in grey and clicking it only offers to create a new note. Or broken links in the weekly check report suddenly jumped by twenty.</p>
+
+    <p><strong>The cause is one of three.</strong></p>
+
+    <ul>
+      <li><strong>The note does not exist yet.</strong> That is not a fault. A grey link in Obsidian marks "there should be a note here and there is not yet", and it works as your list of what to fill in next.</li>
+      <li><strong>Something was renamed in File Explorer.</strong> Rename inside Obsidian and every link pointing at that note follows. Rename in Explorer or on the SharePoint web and <strong>nothing follows.</strong> A batch of broken links appearing in the report is usually this.</li>
+      <li><strong>Somebody else renamed it before it synced.</strong> Reference a note before the rename comes down and it briefly disagrees. It resolves itself once the sync finishes.</li>
+    </ul>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">Names may change, ids may not</p>
+      <p>Titles change. Warebot may become "SmartFactoryBot". Leave <code>id: PRD-001</code> alone and the decision notes and reports that cite that note as evidence keep matching. <strong>Rename only inside Obsidian.</strong> That one habit removes most of the problems in this section.</p>
+    </div>
+
+    <p><strong>How to fix them.</strong> For links that are already broken, the validation script in Appendix B gives you both the file and the target name. Take that list and pick one of two options. Create the note and fill it, or correct the link to the current name. <strong>If you do not want to do either, leave the link rather than deleting it.</strong> A broken link is a signal telling you where a gap is, and deleting it deletes the signal.</p>
+
+    <h2 id="schedule">The scheduled task does not run</h2>
+
+    <p><strong>Symptom.</strong> It comes in two shapes. Either there is no run history at all, or there is a history and the result is <strong>one line saying "no record"</strong> or an empty report. The second is far more dangerous, because you spend weeks believing "the check found no problems".</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">A remote run cannot reach a local folder</p>
+      <p>This is the core constraint from Chapter 14. A scheduled task running remotely <strong>cannot see folders inside your PC.</strong> It only handles files that live in a connector or in your Claude account. But your vault is a local folder like <code>C:\Users\...\OneDrive - Solbit Tech\Solbit Tech Wiki\</code>.</p>
+      <p>If a job needs local files, that job <strong>runs locally only.</strong> Which means the PC has to be on at that hour with the desktop app alive. If it is off, that round simply passes.</p>
+    </div>
+
+    <p>Work through the checks in this order.</p>
+
+    <table>
+      <thead>
+        <tr><th>What to check</th><th>If not</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Does this job have to read or write vault files</td><td>Then it is a local run (route A). Leave the PC on at that hour or move the time</td></tr>
+        <tr><td>If you meant it to run remotely, is a connector attached</td><td>Attach the SharePoint or OneDrive connector. Without one it cannot read the vault and finishes empty-handed</td></tr>
+        <tr><td>Is it stuck waiting for approval</td><td>A job that hit "needs confirming" at 3am sits there until morning. Restrict what it writes to <code>_reports/</code> and switch it to automatic approval</td></tr>
+        <tr><td>Does the result carry evidence note names</td><td>If not, it could not read the vault and made it up. Put the evidence requirement in the prompt</td></tr>
+      </tbody>
+    </table>
+
+    <p>The fastest check is this. <strong>Run the same prompt by hand in the chat window once.</strong> If it works by hand and comes back empty on a schedule, the problem is the run environment. If it comes back empty by hand too, the problem is the prompt or the vault. That one run halves the search.</p>
+
+    <p><strong>A device for noticing a breakage.</strong> Scheduled tasks fail silently. Nobody notices an alert that did not arrive. So <strong>make sure one of them arrives every week without fail.</strong> Even with nothing to say, let the single line "nothing unusual this week" come through. That one line is the signal that the system is alive. Two weeks with nothing at all and something is broken.</p>
+
+    <h2 id="script">The script does not run</h2>
+
+    <p><strong>Symptoms and causes together here.</strong> What goes wrong with Python scripts is more or less a fixed list.</p>
+
+    <table>
+      <thead>
+        <tr><th>What you see</th><th>How to fix it</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>'python' is not recognized as an internal or external command</code></td><td>Run it with <code>py</code> instead of <code>python</code>. If that still fails, you did not tick "Add to PATH" during install</td></tr>
+        <tr><td>The Microsoft Store opens instead of Python</td><td>Under Settings, "Apps → Advanced app settings → App execution aliases", turn the python entries off</td></tr>
+        <tr><td><code>FileNotFoundError</code>, or the path is truncated</td><td>OneDrive paths contain spaces and hyphens. Wrap the whole path in double quotes</td></tr>
+        <tr><td>Non-Latin characters print as <code>?????</code> or garbage</td><td>Run <code>chcp 65001</code> first in the command prompt. Always pass <code>encoding="utf-8"</code> when reading and writing files</td></tr>
+        <tr><td>It works by hand and fails only in Task Scheduler</td><td>The "Start in" field of the task is empty. Put the folder the script lives in there</td></tr>
+        <tr><td>It says it cannot find the Sources folder</td><td>Put the script anywhere other than <code>_ops/scripts/</code> and the vault root calculation goes wrong. Keep the location</td></tr>
+      </tbody>
+    </table>
+
+    <p>To see whether a registered task really ran, look at "Last Run Result" in the Task Scheduler list. <code>0x0</code> means a clean exit. The validation script exits with <code>1</code> when there are ERRORs, so <strong>a non-zero value does not mean failure.</strong> What actually matters is whether a file with today's date appeared in <code>_reports/</code>.</p>
+
+    <h2 id="answer">The answers are odd</h2>
+
+    <p><strong>Symptom 1. It states numbers that are not in the vault, convincingly.</strong> That happens because there are no rules. The AI fills a blank when it meets one. Put the <code>CLAUDE.md</code> from Appendix B at the vault root, and check in particular that the two lines "if you do not know, write 확인 필요" and "attach an evidence note to every number" are in it. Every time it makes the same mistake twice, add a line to the <strong>facts that are easy to get wrong</strong> section.</p>
+
+    <p><strong>Symptom 2. Everything you ask comes back "no record".</strong> This is not a fault, it is <strong>an honest answer</strong>. With only a dozen notes in the vault, of course there is no evidence. This is a place to fill notes, not a place to fix the prompt. Run meeting note structuring for three weeks in the order Chapter 16 lays out and the answers change.</p>
+
+    <p><strong>Symptom 3. It states old values as fact.</strong> That happens when the same entity has different values written in two places. WareTwin's TRL being 4 in one place and 6 in another is the case. Schedule the monthly contradiction scan from Appendix B and it gets caught before anything goes out. <strong>Do not have the AI pick between the two.</strong> That is a person's call.</p>
+
+    <p><strong>Symptom 4. It does not know about notes you made recently.</strong> Either the sync has not finished, or it is the cloud-only file problem from the first section. Check for cloud icons before you reconnect the folder.</p>
+
+    <h2 id="permission">Permissions and confidentiality do not line up</h2>
+
+    <p><strong>Symptom.</strong> A colleague cannot open the vault folder at all. Or a note you just made is invisible to somebody else. It goes the other way too: the onboarding pack you gave a new hire had contract pricing mixed into it.</p>
+
+    <p><strong>Cause.</strong> The vault sits in a Teams team's file folder, and <strong>who can see it is decided entirely by that team's membership.</strong> Obsidian decides nothing. Anyone in the team sees the whole folder unless you block them specifically.</p>
+
+    <ol class="steps">
+      <li><strong>If somebody cannot open it, check the team invitation first</strong>
+        <p>The folder has to be visible in the Files tab in Teams before desktop sync will attach. Right after an invitation it takes a few minutes to come down.</p>
+      </li>
+      <li><strong>Keep some confidential material in a different team's folder, outside the vault</strong>
+        <p>Carving one file out of a team and giving it different permissions is a nuisance. Contract pricing and salary figures are safer in another team's folder from the start.</p>
+        <p><strong>Making a <code>Confidential/</code> folder inside the same vault is forbidden in Chapter 10.</strong> The note disappears from where it belongs and drops out of aggregates like the customer list entirely. What this step means is a folder outside the vault, in a team with different permissions.</p>
+      </li>
+      <li><strong>Use the <code>confidential</code> field to stop the AI</strong>
+        <p>This field is not a device for stopping people. It is <strong>a device for stopping things leaking into output</strong>. That is why the onboarding pack and proposal prompts carry a confidentiality filter.</p>
+      </li>
+      <li><strong>Do not present a pre-contract customer as a track record</strong>
+        <p>Daesung Logistics is that case. Confidentiality accidents mostly happen when "not yet" gets written down as "already done".</p>
+      </li>
+    </ol>
+
+    <div class="pitfall">
+      <p class="pitfall-title">A prompt is not a boundary</p>
+      <p>"I told the AI to leave confidential material out, so we are safe" is the most dangerous thought here. A prompt is a request, not a block. One slip, whether a mistake or a missing prompt line, and it goes straight out.</p>
+      <p><strong>The real boundary is file permissions.</strong> Values that must not leave either do not go in the vault or move to another folder. Fields and prompts are a second net laid on top of that.</p>
+    </div>
+
+    <h2 id="render">Nothing shows on screen</h2>
+
+    <p><strong>Mermaid code shows as literal text.</strong> Check that the first line of the code fence is <code>```mermaid</code>. Mixed case or a stray space and you get no diagram. The next most common cause is a colon inside a gantt task name. A colon separates the name from the attributes, so one inside the name breaks the syntax. That is why the dashboard script in Appendix B replaces colons in names with spaces.</p>
+
+    <p><strong>Notes are missing from a table or board.</strong> Compare the folder path and the field names character by character. <code>Sources/20-Projects</code> and <code>Sources/20-Project</code> are different. Check the value side too. <code>status: 진행중</code> is outside the controlled vocabulary, so no filter catches it. The <code>status</code> values for projects and opportunities are just the five: 기획, 진행, 검토, 완료, 보류.</p>
+
+    <p><strong>The graph view is a hairball.</strong> Not a fault. Past 100 notes the whole-vault graph becomes unreadable by nature. What you show in a meeting is not the graph view but a Mermaid diagram drawn with only what you need. That is the distinction Chapter 15 draws.</p>
+
+    <div class="callout">
+      <p class="callout-title">If it still will not come loose</p>
+      <p>Try three things in order. <strong>One.</strong> Look for cloud icons left in the vault folder. Half of this appendix ends there. <strong>Two.</strong> Take one of the problem notes and check its frontmatter in reading mode. <strong>Three.</strong> Run the validation script from Appendix B and read the ERROR list. The symptom may be one thing, but the cause is often already on that list with a name attached.</p>
+    </div>
+  </article>

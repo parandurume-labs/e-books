@@ -1,0 +1,529 @@
+<!--META {
+  "file": "ch10.en.html",
+  "num": "10",
+  "title": "Designing relations and fields",
+  "subtitle": "Half of this chapter goes into pinning each name down to one",
+  "desc": "Four relation predicates, a frontmatter machines read, one canonical set of field names, a controlled vocabulary and three confidentiality grades. This finishes the layer 1 design document so it holds up as notes pile in.",
+  "minutes": "22",
+  "prev_href": "ch09.en.html",
+  "prev_label": "Previous: Choosing your classes",
+  "next_href": "ch11.en.html",
+  "next_label": "Next: Telling AI the rules with CLAUDE.md"
+} -->
+  <article>
+    <p>Chapter 9 settled the classes. Solbit Tech cut theirs to seven and started writing notes the next day. Two weeks later the vault held more than seventy notes. So far, so good.</p>
+
+    <p>The trouble was that <strong>one sentence, "Warebot uses object recognition," sat in three people's notes in three different shapes.</strong></p>
+
+    <pre><code># bad example · one fact, three people, three ways of writing it
+
+# Warebot.md, as Kim made it
+uses_tech: object recognition
+
+# Warebot.md, after Lee edited it
+technology_used: "[[CAP-ObjectRecognition]]"
+
+# and a third bad example, in a note Park made for a proposal
+tech_used: object recognition module, route optimization</code></pre>
+
+    <p>None of the three is wrong. A person reads all three and understands. But ask <strong>"how many products use object recognition?"</strong> and you get no single answer. No tool, no AI and no person has any grounds for treating the three as the same thing. Even the shape of the values differs. One is a link, one is plain text, one is a comma-joined list.</p>
+
+    <p>The reason this happens is simple. <strong>Chapter 9 settled only "what exists."</strong> A class list tells you what kind of thing a note is. It says nothing about how those kinds connect to each other or what boxes they carry. The rest is this chapter.</p>
+
+    <div class="callout">
+      <p class="callout-title">What this chapter builds</p>
+      <p>The other half of the <a href="appendix-a.en.html#ontology" class="term-link">ontology</a> design document (layer 1). Settle four things, <strong>relation predicates, field names, value vocabulary and confidentiality grades</strong>, and layer 1 is done. From Part 4 on, all that remains is filling this format with real facts.</p>
+      <p>If the layers blur, go back to <a href="ch03.en.html">Chapter 3</a>. Everything you settle here is a <strong>rule</strong>. Not one company fact goes in.</p>
+    </div>
+
+    <h2>Start with four relation predicates</h2>
+
+    <p>A <a href="appendix-a.en.html#relation" class="term-link">relation predicate</a> is the <strong>name of the line</strong> joining one note to another. If classes are the kinds of dots, predicates are the kinds of lines. Without a name on the line, notes still connect, but there is no way to know what the connection means.</p>
+
+    <p>Solbit Tech uses four. Four is enough to start with, and most companies end up dropping one or adding one.</p>
+
+    <table>
+      <thead>
+        <tr><th>Predicate</th><th>Direction</th><th>Meaning</th><th>Written in</th><th>What it answers</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>pdm_uses</code></td><td>제품 → 기술역량</td><td>tech this product uses</td><td>the product note</td><td>evidence for proposals, tech reuse</td></tr>
+        <tr><td><code>pdm_output_of</code></td><td>기술역량 → 과제</td><td>project that produced this tech</td><td>the capability note</td><td>project results, grant track record</td></tr>
+        <tr><td><code>pdm_owner</code></td><td>any class → 사람</td><td>the person answerable for the note</td><td>every note</td><td>load per person, cover when someone is away</td></tr>
+        <tr><td><code>pdm_intent_of</code></td><td>work log note → 과제 or 기회</td><td>what this work was for</td><td>the work log note</td><td>intent against execution (Chapter 18)</td></tr>
+      </tbody>
+    </table>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="330" fill="#FFFDF9"/>
+        <defs>
+          <marker id="a10" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#C2703C"/>
+          </marker>
+        </defs>
+
+        <text x="360" y="24" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3D2B1F">The lines four predicates draw</text>
+        <text x="360" y="44" text-anchor="middle" font-size="11" fill="#6B5647">Lines have direction. Backlinks give you the reverse for free</text>
+
+        <rect x="40" y="76" width="160" height="48" rx="9" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.8"/>
+        <text x="120" y="97" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">Warebot</text>
+        <text x="120" y="114" text-anchor="middle" font-size="9.5" fill="#6B5647">제품 · PRD-001</text>
+
+        <rect x="270" y="76" width="180" height="48" rx="9" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.8"/>
+        <text x="360" y="97" text-anchor="middle" font-size="11" font-weight="bold" fill="#0F766E">CAP-ObjectRecognition</text>
+        <text x="360" y="114" text-anchor="middle" font-size="9.5" fill="#6B5647">기술역량</text>
+
+        <rect x="520" y="76" width="170" height="48" rx="9" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.8"/>
+        <text x="605" y="97" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#0F766E">PRJ-2025-SmartLogistics</text>
+        <text x="605" y="114" text-anchor="middle" font-size="9.5" fill="#6B5647">과제</text>
+
+        <line x1="202" y1="100" x2="266" y2="100" stroke="#C2703C" stroke-width="1.8" marker-end="url(#a10)"/>
+        <text x="234" y="66" text-anchor="middle" font-size="9" font-family="monospace" fill="#C2703C">pdm_uses</text>
+
+        <line x1="452" y1="100" x2="516" y2="100" stroke="#C2703C" stroke-width="1.8" marker-end="url(#a10)"/>
+        <text x="484" y="66" text-anchor="middle" font-size="9" font-family="monospace" fill="#C2703C">pdm_output_of</text>
+
+        <rect x="40" y="212" width="160" height="48" rx="9" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="120" y="233" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">Kim</text>
+        <text x="120" y="250" text-anchor="middle" font-size="9.5" fill="#6B5647">사람</text>
+
+        <line x1="120" y1="126" x2="120" y2="208" stroke="#C2703C" stroke-width="1.8" marker-end="url(#a10)"/>
+        <text x="130" y="172" font-size="9" font-family="monospace" fill="#C2703C">pdm_owner</text>
+
+        <rect x="520" y="212" width="170" height="48" rx="9" fill="#FAEADF" stroke="#C2703C" stroke-width="1.6"/>
+        <text x="605" y="233" text-anchor="middle" font-size="11" font-weight="bold" fill="#C2703C">2026-07-15-Kim</text>
+        <text x="605" y="250" text-anchor="middle" font-size="9.5" fill="#6B5647">업무로그</text>
+
+        <line x1="605" y1="208" x2="605" y2="128" stroke="#C2703C" stroke-width="1.8" marker-end="url(#a10)"/>
+        <text x="615" y="172" font-size="9" font-family="monospace" fill="#C2703C">pdm_intent_of</text>
+
+        <rect x="40" y="284" width="650" height="32" rx="8" fill="#FAEADF" stroke="#C2703C" stroke-width="1.3"/>
+        <text x="365" y="304" text-anchor="middle" font-size="11" fill="#3D2B1F">When names drift the lines break, and broken lines leave <tspan font-weight="bold">two-hop questions</tspan> unanswered</text>
+      </svg>
+      <figcaption>The graph you saw in Chapter 3 actually stands on these four names</figcaption>
+    </figure>
+
+    <h3>Always settle the direction</h3>
+
+    <p>Lines have direction. <code>pdm_uses</code> runs <strong>from a product to a capability</strong>. Not the other way. So that line goes in the Warebot note, and never in the CAP-ObjectRecognition note.</p>
+
+    <p>Here almost every team asks the same question. <strong>"From the tech side I want to see which products use it. Can I not add one more field for the reverse direction?"</strong></p>
+
+    <p>No. Write it in two places and <strong>the two places will diverge.</strong> Within a month someone removes a technology from the product note and forgets the capability note. From that moment nobody knows which side is right. That one convenient-looking extra field is the most common way a <a href="appendix-a.en.html#ssot" class="term-link">single source of truth</a> breaks.</p>
+
+    <p>You do not have to build the reverse. It already exists. Obsidian's <a href="appendix-a.en.html#backlink" class="term-link">backlinks</a> show "notes that point at me" under the CAP-ObjectRecognition note without being asked. <strong>Write it in one place and get the other side free.</strong></p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">How to pick the direction</p>
+      <p>Ask <strong>"which of these two notes changes more often because of this fact?"</strong> Warebot gains a technology fairly often. Object recognition itself rarely changes. Write it on the side that changes.</p>
+    </div>
+
+    <h3>The owner is the only exception</h3>
+
+    <p>The principle is that <strong>the predicate name in the design document is the name you write in the note</strong>. Settle on <code>pdm_uses</code> and the note says <code>pdm_uses:</code>.</p>
+
+    <p>There is exactly one exception. The owner goes into notes as the shorter <code>owner</code>, and only the design document calls that line <code>pdm_owner</code>. Two reasons. The owner is <strong>a box that attaches to every class alike</strong>, so marking it as a relation of our own buys nothing. And the dashboard and Bases in Chapter 15 already read this box under the name <code>owner</code>.</p>
+
+    <p>That is where the exceptions stop. <strong>Make a second one and this becomes taste rather than a rule.</strong></p>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: the two predicates they cut</p>
+      <p>Six candidates came out of the design meeting. Alongside the four above were <strong>"delivers to"</strong> (product to customer) and <strong>"references"</strong> (note to note).</p>
+      <p>"Delivers to" went. Joining a customer whose contract closed and a customer still in talks with the same line means that when you write a proposal, the pre-contract customer rides along into your track record. They decided this was a job for a grade, not a line, and the <code>confidential</code> field further down took its place.</p>
+      <p>"References" went too. Its meaning was so wide it could join anything, and <strong>a line that can join anything tells you nothing.</strong> Put a wikilink in the body and backlinks do the same job.</p>
+      <p>They used one question to cut. <strong>"Is there a question this line answers?"</strong> If no question comes to mind, that predicate is decoration for the design document.</p>
+    </div>
+
+    <h2>Why the <code>pdm_</code> in front</h2>
+
+    <p>Drop the prefix and <code>uses</code> or <code>output_of</code> looks pleasantly short. Three reasons to keep it.</p>
+
+    <ol class="steps">
+      <li><strong>It marks the relation as one you defined</strong>
+        <p>A note's frontmatter does not hold only the boxes you made. Boxes from tools, boxes from templates and boxes added later get mixed in. With a prefix, <strong>"this one has a definition in our design document"</strong> is visible from the name alone.</p>
+      </li>
+      <li><strong>You can pull them all up at once</strong>
+        <p>Type <code>pdm_</code> in search and every line you defined comes back. The check script in Chapter 17 picks out relation fields by the same prefix. The naming rule doubles as a filter.</p>
+      </li>
+      <li><strong>It avoids name collisions</strong>
+        <p>Move to another tool later, or merge with another team's vault, and common names like <code>status</code> or <code>uses</code> will collide. Prefixed names do not.</p>
+      </li>
+    </ol>
+
+    <p>The letters themselves carry no weight. Use your company's initials and <code>solbit_uses</code> works exactly as well. <strong>What matters is fixing on one</strong>, and this book uses <code>pdm_</code> throughout. Once you pick, do not change it. The cost of changing comes up in a moment.</p>
+
+    <h2>What goes in the frontmatter and what goes in the body</h2>
+
+    <p>As Chapter 5 showed, the part between the <code>---</code> markers at the top of a note is the <a href="appendix-a.en.html#frontmatter" class="term-link">frontmatter</a>, the region machines read. The hard part of design is not that split. It is <strong>deciding which fact goes on which side</strong>.</p>
+
+    <p>One test is enough. <strong>"Can I count with this?"</strong></p>
+
+    <table>
+      <thead>
+        <tr><th>The same fact</th><th>In the frontmatter</th><th>In the body</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Warebot is in service</td><td><code>status: 운영</code></td><td>In service, but freezer warehouses are still unvalidated</td></tr>
+        <tr><td>It uses object recognition</td><td><code>pdm_uses: "[[CAP-ObjectRecognition]]"</code></td><td>Reused the 2025 project module as is, with no retraining</td></tr>
+        <tr><td>The deadline is end of November</td><td><code>due: 2026-11-30</code></td><td>The officer mentioned the final report may be pulled forward</td></tr>
+        <tr><td>Daesung Logistics is not a customer yet</td><td><code>confidential: 대외비</code></td><td>Why we judged it unusable as track record before contract</td></tr>
+      </tbody>
+    </table>
+
+    <p>The right column is far richer. That is correct. <strong>The frontmatter is for counting, not for explaining.</strong> Write things like "this makes me uneasy" or "the officer said so" into the body without cutting a word. To the person hunting for the reasoning six months from now, that side matters far more.</p>
+
+    <p>One more rule. <strong>Do not write the same fact on both sides.</strong> Put "due 30 November 2026" in the body as well and, when the date moves, one place gets fixed and the other goes stale. In the body, never restate <code>due</code>. Write only the circumstances around that date.</p>
+
+    <p>Rewrite Solbit Tech's Warebot note by this chapter's rules and it comes out like this.</p>
+
+    <pre><code>---
+class: 제품
+id: PRD-001
+status: 운영
+owner: "[[Kim]]"
+since: 2023-04
+pdm_uses:
+  - "[[CAP-ObjectRecognition]]"
+  - "[[CAP-RouteOptimization]]"
+confidential: 사내
+updated: 2026-07-15
+confidence: reviewed
+---
+
+# Warebot
+
+Inbound and outbound automation software for logistics warehouses. Running since April 2023.
+
+## Known limits
+- No recognition-rate data for freezer warehouses. 확인 필요</code></pre>
+
+    <p>Eleven lines of frontmatter, four lines of body. If most of your notes land somewhere near that, things are running well. But <strong>once frontmatter fields start passing fifteen, your classes are split wrong</strong>. Odds are you are stuffing several kinds of thing into one note.</p>
+
+    <h2>One canonical set of field names</h2>
+
+    <p>This is the heart of the chapter. <strong>One name per meaning.</strong> Write <code>due</code> yesterday, <code>deadline</code> today and <code>due_date</code> tomorrow and you cannot count 200 notes.</p>
+
+    <p>Solbit Tech registers twenty names in the design document. The table below is those twenty, plus two more further down that only capability notes use.</p>
+
+    <table>
+      <thead>
+        <tr><th>Group</th><th>Field</th><th>Shape of the value</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td rowspan="4">Relation</td><td><code>pdm_uses</code></td><td>list of <code>"[[note]]"</code></td><td>in product notes</td></tr>
+        <tr><td><code>pdm_output_of</code></td><td><code>"[[note]]"</code></td><td>in capability notes</td></tr>
+        <tr><td><code>pdm_owner</code></td><td>a name used only in the design document</td><td>notes say <code>owner</code></td></tr>
+        <tr><td><code>pdm_intent_of</code></td><td><code>"[[note]]"</code></td><td>in work log notes</td></tr>
+        <tr><td rowspan="5">State</td><td><code>status</code></td><td>vocabulary per class (below)</td><td>required for 제품</td></tr>
+        <tr><td><code>stage</code></td><td>in the form <code>3/5</code></td><td>stages defined below</td></tr>
+        <tr><td><code>priority</code></td><td>상 / 중 / 하</td><td>recommended</td></tr>
+        <tr><td><code>blocked_by</code></td><td><code>"[[note]]"</code></td><td>when the blocker is another note</td></tr>
+        <tr><td><code>confidence</code></td><td><code>draft</code> / <code>reviewed</code></td><td>Chapter 11 sets the rules</td></tr>
+        <tr><td rowspan="8">Meta</td><td><code>class</code></td><td>a class name</td><td>required in every note</td></tr>
+        <tr><td><code>id</code></td><td>in the form <code>PRD-001</code></td><td>required in every note</td></tr>
+        <tr><td><code>owner</code></td><td><code>"[[person]]"</code></td><td>required for 제품</td></tr>
+        <tr><td><code>start</code></td><td><code>2026-03-01</code></td><td>start date</td></tr>
+        <tr><td><code>due</code></td><td><code>2026-11-30</code></td><td><strong>a closing date is always this name</strong></td></tr>
+        <tr><td><code>updated</code></td><td><code>2026-07-30</code></td><td>required in every note</td></tr>
+        <tr><td><code>since</code></td><td><code>2023-04</code></td><td>when service or trade began</td></tr>
+        <tr><td><code>confidential</code></td><td>공개 / 사내 / 대외비</td><td>covered separately below</td></tr>
+        <tr><td rowspan="3">Project</td><td><code>period</code></td><td><code>2025-04 ~ 2026-03</code></td><td>required for 과제</td></tr>
+        <tr><td><code>funder</code></td><td>name of the funding body</td><td>required for 과제</td></tr>
+        <tr><td><code>budget</code></td><td>amount</td><td>required for 과제</td></tr>
+      </tbody>
+    </table>
+
+    <p>There are also <strong>names you decide not to use</strong>. Same meaning, split naming.</p>
+
+    <table>
+      <thead>
+        <tr><th>Bad example · names to avoid</th><th>Canonical</th><th>Why they split</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>deadline</code>, <code>due_date</code></td><td><code>due</code></td><td>Everyone reaches for a different synonym for the same idea</td></tr>
+        <tr><td><code>uses_tech</code>, <code>tech_used</code>, <code>technology_used</code></td><td><code>pdm_uses</code></td><td>Each person invents their own wording</td></tr>
+      </tbody>
+    </table>
+
+    <p>Four rules when you coin a new field name.</p>
+
+    <div class="checklist">
+      <p class="checklist-title">Rules for naming a field</p>
+      <ul>
+        <li><strong>Lowercase letters and underscores only.</strong> Field names in other scripts trip up scripts and tool settings. Values can be in any language</li>
+        <li><strong>Prefix relations with <code>pdm_</code> and nothing else.</strong> A rule that splits down the middle stays easy to remember</li>
+        <li><strong>Never keep two names that overlap in meaning.</strong> If <code>due</code> exists, do not add <code>end_date</code></li>
+        <li><strong>Write a new field into the design document before you write it into a note.</strong> Reverse the order and the design document falls behind reality, and from then on nobody reads it</li>
+      </ul>
+    </div>
+
+    <h3>Fix the shape of the values too</h3>
+
+    <p>Unify the names and let the value shapes split and you are only half done. In the bad example that opened this chapter, one of the three was a link, one was plain text and one was a comma-joined list. Two decisions settle it.</p>
+
+    <ul>
+      <li><strong>Relation values are always wikilinks.</strong> Write <code>pdm_uses: object recognition</code> as text and no connection is made, and with no connection there is no line in the graph. Write the link even when the target note does not exist yet. Obsidian shows empty links greyed out, and that list of grey links becomes your <strong>to-do list of notes not yet written</strong>.</li>
+      <li><strong>For several values, break lines instead of using commas.</strong> <code>pdm_uses: object recognition, route optimization</code> counts as one value. Break each item onto its own line as a list and it counts as two. The Warebot note above shows the shape.</li>
+    </ul>
+
+    <h3>Add required boxes and notes stop getting written</h3>
+
+    <p>How many of these names <strong>must</strong> be filled? The three every note shares (<code>class</code>, <code>id</code>, <code>updated</code>) plus two or three per class. The <code>trl</code> and <code>evidence</code> in the table below are the dedicated fields mentioned earlier. They appear only in capability notes.</p>
+
+    <table>
+      <thead>
+        <tr><th>Class</th><th>Required beyond the common three</th><th>What happens when empty</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>제품</td><td><code>status</code>, <code>owner</code>, <code>since</code></td><td>drops out of counts by state and lists by owner</td></tr>
+        <tr><td>기술역량</td><td><code>trl</code>, <code>evidence</code></td><td>you cannot cite this technology in a proposal</td></tr>
+        <tr><td>과제</td><td><code>period</code>, <code>funder</code>, <code>budget</code></td><td>drops out of the results tally and the Gantt chart</td></tr>
+        <tr><td>기회</td><td><code>stage</code>, <code>due</code></td><td>no warning when the closing date approaches</td></tr>
+      </tbody>
+    </table>
+
+    <p>That third column is the test for what counts as required. <strong>If "what happens when it is empty" has no answer, the field is optional.</strong></p>
+
+    <p>It is the same principle as cutting classes from 19 to 7 in Chapter 3. More required boxes means a higher cost per note, a higher cost means fewer notes, and fewer notes means an empty layer 2. <strong>Optional fields are supposed to be empty.</strong> The check script in Chapter 17 looks only at required boxes too. Warn on every blank and nobody reads the warnings.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Renaming later costs more than you think</p>
+      <p>At 30 notes a bulk replace takes five minutes. At 200 the story changes. The replace still takes five minutes, but <strong>the half-replaced state</strong> is the problem.</p>
+      <p>In a vault syncing through OneDrive, someone else may have a note open at that moment. If they save while you are replacing, the old name comes back to life. Now nobody knows how many of the 200 notes carry the old name, and <strong>your dashboard numbers are quietly wrong.</strong></p>
+      <p>If you must change it, there is one way. Tell the team, have everyone close Obsidian, let one person run the replace, and confirm with the Chapter 17 check script that the old name returns zero hits. If only to avoid that procedure, <strong>it is better to choose names carefully at the start.</strong></p>
+    </div>
+
+    <h3>Define the <code>stage</code> steps now</h3>
+
+    <p>The table above listed <code>stage</code> as required for 기회. But write only <code>3/5</code> and nobody knows what 3 means. Chapter 8 nailed down that <strong>"required fields hold only values you know the moment you create the note,"</strong> so settle the stage list here too. It runs ten lines.</p>
+
+    <pre><code>## Stage definitions
+
+The 5 stages of a project (PRJ-)
+1. Kickoff — contract or agreement signed
+2. Design — requirements fixed
+3. Build — development under way
+4. Validation — pilot and testing
+5. Close — final report submitted
+
+The 4 stages of an opportunity (OPP-)
+1. Found — call or lead confirmed
+2. Review — decide whether to bid
+3. Prepare — write the proposal
+4. Submit — filed</code></pre>
+
+    <p>The note carries only <code>stage: 3/5</code>. Chapter 15 comes back to why you do not write a percentage, but in one line it is this. <strong>"Stage 3" can be verified and "70%" cannot.</strong> Whether the requirements are fixed is a fact. 70% is a feeling.</p>
+
+    <p>Stage names differ by company. Write down the gates your company actually uses. <strong>Do not go past five stages.</strong> Past six, people start losing track of where they are, and a box people are unsure about does not get updated.</p>
+
+    <h2>Controlled vocabulary: not to narrow expression, but to count</h2>
+
+    <p>Unify the names and, if the values scatter, you still cannot count. These are the values that were actually sitting in Solbit Tech's <code>status</code> boxes.</p>
+
+    <pre><code># bad example · the status values found across twelve notes
+
+진행중
+진행 중
+거의 다 됐음
+90%
+개발(내부검토)
+운영중?
+대기
+홀드</code></pre>
+
+    <p>So <strong>how many of these are in progress?</strong> You cannot say. Is "nearly done" in progress or in review? Are "waiting" and "on hold" the same thing? A person has to open each one and decide, and if that is the job, the box was pointless to begin with.</p>
+
+    <p>So you decide the values in advance. This is called a <a href="appendix-a.en.html#controlled-vocab" class="term-link">controlled vocabulary</a>. Its purpose is easy to misread. <strong>It is not there to narrow how you express things. It is there to make counting possible.</strong> Write the subtleties at any length you like in the body. Only the one box in the frontmatter is pinned to a value from a fixed list.</p>
+
+    <table>
+      <thead>
+        <tr><th>Class</th><th>Allowed <code>status</code> values</th><th>Count</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>제품</td><td>기획 / 개발 / 운영 / 중단</td><td>4</td></tr>
+        <tr><td>과제 · 기회</td><td>기획 / 진행 / 검토 / 완료 / 보류</td><td>5</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Same field name, different vocabulary per class.</strong> That is deliberate. Products have no review stage, and projects have no in-service state. Force them into one set and both sides end up with values that do not fit, and values that do not fit go unused.</p>
+
+    <p>Instead, <strong>nail into the design document that the vocabulary differs by class.</strong> Leave it unwritten and in six months project notes start carrying 운영.</p>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">Why "nearly done" fails</p>
+      <p>Three things break at once.</p>
+      <p><strong>First, you cannot count.</strong> Ask "how many projects are in progress?" and the AI answers wrong. A value outside the controlled vocabulary lands in no column and drops out quietly.</p>
+      <p><strong>Second, it becomes a lie over time.</strong> "Nearly done" was true the day it was written. Four months later it is still sitting there and nobody has touched it. 개발 is still roughly true four months later.</p>
+      <p><strong>Third, people read it differently.</strong> The CEO's "nearly" and the developer's "nearly" are two months apart.</p>
+    </div>
+
+    <h3>When you want to add one more value</h3>
+
+    <p>It will come. "Something like 'ready to launch' between 기획 and 개발 would fit perfectly here."</p>
+
+    <p>There is a test for this. <strong>Adding a value means editing the design document, reviewing every existing note, and editing the check rules in Chapter 17.</strong> Ask whether the value gets used often enough to pay that cost. If only one note needs it, that is a line for the body, not a reason to grow the vocabulary.</p>
+
+    <p>Solbit Tech asked this twice in design meetings and both times left the list alone. They wrote "targeting a September beta" in the body instead. Every piece of information survived, and counting still works.</p>
+
+    <h2>Confidentiality grades: what does not belong in the vault</h2>
+
+    <p>The vault lives in a Teams shared folder and the whole team sees the same files (Chapter 6). So <strong>you are not managing "who may read this note" but "how far this content may be carried."</strong> That distinction matters. Folder permissions are already handled by your company accounts. What you settle starts after that.</p>
+
+    <p>One <code>confidential</code> field carries three grades.</p>
+
+    <table>
+      <thead>
+        <tr><th>Value</th><th>Meaning</th><th>Solbit Tech example</th><th>When you hand it to AI</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>공개</td><td>already outside the company</td><td>Warebot product blurb, website copy</td><td>no limits</td></tr>
+        <tr><td>사내</td><td>seen inside the company only</td><td>project budgets, internal schedules, tech limits</td><td>never copied into an external document</td></tr>
+        <tr><td>대외비</td><td>leaking it damages a relationship</td><td>pre-contract customers, unpublished prices</td><td>drop the name and write "a domestic logistics company"</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>No value means 사내.</strong> The reason to lean the default toward the safe side is simple. People skip boxes. If a skipped box becomes the loosest grade, you get an incident.</p>
+
+    <p>Some things a grade cannot handle. These are <strong>the things that never go into the vault at all</strong>.</p>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">Do not grade these. Keep them out</p>
+      <p>National ID and bank account numbers, account passwords and access keys, performance reviews and payroll, original documents a customer gave you in confidence. Those four do not belong in the vault even with <code>confidential: 대외비</code> attached.</p>
+      <p>One reason. <strong>Vault permissions work at folder level.</strong> Material only one person should see has no place in a folder the whole team syncs. Write "HR material lives in a separate system" in a note and leave a link. That is enough.</p>
+    </div>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Could you just make a confidential folder?</p>
+      <p>No. Folders are layer 0, and a note lives in exactly one folder. Move the Daesung Logistics note into <code>Confidential/</code> and it vanishes from <code>30-Partners/</code> and drops out of every job that pulls a customer list. <strong>Making its existence invisible is the more dangerous outcome.</strong></p>
+      <p>As a field, the note stays where it belongs and merely carries a grade. The proposal prompt in Chapter 16 reads <code>confidential</code> and masks only the name. The note gets counted, and the name does not go out.</p>
+    </div>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: what made them build this field</p>
+      <p>The week after the Daesung Logistics meeting, the sentence <strong>"delivered to Daesung Logistics"</strong> went into a proposal draft. There was no contract. The person who wrote the draft had only heard the meeting went well, and the fact that it was pre-contract lived in someone else's head.</p>
+      <p>Kim caught it in review, luckily. What Kim said at the time was this. <em>"I caught it because I happened to read it. Will I read the next one?"</em></p>
+      <p>So <code>confidential: 대외비</code> went onto the Daesung Logistics note. That judgment now lives in <strong>a box in a note</strong> rather than in a person's memory. The proposal prompt in Chapter 16 and the rules in Chapter 11 both read that box.</p>
+    </div>
+
+    <h2>The line that joins intent to execution</h2>
+
+    <p>One predicate is left. <code>pdm_intent_of</code> has a different character from the other three. The others record <strong>what connects to what</strong>. This one records <strong>why the work was done</strong>.</p>
+
+    <p>It goes into the frontmatter of a work log note as one line.</p>
+
+    <pre><code>---
+class: 업무로그
+id: 2026-07-15-Kim
+owner: "[[Kim]]"
+updated: 2026-07-15
+pdm_intent_of: "[[OPP-2026-CityCall]]"
+---</code></pre>
+
+    <p>You will notice the <code>id</code> has no prefix, and that is deliberate. <strong>A work log is not a class. It is a kind of note that piles up in <code>40-Worklog/</code>.</strong> It is not one of the seven classes settled in Chapter 9, so rather than invent a new prefix you use the date and the person's name as the <code>id</code>. The work log format in Chapter 12 uses exactly this form.</p>
+
+    <p>What that one line buys becomes clear in Chapter 18. The question you ask in a retrospective is this. <strong>"Is what we said we would do this quarter the same as what we actually spent time on?"</strong></p>
+
+    <p>To answer that, every log line has to say which goal it attaches to. Without it, a person has to reread six months of logs and classify them one at a time, and <strong>nobody does that.</strong> So you create the field now. This is the kind of information you cannot attach after the fact.</p>
+
+    <p>Two things to settle at design time.</p>
+
+    <ul>
+      <li><strong>Write one value only.</strong> If one log straddles two goals, split the log in two. Allow several and there is no way to divide the time later.</li>
+      <li><strong>Leave it blank when there is no goal to attach.</strong> Do not force it somewhere. How much work attaches nowhere is itself important information, and Chapter 18 watches that share.</li>
+    </ul>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Let AI fill this box and the comparison becomes meaningless</p>
+      <p>Have AI structure a work log and it will try to infer <code>pdm_intent_of</code> too. Plausible values come out. But the question Chapter 18 asks is "is what we said we would do the same as what we did," and filling the answer with a guess <strong>removes the thing you were comparing against.</strong> Plan and execution come out matching every time.</p>
+      <p>The person who did the work fills this box. If they cannot judge, they leave it blank. This is an item to nail into <code>CLAUDE.md</code> in Chapter 11 as one line.</p>
+    </div>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">The second item is where this field earns its keep</p>
+      <p>Finding that 30% of your work was unplanned is not bad news. <strong>Customer requests and urgent fixes were never in the plan.</strong> But if it is 60%, that is a signal to redo the quarterly plan, and the signal only shows up if the log carries this box.</p>
+    </div>
+
+    <h2>Writing it into the design document</h2>
+
+    <p>Append what you settled to <code>_ops/01-ontology-design.md</code>. Chapter 9 already wrote the class table, so add three sections below it.</p>
+
+    <pre><code>## Relation predicates
+
+| predicate      | direction        | written in  | meaning               |
+|----------------|------------------|-------------|-----------------------|
+| pdm_uses       | 제품 → 기술역량  | 제품        | tech this product uses |
+| pdm_output_of  | 기술역량 → 과제  | 기술역량    | project it came out of |
+| pdm_owner      | any → 사람       | every note  | the owner (field name is owner) |
+| pdm_intent_of  | work log note → 과제 or 기회 | work log note | what this work was for |
+
+Never build a reverse-direction field. Read it through backlinks.
+
+## Fields
+
+- required in every note: class, id, updated
+- 제품: status, owner, since
+- 기술역량: trl, evidence
+- 과제: period, funder, budget
+- 기회: stage, due
+- optional: start, priority, blocked_by, confidential, confidence
+- 업무로그 and 회의록 are not classes. They are kinds of note in 40-Worklog/ and their id carries no prefix.
+
+A closing date is always due. Never invent another name.
+Never write a field into a note before it is in this document.
+
+## Vocabulary
+
+- status (제품): 기획 / 개발 / 운영 / 중단
+- status (과제 · 기회): 기획 / 진행 / 검토 / 완료 / 보류
+- priority: 상 / 중 / 하
+- confidence: draft / reviewed
+- confidential: 공개 / 사내 / 대외비 (no value means 사내)
+- stage: 5 for projects, 4 for opportunities. Copy the stage definitions above verbatim
+
+Never use a value outside the list. Write the circumstances as prose in the body.</code></pre>
+
+    <p>That is under a single page. <strong>Layer 1 needs no more than this.</strong> As Chapter 3 showed, you measure layer 1's quality by how well layer 2 gets filled, not by how refined it is.</p>
+
+    <p>Add the class table from Chapter 9 and the design has taken three or four hours. That is why Chapter 8 nailed down <strong>three to five hours for ontology design</strong>. More time does not make the design sharper. What is missing only shows up once you start filling notes, and touching it up once a quarter from then on is plenty.</p>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: pull out four predicates for your company</p>
+      <p>Give it about 40 minutes. Do not do it alone. Do it with whoever actually writes your proposals.</p>
+      <ol>
+        <li>Copy <strong>five sentences that state facts</strong> out of a recent proposal or company profile, word for word. For example: "Our product A applies technology B and was developed under a project for agency C."</li>
+        <li><strong>Underline the verbs</strong> in each sentence. "Applies," "was developed," "is delivered to."</li>
+        <li>Pick <strong>the verbs that appear at least twice</strong> across the five sentences. Those are your predicate candidates. Discard the ones that appear once.</li>
+        <li>Give each candidate a <strong>direction</strong>. Decide with "which of these two notes changes more often because of this fact?" Write it on the side that changes.</li>
+        <li>Name them. Put <code>pdm_</code> in front and use lowercase letters and underscores only. Do not go past four.</li>
+        <li>Put them in the design document as a table, then <strong>try them in three real notes.</strong> Check that the links go live in Obsidian and that backlinks appear on the far side.</li>
+        <li>Finally, ask yourself: <strong>"what question does this predicate answer?"</strong> Delete any predicate where no question comes to mind. You will never use it.</li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li>If classes are the kinds of dots, <strong>relation predicates are the kinds of lines</strong>. Start with four: <code>pdm_uses · pdm_output_of · pdm_owner · pdm_intent_of</code></li>
+        <li><strong>Lines have direction.</strong> Never build a reverse-direction field. Two places diverge, and backlinks give you the far side free</li>
+        <li>The <code>pdm_</code> prefix <strong>marks a relation you defined</strong>. Easy to gather, hard to collide. Fixing on one matters more than which letters you pick</li>
+        <li>A note has two parts. <strong>Machines read the frontmatter, people read the body.</strong> Only countable things go up top</li>
+        <li>Never write the same fact in both places. <strong>One of them will go stale</strong></li>
+        <li><strong>A closing date is always <code>due</code>.</strong> Same meaning under split names means you cannot count</li>
+        <li>A controlled vocabulary exists not to narrow expression but <strong>to make counting possible</strong>. Write the subtleties as prose in the body</li>
+        <li><code>status</code> vocabulary <strong>differs by class.</strong> Four for products, five for projects and opportunities. Do not force them together</li>
+        <li>Settle the <code>stage</code> list <strong>here too.</strong> Let people write <code>3/5</code> without knowing what it means and the box is garbage from day one</li>
+        <li>"Nearly done" cannot be counted, becomes a lie in four months, and reads differently to every person</li>
+        <li><code>confidential</code> manages <strong>"how far this may be carried," not "who may read it."</strong> No value means 사내</li>
+        <li>Personal data, accounts, payroll and customers' original documents <strong>do not get graded. They stay out of the vault</strong></li>
+        <li>Never split confidential material into a folder. Folders are layer 0, so the note disappears from lists entirely</li>
+        <li>Build <code>pdm_intent_of</code> now and use it in Chapter 18. <strong>It is information you cannot attach after the fact</strong></li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>Coming up</h3>
+      <p>Layer 1 is done. And yet <strong>the AI does not know a word of what you just settled.</strong> The design document is written for people to read, and you cannot re-explain the rules at the start of every conversation.</p>
+      <p>The next chapter ends that problem with one file. Put <strong>the absolute rules</strong> and <strong>the list of facts your company keeps getting wrong</strong> into <code>CLAUDE.md</code>, and everyone's AI moves by the same rules. The full text is included so you can copy it and use it straight away.</p>
+    </div>
+  </article>

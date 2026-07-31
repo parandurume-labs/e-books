@@ -1,0 +1,611 @@
+<!--META {
+  "file": "ch17.en.html",
+  "num": "17",
+  "title": "Quality, kept in code",
+  "subtitle": "Rules do not hold because you asked people to hold them",
+  "desc": "Build a validation script that sweeps the vault for rule violations, design the ERROR, WARN and INFO levels, and put it on a weekly schedule. Then pick the only kind of metric worth counting: the kind that gets better when the number goes up.",
+  "minutes": "26",
+  "prev_href": "ch16.en.html",
+  "prev_label": "Previous: Twelve automation recipes",
+  "next_href": "ch18.en.html",
+  "next_label": "Next: Comparing intent against execution"
+} -->
+  <article>
+    <p>Solbit Tech was six months into using the vault. There were more than 160 notes, there were templates, there was a <code>CLAUDE.md</code>, and three scheduled tasks were running. Kim, the CEO, thought the vault was fairly clean. There were only a handful of rules to keep, and everyone was conscientious.</p>
+
+    <p>Then they ran the validation script for the first time. It reported <strong>19 ERRORs</strong>.</p>
+
+    <p>The count was not the surprising part. The surprising part was that <strong>not one of those 19 had been reported in six months</strong>. Somebody must have opened a note with a broken link. Nobody said anything.</p>
+
+    <div class="callout">
+      <p class="callout-title">What this chapter is for</p>
+      <p>Part 4 set the rules and Part 5 put automation on top of them. This chapter <strong>takes the job of confirming that those rules actually hold away from human diligence</strong> and moves it into code.</p>
+      <p>In the layers from Chapter 3, it is the device that counts whether layer 2 really satisfies the constraints you wrote into the layer 1 design doc.</p>
+    </div>
+
+    <h2>Nobody reports a rule violation</h2>
+
+    <p>I have never seen an organization keep quality with "let's all pay attention to the checks". Not because people are lazy. The structure makes it happen. There are three reasons.</p>
+
+    <p><strong>First, a violation is not visible on screen.</strong> A missing field does not catch your eye when you open the note. Absence is invisible by nature. One wrongly written <code>status</code> value looks fine as long as you are only looking at that note. It takes lining up 200 notes side by side for the oddity to show, and nobody lines up 200 notes.</p>
+
+    <p><strong>Second, there is no reason to report it.</strong> Find a mistake in somebody else's note and you have two options. "I'll fix it" adds to your own workload, and "this is wrong" points a finger at a colleague. Both cost something, so most people take a third option. Look away.</p>
+
+    <p><strong>Third, somebody else pays for it later.</strong> The person who left the due date blank feels nothing that day. The person who pays is whoever stares at an empty cell in the dashboard three months later. When cause and effect skip across time and across people, no learning happens.</p>
+
+    <p>This actually happened at Solbit Tech. Park, who handles sales, was writing a proposal and clicked the <code>[[CAP-RouteOptimization]]</code> link in the Warebot note. A blank screen came up. The note had been renamed and the link had broken. Park searched for the note, got what he needed, and finished the proposal. <strong>His own problem was solved, so he told nobody.</strong> That same link did not appear on any list until the first check four months later.</p>
+
+    <p>Rule violations pile up like that. For the individual, working around it is always cheaper, and working around it leaves no trace. <strong>Fixing it removes the cost, but so does not fixing it, at least for that person.</strong> Trying to close that gap with goodwill is the most common way knowledge management fails.</p>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">"Manage it well" is not a management method</p>
+      <p>If your quality plan reads "everyone keeps the rules", that is not a plan, it is a hope. Nobody eyeballs 200 notes' worth of fields every week past the second week. It is dull, it is invisible, and skipping it costs nothing that week.</p>
+      <p>A script does not get bored. And <strong>when it stops running you notice</strong>, because the report file does not appear that week.</p>
+    </div>
+
+    <h2>What to check: five is enough</h2>
+
+    <p>You do not need something sophisticated on day one. The five below catch most of what actually goes wrong.</p>
+
+    <table>
+      <thead>
+        <tr><th>Check</th><th>What it looks at</th><th>What happens if you leave it</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Missing required field</strong></td>
+          <td>Whether the fields each class must carry are filled in</td>
+          <td>Blank cells appear in tables and dashboards, and the AI fills those blanks with something plausible</td>
+        </tr>
+        <tr>
+          <td><strong>Controlled vocabulary violation</strong></td>
+          <td>Whether the <code>status</code> value is in the list you fixed</td>
+          <td>"How many projects are in progress" comes back wrong</td>
+        </tr>
+        <tr>
+          <td><strong>Broken link</strong></td>
+          <td>Whether the note a wikilink points at actually exists</td>
+          <td>The graph gets holes. Two-hop questions cannot find an answer</td>
+        </tr>
+        <tr>
+          <td><strong>Stale note</strong></td>
+          <td>Anything in 진행 or 운영 that has sat untouched for 30 days or more</td>
+          <td>Old facts pass themselves off as current. The quietest and most dangerous kind of pollution</td>
+        </tr>
+        <tr>
+          <td><strong>Forbidden name</strong></td>
+          <td>Whether a non-canonical field name got used</td>
+          <td>One meaning splits across two names and your counts go quietly wrong</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Do not skip that last one. When the same meaning is written under <strong>all different</strong> names, counting becomes impossible. It is exactly the problem Chapter 15 blamed for the gantt chart not drawing. The names on the left below should never appear in your vault.</p>
+
+    <table>
+      <thead>
+        <tr><th>Never use these</th><th>Canonical name</th><th>Meaning</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>deadline</code>, <code>due_date</code></td><td><code>due</code></td><td>The due date</td></tr>
+        <tr><td><code>uses_tech</code>, <code>tech_used</code>, <code>used_tech</code></td><td><code>pdm_uses</code></td><td>The capability this note draws on</td></tr>
+      </tbody>
+    </table>
+
+    <p>Notice what the five have in common. <strong>Every one of them asks whether the form is right, not whether the content is true.</strong> Whether the TRL of the technology Warebot uses is 4 or 6 is not something this script decides. It only looks at whether the <code>trl</code> box is empty. Think back to the accident this book keeps returning to: TRL 4 in last year's document, 6 in this year's, and nobody knowing which is right. That is <strong>not a problem code can solve.</strong> What code does is gather which note each value is written in, in one place, so a person can settle it in 30 seconds.</p>
+
+    <h2>Before that: install Python and run it once</h2>
+
+    <p>This section is for anyone who has never opened a command prompt. Skip it if you already use Python.</p>
+
+    <ol class="steps">
+      <li><strong>Install Python</strong>
+        <p>Get the Windows installer from <code>python.org</code>. On the first screen there is a checkbox at the bottom, <strong>"Add python.exe to PATH"</strong>. <strong>Tick it before you install.</strong> Leave it off and you get exactly the error at the top of Appendix C.</p>
+      </li>
+      <li><strong>Save the file inside the vault</strong>
+        <p>Join the code below together and save it as <code>_ops/scripts/validate.py</code>. That is the folder you made in Chapter 7.</p>
+      </li>
+      <li><strong>Run it with one line</strong>
+        <p>Type <code>cmd</code> in the Start menu and the command prompt appears. Put <code>py "C:\path\_ops\scripts\validate.py"</code> in and press Enter. Get the path by right-clicking the file in Explorer and choosing "Copy as path".</p>
+      </li>
+      <li><strong>Check the result in a file, not on screen</strong>
+        <p><strong>If nothing prints, it worked.</strong> Look in the vault's <code>_reports/</code> folder for a file with today's date on it. If that file is there, it ran properly.</p>
+      </li>
+    </ol>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">You never have to open a command prompt at all</p>
+      <p>The default route in this book is <strong>to hand it to Cowork</strong>. The third scheduled task in Chapter 14 already owns this work: its first line says "run <code>_ops/scripts/validate.py</code>". Typing <code>run _ops/scripts/validate.py and summarize the result</code> into the chat window does the same thing.</p>
+      <p>So step 3 above is worth doing <strong>once, to narrow down a cause when something breaks</strong>, and no more.</p>
+    </div>
+
+    <h2>The validation script itself</h2>
+
+    <p>Python is all you need. It uses no external libraries. Save it as <code>_ops/scripts/validate.py</code> in the vault. On the decision tree from Chapter 14 this is route C: calculation rather than judgment, so no AI is involved.</p>
+
+    <p>Before you copy the code out, here is where to look. The parts that matter in this script are not <code>re</code> or <code>pathlib</code> but the three blocks at the top: <code>REQUIRED</code>, <code>STATUS_ENUM</code> and <code>FORBIDDEN</code>. Those three are the layer 1 design doc transcribed, and the rest of the code is just a machine that holds notes up against them. <strong>When the design doc changes, you edit those three places only.</strong> Scatter the rules through the code and nobody can change them six months from now.</p>
+
+    <p>First, the configuration and the frontmatter reader.</p>
+
+    <pre><code># _ops/scripts/validate.py
+# Check the vault rules in code. No external libraries.
+
+import re, sys, datetime
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]   # top of the vault
+TODAY = datetime.date.today()
+STALE_DAYS = 30
+
+# Required fields per class. If this table and the layer 1 design doc
+# disagree, the design doc wins.
+# class, id and updated are required everywhere. The rest varies by class.
+REQUIRED = {
+    # the four backbone classes from Chapter 9
+    "제품":     ["class", "id", "updated", "status", "owner", "since"],
+    "기술역량": ["class", "id", "updated", "trl", "evidence"],
+    "과제":     ["class", "id", "updated", "period", "funder", "budget"],
+    "기회":     ["class", "id", "updated", "stage", "due"],
+    # the three support classes from Chapter 9
+    "조직":     ["class", "id", "updated"],
+    "사람":     ["class", "id", "updated"],
+    "결정":     ["class", "id", "updated", "date"],
+    # Not classes. These are note kinds inside 40-Worklog. See Chapter 12.
+    # Leave them out and you get a flood of "class value not in the
+    # design doc list" ERRORs, so they are listed here too.
+    "회의록":   ["class", "id", "updated", "date"],
+    "업무로그": ["class", "id", "updated", "owner"],
+}
+
+# The status vocabulary differs by class. One global set gives you
+# a flood of false positives.
+STATUS_ENUM = {
+    "제품": {"기획", "개발", "운영", "중단"},
+    "과제": {"기획", "진행", "검토", "완료", "보류"},
+    "기회": {"기획", "진행", "검토", "완료", "보류"},
+}
+
+# Forbidden names. One meaning under all different names cannot be
+# counted. Every name on the left is a bad example.
+FORBIDDEN = {"deadline": "due", "due_date": "due",
+             "uses_tech": "pdm_uses", "tech_used": "pdm_uses",
+             "used_tech": "pdm_uses"}
+
+findings = []
+metas = []                                   # the metrics below use this list
+def add(level, where, msg):
+    findings.append((level, where, msg))
+
+FM = re.compile(r"\A---\n(.*?)\n---", re.S)
+
+def frontmatter(text):
+    m = FM.match(text)
+    if not m:
+        return None
+    meta, key = {}, None
+    for line in m.group(1).splitlines():
+        if line.lstrip().startswith("-") and key:      # a list item
+            meta.setdefault(key, []).append(line.strip(" -").strip('"'))
+            continue
+        m2 = re.match(r"([A-Za-z_가-힣]+):\s*(.*)$", line)
+        if m2:
+            key = m2.group(1)
+            val = m2.group(2).strip().strip('"')
+            meta[key] = val if val else []
+    return meta</code></pre>
+
+    <p>Next is the body of the check. It looks at five things per note.</p>
+
+    <pre><code>notes = {p.stem: p for p in (ROOT / "Sources").rglob("*.md")}
+LINK = re.compile(r"\[\[([^\]|#]+)")
+
+for stem, path in sorted(notes.items()):
+    where = path.relative_to(ROOT).as_posix()   # vault-relative path, not filename
+    text = path.read_text(encoding="utf-8")
+    meta = frontmatter(text)
+
+    if meta is None:
+        add("ERROR", where, "no frontmatter")
+        continue
+
+    metas.append(meta)                             # collected here for the metrics
+
+    cls = meta.get("class")
+    if cls not in REQUIRED:
+        add("ERROR", where, f"class value not in the design doc list: {cls!r}")
+        continue
+
+    for field in REQUIRED[cls]:                       # 1. required fields
+        if not meta.get(field):
+            add("ERROR", where, f"missing required field: {field}")
+
+    st = meta.get("status")                            # 2. controlled vocabulary
+    if st and st not in STATUS_ENUM.get(cls, set()):
+        add("ERROR", where, f"status outside the {cls} vocabulary: {st!r}")
+
+    for bad, good in FORBIDDEN.items():                # 3. forbidden names
+        if bad in meta:
+            add("ERROR", where, f"forbidden name {bad}. use {good} instead")
+
+    for target in set(LINK.findall(text)):             # 4. broken links
+        if target.strip() not in notes:
+            add("ERROR", where, f"broken link: [[{target.strip()}]]")
+
+    upd = meta.get("updated", "")                      # 5. stale notes
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(upd)):
+        add("ERROR", where, "updated is not in YYYY-MM-DD form")
+    elif st in ("진행", "운영"):
+        age = (TODAY - datetime.date.fromisoformat(upd)).days
+        if age &gt; STALE_DAYS:
+            add("WARN", where, f"unchanged for {age} days (status: {st})")
+
+    if meta.get("confidence") == "draft":
+        add("INFO", where, "waiting for human review")</code></pre>
+
+    <p>Last comes saving. The point is to leave the result <strong>for the next automation to read</strong>, not for a person. One thing to know in advance: the code below uses <strong>the two metric values (<code>total</code> and <code>reviewed</code>)</strong> built in the last section of this chapter. When you copy it into a file, put that section's code <strong>above</strong> this one.</p>
+
+    <pre><code>order = {"ERROR": 0, "WARN": 1, "INFO": 2}
+findings.sort(key=lambda f: (order[f[0]], f[1]))
+n = {lv: sum(1 for l, _, _ in findings if l == lv) for lv in order}
+
+lines = [f"# Vault check {TODAY}", "",
+         f"- ERROR {n['ERROR']} · WARN {n['WARN']} · INFO {n['INFO']}",
+         f"- notes checked: {len(notes)}", ""]
+for lv in ("ERROR", "WARN", "INFO"):
+    group = [(w, m) for l, w, m in findings if l == lv]
+    if not group:
+        continue
+    lines.append(f"## {lv} {len(group)}")
+    lines += [f"- `{w}` {m}" for w, m in group]
+    lines.append("")
+
+(ROOT / "_reports").mkdir(exist_ok=True)
+(ROOT / "_reports" / f"check-{TODAY}.md").write_text(
+    "\n".join(lines), encoding="utf-8")
+
+# Raw material for the Chapter 15 trend chart. One line per run.
+# Columns: date, ERROR, WARN, INFO, total notes, reviewed share (%)
+# The last column is the line Chapter 15 draws. Without it, no chart.
+with (ROOT / "_reports" / "validate-history.csv").open(
+        "a", encoding="utf-8") as f:
+    f.write(f"{TODAY},{n['ERROR']},{n['WARN']},{n['INFO']},"
+            f"{len(notes)},{reviewed * 100 // total}\n")
+
+sys.exit(1 if n["ERROR"] else 0)</code></pre>
+
+    <p>That <code>sys.exit</code> on the last line looks trivial and is not. With any ERROR the script ends on a non-zero value, so when you later wrap this script inside another automation, <strong>a failure registers as a failure.</strong> A check that quietly pretends to succeed is the worst kind.</p>
+
+    <h3>Three things this script deliberately does not do</h3>
+
+    <p>Reading the code you will hit a few spots where you think "why not just fix that automatically". Those are deliberate, so here are the reasons.</p>
+
+    <p><strong>First, it fixes nothing.</strong> It only finds. Start auto-filling one field and code that "guesses a similar value" follows soon after, and then <strong>facts nobody has checked</strong> start accumulating in the vault. Fixing is the job of the Chapter 14 scheduled task, under human approval. The script is the eyes. Keep the hands separate.</p>
+
+    <p><strong>Second, it does not write to <code>Sources/</code>.</strong> It only reads. Break that principle and one morning you will find the conflict copies that a script made at 3am. Every sync conflict from Chapter 6 arrives at once.</p>
+
+    <p><strong>Third, it does not judge content.</strong> It never asks "is this explanation good enough" or "is this <code>trl</code> value right". It looks at whether a field is there and whether a value is inside the list. The moment judgment enters, false positives come in with it, and false positives cause what comes next.</p>
+
+    <h2>Where the line between ERROR, WARN and INFO goes</h2>
+
+    <p>This is the most important section in the chapter. Writing the script takes half a day. Deciding which violations count as ERROR does not. <strong>That one decision sets how long the check survives.</strong></p>
+
+    <div class="callout">
+      <p class="callout-title">The one-sentence rule</p>
+      <p><strong>Only put things in ERROR that have to be zero.</strong> If you are not confident you can drive it to zero before you leave on Friday, it is not an ERROR.</p>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Level</th><th>What it means</th><th>What a person does</th><th>What goes here</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>ERROR</strong></td>
+          <td>A definite rule violation. No room for judgment</td>
+          <td>Drive it to zero that week</td>
+          <td>Missing required field, class typo, vocabulary violation, broken link, forbidden name</td>
+        </tr>
+        <tr>
+          <td><strong>WARN</strong></td>
+          <td>Might be a violation, might be normal</td>
+          <td>Skim and move on. Look properly when it piles up</td>
+          <td>Untouched for 30 days or more, due within 21 days, an empty field that is not required</td>
+        </tr>
+        <tr>
+          <td><strong>INFO</strong></td>
+          <td>Not a violation. Just a count</td>
+          <td>Nothing. It is only a metric</td>
+          <td>Notes awaiting review, total notes, distribution by class</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Never looking at WARN is a problem of its own, so set one rule. <strong>You do not read WARN weekly. You read it once a quarter, all at once.</strong> Chapter 14 said to tidy your automations every three months, and this fits in the same slot. The review forks two ways. If the same line has sat there for three months it is normal rather than a violation, so delete the check. If instead the lines keep multiplying, that is the signal to promote it to ERROR.</p>
+
+    <p>What happens if you make everything an ERROR is entirely predictable. Week one gives you 200 ERRORs. No person fixes 200 items. Week two gives you 200 again. In week three the report goes unopened. <strong>A number you cannot act on is noise, not information.</strong> Chapter 14 said automation dies of noise rather than of stopping, and a check dies the same way.</p>
+
+    <p>What if you draw ERROR too narrowly instead? That barely matters. You can promote a check from WARN to ERROR later. <strong>Levels only move in one direction.</strong></p>
+
+    <p>There is one more reason for having levels. <strong>They keep the list at a length a person can carry.</strong> Every vault produces dozens of things that "look odd". Lay them all out in one list and nobody knows where to start. A level is less a ruler for how serious a violation is and more <strong>a partition between what you look at this week and what you do not</strong>.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="320" fill="#FFFDF9"/>
+        <defs>
+          <marker id="a17" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#6B5647"/>
+          </marker>
+        </defs>
+
+        <text x="360" y="26" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">Ask these three questions for every new check</text>
+
+        <rect x="30" y="48" width="270" height="44" rx="8" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="165" y="68" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">Q1. Does the answer vary by person?</text>
+        <text x="165" y="84" text-anchor="middle" font-size="10" fill="#6B5647">Does it need "enough" or "appropriate"?</text>
+
+        <line x1="300" y1="70" x2="420" y2="70" stroke="#6B5647" stroke-width="1.4" marker-end="url(#a17)"/>
+        <text x="360" y="62" text-anchor="middle" font-size="10" fill="#6B5647">yes</text>
+        <rect x="424" y="48" width="266" height="44" rx="8" fill="#F0EDE6" stroke="#8A857C" stroke-width="1.6"/>
+        <text x="557" y="68" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#6B5647">Do not build it</text>
+        <text x="557" y="84" text-anchor="middle" font-size="10" fill="#6B5647">This one a person has to read</text>
+
+        <line x1="165" y1="92" x2="165" y2="126" stroke="#6B5647" stroke-width="1.4" marker-end="url(#a17)"/>
+        <text x="182" y="114" font-size="10" fill="#6B5647">no</text>
+
+        <rect x="30" y="130" width="270" height="44" rx="8" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="165" y="150" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">Q2. Any false positives at all?</text>
+        <text x="165" y="166" text-anchor="middle" font-size="10" fill="#6B5647">Run it two weeks and read the list</text>
+
+        <line x1="300" y1="152" x2="420" y2="152" stroke="#6B5647" stroke-width="1.4" marker-end="url(#a17)"/>
+        <text x="360" y="144" text-anchor="middle" font-size="10" fill="#6B5647">yes</text>
+        <rect x="424" y="130" width="266" height="44" rx="8" fill="#FAEADF" stroke="#C2703C" stroke-width="1.6"/>
+        <text x="557" y="150" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">Leave it in WARN</text>
+        <text x="557" y="166" text-anchor="middle" font-size="10" fill="#6B5647">Do not promote until precision rises</text>
+
+        <line x1="165" y1="174" x2="165" y2="208" stroke="#6B5647" stroke-width="1.4" marker-end="url(#a17)"/>
+        <text x="182" y="196" font-size="10" fill="#6B5647">no</text>
+
+        <rect x="30" y="212" width="270" height="44" rx="8" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="165" y="232" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">Q3. Will you zero it this week?</text>
+        <text x="165" y="248" text-anchor="middle" font-size="10" fill="#6B5647">Clear the current count within the week</text>
+
+        <line x1="300" y1="234" x2="420" y2="234" stroke="#6B5647" stroke-width="1.4" marker-end="url(#a17)"/>
+        <text x="360" y="226" text-anchor="middle" font-size="10" fill="#6B5647">no</text>
+        <rect x="424" y="212" width="266" height="44" rx="8" fill="#FAEADF" stroke="#C2703C" stroke-width="1.6"/>
+        <text x="557" y="232" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">Leave it in WARN</text>
+        <text x="557" y="248" text-anchor="middle" font-size="10" fill="#6B5647">An ERROR you cannot fix becomes noise</text>
+
+        <line x1="165" y1="256" x2="165" y2="278" stroke="#0F766E" stroke-width="1.8" marker-end="url(#a17)"/>
+        <rect x="30" y="282" width="270" height="30" rx="8" fill="#EAF6F4" stroke="#0F766E" stroke-width="2"/>
+        <text x="165" y="302" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">Only what reaches here is an ERROR</text>
+
+        <text x="557" y="300" text-anchor="middle" font-size="10.5" fill="#6B5647">WARN can rise to ERROR. The other way rarely works</text>
+      </svg>
+      <figcaption>Every new check starts as a WARN. Promote it after two weeks of watching</figcaption>
+    </figure>
+
+    <h2>One false positive kills the whole check</h2>
+
+    <p>Build a few checks and you get greedy. "Let's catch thin notes too", "let's catch unsupported claims", "let's catch lazy titles". Do not. That greed is the most common route to ruining the check.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Why Solbit Tech deleted one check</p>
+      <p>They added a check that flagged "a body under 300 characters is a thin note". It sounded sensible. But decision notes are short by nature. A note that ends with "we are entering the city government call. we use Warebot's existing sites as the validation evidence" is a perfectly normal one, and every last one of them got flagged.</p>
+      <p>Once half the list was false positives, people stopped skimming the list and started closing it. Two real ERRORs that week went down with it. <strong>One badly chosen check made every other check useless.</strong></p>
+    </div>
+
+    <p>People do not judge a list item by item. <strong>They trust it list by list.</strong> If three lines out of ten are nonsense, the other seven go unread too. The damage of losing trust in the whole list far outweighs the gain from one extra check. So <strong>a check with low precision is better not built at all.</strong></p>
+
+    <p>The same thing happened in the repository that produced this book. The manuscript sometimes says "three things" and then lists four, and we tried to catch that by machine. The check counted items after the phrase "three things" with a regular expression, and all seven hits we measured were false positives. It tripped on ordinals like "the third week" and durations like "three months". We deleted the check and moved it into the list a person reads.</p>
+
+    <p>Settling one question up front makes these calls easier. <strong>Which do you give up, recall or precision?</strong> Recall is "how little you miss", precision is "how much of what you caught is real". Both high would be lovely, but in practice raising one lowers the other.</p>
+
+    <p>In a quality check you <strong>protect precision and give up recall.</strong> There is a reason. A missed violation gets another chance next week, because this check runs every week. A list that has lost your trust once will not be read next week either. <strong>Chances repeat. Trust does not.</strong></p>
+
+    <p>Here is where the line falls.</p>
+
+    <table>
+      <thead>
+        <tr><th>What code is good at</th><th>What a person has to do</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Whether a field is there</td><td>Whether this note explains enough</td></tr>
+        <tr><td>Whether a value is in the list</td><td>Whether this <code>status</code> matches reality</td></tr>
+        <tr><td>Whether a link points at a real file</td><td>Whether making this link was the right call</td></tr>
+        <tr><td>Whether a date fits the format</td><td>Whether this deadline is realistic</td></tr>
+      </tbody>
+    </table>
+
+    <p>The questions on the left have exactly one answer. The ones on the right differ from person to person. <strong>Put something whose answer varies by person into code and that is your false positive.</strong></p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Write vault-relative paths in the report, not filenames</p>
+      <p>It looks trivial and it catches people. <code>meeting-note.md</code> lives in several folders, and so does <code>2026-07-15.md</code>. Record results by filename alone and different notes merge into one line, and <strong>your counts go quietly wrong.</strong></p>
+      <p>That is why the code above uses <code>path.relative_to(ROOT).as_posix()</code>. The report prints paths from the top of the vault down, like <code>Sources/40-Worklog/2026-07-15-weekly-meeting.md</code>. That way a person opens the right file straight away.</p>
+    </div>
+
+    <h2>Once a week, running even when people forget</h2>
+
+    <p>Build the script and run it by hand and you stop running it in week three. Chapter 14 already made room for it. The third scheduled task, "Friday evening quality check", runs this script on its first line. Look first at why the cycle is weekly, then at the four steps of the whole flow.</p>
+
+    <h3>Why weekly rather than daily</h3>
+
+    <p>Running the script daily costs nothing. Showing it to a person daily is a mistake. Two reasons.</p>
+
+    <p><strong>First, people need time to fix things.</strong> Show an ERROR on Monday and show it again on Tuesday and you are repeating the same criticism to somebody who is still working on it. Two repeats turn the alert into nagging, and nagging gets switched off.</p>
+
+    <p><strong>Second, a change only means something at weekly scale.</strong> Day-to-day ERROR movement is mostly noise. Make three notes yesterday and today's ERROR count is three higher. That is not decay, it is evidence of work. At weekly scale the wobble flattens out.</p>
+
+    <p>The script itself can run daily on <code>onlogon</code>, as Chapter 14 describes. The files pile up daily and only the human viewing is weekly. You get a denser trend chart for free that way.</p>
+
+    <ol class="steps">
+      <li><strong>Python counts</strong>
+        <p>Route C. The result is always the same and it costs nothing. Put it in Windows Task Scheduler with one <code>schtasks</code> line, or leave it to step 2 below.</p>
+      </li>
+      <li><strong>The scheduled task reads and interprets</strong>
+        <p>Route A. It fixes only the mechanically certain ERRORs and leaves anything needing a judgment about the facts on the list untouched. It touches no field on a <code>confidence: reviewed</code> note.</p>
+      </li>
+      <li><strong>The result lands in two places</strong>
+        <p>The report a person reads goes to <code>_reports/check-2026-07-31.md</code>, and the single trend line goes to <code>_reports/validate-history.csv</code>.</p>
+      </li>
+      <li><strong>The dashboard picks that line up</strong>
+        <p>The Chapter 15 weekly dashboard reads the csv and redraws the trend line in <code>_moc/000-dashboard.md</code>. On Monday a person looks at that one page.</p>
+      </li>
+    </ol>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">Two folders, two roles</p>
+      <p>Automation may create files in two places, <code>_reports/</code> and <code>_moc/</code>. The rule for splitting them is simple. <strong><code>_reports/</code> is for things that accumulate with a date on them, <code>_moc/</code> is for things where only the latest one survives</strong>. Check results go in the first, the dashboard in the second.</p>
+      <p><code>Sources/</code> is human territory, and this script does not write a single character there. It only reads.</p>
+    </div>
+
+    <h3>A bigger vault needs a reworked check</h3>
+
+    <p>At a few hundred notes this script finishes in under a second. Speed is not your concern for a long while. Two other things will definitely arrive.</p>
+
+    <p><strong>Folders that have to be excluded appear.</strong> Generated output piles up under <code>_reports/</code>, and expecting frontmatter there adds dozens of ERRORs a week. That is why the code above only sweeps under <code>Sources/</code>. If there are more places where you decided not to apply the rules, like the source material in <code>90-Reference/</code>, make a list and write it into the design doc. <strong>Do not hide exceptions in code. Write them in a document.</strong> Kept only in code, nobody knows the reason six months later.</p>
+
+    <p><strong>Change a rule and every old note trips at once.</strong> Add one required field and that week brings a hundred ERRORs. The rule itself is right and the list becomes unusable. So when you add a required field, <strong>put the new rule in as a WARN, clean up the old notes, and only then promote it to ERROR.</strong> Do not change a rule and tidy the past in the same week.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">If the report has gone unopened three weeks running</p>
+      <p>A check that runs and nobody reads is the worst state, because it also hands you the illusion that the system is healthy. Chapter 15 said that if nobody opens the dashboard you fix the dashboard rather than the people, and the check report works the same way.</p>
+      <p>What usually needs fixing is <strong>length</strong>. Forty lines of WARN in front of three lines of ERROR will not be read. Leave the ERROR count and the change against last week in the top three lines and push everything else down.</p>
+    </div>
+
+    <p>Set up this way, a person is left with one job. <strong>Open the ERROR list on Monday morning and drive it to zero that week.</strong> The "20 minutes of weekly review" from Chapter 1 becomes a real 20 minutes here. Not 20 minutes of eyeballing 200 notes, but 20 minutes of fixing three lines somebody already found. Automating the check does not mean people step back. It means <strong>the 20 minutes a person spends moves from finding to fixing</strong>.</p>
+
+    <h2>Count only what actually improves when the number goes up</h2>
+
+    <p>Once the check runs you have numbers, and once you have numbers you want to report them. Here is where the most common mistake shows up. <strong>People count notes.</strong></p>
+
+    <p>Note count is easy to raise. Create thirty empty notes and it goes up. A vault grown that way is worse than before. Same reason Chapter 15 said not to count records per person. <strong>A metric that is easy to game will be gamed.</strong> Not out of bad faith. People move toward whatever you measure.</p>
+
+    <p>Ask three questions of every metric before you pick it.</p>
+
+    <div class="checklist">
+      <p class="checklist-title">Three questions for a metric</p>
+      <ul>
+        <li><strong>Can a script count it?</strong> A metric a person counts by hand disappears within two months. No exceptions.</li>
+        <li><strong>Does raising it require real work?</strong> A number you can raise with a few clicks will be raised exactly that way.</li>
+        <li><strong>Do you know what to do when it gets worse?</strong> Do not measure a metric with no answer. It leaves anxiety behind and changes nothing.</li>
+      </ul>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>How you count it</th><th>Why it cannot be gamed</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Share of grounded notes</strong></td>
+          <td>Notes with at least one wikilink in the body or a filled <code>evidence</code> field ÷ total</td>
+          <td>To make a link you need a real note to point at. Pour in empty notes and the denominator grows, so it goes down instead</td>
+        </tr>
+        <tr>
+          <td><strong>Share of reviewed notes</strong></td>
+          <td><code>confidence: reviewed</code> ÷ total</td>
+          <td>It only rises when a person reads something</td>
+        </tr>
+        <tr>
+          <td><strong>ERROR count trend</strong></td>
+          <td>The first line of the weekly check</td>
+          <td>Lowering it means fixing notes or changing rules, and the rules live in the design doc and take a meeting to change</td>
+        </tr>
+        <tr>
+          <td><strong>Broken link count</strong></td>
+          <td>The number of wikilinks with no target note</td>
+          <td>Deleting links lowers it too, but that drags the grounded share down with it</td>
+        </tr>
+        <tr>
+          <td><strong>Share of "no record" answers</strong></td>
+          <td>The share of AI answers where it found no evidence</td>
+          <td>It only falls when the vault genuinely fills up</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Look closely at the first metric. It is <strong>the share of grounded notes, not the number of notes</strong>. A growing denominator drops the ratio, so pouring in empty notes makes the metric worse. That is the shape of a good metric. <strong>The shortcut is blocked and only the honest road is open.</strong></p>
+
+    <p>Adding it to the script takes a few lines. Put them <strong>after the check body and before the saving code</strong>, because the saving code uses the <code>total</code> and <code>reviewed</code> built here.</p>
+
+    <pre><code># Record metrics as ratios, not counts
+
+def gr_body(text):                    # the body with the frontmatter removed
+    m = FM.match(text)
+    return text[m.end():] if m else text
+
+total = len(notes)
+if not total:                                  # avoid dividing by zero on an empty first-day vault
+    add("INFO", "_", "No notes yet. Metrics start once notes exist")
+    total = 1
+grounded = 0
+for p in notes.values():
+    t = p.read_text(encoding="utf-8")
+    # exactly as defined: a wikilink in the body or a filled evidence field
+    if LINK.search(gr_body(t)) or (frontmatter(t) or {}).get("evidence"):
+        grounded += 1
+reviewed = sum(1 for m in metas if m.get("confidence") == "reviewed")
+
+add("INFO", "_", f"grounded notes {grounded}/{total}"
+                 f" ({grounded * 100 // total}%)")
+add("INFO", "_", f"reviewed notes {reviewed}/{total}"
+                 f" ({reviewed * 100 // total}%)")</code></pre>
+
+    <p>There is a reason <code>gr_body</code> has to exist. Sweep the frontmatter as well and a note with nothing but <code>owner: "[[Kim]]"</code> counts as grounded. That is an owner field, not evidence. <strong>When the definition of a metric and the code that counts it drift apart, the metric measures nothing.</strong></p>
+
+    <p>The ratios you calculate attach as two lines in the INFO section after the report's summary line. Since <code>order</code> runs ERROR, WARN, INFO, the INFO section sits at the bottom of the list. Reading only those two lines each week tells a person which way the vault is heading.</p>
+
+    <p>One last word about when to start. <strong>Do not switch on five metrics at once. Start with one.</strong> For the first month, "share of reviewed notes" on its own is enough. Watch it move up and down, get a feel for what moves it, and then add one more.</p>
+
+    <p>With five metrics, five numbers move every week, and then <strong>you cannot tell which action moved which number.</strong> Adding metrics is far more likely to add noise than information.</p>
+
+    <p>Do measure once today, though. Six months from now somebody asks "has it got better?", and with no first number to compare against you have nothing to say. Chapter 19 makes the same request. <strong>Measurement has to start when you start.</strong></p>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: what 19 ERRORs on the first run revealed</p>
+      <p>Back to that first run. It produced 19 ERRORs and Kim got ready to fix 19 notes. But grouping the list by cause showed that <strong>most of them had one cause</strong>.</p>
+      <p>They were notes with no <code>updated</code> field, and every one had been written by hand <strong>before</strong> the Chapter 12 templates existed. So people had not broken a rule. The notes predated the rule.</p>
+      <p>What got fixed, then, was not the notes. They added one line to <code>CLAUDE.md</code>, "every new note starts from a template", and filled <code>updated</code> on twelve old notes from the file modification time. It took 20 minutes.</p>
+      <p>Since then ERRORs hover around three. They never reached zero. Make a new note and some fields sit empty for a few days. <strong>The target is not zero, it is "not going up".</strong> If notes grow and ERRORs do not, quality is holding.</p>
+      <p>One more thing surprised them. Most of the broken links were <strong>traces of a rename</strong>. Rename inside Obsidian and the links follow. Rename in File Explorer and they do not. Without the check they would never have found that habit.</p>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: run your first check</p>
+      <p>Do not aim for a perfect script. The goal is <strong>to run it once</strong>.</p>
+      <ol>
+        <li>Join the code above <strong>in the order configuration, body, metrics, saving</strong>, save it as <code>_ops/scripts/validate.py</code>, and swap <code>REQUIRED</code>, <code>STATUS_ENUM</code> and <code>FORBIDDEN</code> for your own company's lists. The ones you fixed in Chapter 9.</li>
+        <li>Run it once. Step 3 of the "before that" section above, or hand it to Cowork for the same result. More than twenty ERRORs is normal. Do not be alarmed.</li>
+        <li><strong>Group the list by cause.</strong> Two or three causes usually account for most of it.</li>
+        <li>Pick the biggest cause and fix <strong>whatever created it</strong>, not the notes. It will be a template or one line of <code>CLAUDE.md</code>.</li>
+        <li>Add one new check <strong>as a WARN</strong>. Two weeks later, promote it to ERROR if there were no false positives at all, and delete it if there was even one.</li>
+        <li>Schedule it for Friday using the Chapter 14 method. Do that and this chapter is done.</li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li>Rule violations pile up quietly, <strong>because they are invisible, because there is no reason to report them, and because somebody else pays later</strong></li>
+        <li>"Manage it well" is not a management method. Nobody eyeballs 200 notes a week past the second week</li>
+        <li>Five checks are enough to start with: <strong>missing required field · vocabulary violation · broken link · stale note · forbidden name</strong></li>
+        <li>The heart of this chapter is not the script but <strong>the level design</strong>. <strong>Only put things in ERROR that have to be zero</strong></li>
+        <li>Make everything an ERROR and week one gives you 200, and by week three nobody looks. <strong>A number you cannot act on is noise</strong></li>
+        <li>A new check <strong>starts in WARN and gets promoted after two weeks</strong> of watching. Demotion rarely works</li>
+        <li><strong>One false positive kills trust in the whole list.</strong> People trust a list list by list, not item by item</li>
+        <li>Never put something whose answer varies by person into code. That is your false positive</li>
+        <li>Write <strong>vault-relative paths</strong> in the report, not filenames. Merge same-named files and your counts go quietly wrong</li>
+        <li>Run it weekly. Results pile up in <code>_reports/</code> and one trend line flows into the dashboard in <code>_moc/</code></li>
+        <li>Pick metrics with the shortcut blocked, like <strong>the share of grounded notes rather than the number of notes</strong></li>
+        <li>Do not read WARN every week. Read it <strong>once a quarter</strong> and decide whether to delete or promote</li>
+        <li>The script only finds. <strong>Fixing happens under human approval</strong>, in the scheduled task</li>
+        <li>The target for ERRORs is not zero, it is <strong>not going up</strong></li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>Coming up</h3>
+      <p>Get this far and your vault is healthy <strong>in form</strong>. Fields are filled and links connect. One question still has no answer, though. <strong>"Did we actually do what we said we would do last quarter?"</strong> The next chapter designs the work log, uses the <code>pdm_intent_of</code> you built in Chapter 10 to join intent to execution, and runs a retrospective that holds the two side by side. Then it writes down Solbit Tech's six months honestly, both what went well and what still does not.</p>
+    </div>
+  </article>

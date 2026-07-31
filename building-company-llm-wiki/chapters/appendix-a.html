@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  
+  <link rel="alternate" hreflang="en" href="appendix-a.en.html">
   <link rel="stylesheet" href="../../assets/css/book.css">
   <link rel="stylesheet" href="../css/theme.css">
   <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
@@ -75,7 +75,7 @@
     <span class="chapter-number">APPENDIX A</span>
     <h1>용어 사전</h1>
     <p class="chapter-subtitle">모르는 단어가 나오면 여기로 오세요</p>
-    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>훑어보기 약 12분</span>
+    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>훑어보기 약 15분</span>
   </header>
 
 <article>
@@ -97,7 +97,7 @@
     <p>모두 35개입니다. 본문 곳곳에서 점선 밑줄이 그어진 낱말을 누르면 해당 항목으로 옵니다.</p>
 
     <h2 id="layers">네 개의 층</h2>
-    <p>이 책 전체가 이 네 층 위에서 돌아갑니다. 셋을 뭉뚱그려 부르면 대화가 어긋납니다.</p>
+    <p>이 책 전체가 이 네 층 위에서 돌아갑니다. 네 층을 뭉뚱그려 한 단어로 부르는 순간 대화가 어긋납니다.</p>
     <div class="glossary-grid">
       <div class="glossary-item" id="taxonomy">
         <h3>분류 체계 <span class="term-en">(Taxonomy)</span></h3>
@@ -115,7 +115,7 @@
         <p class="term-where">어디서 쓰나 · 2층 · 3장</p>
       </div>
       <div class="glossary-item" id="llm-wiki">
-        <h3>LLM Wiki <span class="term-en">(LLM Wiki)</span></h3>
+        <h3>LLM Wiki</h3>
         <p>위 셋에 <strong>사람이 손 대지 않아도 계속 돌아가게 하는 장치</strong>를 더한 전체 시스템입니다. AI 작업 규칙(<code>CLAUDE.md</code>), 템플릿, 스킬, 예약 작업, 대시보드, 점검 스크립트가 그 장치입니다. 이게 없으면 잘 정리된 폴더 하나가 생겼다가 석 달 뒤에 조용히 죽습니다. 온톨로지 설계까지만 하고 끝내면 1층에서 멈춥니다.</p>
         <p class="term-where">어디서 쓰나 · 3층 · 3장, 11~18장</p>
       </div>
@@ -151,7 +151,7 @@
       </div>
       <div class="glossary-item" id="identifier">
         <h3>식별자 <span class="term-en">(ID)</span></h3>
-        <p>노트에 붙이는 <strong>변하지 않는 이름표</strong>입니다. 이 책은 <code>PRD-001</code>, <code>CAP-객체인식</code>처럼 클래스별 접두어를 붙입니다. 제목은 바뀔 수 있어도 식별자는 그대로 둡니다. 「스마트팩토리봇」으로 이름을 바꿔도 <code>PRD-001</code>이 그대로면 링크가 끊기지 않습니다.</p>
+        <p>노트에 붙이는 <strong>변하지 않는 이름표</strong>입니다. 이 책은 <code>PRD-001</code>, <code>CAP-객체인식</code>처럼 클래스별 접두어를 붙입니다. 제목은 바뀔 수 있어도 식별자는 그대로 둡니다. 「창고봇」이 「스마트팩토리봇」이 되어도 <code>PRD-001</code>은 그대로라, <strong>이름이 바뀐 뒤에도 같은 물건임을 알아볼 수 있습니다.</strong> 다만 <strong>링크까지 지켜 주지는 않습니다.</strong> 이 책의 링크는 <code>[[창고봇]]</code>처럼 이름으로 걸리기 때문입니다. 옵시디언 안에서 이름을 바꾸면 옵시디언이 링크를 따라 고쳐 주지만, 탐색기나 SharePoint에서 바꾸면 링크가 끊깁니다(부록 C).</p>
         <p class="term-where">어디서 쓰나 · 9장</p>
       </div>
       <div class="glossary-item" id="ssot">
@@ -201,7 +201,7 @@
       </div>
       <div class="glossary-item" id="frontmatter">
         <h3>프론트매터 <span class="term-en">(Front matter)</span></h3>
-        <p>마크다운 파일 <strong>맨 위에 <code>---</code> 세 줄로 감싼 부분</strong>입니다. 여기에 <code>class</code>, <code>status</code>, <code>owner</code> 같은 필드를 적습니다. 본문은 사람이 읽는 곳이고, 프론트매터는 <strong>기계가 읽는 곳</strong>입니다. 대시보드와 자동화는 전부 이 부분만 봅니다.</p>
+        <p>마크다운 파일 <strong>맨 위를 <code>---</code> 두 줄로 감싼 부분</strong>입니다. 첫 줄과 마지막 줄이 <code>---</code>이고, 그 사이가 프론트매터입니다. 여기에 <code>class</code>, <code>status</code>, <code>owner</code> 같은 필드를 적습니다. 본문은 사람이 읽는 곳이고, 프론트매터는 <strong>기계가 읽는 곳</strong>입니다. 대시보드와 자동화는 전부 이 부분만 봅니다.</p>
         <p class="term-where">어디서 쓰나 · 12장, 15장</p>
       </div>
       <div class="glossary-item" id="obsidian">
@@ -215,7 +215,7 @@
         <p class="term-where">어디서 쓰나 · 6장</p>
       </div>
       <div class="glossary-item" id="cowork">
-        <h3>Claude Cowork <span class="term-en">(Claude Cowork)</span></h3>
+        <h3>Claude Cowork</h3>
         <p>볼트를 읽고 쓰는 <strong>AI 쪽 손</strong>입니다. 노트를 만들고, 고치고, 예약해 둔 작업을 정해진 시각에 돌립니다.</p>
         <p class="term-where">어디서 쓰나 · 4장, 7장, 14장</p>
       </div>
@@ -225,7 +225,7 @@
         <p class="term-where">어디서 쓰나 · 13장</p>
       </div>
       <div class="glossary-item" id="claude-md">
-        <h3>CLAUDE.md <span class="term-en">(CLAUDE.md)</span></h3>
+        <h3>CLAUDE.md</h3>
         <p>AI가 이 볼트에서 <strong>지켜야 할 규칙을 적어 둔 파일</strong>입니다. 「없는 사실을 채우지 않는다」, 「근거 없는 수치는 「확인 필요」로 적는다」 같은 것들입니다. 이 파일이 없으면 AI가 매번 다른 서식으로 노트를 만들고, 빈칸을 그럴듯하게 메웁니다.</p>
         <p class="term-where">어디서 쓰나 · 11장</p>
       </div>

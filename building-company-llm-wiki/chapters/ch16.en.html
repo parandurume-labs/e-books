@@ -37,30 +37,30 @@
       <li><a href="ch03.en.html" class="nav-link">3. Ontology is not the wiki</a></li>
       <li><a href="ch04.en.html" class="nav-link">4. Three tools, three jobs</a></li>
       <li class="nav-part">Part 2 · Setup in 30 minutes</li>
-      <li><a href="coming-soon.en.html" class="nav-link">5. Obsidian and the vault</a></li>
-      <li><a href="coming-soon.en.html" class="nav-link">6. Sharing through Teams</a></li>
-      <li><a href="coming-soon.en.html" class="nav-link">7. Connecting the vault to Cowork</a></li>
+      <li><a href="ch05.en.html" class="nav-link">5. Obsidian and the vault</a></li>
+      <li><a href="ch06.en.html" class="nav-link">6. Sharing through Teams</a></li>
+      <li><a href="ch07.en.html" class="nav-link">7. Connecting the vault to Cowork</a></li>
       <li class="nav-part">Part 3 · Designing the ontology</li>
-      <li><a href="coming-soon.en.html" class="nav-link">8. Six design principles</a></li>
-      <li><a href="coming-soon.en.html" class="nav-link">9. Choosing your classes</a></li>
-      <li><a href="coming-soon.en.html" class="nav-link">10. Relations and fields</a></li>
+      <li><a href="ch08.en.html" class="nav-link">8. Six design principles</a></li>
+      <li><a href="ch09.en.html" class="nav-link">9. Choosing your classes</a></li>
+      <li><a href="ch10.en.html" class="nav-link">10. Relations and fields</a></li>
       <li class="nav-part">Part 4 · Running it</li>
-      <li><a href="coming-soon.en.html" class="nav-link">11. CLAUDE.md</a></li>
-      <li><a href="coming-soon.en.html" class="nav-link">12. Templates and your first note</a></li>
-      <li><a href="coming-soon.en.html" class="nav-link">13. Automating with skills</a></li>
+      <li><a href="ch11.en.html" class="nav-link">11. CLAUDE.md</a></li>
+      <li><a href="ch12.en.html" class="nav-link">12. Templates and your first note</a></li>
+      <li><a href="ch13.en.html" class="nav-link">13. Automating with skills</a></li>
       <li class="nav-part">Part 5 · Automation and visibility</li>
       <li><a href="ch14.en.html" class="nav-link">14. Scheduling</a></li>
       <li><a href="ch15.en.html" class="nav-link">15. Making progress visible</a></li>
       <li><a href="ch16.en.html" class="nav-link">16. Twelve automation recipes</a></li>
       <li class="nav-part">Part 6 · Keeping it alive</li>
-      <li><a href="coming-soon.en.html" class="nav-link">17. Quality as code</a></li>
-      <li><a href="coming-soon.en.html" class="nav-link">18. Intent versus execution</a></li>
+      <li><a href="ch17.en.html" class="nav-link">17. Quality as code</a></li>
+      <li><a href="ch18.en.html" class="nav-link">18. Intent versus execution</a></li>
       <li class="nav-part">Part 7 · Scaling to AX</li>
       <li><a href="ch19.en.html" class="nav-link">19. From wiki to AX</a></li>
       <li class="nav-part">Appendices</li>
-      <li><a href="coming-soon.en.html" class="nav-link">Appendix A · Glossary</a></li>
-      <li><a href="coming-soon.en.html" class="nav-link">Appendix B · Copy-paste assets</a></li>
-      <li><a href="coming-soon.en.html" class="nav-link">Appendix C · Troubleshooting</a></li>
+      <li><a href="appendix-a.en.html" class="nav-link">Appendix A · Glossary</a></li>
+      <li><a href="appendix-b.en.html" class="nav-link">Appendix B · Copy-paste assets</a></li>
+      <li><a href="appendix-c.en.html" class="nav-link">Appendix C · Troubleshooting</a></li>
     </ul>
   </div>
   <div class="sidebar-footer">
@@ -75,7 +75,7 @@
     <span class="chapter-number">CHAPTER 16</span>
     <h1>Twelve automation recipes</h1>
     <p class="chapter-subtitle">The first one is shown end to end, with nothing left out</p>
-    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>about 22 min</span>
+    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>about 20 min</span>
   </header>
 
 <article>
@@ -134,7 +134,7 @@
 4. Once I approve, create or edit the notes.
 
 ## Rules
-- Do not infer anything that is not in the meeting note. If it is ambiguous, leave it as "needs checking"
+- Do not infer anything that is not in the meeting note. If it is ambiguous, leave it as 확인 필요
 - Mark uncertain statements ("seems like", "they said") as confidence: draft
 - If you find anything that contradicts an existing note, do not fix it. Report it separately as a contradiction
 - Write people's names exactly as they appear in the raw note. Do not guess titles and attach them
@@ -155,13 +155,13 @@
         <tr><th>Type</th><th>What</th><th>Target note</th></tr>
       </thead>
       <tbody>
-        <tr><td>Decision</td><td>Enter the city government open call. Use Warebot's three existing sites as the field validation evidence instead of Daesung Logistics <br><em>Reason: Daesung Logistics has no contract yet, so it cannot be presented as a track record</em></td><td>New <code>40-Worklog/decision-2026-07-15-city-call.md</code></td></tr>
-        <tr><td>Decision</td><td>Pickview reuses the object recognition module. No new development</td><td>Add <code>pdm_uses</code> to existing <code>10-Products/pickview.md</code></td></tr>
-        <tr><td>Decision</td><td>Hold sales on WareTwin until field validation exists</td><td>Existing <code>10-Products/waretwin.md</code> · <code>status: 보류</code></td></tr>
+        <tr><td>Decision</td><td>Enter the city government open call. Use Warebot's three existing sites as the field validation evidence instead of Daesung Logistics <br><em>Reason: Daesung Logistics has no contract yet, so it cannot be presented as a track record</em></td><td>New <code>40-Worklog/DEC-2026-0715-JoinCityCall.md</code></td></tr>
+        <tr><td>Decision</td><td>Pickview reuses the object recognition module. No new development</td><td>Add <code>pdm_uses</code> to existing <code>10-Products/Pickview.md</code></td></tr>
+        <tr><td>Decision</td><td>Hold sales on WareTwin until field validation exists</td><td>Existing <code>10-Products/WareTwin.md</code> · <code>status: 보류</code></td></tr>
         <tr><td>Action</td><td>Prepare cold storage recognition rate data (owner park sales · due 2026-08-15)</td><td>Action item inside the decision note</td></tr>
-        <tr><td>Fact change</td><td>Pickview beta target September. May slip for lack of people</td><td><code>10-Products/pickview.md</code> · <code>due</code>, <code>risk</code></td></tr>
+        <tr><td>Fact change</td><td>Pickview beta target September. May slip for lack of people</td><td><code>10-Products/Pickview.md</code> · <code>due</code>, <code>risk</code></td></tr>
         <tr><td><strong>Contradiction</strong></td><td><strong>WareTwin TRL: existing note says 6, meeting note says 4. The meeting said "6 is overstated"</strong></td><td><strong>Needs a human decision</strong></td></tr>
-        <tr><td>New entity</td><td>Daesung Logistics (organization · prospect)</td><td>New <code>30-Partners/daesung-logistics.md</code> · <code>confidential: 대외비</code></td></tr>
+        <tr><td>New entity</td><td>Daesung Logistics (organization · prospect)</td><td>New <code>30-Partners/DaesungLogistics.md</code> · <code>confidential: 대외비</code></td></tr>
         <tr><td>Needs checking</td><td>Cannot tell whether "lee ceo" and "kim ceo" are the same person</td><td>-</td></tr>
       </tbody>
     </table>
@@ -312,7 +312,7 @@ Last year the same call rejected us for "not enough field validation".
 2. Mark the evidence note after every sentence in [[double brackets]].
 3. Do not use content from notes with confidence: draft. Put it in the "needs verifying" list instead.
 4. For pre-contract customers (confidential: 대외비) do not write the name. Write "a domestic logistics company".
-5. Never write a claim with no evidence. Put it in the list as "no evidence, needs checking" instead.
+5. Never write a claim with no evidence. Put it in the list as "no evidence, 확인 필요" instead.
 
 ## Output
 - save to _reports/proposal-capability-draft-YYYY-MM-DD.md
@@ -594,7 +594,7 @@ For each requirement, a three-column table: requirement / our evidence (note lin
 
   <nav class="chapter-nav">
     <a href="ch15.en.html" class="back-to-toc">← Previous: Making work in progress visible</a>
-    <a href="coming-soon.en.html" class="next">Chapter 17 is in progress →</a>
+    <a href="ch17.en.html" class="next">Next: Quality, kept in code →</a>
   </nav>
 </div>
     <aside class="rail" id="rail" aria-label="On this page"></aside>

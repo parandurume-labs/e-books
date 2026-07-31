@@ -4,11 +4,11 @@
   "title": "Three tools, three jobs",
   "subtitle": "Teams delivers, Obsidian is the window, Claude Cowork is the hands",
   "desc": "Why this combination of Microsoft Teams, Obsidian and Claude Cowork works, what each tool is responsible for, and why you do not need an MCP connector yet.",
-  "minutes": "13",
+  "minutes": "9",
   "prev_href": "ch03.en.html",
   "prev_label": "Previous: Ontology and LLM Wiki are not the same thing",
-  "next_href": "coming-soon.en.html",
-  "next_label": "Chapter 5 is in progress"
+  "next_href": "ch05.en.html",
+  "next_label": "Next: Obsidian and the vault"
 } -->
   <article>
     <p>Time to talk about what you build this with. You use three tools.</p>
@@ -131,6 +131,37 @@
       <p class="callout-title">The real reason for this combination</p>
       <p>Your knowledge stays as <strong>plain text files</strong>. If Obsidian disappears, if the company switches tools, if the AI changes, the files still open.</p>
       <p>With Notion or another SaaS wiki, the data sits on their servers in their format. Export exists, and the structure breaks on the way out. <strong>Putting your company's core knowledge in someone else's format is a risk.</strong></p>
+    </div>
+
+    <h3>But do we really need Obsidian</h3>
+
+    <p>If your company already runs on Microsoft 365, this question comes up on its own. You have Teams and OneDrive, and here is one more app to install.</p>
+
+    <p>The honest answer: <strong>this system runs without Obsidian.</strong></p>
+
+    <p>Look at what actually does the work in this book. Cowork reads the files in the folder directly (Chapter 7). The check scripts read files (Chapter 17). The script that draws the dashboard only looks at frontmatter (Chapter 15). Power Automate reads through SharePoint (Chapter 14). <strong>None of the four goes through Obsidian.</strong> A <code>[[Warebot]]</code> is just characters on a line, so the AI follows that link with no Obsidian anywhere in sight.</p>
+
+    <p>So what does Obsidian do. <strong>It lets a person see the graph.</strong> That is all it does, and it earns its place doing it.</p>
+
+    <table>
+      <thead>
+        <tr><th>Drop Obsidian and you lose</th><th>What you do instead</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Clicking a link to move around</td><td>Search by filename. Slower, but it works</td></tr>
+        <tr><td>Backlinks (the list of notes pointing at this one)</td><td>Write a script. Nothing appears on its own</td></tr>
+        <tr><td>Graph view</td><td>Gone. This is how Pickview shows up as an isolated dot in Chapter 5</td></tr>
+        <tr><td>Links following a rename</td><td>Rename in Explorer or SharePoint and every link breaks (Appendix C)</td></tr>
+      </tbody>
+    </table>
+
+    <p>That last row hurts the most in practice. Note names change more often than you would think.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">Being removable is the argument for it</p>
+      <p>This book does not recommend a tool like Notion, because the data ends up locked in someone else's format. Hold Obsidian to that same standard and <strong>the fact that you lose nothing by removing it</strong> is a passing grade. The vault is a folder. The notes are text files.</p>
+      <p>So put it this way. <strong>Take away sync (Teams/OneDrive) or Cowork and the system stops. Take away Obsidian and it keeps running.</strong> It is free and it locks up nothing, so there is no particular reason to take it away either.</p>
+      <p>One caution. A tool that <strong>saves in its own format</strong>, like OneNote or Loop, cannot stand in for Obsidian. That is not swapping the window; that is throwing out the premise of this book.</p>
     </div>
 
     <h3>You do not need plugins</h3>
@@ -260,6 +291,10 @@
     ├── 30-Partners/       <span class="comment">Partners and customers</span>
     ├── 40-Worklog/        <span class="comment">Meetings, worklogs, decisions</span>
     └── 90-Reference/      <span class="comment">External references, regulations</span></div>
+
+    <p>The second and third rows from the bottom are easy to mix up, so here is the split up front. Both are places automation is allowed to create files, and one rule tells them apart. <code>_reports/</code> is for things that carry a date and pile up; <code>_moc/</code> is for things where only the latest one survives. Check results go in the first, dashboards in the second. Chapter 17 uses this rule again.</p>
+
+    <p><code>.claude/</code> starts with a dot, so it does not show up in the Obsidian file list. It is the same kind of thing as <code>.obsidian</code> in Chapter 5, and its absence does not stop a person from reading and writing notes. You build it in Chapter 13.</p>
 
     <p>It looks like a lot, and most of it you build once and never touch again. What you use every day is the axis folders inside <code>Sources/</code>.</p>
 

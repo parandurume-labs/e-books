@@ -78,6 +78,7 @@ class Balance(HTMLParser):
 
 def check(path: Path) -> None:
     where = path.name
+    is_en = ".en." in where          # 판본에 따라 판정이 갈리는 검사가 여럿 있다
     raw = path.read_text(encoding="utf-8")
 
     m = META_RE.match(raw)
@@ -120,6 +121,10 @@ def check(path: Path) -> None:
         # 부록은 처음부터 끝까지 읽는 글이 아니라 필요한 항목만 찾아 쓰는 글이다.
         # 자산을 덜 싣는 것보다 긴 편이 낫다.
         thin, hi = (3000, 24000)
+    if is_en:
+        # 같은 내용을 영어로 쓰면 글자 수가 한국어의 두 배 가까이 된다.
+        # 한국어 기준을 그대로 대면 영어판이 전부 「너무 길다」로 잡힌다.
+        floor, thin, hi = (floor * 2, thin * 2, hi * 2)
     if chars < floor:
         add("ERROR", where, f"본문 {chars}자. 장이라기엔 너무 짧다 (최소 {floor})")
     elif chars < thin:
@@ -133,7 +138,10 @@ def check(path: Path) -> None:
     if "minutes" in meta:
         try:
             declared = int(str(meta["minutes"]))
+            # 분당 글자 수도 언어마다 다르다. 불변식 값은 한국어 기준이다.
             speed = INV["constants"]["reading_speed_chars_per_min"]
+            if is_en:
+                speed = INV["constants"].get("reading_speed_chars_per_min_en", speed * 2)
             actual = max(1, round(chars / speed))
             # 읽는 속도는 불변식이 정본이다. 장마다 다른 공식을 쓰면
             # 「약 12분」이 5분짜리 글에 붙는 일이 생긴다. 실제로 그랬다.
@@ -142,18 +150,21 @@ def check(path: Path) -> None:
         except ValueError:
             add("ERROR", where, f"minutes 가 숫자가 아니다: {meta['minutes']}")
 
-    # 무관용 문체
-    for tok, limit in INV["prose_rules"]["zero_tolerance"].items():
-        needle = "—" if tok == "em_dash" else tok
-        n = prose.count(needle)
-        if n > limit:
-            add("ERROR", where, f"{tok} {n}개 (허용 {limit})")
+    # 무관용 문체. 한국어판만 본다.
+    # em dash 금지는 조판 규칙이 아니라 한국어 번역투를 걷어내는 규칙이고,
+    # STYLE.md 제2부 §1 이 「em dash 는 영어에서는 자연스럽다」고 못 박았다.
+    if not is_en:
+        for tok, limit in INV["prose_rules"]["zero_tolerance"].items():
+            needle = "—" if tok == "em_dash" else tok
+            n = prose.count(needle)
+            if n > limit:
+                add("ERROR", where, f"{tok} {n}개 (허용 {limit})")
 
     # SVG 안의 글자도 독자가 읽는다. 산문 지표에서는 빼므로 여기서 따로 본다.
     # 이걸 안 봐서 그림 레이블에 em dash 27개가 숨어 있었다.
     # 영어 프래그먼트는 제외한다. em dash 금지는 한국어 번역투 규칙이고
     # STYLE.md 제2부는 영어에서 em dash 를 허용한다.
-    svg_text = "" if ".en." in where else " ".join(
+    svg_text = "" if is_en else " ".join(
         t for svg in re.findall(r"<svg.*?</svg>", body, flags=re.S)
         for t in re.findall(r"<(?:text|tspan)[^>]*>([^<>]*)</(?:text|tspan)>", svg)
     )
@@ -163,8 +174,8 @@ def check(path: Path) -> None:
         if n > limit:
             add("ERROR", where, f"그림 레이블에 {tok} {n}개 (허용 {limit})")
 
-    # 비율 예산
-    if chars >= INV["prose_rules"]["budget_min_chars"]:
+    # 비율 예산. 「것입니다」 같은 한국어 표현이라 한국어판만 본다.
+    if not is_en and chars >= INV["prose_rules"]["budget_min_chars"]:
         for tok, per10k in INV["prose_rules"]["budget_per_10k_chars"].items():
             rate = prose.count(tok) / chars * 10000
             if rate > per10k:
@@ -181,12 +192,17 @@ def check(path: Path) -> None:
         if "<rect" not in head or "fill" not in head:
             add("ERROR", where, f"{i + 1}번째 SVG 에 전면 배경 rect 가 없다")
 
-    # 금지 필드명 — 나쁜 예 표시가 곁에 있어야 쓸 수 있다
+    # 금지 필드명 — 나쁜 예 표시가 곁에 있어야 쓸 수 있다.
+    # 판정은 판본에 따라 다르다. 한국어판은 코드 블록 안의 홀로 선 영단어를 필드명으로 봐도 되지만,
+    # 영어판에 같은 규칙을 쓰면 전부 오탐이다 (「Submission deadline」, 「an owner and a deadline」).
+    # check-consistency.py 는 이렇게 고쳐 놓고 여기를 빠뜨렸었다. 두 검사기는 같이 고쳐야 한다.
     cfg = INV["forbidden_field_aliases"]
     for blk in re.findall(r"<pre>.*?</pre>", body, flags=re.S):
         text = unescape(re.sub(r"<[^>]+>", "", blk))
         for alias in cfg["aliases"]:
-            for mm in re.finditer(r"(?<![\w-])" + re.escape(alias) + r"(?![\w-])", text):
+            pat = (r"^\s*-?\s*" + re.escape(alias) + r"\s*:" if is_en
+                   else r"(?<![\w-])" + re.escape(alias) + r"(?![\w-])")
+            for mm in re.finditer(pat, text, flags=re.M if is_en else 0):
                 win = text[max(0, mm.start() - 220): mm.end() + 220]
                 if not any(k in win for k in cfg["allowed_context_markers"]):
                     add("ERROR", where, f"예제에서 비정본 필드명 「{alias}」 사용")

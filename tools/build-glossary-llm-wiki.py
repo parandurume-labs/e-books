@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 """building-company-llm-wiki 부록 A 용어 사전 생성.
 
-ch03.html 을 껍데기로 쓴다(사이드바·헤더·스크립트가 이미 맞춰져 있다).
-본문만 갈아끼운다.
+ch03 을 껍데기로 쓴다(사이드바·헤더·스크립트가 이미 맞춰져 있다). 본문만 갈아끼운다.
+
+    python tools/build-glossary-llm-wiki.py        # 한국어판
+    python tools/build-glossary-llm-wiki.py --en   # 영어판
+
+영어판 데이터는 tools/glossary_en.py 에 따로 있다. 앵커(#ontology 등)는
+두 판본이 같아야 한다. 본문에서 거는 링크가 그 앵커를 가리키기 때문이다.
 """
 import io, re, sys
 
@@ -10,7 +15,7 @@ ROOT = 'building-company-llm-wiki/chapters/'
 
 # (앵커, 한글, 영문, 설명 HTML, 어디서 쓰나)
 GROUPS = [
- ("layers", "네 개의 층", "이 책 전체가 이 네 층 위에서 돌아갑니다. 셋을 뭉뚱그려 부르면 대화가 어긋납니다.", [
+ ("layers", "네 개의 층", "이 책 전체가 이 네 층 위에서 돌아갑니다. 네 층을 뭉뚱그려 한 단어로 부르는 순간 대화가 어긋납니다.", [
   ("taxonomy", "분류 체계", "Taxonomy",
    "노트를 <strong>어느 서랍에 넣을지</strong> 정해 둔 규칙입니다. 폴더 구조가 곧 분류 체계입니다. "
    "이 책에서는 <code>Sources/10-Products/</code> 같은 폴더가 그 역할을 합니다. "
@@ -70,7 +75,9 @@ GROUPS = [
   ("identifier", "식별자", "ID",
    "노트에 붙이는 <strong>변하지 않는 이름표</strong>입니다. 이 책은 <code>PRD-001</code>, <code>CAP-객체인식</code>처럼 "
    "클래스별 접두어를 붙입니다. 제목은 바뀔 수 있어도 식별자는 그대로 둡니다. "
-   "「스마트팩토리봇」으로 이름을 바꿔도 <code>PRD-001</code>이 그대로면 링크가 끊기지 않습니다.",
+   "「창고봇」이 「스마트팩토리봇」이 되어도 <code>PRD-001</code>은 그대로라, <strong>이름이 바뀐 뒤에도 같은 물건임을 알아볼 수 있습니다.</strong> "
+   "다만 <strong>링크까지 지켜 주지는 않습니다.</strong> 이 책의 링크는 <code>[[창고봇]]</code>처럼 이름으로 걸리기 때문입니다. "
+   "옵시디언 안에서 이름을 바꾸면 옵시디언이 링크를 따라 고쳐 주지만, 탐색기나 SharePoint에서 바꾸면 링크가 끊깁니다(부록 C).",
    "9장"),
   ("ssot", "단일 진실 공급원", "SSOT · Single Source of Truth",
    "같은 사실이 <strong>여러 곳에 서로 다르게 적혀 있지 않은 상태</strong>입니다. "
@@ -109,7 +116,7 @@ GROUPS = [
    "특별한 형식이 아니라 그냥 마크다운 파일이 들어 있는 보통 폴더입니다. 그래서 옵시디언을 그만 써도 파일은 남습니다.",
    "5장"),
   ("frontmatter", "프론트매터", "Front matter",
-   "마크다운 파일 <strong>맨 위에 <code>---</code> 세 줄로 감싼 부분</strong>입니다. "
+   "마크다운 파일 <strong>맨 위를 <code>---</code> 두 줄로 감싼 부분</strong>입니다. 첫 줄과 마지막 줄이 <code>---</code>이고, 그 사이가 프론트매터입니다. "
    "여기에 <code>class</code>, <code>status</code>, <code>owner</code> 같은 필드를 적습니다. "
    "본문은 사람이 읽는 곳이고, 프론트매터는 <strong>기계가 읽는 곳</strong>입니다. "
    "대시보드와 자동화는 전부 이 부분만 봅니다.",
@@ -201,43 +208,26 @@ GROUPS = [
 ]
 
 
-def esc(s):
-    return s
-
-
-def build_article():
-    out = []
-    out.append('<article>')
-    out.append('''    <p>읽다가 막히는 단어가 나오면 여기로 오세요. 이 책에서 실제로 쓰는 말만 담았고, 설명은 전부 <strong>이 책의 4층 모델에 맞춰</strong> 적었습니다. 다른 자료의 정의와 조금 다를 수 있는데, 그건 이 책이 틀려서가 아니라 층을 나누는 방식이 자료마다 다르기 때문입니다.</p>
+CHROME_KO = {
+ 'title': '부록 A: 용어 사전 · 회사용 LLM Wiki 만들기',
+ 'meta_desc': '온톨로지·지식 그래프·LLM Wiki·RAG·프론트매터 등 이 책에서 쓰는 용어를 4층 모델에 맞춰 쉽게 풀어 씁니다.',
+ 'h1': '용어 사전',
+ 'subtitle': '모르는 단어가 나오면 여기로 오세요',
+ 'reading_time': '훑어보기 약 15분',
+ 'jump_h2': '묶음으로 건너뛰기',
+ 'where_label': '어디서 쓰나',
+ 'count_line': '모두 {total}개입니다. 본문 곳곳에서 점선 밑줄이 그어진 낱말을 누르면 해당 항목으로 옵니다.',
+ 'prev_href': 'ch19.html',
+ 'prev_label': '← 이전: LLM Wiki에서 시작하는 AX',
+ 'next_href': 'appendix-b.html',
+ 'next_label': '다음: 부록 B 복붙용 자산 →',
+ 'intro': '''    <p>읽다가 막히는 단어가 나오면 여기로 오세요. 이 책에서 실제로 쓰는 말만 담았고, 설명은 전부 <strong>이 책의 4층 모델에 맞춰</strong> 적었습니다. 다른 자료의 정의와 조금 다를 수 있는데, 그건 이 책이 틀려서가 아니라 층을 나누는 방식이 자료마다 다르기 때문입니다.</p>
 
     <div class="callout callout-tip">
       <p class="callout-title">단어 세 개만 기억한다면</p>
       <p><a href="#ontology" class="term-link">온톨로지</a>는 <strong>규칙</strong>이고, <a href="#knowledge-graph" class="term-link">지식 그래프</a>는 <strong>사실</strong>이고, <a href="#llm-wiki" class="term-link">LLM Wiki</a>는 <strong>그게 계속 굴러가게 하는 전체 장치</strong>입니다. 이 셋을 섞어 부르는 순간 대화가 어긋납니다.</p>
-    </div>''')
-
-    # jump nav
-    out.append('    <h2 id="jump">묶음으로 건너뛰기</h2>')
-    out.append('    <ul class="glossary-nav">')
-    for gid, gname, _gdesc, items in GROUPS:
-        out.append(f'      <li><a href="#{gid}">{gname} ({len(items)})</a></li>')
-    out.append('    </ul>')
-
-    total = sum(len(i) for _, _, _, i in GROUPS)
-    out.append(f'    <p>모두 {total}개입니다. 본문 곳곳에서 점선 밑줄이 그어진 낱말을 누르면 해당 항목으로 옵니다.</p>')
-
-    for gid, gname, gdesc, items in GROUPS:
-        out.append(f'\n    <h2 id="{gid}">{gname}</h2>')
-        out.append(f'    <p>{gdesc}</p>')
-        out.append('    <div class="glossary-grid">')
-        for aid, ko, en, body, where in items:
-            out.append(f'      <div class="glossary-item" id="{aid}">')
-            out.append(f'        <h3>{ko} <span class="term-en">({en})</span></h3>')
-            out.append(f'        <p>{body}</p>')
-            out.append(f'        <p class="term-where">어디서 쓰나 · {where}</p>')
-            out.append('      </div>')
-        out.append('    </div>')
-
-    out.append('''
+    </div>''',
+ 'confusions': '''
     <h2 id="confusions">자주 섞이는 짝</h2>
 
     <p>두 단어를 나란히 놓고 보면 차이가 분명해집니다.</p>
@@ -260,50 +250,90 @@ def build_article():
     <div class="callout callout-warning">
       <p class="callout-title">필드 이름은 하나로</p>
       <p>이 책은 마감 날짜를 <code>due</code> 하나로만 씁니다. <code>deadline</code>이나 <code>마감일</code>은 쓰지 않습니다. 뜻이 같아도 이름이 갈리면 셀 수 없기 때문입니다. 정본 필드 목록은 10장에 있습니다.</p>
-    </div>
-  </article>''')
+    </div>''',
+}
+
+
+def build_article(groups, chrome):
+    out = ['<article>', chrome['intro']]
+
+    out.append(f'    <h2 id="jump">{chrome["jump_h2"]}</h2>')
+    out.append('    <ul class="glossary-nav">')
+    for gid, gname, _gdesc, items in groups:
+        out.append(f'      <li><a href="#{gid}">{gname} ({len(items)})</a></li>')
+    out.append('    </ul>')
+
+    total = sum(len(i[3]) for i in groups)
+    out.append('    <p>' + chrome['count_line'].format(total=total) + '</p>')
+
+    for gid, gname, gdesc, items in groups:
+        out.append(f'\n    <h2 id="{gid}">{gname}</h2>')
+        out.append(f'    <p>{gdesc}</p>')
+        out.append('    <div class="glossary-grid">')
+        for aid, head, alt, body, where in items:
+            # CLAUDE.md·Cowork 처럼 두 판본에서 같은 낱말인 항목이 있다.
+            # 그대로 찍으면 「CLAUDE.md (CLAUDE.md)」가 된다.
+            paren = '' if head == alt else f' <span class="term-en">({alt})</span>'
+            out.append(f'      <div class="glossary-item" id="{aid}">')
+            out.append(f'        <h3>{head}{paren}</h3>')
+            out.append(f'        <p>{body}</p>')
+            out.append(f'        <p class="term-where">{chrome["where_label"]} · {where}</p>')
+            out.append('      </div>')
+        out.append('    </div>')
+
+    out.append(chrome['confusions'])
+    out.append('  </article>')
     return '\n'.join(out)
 
 
-def main():
-    src = io.open(ROOT + 'ch03.html', encoding='utf-8').read()
+CLOCK = ('<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+         'stroke-width="1.8" stroke-linecap="round" aria-hidden="true">'
+         '<circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>')
 
-    # <head> 교체
-    src = src.replace(
-        '<title>Chapter 3: 온톨로지와 LLM Wiki는 같은 말이 아니다 · 회사용 LLM Wiki 만들기</title>',
-        '<title>부록 A: 용어 사전 · 회사용 LLM Wiki 만들기</title>')
+
+def build(lang):
+    if lang == 'en':
+        sys.path.insert(0, 'tools')
+        import glossary_en as data
+        groups, chrome = data.GROUPS, data.CHROME
+        shell, dest = 'ch03.en.html', 'appendix-a.en.html'
+    else:
+        groups, chrome = GROUPS, CHROME_KO
+        shell, dest = 'ch03.html', 'appendix-a.html'
+
+    src = io.open(ROOT + shell, encoding='utf-8').read()
+
+    src = re.sub(r'<title>[^<]*</title>', f'<title>{chrome["title"]}</title>', src, count=1)
     src = re.sub(r'<meta name="description" content="[^"]*">',
-                 '<meta name="description" content="온톨로지·지식 그래프·LLM Wiki·RAG·프론트매터 등 이 책에서 쓰는 용어를 4층 모델에 맞춰 쉽게 풀어 씁니다.">',
+                 f'<meta name="description" content="{chrome["meta_desc"]}">', src, count=1)
+    # 껍데기가 들고 온 상대 판본 링크는 이 쪽 판본 짝으로 바꾼다.
+    other = 'appendix-a.html' if lang == 'en' else 'appendix-a.en.html'
+    src = re.sub(r'<link rel="alternate" hreflang="\w+" href="[^"]*">',
+                 f'<link rel="alternate" hreflang="{"ko" if lang == "en" else "en"}" href="{other}">',
                  src, count=1)
-    src = src.replace('<link rel="alternate" hreflang="en" href="ch03.en.html">', '')
 
-    # 헤더 교체
     old_hdr = re.search(r'  <header class="chapter-header">.*?</header>', src, re.S).group(0)
-    new_hdr = '''  <header class="chapter-header">
+    src = src.replace(old_hdr, f'''  <header class="chapter-header">
     <span class="chapter-number">APPENDIX A</span>
-    <h1>용어 사전</h1>
-    <p class="chapter-subtitle">모르는 단어가 나오면 여기로 오세요</p>
-    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>훑어보기 약 12분</span>
-  </header>'''
-    src = src.replace(old_hdr, new_hdr)
+    <h1>{chrome["h1"]}</h1>
+    <p class="chapter-subtitle">{chrome["subtitle"]}</p>
+    <span class="reading-time">{CLOCK}{chrome["reading_time"]}</span>
+  </header>''')
 
-    # 본문 교체
     a0 = src.index('<article>')
     a1 = src.index('</article>') + len('</article>')
-    src = src[:a0] + build_article() + src[a1:]
+    src = src[:a0] + build_article(groups, chrome) + src[a1:]
 
-    # 챕터 내비 교체
     old_nav = re.search(r'  <nav class="chapter-nav">.*?</nav>', src, re.S).group(0)
-    new_nav = '''  <nav class="chapter-nav">
-    <a href="ch19.html" class="back-to-toc">← 이전: LLM Wiki에서 시작하는 AX</a>
-    <a href="appendix-b.html" class="next">다음: 부록 B 복붙용 자산 →</a>
-  </nav>'''
-    src = src.replace(old_nav, new_nav)
+    src = src.replace(old_nav, f'''  <nav class="chapter-nav">
+    <a href="{chrome["prev_href"]}" class="back-to-toc">{chrome["prev_label"]}</a>
+    <a href="{chrome["next_href"]}" class="next">{chrome["next_label"]}</a>
+  </nav>''')
 
-    io.open(ROOT + 'appendix-a.html', 'w', encoding='utf-8').write(src)
-    n = sum(len(i) for _, _, _, i in GROUPS)
-    print('작성 완료 · 용어', n, '개 · 묶음', len(GROUPS), '개')
+    io.open(ROOT + dest, 'w', encoding='utf-8').write(src)
+    n = sum(len(i[3]) for i in groups)
+    print(f'{dest} · 용어 {n}개 · 묶음 {len(groups)}개')
 
 
 if __name__ == '__main__':
-    main()
+    build('en' if '--en' in sys.argv else 'ko')

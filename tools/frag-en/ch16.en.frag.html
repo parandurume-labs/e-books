@@ -4,11 +4,11 @@
   "title": "Twelve automation recipes",
   "subtitle": "The first one is shown end to end, with nothing left out",
   "desc": "Structuring meeting notes, drafting proposals, onboarding packs, contract expiry watches and more. Recipe 1 shows the messy input, the prompt, the output, the checks, and the four things the AI got wrong first.",
-  "minutes": "22",
+  "minutes": "20",
   "prev_href": "ch15.en.html",
   "prev_label": "Previous: Making work in progress visible",
-  "next_href": "coming-soon.en.html",
-  "next_label": "Chapter 17 is in progress"
+  "next_href": "ch17.en.html",
+  "next_label": "Next: Quality, kept in code"
 } -->
   <article>
     <p>Put together everything you have built so far and you have these ingredients. The vault (Part 2), the ontology (Part 3), the rules and templates and skills (Part 4), the schedules and the dashboard (Chapters 14 and 15).</p>
@@ -66,7 +66,7 @@
 4. Once I approve, create or edit the notes.
 
 ## Rules
-- Do not infer anything that is not in the meeting note. If it is ambiguous, leave it as "needs checking"
+- Do not infer anything that is not in the meeting note. If it is ambiguous, leave it as 확인 필요
 - Mark uncertain statements ("seems like", "they said") as confidence: draft
 - If you find anything that contradicts an existing note, do not fix it. Report it separately as a contradiction
 - Write people's names exactly as they appear in the raw note. Do not guess titles and attach them
@@ -87,13 +87,13 @@
         <tr><th>Type</th><th>What</th><th>Target note</th></tr>
       </thead>
       <tbody>
-        <tr><td>Decision</td><td>Enter the city government open call. Use Warebot's three existing sites as the field validation evidence instead of Daesung Logistics <br><em>Reason: Daesung Logistics has no contract yet, so it cannot be presented as a track record</em></td><td>New <code>40-Worklog/decision-2026-07-15-city-call.md</code></td></tr>
-        <tr><td>Decision</td><td>Pickview reuses the object recognition module. No new development</td><td>Add <code>pdm_uses</code> to existing <code>10-Products/pickview.md</code></td></tr>
-        <tr><td>Decision</td><td>Hold sales on WareTwin until field validation exists</td><td>Existing <code>10-Products/waretwin.md</code> · <code>status: 보류</code></td></tr>
+        <tr><td>Decision</td><td>Enter the city government open call. Use Warebot's three existing sites as the field validation evidence instead of Daesung Logistics <br><em>Reason: Daesung Logistics has no contract yet, so it cannot be presented as a track record</em></td><td>New <code>40-Worklog/DEC-2026-0715-JoinCityCall.md</code></td></tr>
+        <tr><td>Decision</td><td>Pickview reuses the object recognition module. No new development</td><td>Add <code>pdm_uses</code> to existing <code>10-Products/Pickview.md</code></td></tr>
+        <tr><td>Decision</td><td>Hold sales on WareTwin until field validation exists</td><td>Existing <code>10-Products/WareTwin.md</code> · <code>status: 보류</code></td></tr>
         <tr><td>Action</td><td>Prepare cold storage recognition rate data (owner park sales · due 2026-08-15)</td><td>Action item inside the decision note</td></tr>
-        <tr><td>Fact change</td><td>Pickview beta target September. May slip for lack of people</td><td><code>10-Products/pickview.md</code> · <code>due</code>, <code>risk</code></td></tr>
+        <tr><td>Fact change</td><td>Pickview beta target September. May slip for lack of people</td><td><code>10-Products/Pickview.md</code> · <code>due</code>, <code>risk</code></td></tr>
         <tr><td><strong>Contradiction</strong></td><td><strong>WareTwin TRL: existing note says 6, meeting note says 4. The meeting said "6 is overstated"</strong></td><td><strong>Needs a human decision</strong></td></tr>
-        <tr><td>New entity</td><td>Daesung Logistics (organization · prospect)</td><td>New <code>30-Partners/daesung-logistics.md</code> · <code>confidential: 대외비</code></td></tr>
+        <tr><td>New entity</td><td>Daesung Logistics (organization · prospect)</td><td>New <code>30-Partners/DaesungLogistics.md</code> · <code>confidential: 대외비</code></td></tr>
         <tr><td>Needs checking</td><td>Cannot tell whether "lee ceo" and "kim ceo" are the same person</td><td>-</td></tr>
       </tbody>
     </table>
@@ -244,7 +244,7 @@ Last year the same call rejected us for "not enough field validation".
 2. Mark the evidence note after every sentence in [[double brackets]].
 3. Do not use content from notes with confidence: draft. Put it in the "needs verifying" list instead.
 4. For pre-contract customers (confidential: 대외비) do not write the name. Write "a domestic logistics company".
-5. Never write a claim with no evidence. Put it in the list as "no evidence, needs checking" instead.
+5. Never write a claim with no evidence. Put it in the list as "no evidence, 확인 필요" instead.
 
 ## Output
 - save to _reports/proposal-capability-draft-YYYY-MM-DD.md

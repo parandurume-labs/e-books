@@ -1,0 +1,333 @@
+<!--META {
+  "file": "ch05.en.html",
+  "num": "5",
+  "title": "Obsidian and the vault",
+  "subtitle": "A vault is not a program. It is one folder",
+  "desc": "Why a vault has to be a plain folder rather than a database, and what markdown and wikilinks actually are, written for someone seeing them for the first time. Install to three linked notes takes thirty minutes.",
+  "minutes": "14",
+  "prev_href": "ch04.en.html",
+  "prev_label": "Previous: Three tools, three jobs",
+  "next_href": "ch06.en.html",
+  "next_label": "Next: Connecting the whole team through a Teams shared folder"
+} -->
+  <article>
+    <p>Now your hands move. By the end of this chapter you have one folder with a few notes in it. That is all. It sounds anticlimactic, and the anticlimax is the design intent of this book.</p>
+
+    <p>Here is where Solbit Tech stood the day before they started. A proposals folder sat on the CEO's laptop desktop. Technical documents lived in the CTO's personal OneDrive. Customer replies piled up in the sales inbox. Those are the 105 files Claude swept on day one back in Chapter 4. There were plenty of files. <strong>The problem was that no file pointed at any other file.</strong></p>
+
+    <p>When the CTO first heard the plan, the reaction was "so you want us to install yet another program." Half right. You do install one program. The other half is wrong. <strong>That program does not take your knowledge anywhere.</strong></p>
+
+    <div class="callout">
+      <p class="callout-title">What this chapter is for</p>
+      <p>You install Obsidian and make a vault. Memorizing the install steps is not the point, though. The point is to walk away understanding <strong>why files rather than a database</strong>. That one call holds up the ontology work in Part 3 and the automation in Part 5.</p>
+      <p>The vault you build here is <strong>practice</strong>. The real one, the one your whole team uses, comes in Chapter 6.</p>
+    </div>
+
+    <h2>A vault is a folder. Really, that is all</h2>
+
+    <p>The word <a href="appendix-a.en.html#vault" class="term-link">vault</a> sounds like a safe, and that causes the confusion. It feels like you are creating some special store. You are not.</p>
+
+    <p>Making a vault in Obsidian means <strong>picking one folder and saying "from now on, show me this as a wiki."</strong> You can create a new folder, or point it at a folder that already holds your material. Obsidian treats every <code>.md</code> file in that folder as a note, and uses the filename as the note title.</p>
+
+    <p>After you make the vault, open that folder in File Explorer. Nothing has changed. The text files are still text files, and Notepad still reads them. Exactly one new thing appears: a hidden folder called <code>.obsidian</code>.</p>
+
+    <table>
+      <thead>
+        <tr><th>What is in the folder</th><th>What it is</th><th>If you delete it</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>*.md</code> files</td><td>Notes. This is all of your knowledge</td><td>The knowledge is gone</td></tr>
+        <tr><td>Images, PDFs and so on</td><td>Attachments, referenced from notes</td><td>Only the links break</td></tr>
+        <tr><td><code>.obsidian/</code></td><td>Obsidian settings: theme, pane layout, shortcuts</td><td>Only the settings reset. The notes are untouched</td></tr>
+      </tbody>
+    </table>
+
+    <p>That last row is the reason for this combination. In Chapter 4 we said "do not put your data in someone else's format." Here you see it with your own eyes. <strong>Delete Obsidian and the knowledge stays.</strong> It does not survive so much as never leave, because Obsidian never took it.</p>
+
+    <div class="file-tree">Practice Vault/
+├── .obsidian/            <span class="comment">Obsidian settings. Deleting this leaves notes safe</span>
+├── Warebot.md              <span class="comment">One note = one text file</span>
+├── CAP-ObjectRecognition.md
+└── PRJ-2025-SmartLogistics.md</div>
+
+    <h2>Markdown takes thirty minutes to learn</h2>
+
+    <p>You write notes in <strong>markdown</strong>, a way of marking up formatting with a handful of symbols. Instead of clicking buttons the way you do in Word, you type the symbols yourself.</p>
+
+    <p>There is not much to learn. Six things carry all your daily work.</p>
+
+    <table>
+      <thead>
+        <tr><th>You type this</th><th>You get this</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code># Heading</code></td><td>The largest heading. <code>##</code> and <code>###</code> step down a level each</td></tr>
+        <tr><td><code>- item</code></td><td>A bulleted list</td></tr>
+        <tr><td><code>**bold**</code></td><td>Bold text</td></tr>
+        <tr><td><code>`code`</code></td><td>Monospaced text. Use it for field names and paths</td></tr>
+        <tr><td><code>[[Note name]]</code></td><td>A link to another note. The star of the next section</td></tr>
+        <tr><td>Three <code>---</code> lines at the top</td><td><a href="appendix-a.en.html#frontmatter" class="term-link">Frontmatter</a>. The part machines read</td></tr>
+      </tbody>
+    </table>
+
+    <p>The sixth one is unfamiliar, and one look at a real note settles it. Here is the Warebot note, kept very simple.</p>
+
+    <pre><code>---
+class: 제품
+id: PRD-001
+status: 운영
+owner: "[[Kim]]"
+since: 2023-04
+updated: 2026-07-15
+---
+
+# Warebot
+
+Warehouse in-and-out automation software. In service since April 2023.
+
+## Technology used
+- [[CAP-ObjectRecognition]]
+- [[CAP-RouteOptimization]]</code></pre>
+
+    <p>Everything between the <code>---</code> lines at the top is the frontmatter. <strong>Machines read this part, not people.</strong> The dashboards in Chapter 15, the scheduled tasks in Chapter 14 and the check scripts in Chapter 17 all look at nothing else. The body underneath is for people, and its shape is up to you.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="340" fill="#FFFDF9"/>
+        <defs>
+          <marker id="a05" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#6B5647"/>
+          </marker>
+        </defs>
+
+        <text x="360" y="30" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">Three layers stacked in one note</text>
+
+        <rect x="50" y="58" width="330" height="252" rx="8" fill="#FFFDF9" stroke="#8A857C" stroke-width="1.4"/>
+        <rect x="50" y="58" width="330" height="104" rx="8" fill="#FAEBE2"/>
+        <line x1="50" y1="162" x2="380" y2="162" stroke="#C2703C" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+        <text x="64" y="78" font-size="10.5" font-family="monospace" fill="#6B5647">---</text>
+        <text x="64" y="96" font-size="10.5" font-family="monospace" fill="#3D2B1F">class: 제품</text>
+        <text x="64" y="114" font-size="10.5" font-family="monospace" fill="#3D2B1F">id: PRD-001</text>
+        <text x="64" y="132" font-size="10.5" font-family="monospace" fill="#3D2B1F">status: 운영</text>
+        <text x="64" y="150" font-size="10.5" font-family="monospace" fill="#6B5647">---</text>
+
+        <text x="64" y="188" font-size="12.5" font-weight="bold" fill="#3D2B1F"># Warebot</text>
+        <text x="64" y="210" font-size="10.5" fill="#3D2B1F">Warehouse automation software.</text>
+        <text x="64" y="238" font-size="11.5" font-weight="bold" fill="#3D2B1F">## Technology used</text>
+        <text x="64" y="260" font-size="10.5" font-family="monospace" fill="#0F766E">- [[CAP-ObjectRecognition]]</text>
+        <text x="64" y="280" font-size="10.5" font-family="monospace" fill="#0F766E">- [[CAP-RouteOptimization]]</text>
+
+        <line x1="418" y1="112" x2="384" y2="112" stroke="#6B5647" stroke-width="1.4" marker-end="url(#a05)"/>
+        <rect x="420" y="86" width="266" height="52" rx="8" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.6"/>
+        <text x="553" y="106" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">Frontmatter</text>
+        <text x="553" y="124" text-anchor="middle" font-size="9.5" fill="#3D2B1F">Machines read it. Fuel for automation</text>
+
+        <line x1="418" y1="206" x2="384" y2="206" stroke="#6B5647" stroke-width="1.4" marker-end="url(#a05)"/>
+        <rect x="420" y="180" width="266" height="52" rx="8" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="553" y="200" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">Body</text>
+        <text x="553" y="218" text-anchor="middle" font-size="9.5" fill="#3D2B1F">People read it. No fixed shape</text>
+
+        <line x1="418" y1="282" x2="384" y2="282" stroke="#6B5647" stroke-width="1.4" marker-end="url(#a05)"/>
+        <rect x="420" y="256" width="266" height="54" rx="8" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="553" y="277" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">Wikilinks</text>
+        <text x="553" y="295" text-anchor="middle" font-size="9.5" fill="#3D2B1F">What a folder cannot do</text>
+      </svg>
+      <figcaption>People and machines read the same file at different layers</figcaption>
+    </figure>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">"Its shape is up to you" is both a blessing and a curse</p>
+      <p>Markdown saves whatever you type. So three people write in three styles, and the same idea gets recorded as <code>status</code>, <code>state</code> and <code>progress_status</code>. Six months later nothing adds up.</p>
+      <p>Stopping that is the job of the <a href="appendix-a.en.html#ontology" class="term-link">ontology</a> in Part 3. As Chapter 3 showed, an ontology is not a thing that gives you answers. It is <strong>the set of rules that keeps layer 2 from collapsing</strong>. For now, remember only this: a free format has a price.</p>
+    </div>
+
+    <h2>Wikilinks do what folders cannot</h2>
+
+    <p>Folders have one fundamental limit. <strong>A note goes in exactly one folder.</strong></p>
+
+    <p>Think about the Warebot note. It is a product. It is also a case study for object recognition technology, an output of the smart logistics project, and the thing you want to pitch to Daesung Logistics. To file it in folders you have to pick one of the four. The other three disappear. So people copy the file into four places, and from that moment nobody knows which copy is current.</p>
+
+    <p><a href="appendix-a.en.html#wikilink" class="term-link">Wikilinks</a> solve this. Write another note's name inside double square brackets and it becomes a link.</p>
+
+    <pre><code>[[Warebot]]                          a link to the note
+[[Warebot|our flagship product]]     change only the visible text
+[[Warebot#Technology used]]          jump straight to a section</code></pre>
+
+    <p>Make a link and the other end follows automatically. That is a <a href="appendix-a.en.html#backlink" class="term-link">backlink</a>. Open the Warebot note and "notes that mention Warebot" appears at the bottom on its own. <strong>Nobody maintains this and it exists anyway.</strong> Link diligently and exactly that much comes back to you.</p>
+
+    <p>Three more things are worth knowing.</p>
+
+    <ul>
+      <li><strong>You can link to a note that does not exist.</strong> Write <code>[[WareTwin]]</code> with no such note and it shows up faded. Click it and the note is created right there. "Link first, fill in later" is a working method that actually works.</li>
+      <li><strong>Graph view shows you the whole thing.</strong> Notes are dots, links are lines. This is not a feature for looking pretty. You use it to find <strong>the lone dot with no line attached</strong>.</li>
+      <li><strong>Links are just text.</strong> They are not stored in some special database. They sit inside the file as <code>[[ ]]</code>. That is why the AI can read and analyze them, and it is half the reason Chapter 4 said you do not need MCP.</li>
+    </ul>
+
+    <h3>When to make links</h3>
+
+    <p>The plan of "I will link things later while tidying up" never survives contact with a real week. Three approaches hold up.</p>
+
+    <ul>
+      <li><strong>Link where you stand, as you write.</strong> You are writing about Warebot and object recognition comes up: type the brackets at that moment. It does not matter that the target note does not exist yet.</li>
+      <li><strong>Put links inside sentences.</strong> Rather than keeping a "related documents" list at the bottom of a note, embed them: <code>[[Warebot]] came out of [[PRJ-2025-SmartLogistics]]</code>. A list has to be maintained. A sentence maintains itself.</li>
+      <li><strong>Pick one short name and stick to it.</strong> Mix "Warebot" and "Warebot system" and the note splits in two. Your company naming rules get settled in Chapter 9 along with the ID scheme. Until then, standardize on <strong>the shortest name</strong>.</li>
+    </ul>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: what the links revealed</p>
+      <p>In week one Solbit Tech made notes for three products, two capabilities, one project and one person, and linked them. A graph of seven notes. Two things jumped out of it immediately.</p>
+      <p>First, <strong>Warebot had three lines attached</strong>: object recognition, route optimization, Kim. The government project does not touch Warebot directly. It reaches it through object recognition. That is the same two-hop path where the answer appeared in Chapter 3, and it means the evidence for the proposal genuinely exists.</p>
+      <p>Second, <strong>Pickview had no lines at all.</strong> The note was there and it pointed at nothing. The CTO looked at it and said "that is because we have no field data yet." Correct. And that is precisely <strong>why Pickview must not be used as evidence in a proposal</strong>.</p>
+      <p>Everyone had half known this before. The trouble was that when someone said "let us put Pickview in too" in a meeting, there was nothing to say back. The moment it showed up as a lone dot in the graph, that conversation ended in thirty seconds.</p>
+    </div>
+
+    <h2>Why files and not a database</h2>
+
+    <p>This is the most important passage in the chapter. The more technical you are, the more likely you are to ask it: "you say you are building a knowledge graph, so why not a graph database?"</p>
+
+    <p>The answer is not performance. It is <strong>lifespan</strong>.</p>
+
+    <table>
+      <thead>
+        <tr><th></th><th>Text files</th><th>A database or SaaS wiki</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>How the AI reads it</td><td>It just reads it</td><td>Needs a connection, credentials and a query tool</td></tr>
+        <tr><td>Search</td><td>Instant, with OS search and scripts</td><td>Whatever search that tool gives you</td></tr>
+        <tr><td>Backup</td><td>Copy the folder</td><td>Depends on the export feature</td></tr>
+        <tr><td>Switching tools</td><td>Open the same folder in a different app</td><td>Becomes a migration project</td></tr>
+        <tr><td>Will it open in ten years</td><td>Yes. It is text</td><td>Only if that company and that format survive</td></tr>
+        <tr><td>Change history</td><td>OneDrive version history, or Git</td><td>Usually provided</td></tr>
+      </tbody>
+    </table>
+
+    <p>Knowledge systems in small companies mostly <strong>do not die because the tool disappears. They die when the person in charge changes.</strong> It is over the moment the new owner says "that is the old system, I do not know it." A folder of text files has nothing to hand over. You open the folder and there it is.</p>
+
+    <p>The weaknesses, honestly. Files are not always better.</p>
+
+    <table>
+      <thead>
+        <tr><th>Where files are weak</th><th>How you handle it</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Simultaneous editing</td><td>No merge. Chapter 6 blocks it with an operating rule</td></tr>
+        <tr><td>Fine-grained permissions</td><td>Folder level is the limit, so confidential material stays outside the vault (Chapter 6)</td></tr>
+        <tr><td>Tens of thousands of notes</td><td>At that scale you need a different design. A company of a few dozen people will not get there in three years</td></tr>
+        <tr><td>Enforcing valid input</td><td>Wrong values save just fine, which is why you need the check scripts in Chapter 17</td></tr>
+      </tbody>
+    </table>
+
+    <p>None of these four rows says "there is a fix." Each says <strong>"you know the price and you pay it."</strong> What you buy is lifespan, and these four are the currency.</p>
+
+    <h3>Markdown suits the AI too</h3>
+
+    <p>There is one more reason, and it is about the AI rather than about people.</p>
+
+    <p>In a Word document or a slide deck, what you see and what is stored are two different things. Text that looks big and bold on screen is recorded in the file as a style number. For the AI to read such a file it has to convert it first, and <strong>every conversion smudges the tables and the heading structure a little.</strong> Where the merged cell in that table went, whether this paragraph sits under a level 3 or a level 4 heading: it all goes hazy.</p>
+
+    <p>Markdown has none of that. Two <code>##</code> means a level 2 heading, and that fact is written into the file as characters. What the AI sees and what you see are the same thing. This is why the settings below recommend making source mode the default editing mode.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">What about your existing Word and PowerPoint files</p>
+      <p>You do not convert them all to markdown. That turns into weeks of work and usually stalls halfway.</p>
+      <p>Leave the originals as originals in <code>Sources/90-Reference/</code>, and <strong>move only the facts you extract from them into markdown notes.</strong> Chapter 12 covers this split between source and derived material, along with the templates. Remember one thing for now: a vault is <strong>a web of facts, not a document warehouse</strong>.</p>
+    </div>
+
+    <h2>Installing and making a vault</h2>
+
+    <p>Download Obsidian from the official site, <code>obsidian.md</code>. Windows, macOS and Linux are all covered. <strong>As checked in July 2026, using it for company work is also free.</strong> What costs money is the add-on services like Sync (Obsidian's own syncing) and Publish (publishing to the web), and you use neither. Syncing is OneDrive's job, starting in Chapter 6.</p>
+
+    <ol class="steps">
+      <li><strong>Download and install</strong>
+        <p>There is nothing to choose during setup. Click through and it is done.</p>
+      </li>
+      <li><strong>Pick "Create new vault"</strong>
+        <p>The first screen offers "Create new vault" and "Open folder as vault." Take the first one for now. If you already have a folder of markdown material, the second one opens it as is.</p>
+      </li>
+      <li><strong>Keep the location local for now</strong>
+        <p>Something like <code>C:\Users\hong\Documents\Practice Vault</code> is fine. <strong>Do not put it in a company shared folder yet.</strong> Touching the team folder before you are comfortable means your mistakes propagate straight to everyone. The real vault comes in Chapter 6.</p>
+      </li>
+      <li><strong>Look at exactly three settings</strong>
+        <p>Settings open from <strong>the gear icon at the bottom left</strong>. The three below are split between "Files and links" and "Editor" in the left-hand list. The layout is as of July 2026, so if a name differs, look for similar wording.</p>
+      </li>
+      <li><strong>Make three notes and link them</strong>
+        <p>That is the exercise in the next section.</p>
+      </li>
+    </ol>
+
+    <table>
+      <thead>
+        <tr><th>Setting</th><th>What to do</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Default location for new notes</td><td>"Same folder as current file," or a folder you name</td><td>On the default, every note piles up at the top level of the vault</td></tr>
+        <tr><td>Default editing mode</td><td>Source mode is the one to pick</td><td>You see <strong>the same screen the AI reads</strong>. When the formatting looks pretty, you miss frontmatter typos</td></tr>
+        <tr><td>Automatically update internal links</td><td>Check that it is on</td><td>It ties directly to the first pitfall below</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Three things that catch everyone the first time</h2>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Pitfall 1 · renaming in File Explorer breaks your links</p>
+      <p>Say you decide to rename <code>Warebot.md</code> to <code>Warebot(PRD-001).md</code>. Do it in File Explorer and every <code>[[Warebot]]</code> link pointing at that note dies. Obsidian has no idea it happened.</p>
+      <p><strong>Always rename from inside Obsidian.</strong> Right-click the note, rename it, and Obsidian finds every link pointing at it and fixes them too. The third setting in the table above is what does that.</p>
+      <p>This pitfall gets more dangerous in Chapter 6. When a teammate renames a file in their own Explorer, the links in everyone else's vault break with it.</p>
+    </div>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Pitfall 2 · one typo makes a ghost note</p>
+      <p>Say you meant <code>[[CAP-ObjectRecognition]]</code> and typed <code>[[CAP-Object Recognition]]</code> with a space. Obsidian warns you about nothing. It simply treats it as "a note that does not exist yet" and shows it faded. Then a few weeks later somebody clicks that link and <strong>creates a second empty note.</strong> Now one capability lives in two notes.</p>
+      <p>There is one way to prevent it. <strong>Type the two brackets and pick from the autocomplete list that appears.</strong> Do not type the name out. It is a finger habit, and skipping it means merging duplicate notes by hand six months from now.</p>
+      <p>You can also find the ones that already happened. Look for faded dots in graph view, or use the check script in Chapter 17 to pull out "notes with an empty body and exactly one backlink."</p>
+    </div>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Pitfall 3 · never put a vault inside a vault</p>
+      <p>Make another vault inside a vault folder and you end up with two <code>.obsidian</code> folders. Which one the settings follow gets confusing, search results overlap, and once syncing lands on top of it in Chapter 6 you have a problem that is hard to trace.</p>
+      <p><strong>There is one company vault.</strong> If you want a separate vault for personal notes, put it somewhere else entirely.</p>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: build a triangle from three notes</p>
+      <p>Fifteen minutes. Use your own company's real names. Copy Solbit Tech's and your hands move while your head stays still.</p>
+      <ol>
+        <li><strong>Make one product note.</strong> The most representative thing your company sells. The filename is the note name, so use the product name as it stands.</li>
+        <li><strong>Make one note for a technology that product uses.</strong> The one that comes up when you say "this is what we are good at."</li>
+        <li><strong>Make one note for the project or contract that technology came out of.</strong> The job that had a budget or a signature attached.</li>
+        <li><strong>Link the three.</strong> From the product note point to the technology, from the technology note point to the project. Type the two brackets and pick <strong>from the autocomplete list</strong>.</li>
+        <li><strong>Open the product note and check the backlinks at the bottom.</strong> You did nothing, and the connection has come back to you.</li>
+        <li><strong>Open graph view.</strong> Three dots, two lines. That is today's goal.</li>
+        <li><strong>Then ask yourself one question.</strong> Could you build five more triangles like this from your company material right now? If you could not, that is not a vault problem. It is <strong>a problem with your company's records</strong>, and it is what the rest of this book is about.</li>
+      </ol>
+    </div>
+
+    <div class="checklist">
+      <p class="checklist-title">Before you move on to Chapter 6</p>
+      <ul>
+        <li>Obsidian is installed and your practice vault sits in <strong>a local folder</strong></li>
+        <li>Three notes are linked together, and you have watched the backlinks appear</li>
+        <li>You opened the vault folder in File Explorer and confirmed it is just text files</li>
+        <li>You remember that renaming happens inside Obsidian and nowhere else</li>
+      </ul>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li><strong>A vault is one folder.</strong> All Obsidian adds is the <code>.obsidian</code> settings folder, and deleting that leaves the notes intact</li>
+        <li>Six pieces of markdown carry your daily work. Of those, <strong>machines read the frontmatter and people read the body</strong></li>
+        <li><strong>Wikilinks get past the limit of folders.</strong> A note goes in one folder, and it can carry any number of links</li>
+        <li>Backlinks and graph view <strong>appear with nobody maintaining them.</strong> You get back as much as you link</li>
+        <li>Files were chosen for <strong>lifespan</strong>, not performance. The folder still opens after the owner changes</li>
+        <li>In exchange you give up simultaneous editing, fine-grained permissions and enforced input. <strong>You know the price and you pay it</strong></li>
+        <li>Rename <strong>only inside Obsidian</strong>, and link <strong>only through autocomplete</strong>. Those two habits delete the cleanup job waiting six months out</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>Coming up</h3>
+      <p>Right now your vault lives only on your laptop. Left like that it is a personal notepad. Next chapter you move this folder into a Teams shared folder and connect it to every PC on the team. Then you learn <strong>the single most important click in this book</strong>. Skip it and the file is plainly visible while the AI insists there is no such file.</p>
+    </div>
+  </article>

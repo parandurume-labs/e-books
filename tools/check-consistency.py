@@ -316,12 +316,26 @@ def check_language_pairs(book: Path) -> None:
 
 
 def check_en_korean_leftovers(f: Path, html: str) -> None:
-    """영어판에 남은 한글은 필드 값뿐이어야 한다."""
+    """영어판에 남은 한글은 필드 값뿐이어야 한다.
+
+    세 자리는 한글이 남아 있는 게 맞다. 번역해 버리면 오히려 망가진다.
+      - 「나쁜 예」 코드 블록. 10장이 보여주려는 게 현장 볼트에 굴러다니는
+        「진행중 / 거의 다 됐음 / 운영중?」 같은 제각각인 한글 상태값 자체다.
+      - 파이썬 소스 안의 정규식 문자 클래스 [A-Za-z_가-힣]. 코드다.
+      - 용어 사전의 한국어 대응어 <span class="term-en">(온톨로지)</span>.
+        영어 독자가 한국어판으로 건너갈 다리라서 일부러 남긴다.
+    """
     if ".en." not in f.name:
         return
     keep = set(INV["en_keep_korean"]["tokens"])
     body = re.sub(r"<svg.*?</svg>", "", html, flags=re.S)
     body = re.sub(r'<ul class="nav-list">.*?</ul>', "", body, flags=re.S)
+    body = re.sub(r'<span class="term-en">\([^)]*\)</span>', "", body)
+    body = re.sub(r"[\[(][^\[\]()]*가-힣[^\[\]()]*[\])]", "", body)
+    markers = INV["forbidden_field_aliases"]["allowed_context_markers"]
+    body = re.sub(r"<pre>.*?</pre>",
+                  lambda m: "" if any(k in m.group(0) for k in markers) else m.group(0),
+                  body, flags=re.S)
     bad = sorted({t for t in re.findall(r"[가-힣]+", body) if t not in keep})
     if bad:
         add("ERROR", rel(f), f"영어판에 예상 밖 한글: {bad[:8]}")

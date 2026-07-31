@@ -1,0 +1,506 @@
+<!--META {
+  "file": "ch13.en.html",
+  "num": "13",
+  "title": "Automating repeat work with skills",
+  "subtitle": "The third time you explain the same thing, write it down",
+  "desc": "Freeze a repeated procedure into one SKILL.md and call it by name. Three skills designed in full, ingest, retro and audit, whether to ship them in the vault or share them org-wide, and why the Obsidian community plugins came out.",
+  "minutes": "22",
+  "prev_href": "ch12.en.html",
+  "prev_label": "Previous: Templates and your first note",
+  "next_href": "ch14.en.html",
+  "next_label": "Next: Scheduling, so it runs when people forget"
+} -->
+  <article>
+    <p>Structuring meeting notes took six weeks to settle in at Solbit Tech. In week six this happened.</p>
+
+    <p>The decision note Park made had no link back to the source. The <code>source:</code> box was empty. The note Lee made had Daesung Logistics written out by name, when it should have carried <code>confidential: 대외비</code> as a pre-contract customer. Kim's note got both of those right but had no "options considered and not taken" box.</p>
+
+    <p>All three were being diligent. All three <strong>were simply using different prompts.</strong> One person wrote the first prompt, everyone copied it, everyone tweaked it a little, and over six weeks it split three ways.</p>
+
+    <div class="callout">
+      <p class="callout-title">What this chapter is for</p>
+      <p>A prompt is <strong>speech</strong>. Speech shifts a little every time it passes through a person. A <a href="appendix-a.en.html#skill" class="term-link">skill</a> is <strong>that speech frozen into one file and called by name</strong>.</p>
+      <p>In the layers from Chapter 3, a skill is layer 3 machinery. Not one line of company fact goes in. Only procedure. That distinction runs through the whole chapter.</p>
+    </div>
+
+    <h2>A skill is a work manual</h2>
+
+    <p>Say someone new joins. Explain "how we tidy up meeting notes" out loud each time and by the third go you leave something out. So you write it down once and say "follow this." That document is a work manual.</p>
+
+    <p>A skill is <strong>a work manual you give to AI</strong>. Instead of explaining every time, you write it once and call it by name. Say "handle this with the meeting note skill" and it moves through the steps in that file.</p>
+
+    <p>Chapter 11 separated rules (<code>CLAUDE.md</code>), formats (templates) and procedures (skills). The dividing question was <strong>"does this rule bind every task, or only one task?"</strong> That table does not need reopening. Two things get added on the skill side.</p>
+
+    <p>First, <strong>a skill is only read when called.</strong> <code>CLAUDE.md</code> goes into every conversation, while a skill opens when its name comes up. So writing it long does not weigh down ordinary conversations. Twenty lines of meeting-note procedure make no difference at all to a conversation about writing a proposal.</p>
+
+    <p>Second, <strong>make a skill only when there are two or more steps.</strong> Something with an order to it, like "save the source, extract, report as a table, create after approval." A one-step job is not worth a skill. Write it into <code>_ops/prompts.md</code> as a prompt and copy it when you need it.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">When to freeze something into a skill</p>
+      <p>One test. <strong>You have used the same prompt three times, and it barely changed across those three.</strong> Chapter 16 applies the same test again across twelve recipes.</p>
+      <p>If you are still editing it, do not make it a skill. Editing a skill is more of a chore than editing a prompt. <strong>A skill preserves a settled procedure. It does not invent one.</strong></p>
+    </div>
+
+    <h2>What a SKILL.md looks like</h2>
+
+    <p>As of July 2026 the minimum is <strong>one folder holding one <code>SKILL.md</code></strong>. The folder name becomes the skill name.</p>
+
+    <div class="file-tree">Solbit Tech Wiki/
+├── .claude/
+│   └── skills/
+│       ├── wiki-ingest/
+│       │   └── SKILL.md          <span class="comment">pull notes out of source material</span>
+│       ├── wiki-retro/
+│       │   └── SKILL.md          <span class="comment">retrospective</span>
+│       └── wiki-audit/
+│           └── SKILL.md          <span class="comment">check for rule violations</span>
+├── _ops/
+└── Sources/</div>
+
+    <p>The top of the file carries <a href="appendix-a.en.html#frontmatter" class="term-link">frontmatter</a>, and below that it is an ordinary markdown document. The frontmatter needs two things.</p>
+
+    <pre><code>---
+name: wiki-ingest
+description: Pull decisions and actions out of meeting notes, transcripts and outside
+  documents, and turn them into vault notes. Use when tidying up a meeting note or
+  structuring material you received.
+---</code></pre>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">The description is the most important part of this file</p>
+      <p>The body is read <strong>after</strong> the skill is called. The <code>description</code> is what decides <strong>whether to call it</strong>. Weak here, and however well you wrote the body, it never runs.</p>
+      <p>So write both things. <strong>What it does</strong> and <strong>when to use it</strong>. Stop at "handles meeting notes" and it does not fire when someone says "tidy up this transcript file for me." Put the words a user would actually say into the <code>description</code>.</p>
+    </div>
+
+    <p>The body runs to six sections. Those six are the standard skeleton this book uses.</p>
+
+    <table>
+      <thead>
+        <tr><th>Section</th><th>What goes in it</th><th>Leave it out and</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>When to use</strong></td><td>two or three situations that call this skill</td><td>it fires in the wrong situations</td></tr>
+        <tr><td><strong>Input</strong></td><td>what it needs before it can start</td><td>it starts with no material and invents some</td></tr>
+        <tr><td><strong>Procedure</strong></td><td>numbered steps</td><td>the order changes every time</td></tr>
+        <tr><td><strong>Rules</strong></td><td>what to hold to at each step</td><td>the field conventions from Chapter 12 collapse</td></tr>
+        <tr><td><strong>Output</strong></td><td>where it lands and under what name</td><td>it stays in the chat window and vanishes</td></tr>
+        <tr><td><strong>Do not</strong></td><td>the list of prohibitions</td><td><strong>the AI causes an accident while trying to help</strong></td></tr>
+      </tbody>
+    </table>
+
+    <p>That last section is the longest. There are four mistakes AI makes while trying to help. It filled in background, it corrected an out-of-date value, it completed a name, and it smoothed the wording. Every one was an attempt to help and every one was an accident. <strong>A skill that handles company facts becomes a list of "do not," rather than "do it well."</strong> How those four show up in a real prompt, and the one line that stopped each, you see directly in ⓕ of recipe 1 in Chapter 16.</p>
+
+    <h2>Three skills are enough</h2>
+
+    <p>Start with three. They attach at three different points in the vault's life.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="320" fill="#FFFDF9"/>
+        <defs>
+          <marker id="a13" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#C2703C"/>
+          </marker>
+        </defs>
+
+        <text x="360" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">Three skills attach at three points in the vault</text>
+
+        <rect x="18" y="112" width="128" height="70" rx="9" fill="#FFF8F0" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="82" y="136" text-anchor="middle" font-size="11" font-weight="bold" fill="#C2703C">Source</text>
+        <text x="82" y="155" text-anchor="middle" font-size="9.5" fill="#3D2B1F">meetings · transcripts</text>
+        <text x="82" y="170" text-anchor="middle" font-size="9.5" fill="#3D2B1F">material received</text>
+
+        <line x1="146" y1="147" x2="206" y2="147" stroke="#C2703C" stroke-width="1.6" marker-end="url(#a13)"/>
+        <text x="176" y="139" text-anchor="middle" font-size="10" font-weight="bold" fill="#C2703C">ingest</text>
+
+        <rect x="210" y="92" width="180" height="110" rx="10" fill="#EAF6F4" stroke="#0F766E" stroke-width="2.2"/>
+        <text x="300" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#0F766E">Sources/</text>
+        <text x="300" y="140" text-anchor="middle" font-size="10" fill="#3D2B1F">layer 2 · knowledge graph</text>
+        <text x="300" y="162" text-anchor="middle" font-size="10" fill="#3D2B1F">approved notes only</text>
+        <text x="300" y="184" text-anchor="middle" font-size="9.5" fill="#6B5647">skills cannot write here directly</text>
+
+        <line x1="390" y1="120" x2="450" y2="92" stroke="#C2703C" stroke-width="1.6" marker-end="url(#a13)"/>
+        <text x="416" y="94" text-anchor="middle" font-size="10" font-weight="bold" fill="#C2703C">audit</text>
+        <line x1="390" y1="176" x2="450" y2="204" stroke="#C2703C" stroke-width="1.6" marker-end="url(#a13)"/>
+        <text x="416" y="208" text-anchor="middle" font-size="10" font-weight="bold" fill="#C2703C">retro</text>
+
+        <rect x="456" y="56" width="242" height="76" rx="9" fill="#FFFFFF" stroke="#8A857C" stroke-width="1.5"/>
+        <text x="577" y="80" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#6B5647">_reports/audit-YYYY-MM-DD.md</text>
+        <text x="577" y="100" text-anchor="middle" font-size="9.5" fill="#3D2B1F">notes that break the ontology</text>
+        <text x="577" y="118" text-anchor="middle" font-size="9.5" fill="#3D2B1F">nothing is fixed. Only listed</text>
+
+        <rect x="456" y="166" width="242" height="76" rx="9" fill="#FFFFFF" stroke="#8A857C" stroke-width="1.5"/>
+        <text x="577" y="190" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#6B5647">_reports/retro-YYYY-QQ.md</text>
+        <text x="577" y="210" text-anchor="middle" font-size="9.5" fill="#3D2B1F">the gap between plan and actual</text>
+        <text x="577" y="228" text-anchor="middle" font-size="9.5" fill="#3D2B1F">and the reasons for the gap</text>
+
+        <rect x="18" y="262" width="680" height="42" rx="8" fill="#FAEADF" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="358" y="288" text-anchor="middle" font-size="11.5" fill="#3D2B1F">Let it in (ingest), look back (retro), find what has drifted (audit)</text>
+      </svg>
+      <figcaption>The only places the three skills write are <code>_reports/</code> and <code>_moc/</code>. Anything entering <code>Sources/</code> goes through human approval</figcaption>
+    </figure>
+
+    <table>
+      <thead>
+        <tr><th>Skill</th><th>What it does</th><th>When you call it</th><th>Chapter 16 recipe</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>wiki-ingest</code></td><td>pulls decisions, actions and fact changes out of a source</td><td>right after a meeting (manual)</td><td>input for 1 and 5</td></tr>
+        <tr><td><code>wiki-retro</code></td><td>compares intent against execution</td><td>last week of the quarter</td><td>11</td></tr>
+        <tr><td><code>wiki-audit</code></td><td>finds notes that break the ontology conventions</td><td>once a month</td><td>9</td></tr>
+      </tbody>
+    </table>
+
+    <p>The right-hand column maps onto the working recipes in Chapter 16. Recipes 1, 9 and 11, the ones Chapter 16 picks out as worth freezing into skills, pair one-to-one with these three. The weekly report (recipe 3) stays a prompt rather than a skill, because a week is too short a window to produce a difference worth comparing, so there is no procedure to freeze. The terminology audit (recipe 10) is not a skill either. Chapter 16 nails it down as Python's job because <strong>it is string matching and needs no AI</strong>. The rest are either one-off events (job adverts, onboarding packs) or prompts that still change too often to freeze.</p>
+
+    <p>The order of building is fixed too. <strong>Build <code>wiki-ingest</code> first and the other two a month later.</strong> The reason is simple. <code>wiki-retro</code> only runs once work logs have piled up, and <code>wiki-audit</code> only runs once there are notes to check. Hang a retrospective skill on an empty vault and you get three lines of "no record." It is the same species of disappointment as Solbit Tech breaking the order in Chapter 16.</p>
+
+    <h3>wiki-ingest</h3>
+
+    <p>The one you use most and the one that matters most. Build only this and you are half done.</p>
+
+    <pre><code>---
+name: wiki-ingest
+description: Pull decisions and actions out of meeting notes, transcripts and outside
+  documents, and turn them into vault notes. Use when tidying up a meeting note or
+  structuring material you received.
+---
+
+# Structuring source material
+
+## When to use
+- After a meeting, putting the memo into the vault
+- Putting a document or a public call received from outside into the vault
+
+## Input
+- One piece of source text, or one file path
+- Without it, do not start. Ask for the source
+
+## Procedure
+1. Save the source first.
+   Meeting memos go in Sources/40-Worklog/, material received from outside and
+   transcripts go in Sources/90-Reference/.
+   Name the file YYYY-MM-DD-title.
+2. Pull four things out of the source.
+   - Decisions: anything of the form "we decided to". With the alternatives and the reasoning
+   - Actions: anything with an owner and a date
+   - Fact changes: anything that changes a field on an existing note
+   - New entities: organizations, products or technologies with no note yet
+3. Report what you pulled out as a table. Do not create files yet.
+4. Create or edit notes only after approval.
+5. Use the matching template from _ops/templates/ for any note you create.
+6. Finally, add links to the "Extracted from this" section of the source note.
+
+## Rules
+- New notes are created with confidence: draft
+- Every extract links back to the source with source:
+- Never fix content that contradicts an existing note. Report it separately as a contradiction
+- Mark pre-contract customers as confidential: 대외비
+- Never smooth over something ambiguous. Leave it as 확인 필요
+
+## Output
+- 1 source note (never modified)
+- 0 or more extracted notes
+- A report table (in the chat window)
+
+## Do not
+- Never edit the source. Leave the typos and the broken sentences
+- Never infer a fact that is not in the source
+- Use people's names exactly as written in the source. Never guess a title and attach it
+- Never set confidence to reviewed. Only people change that
+- Never create or edit files under Sources/ without approval</code></pre>
+
+    <p>Steps 1 and 3 are the backbone of this skill. <strong>Seal the source first, and report as a table first.</strong> Take those two out and eight notes appear at once, two of them wrong, with no easy way to tell which.</p>
+
+    <h3>wiki-retro</h3>
+
+    <p>The retrospective skill. The reasoning behind the design is in Chapter 18. Here you only freeze the procedure.</p>
+
+    <pre><code>---
+name: wiki-retro
+description: Compare work logs against project notes and lay out the gap between plan
+  and actual. Use for a quarterly retrospective, or when someone asks
+  "what did we actually do this quarter?".
+---
+
+# Intent against execution retrospective
+
+## When to use
+- The quarterly retrospective in the last week of the quarter
+- Revising the quarterly plan mid-way
+
+## Input
+- A period (start date and end date). Without one, use the previous quarter
+
+## Procedure
+1. Gather the work logs for that period from Sources/40-Worklog/.
+2. Follow each log's pdm_intent_of link and open the target project or opportunity note.
+3. Group by project and lay each one out in three lines.
+   - Plan: that project note's stage and due
+   - Actual: what the logs actually record
+   - Gap: where the two diverge
+4. Collect logs with no pdm_intent_of separately as "work not connected to anything".
+5. Mark days with no log as "no record". Never fill them in by guessing.
+
+## Rules
+- Write around "progress and blockers", not "what I did"
+- On finding a gap, do not assert a cause. Record the gap only
+- Never write a sentence that evaluates a person. Names and facts only
+- Under 1500 characters
+
+## Output
+- _reports/retro-YYYY-QQ.md
+- On the first line, the change in "work not connected to anything" against last time
+
+## Do not
+- Never edit notes under Sources/
+- If the logs are empty, do not produce a retrospective. Leave one line saying "no record"
+- Never add unplanned work into the plan after the fact</code></pre>
+
+    <div class="callout">
+      <p class="callout-title">"Never write a sentence that evaluates a person" is this skill's survival condition</p>
+      <p>Let one sentence like "Park is behind schedule" appear in a retrospective report and, from the following week, the work logs get written well. Written to look good. And <strong>a log written to look good is useless for a retrospective.</strong></p>
+      <p>It is the same reason as "do not post the missing-log alert to the team channel" in Chapter 14. The moment a record feeds into evaluation, the quality of the record collapses.</p>
+    </div>
+
+    <h3>wiki-audit</h3>
+
+    <p>The checking skill. Here you have to divide the work with the validation script in Chapter 17.</p>
+
+    <table>
+      <thead>
+        <tr><th></th><th>Python <code>validate.py</code> · Chapter 17</th><th>the <code>wiki-audit</code> skill</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>What it looks at</td><td><strong>things you can count</strong></td><td><strong>things you have to read to know</strong></td></tr>
+        <tr><td>Example</td><td>missing required fields, <code>status</code> values outside the controlled vocabulary, broken links, date formats</td><td>numbers with no evidence, notes marked <code>reviewed</code> with no evidence link, notes whose body and fields disagree</td></tr>
+        <tr><td>Result</td><td>always the same</td><td>a little different each run</td></tr>
+        <tr><td>Cost</td><td>nothing</td><td>uses your allowance</td></tr>
+      </tbody>
+    </table>
+
+    <p>Do not let them overlap. <strong>Hand a skill something a script could catch and you pay money for a less accurate answer.</strong> The same test that divided path C from path A in Chapter 14 applies here unchanged.</p>
+
+    <pre><code>---
+name: wiki-audit
+description: Find where vault notes have drifted from the ontology design document and
+  leave a report. Use for the monthly check, or when someone asks
+  "how is our vault doing?".
+---
+
+# Vault convention check
+
+## When to use
+- The first Monday of every month
+- Right after editing the ontology design document
+
+## Input
+- _ops/01-ontology-design.md and _ops/02-terminology.md
+- Without them, do not start
+
+## Procedure
+1. Read the latest results from _ops/scripts/validate.py first.
+   Do not look again at anything it already caught.
+2. Look only at the four things the script cannot catch.
+   - a number written down with no link to an evidence note
+   - confidence: reviewed with an empty evidence section
+   - frontmatter values that disagree with the body text
+   - different values recorded for the same entity
+3. Report only what is certain. If it is borderline, do not report it.
+4. Maximum 3 items. Beyond that, keep the 3 most serious.
+5. For each item, name the file and the line number.
+
+## Rules
+- Fix nothing. Produce a list only
+- Compare with the previous report and put the change on the first line
+- If there are no violations at all, write one line: "no violations"
+
+## Output
+- _reports/audit-YYYY-MM-DD.md
+
+## Do not
+- Never edit or create files under Sources/
+- Never repeat an item the script has already reported
+- Never write "suggested improvements". Facts only</code></pre>
+
+    <p>Without the two files in the <code>Input</code> section, this skill does not start. That is deliberate. With nothing to compare against, a check is just impressionistic criticism. You built the design document in Part 3, but <strong>you have never built the terminology list.</strong> A minimal two-column format is in Appendix B, so copy it from there and save it as <code>_ops/02-terminology.md</code>. <strong>Three lines is a fine start.</strong></p>
+
+    <p>"Maximum 3 items" matters. Recipe 9 in Chapter 16 uses the same cap. Nobody fixes a twenty-three item report. <strong>Three items you can fix in an hour, and next month three more arrive.</strong> Done this way, violations go down. Receive twenty-three in one go and the skill is switched off that day.</p>
+
+    <h2>Two ways to get skills to the team</h2>
+
+    <p>Use a skill on your own and half this chapter is pointless. The problem at the top was <strong>three people using three different procedures</strong>. There are two ways to distribute.</p>
+
+    <table>
+      <thead>
+        <tr><th></th><th>Shipped in the vault</th><th>Shared org-wide</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Where it lives</td><td><code>.claude/skills/</code> inside the vault</td><td>deployed from the org admin screen</td></tr>
+        <tr><td>How it spreads</td><td>rides the Teams shared folder sync</td><td>an admin uploads it and everyone sees it</td></tr>
+        <tr><td>Editing</td><td>edit the file and you are done</td><td>goes through an admin</td></tr>
+        <tr><td>Versions</td><td>always moves with the vault</td><td>drifts when the vault structure changes</td></tr>
+        <tr><td>New joiners</td><td>arrives with the vault</td><td>nothing to do</td></tr>
+        <tr><td>Outside the vault</td><td>no</td><td>yes</td></tr>
+        <tr><td>Confidentiality</td><td>follows the vault permissions</td><td><strong>the whole organization sees it</strong></td></tr>
+      </tbody>
+    </table>
+
+    <p>The decisive difference is the <strong>versions</strong> row. Skills reference folder names and field names. Rename <code>Sources/90-Reference/</code> to <code>Sources/95-Archive/</code> and the skill has to change with it. Ship it in the vault and the two sit in one folder and move together. Keep them apart and one day they quietly drift.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">The order to use</p>
+      <p><strong>Ship in the vault for the first three months.</strong> In that period you edit skills often, and if every edit goes through an admin nobody edits them. A skill nobody edits becomes a skill nobody uses.</p>
+      <p><strong>When a skill goes three months without an edit</strong>, that is your candidate for org-wide sharing. It means the procedure has settled. And when you do share it org-wide, remember that the skill body <strong>spells out your company's folder structure and field names</strong>. That is not information to send outside the organization.</p>
+    </div>
+
+    <p>Whether you can share skills at the organization level depends, <strong>as of July 2026</strong>, on your plan and admin settings. Check with your admin before you commit, and if it is unavailable, shipping in the vault is plenty.</p>
+
+    <p>For a company like Solbit Tech, <strong>five people on one vault, shipping in the vault finishes the job.</strong> Whoever edited the skill is sitting next to you, and when they say so, the whole team knows that day. Look at org-wide sharing when <strong>you have more than one vault</strong>, or when you want to give the same procedure to people who do not use the vault.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Sync delay makes ghost bugs</p>
+      <p>Shipping in the vault has one trap. Edit the skill file and <strong>it takes time to reach other people's machines.</strong> In between, two people calling the same skill get different results.</p>
+      <p>And it looks like a bug. "It worked yesterday but not today?" In fact there are two copies of the file.</p>
+      <p>The fix is simple. <strong>Tell the team in one line whenever you edit a skill.</strong> And put the date of the last edit at the bottom of the skill body. When a result looks wrong, start by checking that date.</p>
+    </div>
+
+    <h2>The decision to take plugins out</h2>
+
+    <p>Let me be straight. A good deal of what the three skills in this chapter do <strong>could be done with Obsidian community plugins.</strong> Automatic template insertion, automatic note creation, field aggregation, dashboard refresh. Good plugins exist for all of it.</p>
+
+    <p>But this book decided in Chapter 4 not to use plugins. Chapter 4 deferred "the reasoning for that call comes in Chapter 13," and this is the place. What it wrote down then were four things that actually happened.</p>
+
+    <ul>
+      <li>The AI model the plugin used did not understand our company ontology.</li>
+      <li>It built notes in English out of Korean source material, so company proper nouns got translated and mangled.</li>
+      <li>It was structured to produce low-quality duplicate notes competing with human-verified ones.</li>
+      <li>Claude Cowork did the same job better.</li>
+    </ul>
+
+    <p>All four read like circumstances of that one plugin. But follow each one back to why it happened and they gather into <strong>three reasons that come from the plugin approach itself</strong>. Pick a different plugin and you snag on the same three places. Here they are, and Chapter 15 checks them again.</p>
+
+    <h3>1. There is no way to enforce installation across a team</h3>
+
+    <p>Plugins are <strong>installed by each person into their own Obsidian.</strong> Share the vault and the plugins do not follow. So the goal of this chapter, "the whole team uses the same procedure," fails from the outset.</p>
+
+    <p>Every time someone joins you walk them through installation, and one of them will not do it. And only that one person's notes come out in a different format. In a five-person company <strong>that one person is 20% of everybody</strong>. <strong>The problem from the top of this chapter comes back with a different tool attached.</strong></p>
+
+    <p>Chapter 4's third item, low-quality duplicate notes competing with verified ones, comes from here. Notes appear automatically only in the vault of whoever installed the plugin, and those notes sit outside the format the team agreed. The moment one entity has two notes, layer 2 splits.</p>
+
+    <h3>2. Updates break it</h3>
+
+    <p>Use a plugin and your vault is <strong>tied to someone else's release schedule.</strong> One day it updates, the syntax changes, and the dashboard goes blank. Nobody in the company can fix it.</p>
+
+    <p>It gets worse. <strong>The developer stops maintaining it.</strong> Now the lifespan of your company knowledge system depends on the circumstances of someone whose face you have never seen.</p>
+
+    <p>Chapter 4's first and fourth items snag here. We do not get to decide which model the plugin calls, nor whether there is any way to make that model read our ontology. That is why Cowork did the same job better. The difference is whether one instruction file can change the rules.</p>
+
+    <h3>3. Knowledge gets locked inside the tool</h3>
+
+    <p>This is the most important reason. Some plugins build a view out of a query syntax. Open a note written in that syntax <strong>without the plugin and you get a blank</strong>. The text is still there and it cannot be read.</p>
+
+    <p>Chapter 5 explained why we chose files over a database. <strong>Because the knowledge survives the tool.</strong> A note written in plugin syntax hands that advantage back.</p>
+
+    <p>Chapter 4's second item, company proper nouns mangled into English, is the light version of this. The format the tool chose ended up deciding the shape of our knowledge, and the moment Warebot is rewritten as WarehouseBot in a note, that note leaves our terminology list.</p>
+
+    <div class="callout">
+      <p class="callout-title">The test is one question</p>
+      <p><strong>"If this tool disappears, does my knowledge disappear?"</strong></p>
+      <p>If yes, do not use it. If no, go ahead. Chapter 15 confirms this again, but <strong>a plugin that only changes the view is relatively safe.</strong> Delete it and the notes are still there as markdown.</p>
+      <p>That test is why this book uses Mermaid. It is built into Obsidian, and being a markdown code block it stays readable as text in any other editor. The template feature in Chapter 12 sticks to core features for the same reason.</p>
+    </div>
+
+    <p>There is a price to pay. <strong>It takes more hands.</strong> Work a plugin would do with one button, you do with a prompt. A table that refreshed itself, you rebuild with a script.</p>
+
+    <p>Whether that price is worth paying differs by company. For a personal vault used by one person, a plugin is far more convenient. <strong>If the whole team uses one vault and it has to be readable in three years</strong>, this book's choice is better. The reasoning is written down, so decide differently if you like. What is worst is <strong>starting to install them one by one without deciding at all</strong>.</p>
+
+    <h2>Three ways skills fail</h2>
+
+    <div class="pitfall">
+      <p class="pitfall-title">1. Company facts get written into the skill</p>
+      <p>The most common one. Once you are using a skill you want to add lines like <strong>"the owner of an action is usually Park"</strong> or "link Warebot decisions to PRD-001".</p>
+      <p>It looks convenient and it is an accident. When Park leaves, the skill has to change, and nobody remembers that the name is in there. And <strong>a company fact written in two places will diverge.</strong></p>
+      <p>The rule is one line. <strong>Facts in layer 2, procedures in layer 3.</strong> No people's names, product names or numbers in a skill. Folder paths and field names are fine. Those are structure, not facts.</p>
+    </div>
+
+    <div class="pitfall">
+      <p class="pitfall-title">2. You end up with too many skills</p>
+      <p>They are easy to make, so you get ten. Then two things happen. The <code>description</code> fields overlap so the wrong skill fires, and people cannot remember which skills exist.</p>
+      <p>Start with three. When you make a fourth, <strong>review one of the existing three as a candidate for deletion.</strong> Same reason as the alert rules coming in Chapter 14.</p>
+      <p>Before making a new skill, ask once more. <strong>"Could one extra line in an existing skill do this?"</strong> Usually it could.</p>
+    </div>
+
+    <div class="pitfall">
+      <p class="pitfall-title">3. Skills go quietly stale</p>
+      <p>The third trap from Chapter 12 gets one size bigger here. You add a box to a template and the skill still looks at the old list of boxes. No error appears. You find out two months later on the dashboard.</p>
+      <p>Now four files are one body. <strong><code>_ops/01-ontology-design.md</code> · <code>CLAUDE.md</code> · <code>_ops/templates/</code> · <code>.claude/skills/</code></strong>. Change one and open the other three.</p>
+      <p>Remembering to compare those four every time is hard for a person. So Chapter 17 puts the comparison into the validation script. <strong>Anything you have to remember to do ends up not getting done.</strong></p>
+    </div>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: six weeks with three skills</p>
+      <p>Six weeks passed after the three-way prompt split at the top was merged into one <code>wiki-ingest</code>. The three skills met three different fates.</p>
+      <table>
+        <thead><tr><th>Skill</th><th>Six weeks on</th></tr></thead>
+        <tbody>
+          <tr><td><code>wiki-ingest</code></td><td><strong>Kept.</strong> The morning after a meeting, three people now produce notes of the same shape</td></tr>
+          <tr><td><code>wiki-audit</code></td><td><strong>Kept, after a fix.</strong> The first month's report had 23 items and nobody fixed any. It survived once "maximum 3 items" went in</td></tr>
+          <tr><td><code>wiki-retro</code></td><td><strong>Kept, with a narrower scope.</strong> The weekly version said the same thing every week, so they dropped it and kept only the quarterly retrospective</td></tr>
+        </tbody>
+      </table>
+      <p>The middle row is the one that matters. <code>wiki-audit</code> nearly died <strong>because it was diligent.</strong> It found every violation in the vault without exception and laid out twenty-three lines, and Kim opened the report twice and stopped opening it from the third time.</p>
+      <p><strong>A check that finds everything fixes nothing.</strong> Only after the cap went on did violations actually start dropping by three a month.</p>
+      <p>And not making the weekly version a skill was not a failure either. A week is too short a window to produce a difference worth comparing, so it stayed as the weekly report in recipe 3 of Chapter 16. As Chapter 14 puts it, <strong>automation you will not need is not worth building in the first place.</strong></p>
+    </div>
+
+    <div class="checklist">
+      <p class="checklist-title">Five questions that tell you whether a skill is any good</p>
+      <ul>
+        <li><strong>Is there a single line of company fact in it?</strong> Take it out. People's names, product names, numbers.</li>
+        <li><strong>Is the "do not" section three lines or more?</strong> Two or fewer means you have not run the procedure enough yet.</li>
+        <li><strong>Is the output file path written down?</strong> Without it, the result stays in the chat window.</li>
+        <li><strong>Does it say what to do when the result is empty?</strong> Without that, you accumulate long-winded "nothing to report" files.</li>
+        <li><strong>Can you tell when to call it from the <code>description</code> alone?</strong> Show it to someone else and ask.</li>
+      </ul>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: build the ingest skill and run it twice</p>
+      <p>Do not build all three. <code>wiki-ingest</code> is enough. Thirty minutes.</p>
+      <ol>
+        <li><strong>Let Cowork make the folder.</strong> Type this into the chat window. <code>Create the folder .claude/skills/wiki-ingest/ at the top of the vault and save the following as SKILL.md.</code> Paste the body above underneath, but <strong>change the folder paths and class names to match your vault.</strong> Used as is, it will not run.</li>
+        <li><strong>Run it once on last week's meeting note.</strong> Take it as far as the table and stop.</li>
+        <li>Compare the table against the source. <strong>Any sentence you find that is not in the source is a line to add to "do not".</strong></li>
+        <li>Approve and let it create the notes. Then check that every <code>source:</code> link is in place.</li>
+        <li><strong>Run it again on a different meeting note.</strong> This is the important part. See whether the second result has <strong>the same shape</strong> as the first. If not, the procedure is not written out fully enough.</li>
+        <li>Tell the team about the edited <code>SKILL.md</code> and have someone else run it on the same meeting note. <strong>When three people's results match, this chapter has done its job.</strong></li>
+      </ol>
+      <p>If you want to create the folder in File Explorer instead, you need one trick. Windows Explorer refuses folder names starting with a dot, but <strong>put a dot on the end too and type <code>.claude.</code></strong> and it goes through. Once created it stays hidden from the Obsidian list, like <code>.obsidian</code> in Chapter 5. That is normal.</p>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li>A skill is <strong>a work manual you give to AI</strong>. Write a repeated procedure into a file and call it by name</li>
+        <li>A skill is <strong>read only when called.</strong> So writing it long does not weigh down ordinary conversations. Build one only when there are <strong>two or more steps</strong></li>
+        <li>Freeze it into a skill <strong>after using the same prompt three times</strong>. If you are still editing it, do not</li>
+        <li><code>SKILL.md</code> is one file in one folder. The frontmatter needs <code>name</code> and <code>description</code> (as of July 2026)</li>
+        <li><strong>The <code>description</code> decides whether it gets called.</strong> Write both what it does and when to use it</li>
+        <li>Six sections in the body: when to use · input · procedure · rules · output · <strong>do not</strong>. The last is the longest</li>
+        <li>Start with three skills: <strong>ingest (let it in) · retro (look back) · audit (find what drifted)</strong></li>
+        <li><code>wiki-audit</code> looks only at <strong>what you have to read to know</strong>. Anything countable belongs to the Python in Chapter 17</li>
+        <li>Two ways to distribute. <strong>Ship in the vault for the first three months.</strong> For five people on one vault that finishes it. Look at org-wide sharing when you have more than one vault</li>
+        <li>The trap in shipping with the vault is <strong>sync delay</strong>. Tell the team when you edit, and leave the edit date in the skill</li>
+        <li>Three reasons not to use community plugins: <strong>you cannot enforce installation · updates break them · knowledge gets locked in the tool</strong></li>
+        <li>The test is one question: <strong>"if this tool disappears, does my knowledge disappear?"</strong></li>
+        <li><strong>Facts in layer 2, procedures in layer 3.</strong> No people's names and no numbers in a skill</li>
+        <li>Four files are one body: <strong>the ontology design document · <code>CLAUDE.md</code> · templates · skills</strong>. Change one and open the other three</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>Coming up</h3>
+      <p>Get this far and quite a lot happens when a person asks for it. The problem is what comes next. <strong>People do not ask.</strong> Part 5 takes this work off human memory and hangs it on the clock. Scheduled tasks, the task scheduler, and <strong>the core constraint</strong> that remote execution cannot reach a local vault, along with the design that works around it.</p>
+    </div>
+  </article>

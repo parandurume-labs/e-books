@@ -1,0 +1,1219 @@
+<!--META {
+  "file": "appendix-b.en.html",
+  "num": "B",
+  "title_prefix": "Appendix ",
+  "eyebrow": "APPENDIX",
+  "title": "Copy-paste assets",
+  "subtitle": "Not a document you read. One you take things out of",
+  "desc": "CLAUDE.md, seven note templates, the full validation script, three skills, the scheduled-task prompts, the dashboard script and the prompts you reach for most, gathered in one place. Everything here is lifted from the chapters without a single change.",
+  "minutes": "37",
+  "prev_href": "appendix-a.en.html",
+  "prev_label": "Previous: Appendix A · Glossary",
+  "next_href": "appendix-c.en.html",
+  "next_label": "Next: Appendix C · Where people get stuck"
+} -->
+  <article>
+    <p>This is the warehouse. Do not read it front to back. Find what you need and take it. Every asset carries a box in front of it saying <strong>when you use it</strong> and <strong>which chapter it came from</strong>.</p>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">It is meant to not work if you paste it straight in</p>
+      <p>Every asset has Solbit Tech's folder names and note names baked into it. <strong>Change the paths and the proper nouns to your own, and leave the field names alone.</strong> Change a field name and the validation script, the dashboard and the prompts all go out of step at once.</p>
+      <p>Everything here is exactly as it appears in the chapters. Nothing was polished on the way over. If the appendix and the chapter differ, you have no way of knowing which to trust.</p>
+    </div>
+
+    <h2 id="jump">Jump to an asset</h2>
+    <ul class="glossary-nav">
+      <li><a href="#claude-md">CLAUDE.md</a></li>
+      <li><a href="#termbank">Terminology</a></li>
+      <li><a href="#templates">Seven note templates</a></li>
+      <li><a href="#validate">Validation script</a></li>
+      <li><a href="#skills">Three skills</a></li>
+      <li><a href="#schedules">Ten scheduled tasks</a></li>
+      <li><a href="#dashboard">Dashboard and visuals</a></li>
+      <li><a href="#prompts">Sixteen everyday prompts</a></li>
+    </ul>
+
+    <h2 id="claude-md">CLAUDE.md</h2>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">When you use it · the day you make the vault</p>
+      <p>Put it at the top of the vault as <code>CLAUDE.md</code>. It is the first file the AI reads when it starts work in that folder, and it doubles as the document a new joiner reads on day one.</p>
+      <p><strong>Where it came from.</strong> Chapter 11. Why each section is written the way it is, and how a bad rule differs from a good one, is there.</p>
+    </div>
+
+    <pre><code># Solbit Tech Wiki · rules for AI
+
+Last edited: 2026-07-30 · Maintained by: Kim
+Only people edit this file. AI may suggest.
+
+## 0. What this vault is
+
+- The vault holding Solbit Tech's company knowledge.
+- Company facts live only in notes under Sources/. Do not source facts elsewhere.
+- Definitions of classes, relations, fields and vocabulary are in
+  _ops/01-ontology-design.md. When judgment is split, follow that document.
+- When rules conflict, the lower number wins.
+
+## 1. Absolute rules (no exceptions)
+
+1. Never fill in a fact that is missing. If it is not in the vault, answer "no record".
+2. Never write a number with no evidence. Write 확인 필요 instead.
+3. Name the evidence note alongside the answer. Drop any sentence you cannot back.
+4. On finding something that contradicts an existing note, do not fix it.
+   Report it separately as a contradiction.
+5. Never guess a person's name or title. Use the wording from the source.
+6. Never cite a note with confidence: draft in an external document.
+
+## 2. Fields and vocabulary
+
+- A closing date is always due. Never invent another name.
+- Relations are pdm_uses / pdm_output_of / pdm_intent_of. The owner is written as owner.
+- Relation values are links in the form "[[note name]]". For several, break lines.
+- status: for 제품, 기획 / 개발 / 운영 / 중단. For 과제 and 기회,
+  기획 / 진행 / 검토 / 완료 / 보류.
+- confidence: draft or reviewed. Never invent another value.
+- Never create a field that is not in the design document. Suggest it to a person instead.
+
+## 3. Rules for writing files
+
+- You may create files on your own in two places, _reports/ and _moc/.
+- Notes under Sources/ are shown as a table first and created or edited only after approval.
+- Files under _ops/ and this file are edited by people only.
+- New notes carry confidence: draft and updated set to today's date (KST).
+- Put this sentence at the top of any generated file:
+  "This file is generated. Edit it by hand and your edit disappears on the next run."
+
+## 4. Confidentiality
+
+- confidential values: 공개 / 사내 / 대외비. No value means 사내.
+- Never write the company name from a 대외비 note into an external document.
+  Mask a pre-contract customer as "a domestic logistics company".
+- Personal data, accounts and passwords, payroll and HR material do not belong in the vault.
+  On finding any, stop work and tell a person.
+
+## 5. Facts about us that are easy to get wrong
+
+These caused accidents because documents disagree. The side written here is right.
+
+- WareTwin's TRL is 4. The 6 in old material was corrected as overstated.
+  Evidence: DEC-2026-0715-TRLCorrection.
+- Daesung Logistics is pre-contract. Never use it as a delivery or a reference.
+- Pickview has no pilot data. Never cite it as proposal evidence.
+- Warebot went into service in April 2023. Do not round it to "launched in 2023".
+- "Lee CEO" and "Kim CEO" stay separate spellings until confirmed. Do not merge them.
+- CAP-ObjectRecognition is an output of PRJ-2025-SmartLogistics. Never call it in-house.
+
+## 6. When answering
+
+- If the vault has no answer, say "no record" first,
+  then say which note the fact should be written into.
+- If a table will do, answer with a table. Do not pad it out.
+- For work that needs approval, show it first and wait. Never run ahead.</code></pre>
+
+    <div class="callout">
+      <p class="callout-title">Do not leave section 5 empty</p>
+      <p>Sections 0 through 4 are nearly the same at any company. <strong>Only section 5, "facts about us that are easy to get wrong", is yours.</strong> Every time the AI makes the same mistake twice, add a line. The longer this section grows, the better the answers get.</p>
+    </div>
+
+    <h2 id="termbank">Terminology</h2>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">When you use it · before you first run <code>wiki-audit</code> from Chapter 13</p>
+      <p>Save it as <code>_ops/02-terminology.md</code>. <code>wiki-audit</code> <strong>requires this file as input</strong>, along with the ontology design doc. Without it the skill does not start.</p>
+      <p><strong>Where it came from.</strong> The name appears in the folder diagram in Chapter 4 and again in Chapter 13. The format appears here for the first time.</p>
+    </div>
+
+    <p>Two columns are enough to start. On the left, the one name you will use from now on. On the right, the names that must never appear in the vault. <strong>Three rows is a fine start.</strong> Try to write it all up front and the start slips, and a file whose start has slipped never gets made.</p>
+
+    <pre><code># Terminology
+
+The canonical spelling of our proper nouns.
+In notes, proposals and prompts, use only the left column.
+If you see something from the right column, change it to the left.
+
+| Canonical | Do not use                        |
+|-----------|-----------------------------------|
+| Warebot   | WarehouseBot, Ware Bot, WareRobot |
+| WareTwin  | Waretwin, Ware Twin, WareTwins    |
+| Pickview  | PickView, Pick View, Pick-View    |
+
+## Rules for growing it
+
+- When you find the same thing written two ways, add a row then.
+- Field names do not go here. They are in 01-ontology-design.md.
+- People's names and organization names go here too when they diverge.</code></pre>
+
+    <p>When a proper noun splits in two, search only catches half of it and both names go out in the same proposal. One of the reasons Chapter 13 pulled a plugin out was that Warebot kept getting saved as <code>WarehouseBot</code>. This table prevents that accident.</p>
+
+    <h2 id="templates">Seven note templates</h2>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">When you use them · every time you make a note</p>
+      <p>Put them in <code>_ops/templates/</code> as files so people and the AI copy the same thing to start from. Do not delete sections. If you have nothing to put in one, write 확인 필요.</p>
+      <p><strong>Where they came from.</strong> Chapter 12. What the fields mean is in Chapter 10, and how you decide a class is in Chapter 9.</p>
+    </div>
+
+    <h3>1. 제품</h3>
+
+    <pre><code>---
+class: 제품
+id: PRD-
+status: 기획              # 기획 / 개발 / 운영 / 중단
+owner: "[[ ]]"
+since:
+pdm_uses:
+  - "[[ ]]"
+updated:
+confidence: draft
+confidential: 사내         # 공개 / 사내 / 대외비
+---
+
+# Product name
+
+In one sentence: what you sell, and to whom.
+
+## Installed sites
+| customer | when | size | evidence note |
+|----------|------|------|---------------|
+
+## Technology this product uses
+(one line each, expanding what is listed in pdm_uses)
+
+## Known limits
+-
+
+## Evidence
+- </code></pre>
+
+    <h3>2. 기술역량</h3>
+
+    <pre><code>---
+class: 기술역량
+id: CAP-
+trl:                      # 1 to 9. Leave blank when there is no evidence
+evidence:
+  - "[[ ]]"
+pdm_output_of: "[[ ]]"
+owner: "[[ ]]"
+updated:
+confidence: draft
+---
+
+# Capability name
+
+## What this technology does
+(three lines, no jargon)
+
+## Basis for the TRL call
+| claim | evidence note | checked by | checked on |
+|-------|---------------|------------|------------|
+
+## Reuse history
+- which products it went into
+
+## Not yet validated
+- </code></pre>
+
+    <h3>3. 과제</h3>
+
+    <pre><code>---
+class: 과제
+id: PRJ-
+status: 진행              # 기획 / 진행 / 검토 / 완료 / 보류
+stage: 3/5                # per the 5-stage definitions in Chapter 15
+period: 2025-03-01 ~ 2026-02-28
+funder:
+budget:
+owner: "[[ ]]"
+start: 2025-03-01
+due: 2026-02-28
+updated:
+confidence: draft
+---
+
+# Project name
+
+## The part we own
+## Outputs
+| output | which note it became |
+|--------|----------------------|
+
+## Schedule against actual
+## Remaining risks</code></pre>
+
+    <h3>4. 기회</h3>
+
+    <pre><code>---
+class: 기회
+id: OPP-
+status: 검토              # 기획 / 진행 / 검토 / 완료 / 보류
+stage: 2/4                # Found / Review / Prepare / Submit
+due: 2026-08-08           # submission date. Never use another name
+                          # (bad example: deadline, due_date)
+owner: "[[ ]]"
+priority: 상              # 상 / 중 / 하
+updated:
+confidence: draft
+---
+
+# Opportunity name
+
+## What it asks for
+| requirement | our evidence note | met |
+|-------------|-------------------|-----|
+
+## What we do not have yet
+## Record of the bid decision
+(a person decides. This box holds only the date and the reasoning)</code></pre>
+
+    <p>Look at the comment next to <code>due</code> in the opportunity template. Invent a second name for the same meaning and from that moment you cannot count. Chapter 10 covers this problem.</p>
+
+    <h3>5. 업무로그</h3>
+
+    <pre><code>---
+class: 업무로그
+id: 2026-07-15-Park
+date: 2026-07-15
+owner: "[[Park]]"
+pdm_intent_of: "[[OPP-2026-CityCall]]"
+updated: 2026-07-15
+confidence: reviewed
+---
+
+## What took the most time
+-
+
+## What is blocked
+-
+
+## Tomorrow
+- </code></pre>
+
+    <p>Three sections, no more. It has to be done in three to five minutes a day. <code>pdm_intent_of</code> is the line that attaches this day to a project or an opportunity, and the retrospective in Chapter 18 follows that line.</p>
+
+    <h3>6. 결정</h3>
+
+    <pre><code>---
+class: 결정
+id: DEC-2026-0715-JoinCityCall
+date: 2026-07-15
+source: "[[2026-07-15-weekly-meeting]]"
+participants: ["Kim", "Park", "Lee"]
+related:
+  - "[[OPP-2026-CityCall]]"
+  - "[[Warebot]]"
+confidence: reviewed
+updated: 2026-07-15
+---
+
+# Decision title
+
+## The decision
+(what you decided to do. One paragraph)
+
+## Options considered and not taken
+| option | why it was dropped |
+|--------|--------------------|
+
+## Background
+## Actions
+- [ ] task · owner · YYYY-MM-DD</code></pre>
+
+    <div class="callout">
+      <p class="callout-title">"Considered and rejected" is the heart of the decision template</p>
+      <p>Meeting notes normally record only what was settled. What the alternatives were and why you dropped them does not get written. Six months later you hold the same discussion from scratch. Nail this section into the template and <strong>the AI fills it every time.</strong> It does not depend on somebody remembering.</p>
+    </div>
+
+    <h3>7. 회의록</h3>
+
+    <pre><code>---
+class: 회의록
+id: 2026-07-15-weekly-meeting
+date: 2026-07-15
+participants: ["Kim", "Park", "Lee"]
+confidential: 사내
+confidence: reviewed
+updated: 2026-07-15
+---
+
+# 2026-07-15 weekly meeting
+
+&gt; What follows is the source. Do not edit it.
+&gt; Leave the typos. Summaries and corrections go in separate notes.
+
+## Source
+
+(exactly as it was taken down)
+
+## Extracted from this
+- [[DEC-2026-0715-JoinCityCall]]</code></pre>
+
+    <h3>A filled-in example · Warebot</h3>
+
+    <p>An empty template does not tell you how much to write. Here is the note Chapter 12 actually filled in.</p>
+
+    <pre><code>---
+class: 제품
+id: PRD-001
+status: 운영
+owner: "[[Kim]]"
+since: 2023-04
+pdm_uses:
+  - "[[CAP-ObjectRecognition]]"
+  - "[[CAP-RouteOptimization]]"
+updated: 2026-07-15
+confidence: reviewed
+confidential: 사내
+---
+
+# Warebot
+
+Inbound and outbound automation software for logistics warehouses. Sold to mid-sized
+distribution centres. It automates the goods-in inspection and put-away location
+decisions operators used to do by hand.
+
+## Installed sites
+| customer | when | size | evidence note |
+|----------|------|------|---------------|
+| Site A | 2023-04 | 확인 필요 | [[2023-04-SiteA-acceptance-report]] |
+| Site B | 2024-09 | 확인 필요 | [[2024-09-SiteB-contract]] |
+| Site C | 2025-06 | 확인 필요 | [[2025-06-SiteC-contract]] |
+
+## Technology this product uses
+- [[CAP-ObjectRecognition]] : identifies incoming goods automatically
+- [[CAP-RouteOptimization]] : computes put-away locations and picking routes
+
+## Known limits
+- No recognition-rate data for freezer warehouses. 확인 필요
+- No quantified results (throughput improvement) from the three sites in any note
+
+## Evidence
+- [[PRJ-2025-SmartLogistics]] final report</code></pre>
+
+    <p><strong>확인 필요 is left in four places.</strong> That is normal. It is far more useful than a note whose blanks were filled in with something plausible.</p>
+
+    <h2 id="validate">Validation script</h2>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">When you use it · every morning, or every Friday</p>
+      <p>Save it as <code>_ops/scripts/validate.py</code> and run it automatically. It catches five things: missing required fields, status values outside the controlled vocabulary, forbidden field names, broken links and stale notes. No external libraries, so there is nothing to install.</p>
+      <p><strong>Where it came from.</strong> Chapter 17. How to put it on a schedule is in Chapter 14.</p>
+    </div>
+
+    <p>Join the four pieces below and you have one file. Configuration and parser, the check loop, the metrics, the report output, in that order. <strong>The metrics have to come before the report.</strong> The last piece uses values the metrics build.</p>
+
+    <pre><code># _ops/scripts/validate.py
+# Check the vault rules in code. No external libraries.
+
+import re, sys, datetime
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]   # top of the vault
+TODAY = datetime.date.today()
+STALE_DAYS = 30
+
+# Required fields per class. If this table and the layer 1 design doc
+# disagree, the design doc wins.
+# class, id and updated are required everywhere. The rest varies by class.
+REQUIRED = {
+    # the four backbone classes from Chapter 9
+    "제품":     ["class", "id", "updated", "status", "owner", "since"],
+    "기술역량": ["class", "id", "updated", "trl", "evidence"],
+    "과제":     ["class", "id", "updated", "period", "funder", "budget"],
+    "기회":     ["class", "id", "updated", "stage", "due"],
+    # the three support classes from Chapter 9
+    "조직":     ["class", "id", "updated"],
+    "사람":     ["class", "id", "updated"],
+    "결정":     ["class", "id", "updated", "date"],
+    # Not classes. These are note kinds inside 40-Worklog. See Chapter 12.
+    # Leave them out and you get a flood of "class value not in the
+    # design doc list" ERRORs, so they are listed here too.
+    "회의록":   ["class", "id", "updated", "date"],
+    "업무로그": ["class", "id", "updated", "owner"],
+}
+
+# The status vocabulary differs by class. One global set gives you
+# a flood of false positives.
+STATUS_ENUM = {
+    "제품": {"기획", "개발", "운영", "중단"},
+    "과제": {"기획", "진행", "검토", "완료", "보류"},
+    "기회": {"기획", "진행", "검토", "완료", "보류"},
+}
+
+# Forbidden names. One meaning under all different names cannot be
+# counted. Every name on the left is a bad example.
+FORBIDDEN = {"deadline": "due", "due_date": "due",
+             "uses_tech": "pdm_uses", "tech_used": "pdm_uses",
+             "used_tech": "pdm_uses"}
+
+findings = []
+metas = []                                   # the metrics below use this list
+def add(level, where, msg):
+    findings.append((level, where, msg))
+
+FM = re.compile(r"\A---\n(.*?)\n---", re.S)
+
+def frontmatter(text):
+    m = FM.match(text)
+    if not m:
+        return None
+    meta, key = {}, None
+    for line in m.group(1).splitlines():
+        if line.lstrip().startswith("-") and key:      # a list item
+            meta.setdefault(key, []).append(line.strip(" -").strip('"'))
+            continue
+        m2 = re.match(r"([A-Za-z_가-힣]+):\s*(.*)$", line)
+        if m2:
+            key = m2.group(1)
+            val = m2.group(2).strip().strip('"')
+            meta[key] = val if val else []
+    return meta</code></pre>
+
+    <pre><code>notes = {p.stem: p for p in (ROOT / "Sources").rglob("*.md")}
+LINK = re.compile(r"\[\[([^\]|#]+)")
+
+for stem, path in sorted(notes.items()):
+    where = path.relative_to(ROOT).as_posix()   # vault-relative path, not filename
+    text = path.read_text(encoding="utf-8")
+    meta = frontmatter(text)
+
+    if meta is None:
+        add("ERROR", where, "no frontmatter")
+        continue
+
+    metas.append(meta)                             # collected here for the metrics
+
+    cls = meta.get("class")
+    if cls not in REQUIRED:
+        add("ERROR", where, f"class value not in the design doc list: {cls!r}")
+        continue
+
+    for field in REQUIRED[cls]:                       # 1. required fields
+        if not meta.get(field):
+            add("ERROR", where, f"missing required field: {field}")
+
+    st = meta.get("status")                            # 2. controlled vocabulary
+    if st and st not in STATUS_ENUM.get(cls, set()):
+        add("ERROR", where, f"status outside the {cls} vocabulary: {st!r}")
+
+    for bad, good in FORBIDDEN.items():                # 3. forbidden names
+        if bad in meta:
+            add("ERROR", where, f"forbidden name {bad}. use {good} instead")
+
+    for target in set(LINK.findall(text)):             # 4. broken links
+        if target.strip() not in notes:
+            add("ERROR", where, f"broken link: [[{target.strip()}]]")
+
+    upd = meta.get("updated", "")                      # 5. stale notes
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(upd)):
+        add("ERROR", where, "updated is not in YYYY-MM-DD form")
+    elif st in ("진행", "운영"):
+        age = (TODAY - datetime.date.fromisoformat(upd)).days
+        if age &gt; STALE_DAYS:
+            add("WARN", where, f"unchanged for {age} days (status: {st})")
+
+    if meta.get("confidence") == "draft":
+        add("INFO", where, "waiting for human review")</code></pre>
+
+    <p>Chapter 17 says to record metrics as ratios rather than counts, because counts rise on their own as the notes grow.</p>
+
+    <pre><code># Record metrics as ratios, not counts
+
+def gr_body(text):                    # the body with the frontmatter removed
+    m = FM.match(text)
+    return text[m.end():] if m else text
+
+total = len(notes)
+if not total:                                  # avoid dividing by zero on an empty first-day vault
+    add("INFO", "_", "No notes yet. Metrics start once notes exist")
+    total = 1
+grounded = 0
+for p in notes.values():
+    t = p.read_text(encoding="utf-8")
+    # exactly as defined: a wikilink in the body or a filled evidence field
+    if LINK.search(gr_body(t)) or (frontmatter(t) or {}).get("evidence"):
+        grounded += 1
+reviewed = sum(1 for m in metas if m.get("confidence") == "reviewed")
+
+add("INFO", "_", f"grounded notes {grounded}/{total}"
+                 f" ({grounded * 100 // total}%)")
+add("INFO", "_", f"reviewed notes {reviewed}/{total}"
+                 f" ({reviewed * 100 // total}%)")</code></pre>
+
+    <pre><code>order = {"ERROR": 0, "WARN": 1, "INFO": 2}
+findings.sort(key=lambda f: (order[f[0]], f[1]))
+n = {lv: sum(1 for l, _, _ in findings if l == lv) for lv in order}
+
+lines = [f"# Vault check {TODAY}", "",
+         f"- ERROR {n['ERROR']} · WARN {n['WARN']} · INFO {n['INFO']}",
+         f"- notes checked: {len(notes)}", ""]
+for lv in ("ERROR", "WARN", "INFO"):
+    group = [(w, m) for l, w, m in findings if l == lv]
+    if not group:
+        continue
+    lines.append(f"## {lv} {len(group)}")
+    lines += [f"- `{w}` {m}" for w, m in group]
+    lines.append("")
+
+(ROOT / "_reports").mkdir(exist_ok=True)
+(ROOT / "_reports" / f"check-{TODAY}.md").write_text(
+    "\n".join(lines), encoding="utf-8")
+
+# Raw material for the Chapter 15 trend chart. One line per run.
+# Columns: date, ERROR, WARN, INFO, total notes, reviewed share (%)
+# The last column is the line Chapter 15 draws. Without it, no chart.
+with (ROOT / "_reports" / "validate-history.csv").open(
+        "a", encoding="utf-8") as f:
+    f.write(f"{TODAY},{n['ERROR']},{n['WARN']},{n['INFO']},"
+            f"{len(notes)},{reviewed * 100 // total}\n")
+
+sys.exit(1 if n["ERROR"] else 0)</code></pre>
+
+    <p>When Chapter 18 adds the work log class, one line joins the required-field table.</p>
+
+    <pre><code># the line for it inside REQUIRED in _ops/scripts/validate.py
+"업무로그": ["class", "id", "updated", "owner"],
+# It does not use status, so it does not go in STATUS_ENUM.
+# It is a note kind inside 40-Worklog rather than a class, but leave it
+# out and every log throws a "class value not in the design doc list" ERROR.</code></pre>
+
+    <p>The command to register it in Windows Task Scheduler is one line. Run it from an administrator command prompt.</p>
+
+    <pre><code>schtasks /create /tn "Wiki check" /tr "python \"C:\Users\hong\OneDrive - Solbit Tech\Solbit Tech Wiki\_ops\scripts\validate.py\"" /sc daily /st 08:00 /f</code></pre>
+
+    <div class="callout">
+      <p class="callout-title">Do not try to drive ERRORs to zero</p>
+      <p>The first run gives you dozens. That is normal. Look only at <strong>whether it is down on last week</strong>. Broken links usually point at notes you have not made yet. That is not a fault, it is your list of what to fill in next.</p>
+    </div>
+
+    <h2 id="skills">Three skills</h2>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">When you use them · after you have typed the same prompt three times</p>
+      <p>If the prompt has barely changed across three uses, it is time to fix it in place. Each is a single <code>SKILL.md</code> file, kept with the vault or shared to the organization.</p>
+      <p><strong>Where they came from.</strong> Chapter 13. Why these three, and what the reasoning was behind pulling the plugin out, is there.</p>
+    </div>
+
+    <h3>wiki-ingest · raw material into knowledge</h3>
+
+    <p>This is the entrance knowledge comes through. If this does not work, every other automation outputs nothing but "no record".</p>
+
+    <pre><code>---
+name: wiki-ingest
+description: Pull decisions and actions out of meeting notes, transcripts and outside
+  documents, and turn them into vault notes. Use when tidying up a meeting note or
+  structuring material you received.
+---
+
+# Structuring source material
+
+## When to use
+- After a meeting, putting the memo into the vault
+- Putting a document or a public call received from outside into the vault
+
+## Input
+- One piece of source text, or one file path
+- Without it, do not start. Ask for the source
+
+## Procedure
+1. Save the source first.
+   Meeting memos go in Sources/40-Worklog/, material received from outside and
+   transcripts go in Sources/90-Reference/.
+   Name the file YYYY-MM-DD-title.
+2. Pull four things out of the source.
+   - Decisions: anything of the form "we decided to". With the alternatives and the reasoning
+   - Actions: anything with an owner and a date
+   - Fact changes: anything that changes a field on an existing note
+   - New entities: organizations, products or technologies with no note yet
+3. Report what you pulled out as a table. Do not create files yet.
+4. Create or edit notes only after approval.
+5. Use the matching template from _ops/templates/ for any note you create.
+6. Finally, add links to the "Extracted from this" section of the source note.
+
+## Rules
+- New notes are created with confidence: draft
+- Every extract links back to the source with source:
+- Never fix content that contradicts an existing note. Report it separately as a contradiction
+- Mark pre-contract customers as confidential: 대외비
+- Never smooth over something ambiguous. Leave it as 확인 필요
+
+## Output
+- 1 source note (never modified)
+- 0 or more extracted notes
+- A report table (in the chat window)
+
+## Do not
+- Never edit the source. Leave the typos and the broken sentences
+- Never infer a fact that is not in the source
+- Use people's names exactly as written in the source. Never guess a title and attach it
+- Never set confidence to reviewed. Only people change that
+- Never create or edit files under Sources/ without approval</code></pre>
+
+    <h3>wiki-retro · intent against execution</h3>
+
+    <pre><code>---
+name: wiki-retro
+description: Compare work logs against project notes and lay out the gap between plan
+  and actual. Use for a quarterly retrospective, or when someone asks
+  "what did we actually do this quarter?".
+---
+
+# Intent against execution retrospective
+
+## When to use
+- The quarterly retrospective in the last week of the quarter
+- Revising the quarterly plan mid-way
+
+## Input
+- A period (start date and end date). Without one, use the previous quarter
+
+## Procedure
+1. Gather the work logs for that period from Sources/40-Worklog/.
+2. Follow each log's pdm_intent_of link and open the target project or opportunity note.
+3. Group by project and lay each one out in three lines.
+   - Plan: that project note's stage and due
+   - Actual: what the logs actually record
+   - Gap: where the two diverge
+4. Collect logs with no pdm_intent_of separately as "work not connected to anything".
+5. Mark days with no log as "no record". Never fill them in by guessing.
+
+## Rules
+- Write around "progress and blockers", not "what I did"
+- On finding a gap, do not assert a cause. Record the gap only
+- Never write a sentence that evaluates a person. Names and facts only
+- Under 1500 characters
+
+## Output
+- _reports/retro-YYYY-QQ.md
+- On the first line, the change in "work not connected to anything" against last time
+
+## Do not
+- Never edit notes under Sources/
+- If the logs are empty, do not produce a retrospective. Leave one line saying "no record"
+- Never add unplanned work into the plan after the fact</code></pre>
+
+    <h3>wiki-audit · vault convention check</h3>
+
+    <p>It looks only at what the validation script cannot catch. The script counts and the skill reads.</p>
+
+    <pre><code>---
+name: wiki-audit
+description: Find where vault notes have drifted from the ontology design document and
+  leave a report. Use for the monthly check, or when someone asks
+  "how is our vault doing?".
+---
+
+# Vault convention check
+
+## When to use
+- The first Monday of every month
+- Right after editing the ontology design document
+
+## Input
+- _ops/01-ontology-design.md and _ops/02-terminology.md
+- Without them, do not start
+
+## Procedure
+1. Read the latest results from _ops/scripts/validate.py first.
+   Do not look again at anything it already caught.
+2. Look only at the four things the script cannot catch.
+   - a number written down with no link to an evidence note
+   - confidence: reviewed with an empty evidence section
+   - frontmatter values that disagree with the body text
+   - different values recorded for the same entity
+3. Report only what is certain. If it is borderline, do not report it.
+4. Maximum 3 items. Beyond that, keep the 3 most serious.
+5. For each item, name the file and the line number.
+
+## Rules
+- Fix nothing. Produce a list only
+- Compare with the previous report and put the change on the first line
+- If there are no violations at all, write one line: "no violations"
+
+## Output
+- _reports/audit-YYYY-MM-DD.md
+
+## Do not
+- Never edit or create files under Sources/
+- Never repeat an item the script has already reported
+- Never write "suggested improvements". Facts only</code></pre>
+
+    <h2 id="schedules">Ten scheduled tasks</h2>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">When you use them · when you want people to stop having to remember</p>
+      <p>Paste them into Claude Cowork's scheduled tasks. Do not build them all at once. Run one for two weeks first. Screen layouts and frequency options are <strong>as of July 2026</strong>.</p>
+      <p><strong>Where they came from.</strong> Chapters 14, 15, 16 and 18. What routes A through D mean and the order you choose between them is in Chapter 14.</p>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>#</th><th>Job</th><th>Route</th><th>Frequency</th><th>Prompt</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Monday weekly briefing</td><td>B · remote</td><td>Mondays 08:30</td><td>number 1 below</td></tr>
+        <tr><td>2</td><td>Missing work log check</td><td>B · remote</td><td>Weekdays 18:00</td><td>number 2 below</td></tr>
+        <tr><td>3</td><td>Weekly vault check</td><td>A · local</td><td>Fridays 17:00</td><td>number 3 below</td></tr>
+        <tr><td>4</td><td>Weekly dashboard refresh</td><td>A · local</td><td>Mondays 08:00</td><td>number 4 below</td></tr>
+        <tr><td>5</td><td>Weekly report generation</td><td>A · local</td><td>Fridays 16:00</td><td>number 5 below</td></tr>
+        <tr><td>6</td><td>Contract and project expiry watch</td><td>C + D</td><td>Every Monday</td><td>Python (see below)</td></tr>
+        <tr><td>7</td><td>Risk and contradiction scan</td><td>A · local</td><td>First Monday monthly</td><td>number 6 below</td></tr>
+        <tr><td>8</td><td>Terminology audit</td><td>C · Python</td><td>Once a quarter</td><td>Python (see below)</td></tr>
+        <tr><td>9</td><td>Pre-meeting briefing on the other side</td><td>B · remote</td><td>Evening before</td><td>number 7 below</td></tr>
+        <tr><td>10</td><td>Quarterly retrospective comparison</td><td>A · local</td><td>Last week of the quarter</td><td>number 8 below</td></tr>
+      </tbody>
+    </table>
+
+    <p>Numbers 6 and 8 have no prompt. Chapter 16 is firm that <strong>date arithmetic and string search do not need an AI</strong>. The result has to be the same every time, so Python runs it and another scheduled task reads the output and puts it into human language.</p>
+
+    <h3>1. Monday weekly briefing</h3>
+
+    <pre><code>[Task name] Monday weekly briefing
+[Frequency] Every Monday 08:30 (KST)
+[Approval mode] Automatic
+[Prompt]
+
+Using the "Solbit Tech Wiki" folder on SharePoint, write this week's briefing.
+
+Include:
+1. Items due within 14 days — based on the due field in Sources/20-Projects/.
+   List projects and opportunities separately, and give the owner alongside each.
+2. Notes created or changed in the last 7 days (based on the updated field).
+3. Decisions recorded in the last 7 days — find them in Sources/40-Worklog/.
+4. Products with status 운영 that have had no update for 14 days or more — a stale signal.
+
+Rules:
+- Never infer a fact that is not in the vault. If it is missing, write "no record".
+- After each item, put the name of the source note in [[double brackets]].
+- Under 1000 characters. No tables, short lists only.
+- If every section is empty, write the single line "nothing unusual this week".</code></pre>
+
+    <h3>2. Missing work log check</h3>
+
+    <pre><code>[Task name] Missing work log check
+[Frequency] Weekdays 18:00 (KST)
+[Approval mode] Automatic
+[Prompt]
+
+In Sources/40-Worklog/, find the work log notes written with today's date (KST).
+
+- Take the team roster from Sources/00-Company/members.md.
+- List only the names with no log for today.
+- If everyone has written one, output the single line "all logs in" and stop.
+- Do not write a sentence that blames anyone. Names and numbers only.
+- Count yesterday and the day before too, and mark it like "2 days missing in a row".</code></pre>
+
+    <p>Do not post this alert to a team-wide channel. Send it to the person themselves, or let only the knowledge owner see it. Delete it once everyone has logged for three weeks running. An automation that has achieved its purpose should be deleted.</p>
+
+    <h3>3. Weekly vault check</h3>
+
+    <pre><code>[Task name] Weekly vault check
+[Frequency] Every Friday 17:00 (KST)
+[Approval mode] Confirm before writing files
+[Folder] Solbit Tech Wiki
+[Prompt]
+
+1. Run _ops/scripts/validate.py.
+2. Sort the results into ERROR / WARN / INFO.
+3. Fix these kinds of ERROR yourself.
+   - a missing required updated field → fill it with the file's modification time
+   - a typo in a class value → check it against the list in _ops/01-ontology-design.md and fix it
+4. Leave the rest alone and only list it. In particular, do not touch anything that needs a judgment about the facts.
+5. Save the result as _reports/check-YYYY-MM-DD.md. Do not overwrite an existing file.
+6. Compare with last week's report (the newest file in _reports/) and put the change in ERROR count on the first line.
+
+Never do this:
+- do not edit the body of a note under Sources/ (anything below the frontmatter)
+- do not change any field on a note with confidence: reviewed
+- do not create new notes</code></pre>
+
+    <h3>4. Weekly dashboard refresh</h3>
+
+    <pre><code>[Task name] Weekly dashboard refresh
+[Frequency] Every Monday 08:00 (KST)
+[Approval mode] Automatic
+[Folder] Solbit Tech Wiki
+[Prompt]
+
+Read every note in Sources/20-Projects/ and rebuild _moc/000-dashboard.md.
+
+1. Read start, due, status, and stage from the frontmatter.
+2. Generate a Mermaid gantt code block.
+   - status: 진행  → active tag
+   - status: 완료  → done tag
+   - due within 21 days  → crit tag
+   - leave out notes with no start or no due, and list them separately under the table as "no dates recorded"
+   - split the sections by class value
+3. Below that, build a table of counts by status.
+4. Below that, write "change since last week" in three lines or fewer.
+   (compare with the last line of _reports/dashboard-history.csv)
+5. At the very top of the file, put the generation time and this sentence:
+   "This file is generated. Edit it by hand and your edit disappears next Monday."
+
+Never do this:
+- do not edit notes under Sources/
+- do not infer a date. If it is missing, say it is missing</code></pre>
+
+    <h3>5. Weekly report generation</h3>
+
+    <pre><code>Collect this week's logs and decisions (Mon-Fri) from Sources/40-Worklog/ and write the weekly report.
+- Write it around "progress and blockers", not "things done"
+- Attach the related project and product links to every item
+- Put next week's deadlines at the end
+- Mark days with no log as "no record" and do not guess</code></pre>
+
+    <h3>6. Risk and contradiction scan</h3>
+
+    <pre><code>Find facts that contradict each other across the whole vault.
+- different values recorded for the same entity (TRL, dates, figures, status)
+- unfinished actions left on a completed project
+- products marked in production with no update for over 60 days
+Report only what is certain. If it is borderline, do not report it. Three items maximum.
+For each one, write which note and which line.</code></pre>
+
+    <h3>7. Pre-meeting briefing on the other side</h3>
+
+    <pre><code>Find every past touchpoint with [[Daesung Logistics]] and write a meeting briefing.
+- List the touchpoints newest first (date · what was discussed · who)
+- Put anything we promised and have not done yet at the top
+- List the things they raised as concerns
+- Under 300 words</code></pre>
+
+    <h3>8. Quarterly retrospective comparison</h3>
+
+    <pre><code>[Task name] Quarterly retrospective comparison
+[Frequency] Manual (run in the last week of the quarter)
+[Approval mode] Confirm before writing files
+[Folder] Solbit Tech Wiki
+[Prompt]
+
+Compare intent against execution for this quarter (2026-07-01 to 2026-09-30).
+
+1. Intent side: read the items and their priority order from the quarterly
+   plan decision note in Sources/40-Worklog/.
+2. Execution side: gather the work logs for the same period and group them
+   by item using the pdm_intent_of link.
+3. Build a table split into the four groups below.
+   - in the plan, with logs
+   - in the plan, with no logs or very few
+   - not in the plan, with many logs
+   - logs with an empty pdm_intent_of that group nowhere
+4. Mark the evidence logs on each row in [[double brackets]]. Past three,
+   shorten it to "and N more".
+5. At the end, collect the items under "we had no record to answer this".
+6. Save the result as _reports/retro-2026-Q3.md.
+
+Never do this:
+- do not speculate about why. People write the reasons in the meeting
+- do not rate anything as good or bad. Counts and evidence only
+- do not aggregate by person's name
+- do not edit notes under Sources/</code></pre>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">Do not schedule all ten</p>
+      <p>Technically you can build as many as you like. What an organization tolerates tops out at <strong>three a week</strong>. Past that people mute the channel, and once they mute it they miss the announcements that matter. Every time you create a new job, <strong>review an existing one as a deletion candidate</strong>.</p>
+      <p>Leave these three lines on notes the AI creates. They stop unverified material leaking into external documents.</p>
+    </div>
+
+    <pre><code>confidence: draft      # AI made it, nobody has looked
+confidence: reviewed   # a person read it and confirmed it
+generated_by: schedule/weekly-briefing   # which automation made it</code></pre>
+
+    <h2 id="dashboard">Dashboard and visuals</h2>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">When you use it · when somebody says they cannot see what recording buys them</p>
+      <p>Scheduled task 4 rebuilds the dashboard note every week. For people who do not use Obsidian, send the single HTML page the script produces. Maintain it by hand and within three weeks you have a wrong diagram.</p>
+      <p><strong>Where it came from.</strong> Chapter 15. The layout rules and <strong>what you must not measure</strong> are there.</p>
+    </div>
+
+    <h3>Dashboard generation script</h3>
+
+    <pre><code># _ops/scripts/dashboard.py — the core part only
+# read the frontmatter and render one HTML file. No external libraries.
+
+import re, datetime
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+rows = []
+for md in (ROOT / "Sources" / "20-Projects").glob("*.md"):
+    text = md.read_text(encoding="utf-8")
+    fm = re.match(r"---\n(.*?)\n---", text, re.S)
+    if not fm:
+        continue
+    meta = dict(
+        re.findall(r"^(\w+):\s*\"?([^\"\n]+)\"?$", fm.group(1), re.M)
+    )
+    rows.append((md.stem, meta.get("status", "unset"),
+                  meta.get("due", ""), meta.get("owner", "")))
+
+rows.sort(key=lambda r: r[2] or "9999")
+today = datetime.date.today().isoformat()
+
+html = [f"&lt;h1&gt;Project status &lt;small&gt;{today}&lt;/small&gt;&lt;/h1&gt;&lt;table&gt;"]
+for name, status, due, owner in rows:
+    d_day = ""
+    if due:
+        left = (datetime.date.fromisoformat(due) - datetime.date.today()).days
+        d_day = f"D{left:+d}"
+    cls = "urgent" if d_day and left &lt; 21 else ""
+    html.append(f"&lt;tr class='{cls}'&gt;&lt;td&gt;{name}&lt;/td&gt;&lt;td&gt;{status}&lt;/td&gt;"
+                f"&lt;td&gt;{due} {d_day}&lt;/td&gt;&lt;td&gt;{owner}&lt;/td&gt;&lt;/tr&gt;")
+html.append("&lt;/table&gt;")
+
+(ROOT / "_reports" / "dashboard.html").write_text(
+    "&lt;style&gt;.urgent{background:#FAEADF}&lt;/style&gt;" + "\n".join(html),
+    encoding="utf-8")</code></pre>
+
+    <h3>Gantt chart · Mermaid</h3>
+
+    <p>It is built into Obsidian, so no plugin is needed. You only need four tags: <code>active</code> (under way), <code>done</code> (finished), <code>crit</code> (important) and <code>milestone</code> (a point with no duration).</p>
+
+    <pre><code>```mermaid
+gantt
+    title Solbit Tech, H2 2026
+    dateFormat YYYY-MM-DD
+    axisFormat %b
+    todayMarker stroke-width:3px,stroke:#C2703C
+
+    section Government projects
+    Smart logistics R&D build   :active,  p1, 2026-03-01, 2026-08-31
+    Smart logistics R&D testing :         p2, after p1, 60d
+    Final report submission     :crit,    p3, 2026-11-15, 15d
+
+    section City government call
+    Proposal drafting           :active,  o1, 2026-07-25, 14d
+    Submission deadline         :milestone, o2, 2026-08-08, 0d
+
+    section Products
+    Pickview beta               :         d1, 2026-09-01, 45d
+    WareTwin pilot starts       :         d2, 2026-10-15, 30d
+```</code></pre>
+
+    <h3>Stage definitions · add to the design doc</h3>
+
+    <p>Chapter 10 fixes these. Why progress is not written as a percentage comes up once more in Chapter 15. "Stage 3" can be checked and "70%" cannot.</p>
+
+    <pre><code># add to _ops/01-ontology-design.md
+
+## Stage definitions
+
+The 5 stages of a project (PRJ-)
+1. Kickoff — contract or agreement signed
+2. Design — requirements fixed
+3. Build — development under way
+4. Validation — pilot and testing
+5. Close — final report submitted
+
+The 4 stages of an opportunity (OPP-)
+1. Found — call or lead confirmed
+2. Review — decide whether to bid
+3. Prepare — write the proposal
+4. Submit — filed</code></pre>
+
+    <h3>Tables and boards · Bases</h3>
+
+    <pre><code>filters:
+  and:
+    - file.inFolder("Sources/20-Projects")
+    - status != "완료"
+views:
+  - type: table
+    name: By due date
+    order:
+      - due
+    columns: [file.name, status, stage, owner, due]
+  - type: cards
+    name: By owner
+    groupBy: owner</code></pre>
+
+    <h3>Trend chart · Mermaid</h3>
+
+    <p>It draws what the validation script has been accumulating one line at a time in <code>validate-history.csv</code>. That single line persuades people more than a whole adoption report.</p>
+
+    <pre><code>```mermaid
+xychart-beta
+    title "Reviewed notes (%)"
+    x-axis [Apr, May, Jun, Jul]
+    y-axis "Percent" 0 --> 100
+    line [42, 58, 74, 81]
+```</code></pre>
+
+    <h2 id="prompts">Sixteen everyday prompts</h2>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">When you use them · not often enough to schedule, often enough to retype</p>
+      <p>Keep them together in <code>_ops/prompts.md</code> and copy them out. Once you have used the same one three times, fix it as a skill.</p>
+      <p><strong>Where they came from.</strong> Chapters 7, 11 and 16. What each prompt failed at before reaching its current shape is in those chapters.</p>
+    </div>
+
+    <h3>Connecting and looking around</h3>
+
+    <p>These are the ones for first connecting the vault to Cowork in Chapter 7. Start by putting these three lines in the folder instructions.</p>
+
+    <pre><code>This folder is Solbit Tech's company knowledge vault.
+
+1. Before creating or changing any file, say what you will do and where, and wait for confirmation.
+2. Do not fill in facts the vault does not have. If you do not know, write 확인 필요.
+3. When creating a note, check the format of existing notes first and follow it exactly.</code></pre>
+
+    <p>Once <code>CLAUDE.md</code> exists, shorten the folder instructions to these two lines. That way the rules are not maintained in two places.</p>
+
+    <pre><code>Before starting any work, read CLAUDE.md at the top of the vault,
+and apply the rules written there to every task in this folder.</code></pre>
+
+    <p>The first question to confirm the connection worked. It reads no files, so it is safe.</p>
+
+    <pre><code>Show me a table of the top-level folders in the vault and the number of .md files in each.
+Do not read file contents. I only need names and counts.</code></pre>
+
+    <p>Use this to skim what is in there.</p>
+
+    <pre><code>Skim only the filenames under Sources/ and classify what kinds of documents are mixed in there.
+- Mark anything judged from the name alone as "inferred".
+- If a file's folder and name look inconsistent with each other, pull those out into a separate list.</code></pre>
+
+    <h3>Creating things</h3>
+
+    <pre><code>Create the following folders under Sources/.
+00-Company, 10-Products, 20-Projects, 30-Partners, 40-Worklog, 90-Reference
+
+- Do not touch folders that already exist.
+- Create one README.md in each folder with a single line saying what goes in it.
+- Do not move existing files. This time you only create.</code></pre>
+
+    <pre><code>Move Warebot.md into Sources/10-Products/ and fill in its frontmatter.
+
+Write only the facts I give you:
+- warehouse in-and-out automation software
+- in service since April 2023
+- owned by Kim
+
+Put class, id, status, owner, since and updated in the frontmatter.
+Leave any field I did not mention as 확인 필요. Do not guess and fill it in.
+Keep the body to three sentences or fewer.</code></pre>
+
+    <p>Always ask this straight afterwards. This one line makes hallucination visible.</p>
+
+    <pre><code>Read the note you just filled in again. If you wrote anything I did not tell you, list it.
+If there is nothing, write one line saying "none".</code></pre>
+
+    <h3>Asking things</h3>
+
+    <p>Chapter 7 says the same vault gives you a three-line answer or a full page depending on the question. The second kind looks like this.</p>
+
+    <pre><code>Read every note in Sources/00-Company/ and Sources/10-Products/. Pick out the ones related to object recognition and image processing and set them out as a table. Mark the evidence note on each row in [[double brackets]], and leave out any item with no evidence in the vault.</code></pre>
+
+    <p>The "good rule" from Chapter 11 works as a prompt as it is. Put it in front when you work in a vault that has no CLAUDE.md.</p>
+
+    <pre><code>Use only notes under Sources/ as evidence. For a number that is not in a note, write 확인 필요. Name the evidence note at the end of each paragraph.</code></pre>
+
+    <p>When an answer comes back empty, ask this one line from Chapter 7. <strong>It separates "not in the vault" from "did not look".</strong></p>
+
+    <pre><code>List the files you actually opened while producing that answer.</code></pre>
+
+    <p>When you check whether values disagree, do not ask for a judgment. Ask for a list.</p>
+
+    <pre><code>Find every note that records a trl value for the object recognition technology.
+Where the values differ, show me each value, its source note, and that note's updated date as a table.
+Do not decide which one is correct.</code></pre>
+
+    <p>To sweep the whole vault for contradictions, use this prompt from Chapter 11. Its scope is wider than the monthly scan in Chapter 16.</p>
+
+    <pre><code>Read every note under Sources/ and find places where the same subject
+carries different values.
+
+Look for:
+- different numbers for the same product or technology (TRL, dates, amounts, rates)
+- the same company or person written under different names
+- the same fact described differently in two notes
+
+Rules:
+- Change nothing. Report as a table only.
+- For each item, name the file and what it says.
+- Do not judge which side is right. A person judges.</code></pre>
+
+    <h3>Producing something</h3>
+
+    <p>Recipe 1 from Chapter 16. The most used prompt in this book, and it took three revisions to reach this shape.</p>
+
+    <pre><code>Structure the meeting note below according to the vault rules.
+
+## Order
+1. First save the raw note to Sources/40-Worklog/2026-07-15-weekly-meeting.md
+   Do not change a single character of the raw note. Leave the typos as they are.
+2. Extract the following from the raw note.
+   - decision: anything phrased as "we decided to". Record the alternatives and the reasons with it
+   - action: anything with an owner and a deadline
+   - fact change: anything that requires changing a field on an existing note
+   - new entity: any organization, product or technology with no note in the vault yet
+3. Show what you extracted as a table first. Do not create any files yet.
+4. Once I approve, create or edit the notes.
+
+## Rules
+- Do not infer anything that is not in the meeting note. If it is ambiguous, leave it as 확인 필요
+- Mark uncertain statements ("seems like", "they said") as confidence: draft
+- If you find anything that contradicts an existing note, do not fix it. Report it separately as a contradiction
+- Write people's names exactly as they appear in the raw note. Do not guess titles and attach them
+- Mark the name of any pre-contract customer as confidential: 대외비</code></pre>
+
+    <p>Recipe 2. Built so that the Friday afternoon in Chapter 1 never happens again.</p>
+
+    <pre><code>Draft the "capability to deliver" section of the OPP-2026-CityCall proposal.
+
+## Rules for gathering evidence
+1. Collect the following from Sources/.
+   - products in production and how many sites each is deployed at
+   - the technical capabilities each product draws on, their TRL and the evidence for it
+   - government and city project track record (period, funder, final outcome)
+   - IP held
+2. Mark the evidence note after every sentence in [[double brackets]].
+3. Do not use content from notes with confidence: draft. Put it in the "needs verifying" list instead.
+4. For pre-contract customers (confidential: 대외비) do not write the name. Write "a domestic logistics company".
+5. Never write a claim with no evidence. Put it in the list as "no evidence, 확인 필요" instead.
+
+## Output
+- save to _reports/proposal-capability-draft-YYYY-MM-DD.md
+- always append a "needs verifying" list and a "not in the vault" list below the body</code></pre>
+
+    <p>Recipe 4. The last line has a side effect. Every time you build an onboarding pack you get a list of your documentation gaps.</p>
+
+    <pre><code>Build the onboarding material for a new developer.
+- Split the reading order into first day / first week / first month
+- Exclude notes where confidential is 대외비 or higher
+- Add one line to each note saying why they are reading it
+- At the end, list the things that are not documented yet and have to be asked of a person</code></pre>
+
+    <p>Recipe 12. You never ask the AI "should we enter". You ask only what is met and what is missing.</p>
+
+    <pre><code>Compare the requirements in the call below against our vault.
+For each requirement, a three-column table: requirement / our evidence (note link) / met or not
+- If there is no evidence, write only "none". Do not suggest substitutes
+- At the end, collect just the "none" items as "what we need to estimate the prep time"
+- Do not judge or recommend whether to enter</code></pre>
+
+    <div class="callout">
+      <p class="callout-title">The six lines that get added when it becomes a scheduled task</p>
+      <p>In a conversation you fix a bad result on the spot. On a schedule there is nobody there to do that. That is why Chapter 14 insists on these six.</p>
+      <ul>
+        <li><strong>The exact location of the output.</strong> Without it the result stays in the chat window and vanishes</li>
+        <li><strong>What to do when the result is empty.</strong> Without it, "nothing in particular" piles up verbosely every week</li>
+        <li><strong>A never-do-this list.</strong> Without it, it quietly edits a note a person has verified</li>
+        <li><strong>A duty to mark evidence.</strong> Without it you cannot tell where a number came from and end up checking again</li>
+        <li><strong>A comparison against the previous round.</strong> Without it you do not know whether things are improving</li>
+        <li><strong>A length limit.</strong> Without it, nobody reads it three weeks later</li>
+      </ul>
+    </div>
+
+    <div class="checklist">
+      <p class="checklist-title">The order to take things in</p>
+      <ul>
+        <li><strong>Day one.</strong> CLAUDE.md and the note templates. Nothing else has anywhere to go yet</li>
+        <li><strong>Week two.</strong> The wiki-ingest skill and the Chapter 7 connection prompts. Knowledge has to start coming in before the rest means anything</li>
+        <li><strong>Week four.</strong> The validation script and scheduled task 1. Add one at a time and watch for two weeks</li>
+        <li><strong>Month two.</strong> The dashboard and scheduled task 4. This is where the benefit starts being visible</li>
+        <li><strong>Month three.</strong> wiki-audit and wiki-retro and the rest of the scheduled tasks. Before the data piles up they run and return nothing</li>
+      </ul>
+    </div>
+  </article>
