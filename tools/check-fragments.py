@@ -125,9 +125,14 @@ def check(path: Path) -> None:
         # 같은 내용을 영어로 쓰면 글자 수가 한국어의 두 배 가까이 된다.
         # 한국어 기준을 그대로 대면 영어판이 전부 「너무 길다」로 잡힌다.
         floor, thin, hi = (floor * 2, thin * 2, hi * 2)
+    # 여는 장은 일부러 짧다. 아직 아무것도 모르는 독자를 태우는 진입로라
+    # 개념을 얹을수록 나빠진다. 문턱을 맞추려고 늘리면 그게 곧 군더더기다.
+    # 최소치(floor)는 그대로 걸린다. 짧아도 되는 것과 비어 있는 것은 다르다.
+    stem = where.replace(".frag.html", "").replace(".en", "")
+    short_ok = stem in INV["prose_rules"].get("short_by_design", [])
     if chars < floor:
         add("ERROR", where, f"본문 {chars}자. 장이라기엔 너무 짧다 (최소 {floor})")
-    elif chars < thin:
+    elif chars < thin and not short_ok:
         add("WARN", where, f"본문 {chars}자. 출간된 장 중 짧은 축이다")
     elif chars > hi:
         add("WARN", where, f"본문 {chars}자. 너무 길다 (권장 상한 {hi})")
@@ -176,8 +181,11 @@ def check(path: Path) -> None:
 
     # 비율 예산. 「것입니다」 같은 한국어 표현이라 한국어판만 본다.
     if not is_en and chars >= INV["prose_rules"]["budget_min_chars"]:
+        # 「그것입니다」·「이것입니다」는 지시대명사라 세지 않는다.
+        # check-consistency.py 와 같은 표를 쓴다. 한쪽만 고치면 두 검사기가 갈린다.
+        pats = INV["prose_rules"].get("budget_patterns", {})
         for tok, per10k in INV["prose_rules"]["budget_per_10k_chars"].items():
-            rate = prose.count(tok) / chars * 10000
+            rate = len(re.findall(pats.get(tok, re.escape(tok)), prose)) / chars * 10000
             if rate > per10k:
                 add("WARN", where, f"{tok} 1만자당 {rate:.1f} (예산 {per10k})")
 

@@ -63,6 +63,14 @@ def visible(html: str) -> str:
 
 # ---------------------------------------------------------------- 검사 항목
 
+# 예산 낱말 중 부분 문자열로 세면 다른 구문까지 잡히는 것들. 표는 불변식에 있다.
+# 「그것입니다」·「이것입니다」는 지시대명사 + 서술격조사라서, 규약이 겨냥한
+# 약한 명사화(「~하는 것입니다」)와 아예 다른 구문이다. 실제로 두 권에서
+# 「이유가 그것입니다」와 인용문 안 「역할은 이것입니다」가 위반으로 잡혔다.
+# 앞이 그/이/저가 아닐 때만 센다. 「이런 것입니다」는 사이에 공백이 있어 그대로 잡힌다.
+BUDGET_PAT = INV["prose_rules"].get("budget_patterns", {})
+
+
 def check_prose_metrics(f: Path, html: str, budgets: bool = True) -> None:
     """STYLE.md 지표. em dash 와 여러분은 0 이어야 한다.
 
@@ -85,7 +93,7 @@ def check_prose_metrics(f: Path, html: str, budgets: bool = True) -> None:
     if not budgets or chars < INV["prose_rules"]["budget_min_chars"]:
         return
     for tok, per10k in INV["prose_rules"]["budget_per_10k_chars"].items():
-        n = p.count(tok)
+        n = len(re.findall(BUDGET_PAT.get(tok, re.escape(tok)), p))
         rate = n / chars * 10000
         if rate > per10k:
             add("WARN", rel(f), f"{tok} {n}회 · 1만자당 {rate:.1f} (예산 {per10k})")
@@ -214,9 +222,12 @@ def check_structure(book: Path) -> None:
         # 사이드바 장 링크 수도 대조한다
         nav = re.search(r'<ul class="nav-list">(.*?)</ul>', html, re.S)
         if nav:
+            # 목차에 번호 없는 장이 섞인 책이 있다. 사회연대경제는 「여는 이야기」가
+            # 그렇다. 그런 책은 번호가 붙는 장 수를 따로 적어 둔다.
+            want = s.get("nav_numbered_chapters", total)
             links = len(re.findall(r'class="nav-link">\s*(?:\d+장|\d+\.)', nav.group(1)))
-            if links and links != total:
-                add("ERROR", rel(idx), f"사이드바 장 링크 {links}개 (불변식 {total})")
+            if links and links != want:
+                add("ERROR", rel(idx), f"사이드바 장 링크 {links}개 (불변식 {want})")
     # 한국어판은 있어야 한다. 없으면 목차가 가리키는 페이지가 없다는 뜻이다.
     for ch in s.get("published_chapters", []):
         p = book / "chapters" / f"{ch}.html"
@@ -403,6 +414,15 @@ def main() -> int:
         files += 1
         check_prose_metrics(f, html, budgets=False)
         check_en_korean_leftovers(f, html)
+
+    # README 는 저장소의 첫 인상이라 문체 규약이 그대로 적용된다.
+    # 루트 마크다운을 통째로 걸지는 않는다. STYLE.md 가 「나쁜 예」로 em dash 를
+    # 27개 들고 있어서, 규약 문서가 자기 규약에 걸리기 때문이다.
+    readme = ROOT / "README.md"
+    if readme.exists():
+        md = re.sub(r"```.*?```", "", readme.read_text(encoding="utf-8"), flags=re.S)
+        files += 1
+        check_prose_metrics(readme, md, budgets=False)
 
     for book in books:
         if not book.exists():

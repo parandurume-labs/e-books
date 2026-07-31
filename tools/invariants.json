@@ -220,6 +220,22 @@
       "languages": [
         "ko"
       ]
+    },
+    "social-solidarity-economy": {
+      "_note": "자체 CSS·자체 구조를 쓰는 별도 계보. 여는 이야기(ch00)는 목차에 번호가 안 붙는다.",
+      "chapters_total": 6,
+      "nav_numbered_chapters": 5,
+      "published_chapters": [
+        "ch00",
+        "ch01",
+        "ch02",
+        "ch03",
+        "ch04",
+        "ch05"
+      ],
+      "languages": [
+        "ko"
+      ]
     }
   },
   "constants": {
@@ -306,7 +322,11 @@
       "budget_min_chars: 비율 예산은 분량이 충분한 문서에만 적용한다.",
       "짧은 페이지에서 1만자당 환산은 노이즈다 (coming-soon 은 1건이 17회로 잡혔다).",
       "에 대해 예산이 3 인 이유: ch03 의 「회사에 대해 아무것도 모릅니다」처럼",
-      "이 책의 핵심 명제에 쓰이는 정당한 용례가 있다."
+      "이 책의 핵심 명제에 쓰이는 정당한 용례가 있다.",
+      "budget_patterns: 부분 문자열로 세면 다른 구문까지 잡히는 낱말의 정규식.",
+      "「그것입니다」·「이것입니다」는 지시대명사 + 서술격조사라 규약이 겨냥한 약한 명사화가 아니다.",
+      "short_by_design: 여는 장은 일부러 짧다. 진입로에 개념을 얹을수록 나빠진다.",
+      "문턱을 맞추려고 늘리면 그게 곧 군더더기라서, 늘리는 대신 여기에 적는다."
     ],
     "zero_tolerance": {
       "em_dash": 0,
@@ -317,7 +337,14 @@
       "에 대해": 3,
       "수 있습니다": 6
     },
-    "budget_min_chars": 3000
+    "budget_min_chars": 3000,
+    "budget_patterns": {
+      "것입니다": "(?<![그이저])것입니다"
+    },
+    "short_by_design": [
+      "ch01",
+      "ch02"
+    ]
   },
   "required_fields": {
     "_comment": [
