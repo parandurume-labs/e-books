@@ -253,6 +253,56 @@
       </div>
     </section>
 
+    <!-- ====== Exit codes ====== -->
+    <section>
+      <h2>Hook은 종료 코드로 대답해요</h2>
+
+      <p>받는 쪽을 봤으니 이제 대답하는 쪽이에요. Hook은 Claude에게 「통과시켜」 또는 「막아」를 말해야 하는데, 그걸 <strong>종료 코드</strong>로 합니다.</p>
+
+      <p>종료 코드는 어려운 게 아니에요. <strong>프로그램이 끝나면서 남기고 가는 숫자 하나</strong>예요. 오래된 약속이 하나 있는데, <code>0</code>은 「잘 끝났다」, <code>0</code>이 아닌 숫자는 「뭔가 문제가 있었다」예요. 셸에서 <code>exit 0</code>이라고 쓰면 0을 남기고 끝나요.</p>
+
+      <p>Claude Code는 PreToolUse Hook이 남긴 이 숫자를 읽고 세 갈래로 갈라요.</p>
+
+      <table>
+        <thead>
+          <tr><th>종료 코드</th><th>Claude가 하는 일</th><th>언제 쓰나</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>exit 0</code></td><td>도구를 그대로 실행해요</td><td>검사해 봤는데 괜찮을 때</td></tr>
+          <tr><td><code>exit 2</code></td><td><strong>도구를 막아요</strong></td><td>이건 실행되면 안 될 때</td></tr>
+          <tr><td>그 밖의 숫자</td><td>「Hook에 문제가 있었네」 하고 <strong>도구는 그냥 실행해요</strong></td><td>일부러 쓸 일이 없어요</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-warning">
+        <p class="callout-title"><code>exit 1</code>이 함정인 이유</p>
+        <p>막고 싶을 때 <code>exit 1</code>을 쓰고 싶어지는 게 자연스러워요. 「오류를 냈으니 당연히 멈추겠지」 싶으니까요. <strong>안 멈춰요.</strong> Claude Code는 오직 <code>2</code>만 차단 신호로 읽고, <code>1</code>은 「Hook이 실패했구나」로 넘겨요. 그러고는 도구를 그대로 실행합니다.</p>
+        <p>더 성가신 건 <strong>내가 안 썼는데도 1이 나온다</strong>는 점이에요. 스크립트 안에서 <code>grep</code>이 아무것도 못 찾거나 명령어 하나가 실패하면 그 값이 그대로 종료 코드가 되는데, 그게 대개 1이에요. 그래서 「막았다」고 믿는 Hook이 조용히 통과시키고 있는 일이 생겨요.</p>
+        <p>차단하려면 <strong><code>exit 2</code>를 직접 써야 해요.</strong> 그것 말고는 막을 방법이 없어요.</p>
+      </div>
+
+      <h3>막을 때는 이유도 함께 보내요</h3>
+
+      <p>앞으로 나올 예시에 <code>&gt;&amp;2</code>가 붙어 있어요. 「이 메시지를 표준 출력이 아니라 <strong>표준 오류</strong>로 보내라」는 뜻이에요.</p>
+
+      <pre><code>echo "위험한 명령입니다" &gt;&amp;2
+exit 2</code></pre>
+
+      <p>왜 이렇게 나눠 보내냐면, <strong>Claude가 읽는 곳이 표준 오류</strong>이기 때문이에요. 이렇게 쓰면 Claude는 그냥 막혔다는 것만 아는 게 아니라 <strong>왜 막혔는지</strong>까지 알게 돼서, 다른 방법을 찾아보거나 나에게 물어봐요. <code>exit 2</code>만 있고 메시지가 없으면 Claude는 이유를 모른 채 멈춰요.</p>
+
+      <h3>방금 끝난 명령이 잘 됐는지 보려면</h3>
+
+      <p>예시 3에 <code>$?</code>가 나와요. <strong>바로 앞 명령이 남긴 종료 코드</strong>가 들어 있는 자리예요.</p>
+
+      <pre><code>npm test
+if [ $? -ne 0 ]; then          # 테스트가 0이 아닌 값으로 끝났다면 = 실패했다면
+  echo "테스트가 실패해서 커밋을 막았어요" &gt;&amp;2
+  exit 2
+fi</code></pre>
+
+      <p><code>npm test</code>는 테스트가 다 통과하면 0을, 하나라도 깨지면 0이 아닌 값을 남겨요. <code>$?</code>로 그걸 받아 보고 우리가 <code>exit 2</code>를 내는 거예요. 앞 명령의 종료 코드를 읽어서 우리 종료 코드를 정하는 셈이죠.</p>
+    </section>
+
     <!-- ====== Practical Examples ====== -->
     <section>
       <h2>실전 Hook 예시들</h2>
@@ -354,8 +404,9 @@ fi</code></pre>
       <h3>PreToolUse로 실수를 방지하세요</h3>
       <p>PostToolUse는 "이미 실행된 후"예요. 실수를 막으려면 <strong>PreToolUse</strong>를 쓰세요. 잘못된 명령어가 실행되기 전에 차단하는 게 훨씬 안전해요.</p>
 
-      <h3>exit 코드로 차단하세요</h3>
-      <p>PreToolUse Hook에서 <code>exit 2</code>를 반환하면 차단, <code>exit 0</code>이면 통과예요. <code>exit 1</code>은 "차단하지 않는 오류"라서 도구가 그대로 실행되니 조심하세요.</p>
+      <h3>차단은 <code>exit 2</code>로만 돼요</h3>
+      <p>앞에서 본 대로예요. <code>exit 0</code>은 통과, <code>exit 2</code>는 차단, 나머지 숫자는 전부 「Hook에 문제가 있었네」로 넘어가고 도구는 실행돼요.</p>
+      <p>Hook을 만들었다면 <strong>한 번은 일부러 걸리게 해서 진짜 막히는지 확인하세요.</strong> 막힌 줄 알았는데 통과하고 있는 게 가장 위험해요.</p>
 
       <div class="fun-box">
         <p class="fun-box-title">Hook = 자동 품질 관리</p>
