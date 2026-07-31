@@ -1,0 +1,534 @@
+<!--META {
+  "file": "ch15.en.html",
+  "num": "15",
+  "title": "Making work in progress visible",
+  "subtitle": "Design the ontology and the charts come for free",
+  "desc": "Nine status fields, Gantt charts and relation diagrams with zero plugins, Bases tables and kanban, a dashboard note that rebuilds itself weekly, and what you must never measure.",
+  "minutes": "17",
+  "prev_href": "ch14.en.html",
+  "prev_label": "Previous: Scheduling",
+  "next_href": "ch16.en.html",
+  "next_label": "Next: Twelve automation recipes"
+} -->
+  <article>
+    <p>Once the automation from Chapter 14 is running, reports pile up. And then this happens.</p>
+
+    <p>In week one you read them all. In week two you read the titles. <strong>From week three you stop opening them.</strong></p>
+
+    <p>That is the fate of a report made of prose. "3 ERRORs, 12 WARNs, 2 deadlines closing in" may be written down, but whether that is better or worse than last week, and where you should put your hands, <strong>does not land in one look.</strong> So reading it takes effort, and anything that takes effort ends up unread.</p>
+
+    <div class="callout">
+      <p class="callout-title">The real problem this chapter solves</p>
+      <p>Chapter 1 put the reason this system fails like this. <strong>"The cost of recording lands now and the benefit lands later. And that benefit is invisible."</strong></p>
+      <p>This chapter fixes the last sentence. <strong>It makes the benefit visible.</strong> That is what keeps people recording.</p>
+    </div>
+
+    <h2>First, the good news: visualization is already half done</h2>
+
+    <p>Usually "let's build a dashboard" means bringing in a new tool, moving the data, and wiring up an integration. Here you need none of that.</p>
+
+    <p>Because when you designed <strong>layer 1 (the ontology) in Part 3, you already made every ingredient a chart needs</strong>.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="340" fill="#FFFDF9"/>
+        <defs>
+          <marker id="a15" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#0F766E"/>
+          </marker>
+        </defs>
+
+        <text x="360" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">One set of fields becomes three pictures</text>
+
+        <!-- left: frontmatter -->
+        <rect x="20" y="46" width="230" height="230" rx="10" fill="#FFFFFF" stroke="#C2703C" stroke-width="1.8"/>
+        <text x="135" y="70" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">A note's frontmatter (layer 2)</text>
+        <text x="36" y="98" font-size="10.5" font-family="monospace" fill="#3D2B1F">class: 과제</text>
+        <text x="36" y="118" font-size="10.5" font-family="monospace" fill="#0F766E">status: 진행</text>
+        <text x="36" y="138" font-size="10.5" font-family="monospace" fill="#0F766E">start: 2026-03-01</text>
+        <text x="36" y="158" font-size="10.5" font-family="monospace" fill="#0F766E">due: 2026-11-30</text>
+        <text x="36" y="178" font-size="10.5" font-family="monospace" fill="#0F766E">stage: 3/5</text>
+        <text x="36" y="198" font-size="10.5" font-family="monospace" fill="#3D2B1F">owner: "[[Kim]]"</text>
+        <text x="36" y="218" font-size="10.5" font-family="monospace" fill="#3D2B1F">pdm_uses: "[[Object recognition]]"</text>
+        <text x="36" y="252" font-size="10" fill="#6B5647">The same field names layer 1 set.</text>
+        <text x="36" y="267" font-size="10" fill="#6B5647">Nothing new to type in</text>
+
+        <!-- arrow -->
+        <line x1="252" y1="160" x2="292" y2="160" stroke="#0F766E" stroke-width="2" marker-end="url(#a15)"/>
+
+        <!-- right: three -->
+        <rect x="298" y="46" width="404" height="66" rx="9" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="316" y="68" font-size="11.5" font-weight="bold" fill="#0F766E">Gantt chart — by when?</text>
+        <text x="316" y="88" font-size="10.5" fill="#3D2B1F">start and due are all it needs to draw</text>
+        <text x="316" y="104" font-size="10" fill="#6B5647">Mermaid · zero plugins · built into Obsidian</text>
+
+        <rect x="298" y="122" width="404" height="66" rx="9" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="316" y="144" font-size="11.5" font-weight="bold" fill="#0F766E">Kanban and table — where is it now?</text>
+        <text x="316" y="164" font-size="10.5" fill="#3D2B1F">status values become the columns</text>
+        <text x="316" y="180" font-size="10" fill="#6B5647">Bases · an Obsidian core feature</text>
+
+        <rect x="298" y="198" width="404" height="66" rx="9" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="316" y="220" font-size="11.5" font-weight="bold" fill="#0F766E">Relation map — what is it stuck on?</text>
+        <text x="316" y="240" font-size="10.5" fill="#3D2B1F">links like pdm_uses are the lines</text>
+        <text x="316" y="256" font-size="10" fill="#6B5647">Graph view · Mermaid flowchart</text>
+
+        <rect x="20" y="292" width="682" height="36" rx="8" fill="#FAEADF" stroke="#C2703C" stroke-width="1.4"/>
+        <text x="361" y="315" text-anchor="middle" font-size="11.5" fill="#3D2B1F">A vault that will not visualize is not short of tools. Its <tspan font-weight="bold">field names are all different</tspan></text>
+      </svg>
+      <figcaption>This is where the tedium of ontology design pays you back</figcaption>
+    </figure>
+
+    <p>That is the real reason not to skip Part 3. <strong>With field names unified, visualization is close to automatic; without them, no tool you buy will help.</strong> There is no way to draw a Gantt chart from 200 notes that say <code>due</code> yesterday, <code>deadline</code> today, and <code>due_date</code> tomorrow.</p>
+
+    <h2>Step 1 · The nine status fields a chart needs</h2>
+
+    <p>Chapter 10 designed your relations and fields. Here you pull out only the <strong>fields you truly need to show progress</strong>. Nine of them is enough.</p>
+
+    <table>
+      <thead>
+        <tr><th>Field</th><th>Values</th><th>What it draws</th><th>Required</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>status</code></td><td>기획 / 진행 / 검토 / 완료 / 보류</td><td>kanban columns, counts by state</td><td>✅</td></tr>
+        <tr><td><code>owner</code></td><td><code>"[[person]]"</code> link</td><td>load per person</td><td>✅</td></tr>
+        <tr><td><code>start</code></td><td><code>2026-03-01</code></td><td>Gantt start point</td><td>projects and opportunities</td></tr>
+        <tr><td><code>due</code></td><td><code>2026-11-30</code></td><td>Gantt end point, deadline warning</td><td>projects and opportunities</td></tr>
+        <tr><td><code>stage</code></td><td>in the form <code>3/5</code></td><td>progress (explained below)</td><td>recommended</td></tr>
+        <tr><td><code>priority</code></td><td>상 / 중 / 하</td><td>sort order, color</td><td>recommended</td></tr>
+        <tr><td><code>blocked_by</code></td><td><code>"[[note]]"</code> link</td><td>bottleneck map</td><td>optional</td></tr>
+        <tr><td><code>updated</code></td><td><code>2026-07-30</code></td><td>finding stale notes</td><td>✅</td></tr>
+        <tr><td><code>confidence</code></td><td>draft / reviewed</td><td>trend in the reviewed share</td><td>✅</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">The controlled vocabulary you have to hold to here</p>
+      <p>For projects and opportunities, a <code>status</code> value has to be <strong>one of five</strong>: 기획 (planned), 진행 (in progress), 검토 (in review), 완료 (done), 보류 (on hold). Products use the four values from the Chapter 3 design document instead: <code>기획 / 개발 / 운영 / 중단</code>. Let 「진행중」, 「진행 중」, 「진행」, and "in progress" mix and your kanban grows four columns. It does not stop at a broken picture either: <strong>ask "how many projects are in progress?" and the AI answers wrong.</strong></p>
+      <p>So you nail it down in the layer 1 design document: <code>status ∈ {기획, 진행, 검토, 완료, 보류}</code>. The validation script from Chapter 17 checks it every week. <strong>A controlled vocabulary is the precondition for visualization.</strong></p>
+    </div>
+
+    <h3>Do not write progress as a percentage</h3>
+
+    <p>You will want a field like <code>progress: 70%</code>. Don't. Three reasons.</p>
+
+    <ul>
+      <li>What 70% means <strong>differs from person to person.</strong> 70% of the schedule, 70% of the deliverable, or 70% by feel.</li>
+      <li>It does not get updated. Some note will sit at 70% for two months. Guaranteed.</li>
+      <li><strong>It stops at 90% forever.</strong> Every project does.</li>
+    </ul>
+
+    <p>Use a <strong>stage</strong> instead. Define the stages per class up front and record only which one you are on.</p>
+
+    <pre><code># add to _ops/01-ontology-design.md
+
+## Stage definitions
+
+The 5 stages of a project (PRJ-)
+1. Kickoff — contract or agreement signed
+2. Design — requirements fixed
+3. Build — development under way
+4. Validation — pilot and testing
+5. Close — final report submitted
+
+The 4 stages of an opportunity (OPP-)
+1. Found — call or lead confirmed
+2. Review — decide whether to bid
+3. Prepare — write the proposal
+4. Submit — filed</code></pre>
+
+    <p>In the note you write only <code>stage: 3/5</code>. Why that beats a percentage is clear. <strong>"Stage 3" can be verified.</strong> Whether the requirements are fixed is a checkable fact; 70% is a feeling nobody can check.</p>
+
+    <h2>Step 2 · A Gantt chart with no plugins</h2>
+
+    <p>Obsidian ships <strong>Mermaid</strong> inside it. You install nothing. The principle from Chapter 4, "we do not use plugins," holds.</p>
+
+    <p>You write this inside a note.</p>
+
+    <pre><code>```mermaid
+gantt
+    title Solbit Tech, H2 2026
+    dateFormat YYYY-MM-DD
+    axisFormat %b
+    todayMarker stroke-width:3px,stroke:#C2703C
+
+    section Government projects
+    Smart logistics R&D build   :active,  p1, 2026-03-01, 2026-08-31
+    Smart logistics R&D testing :         p2, after p1, 60d
+    Final report submission     :crit,    p3, 2026-11-15, 15d
+
+    section City government call
+    Proposal drafting           :active,  o1, 2026-07-25, 14d
+    Submission deadline         :milestone, o2, 2026-08-08, 0d
+
+    section Products
+    Pickview beta               :         d1, 2026-09-01, 45d
+    WareTwin pilot starts       :         d2, 2026-10-15, 30d
+```</code></pre>
+
+    <p>Rendered, it comes out like this.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="300" fill="#FFFDF9"/>
+        <text x="360" y="26" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">Solbit Tech, H2 2026</text>
+
+        <!-- month axis -->
+        <line x1="180" y1="46" x2="690" y2="46" stroke="#D8D2C8" stroke-width="1"/>
+        <text x="215" y="40" text-anchor="middle" font-size="9.5" fill="#8A857C">Mar</text>
+        <text x="283" y="40" text-anchor="middle" font-size="9.5" fill="#8A857C">May</text>
+        <text x="351" y="40" text-anchor="middle" font-size="9.5" fill="#8A857C">Jul</text>
+        <text x="419" y="40" text-anchor="middle" font-size="9.5" fill="#8A857C">Sep</text>
+        <text x="487" y="40" text-anchor="middle" font-size="9.5" fill="#8A857C">Nov</text>
+        <text x="555" y="40" text-anchor="middle" font-size="9.5" fill="#8A857C">Jan</text>
+
+        <!-- today -->
+        <line x1="368" y1="52" x2="368" y2="256" stroke="#C2703C" stroke-width="2.5" stroke-dasharray="4 3"/>
+        <text x="368" y="272" text-anchor="middle" font-size="10" font-weight="bold" fill="#C2703C">Today</text>
+
+        <!-- section 1 -->
+        <text x="16" y="72" font-size="10.5" font-weight="bold" fill="#6B5647">Government</text>
+        <text x="16" y="92" font-size="10" fill="#3D2B1F">R&amp;D build</text>
+        <rect x="180" y="82" width="222" height="14" rx="3" fill="#0F766E"/>
+        <text x="16" y="114" font-size="10" fill="#3D2B1F">R&amp;D testing</text>
+        <rect x="402" y="104" width="70" height="14" rx="3" fill="#A8D8D0"/>
+        <text x="16" y="136" font-size="10" fill="#3D2B1F">Final report</text>
+        <rect x="490" y="126" width="20" height="14" rx="3" fill="#C2703C"/>
+
+        <!-- section 2 -->
+        <text x="16" y="164" font-size="10.5" font-weight="bold" fill="#6B5647">City call</text>
+        <text x="16" y="184" font-size="10" fill="#3D2B1F">Proposal</text>
+        <rect x="360" y="174" width="18" height="14" rx="3" fill="#0F766E"/>
+        <text x="16" y="206" font-size="10" fill="#3D2B1F">Submission</text>
+        <path d="M385,192 L392,199 L385,206 L378,199 z" fill="#C2703C"/>
+
+        <!-- section 3 -->
+        <text x="16" y="234" font-size="10.5" font-weight="bold" fill="#6B5647">Products</text>
+        <text x="16" y="252" font-size="10" fill="#3D2B1F">Pickview beta</text>
+        <rect x="411" y="242" width="52" height="14" rx="3" fill="#A8D8D0"/>
+
+        <text x="600" y="92" font-size="9.5" fill="#6B5647">Dark = running</text>
+        <text x="600" y="110" font-size="9.5" fill="#6B5647">Light = planned</text>
+        <text x="600" y="128" font-size="9.5" fill="#C2703C">Orange = crit</text>
+      </svg>
+      <figcaption>Twenty lines of Mermaid become this picture. Nothing to install</figcaption>
+    </figure>
+
+    <p>Four tags are worth knowing here. <code>active</code> (running), <code>done</code> (finished), <code>crit</code> (critical), <code>milestone</code> (a point with no duration). And when you hang a task off another with <code>after p1</code>, <strong>the later one slips whenever the earlier one slips.</strong></p>
+
+    <h3>The real problem with Mermaid, and the fix</h3>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Maintain this by hand and it is out of date in three weeks</p>
+      <p>Mermaid code <strong>is not automatically wired to a note's frontmatter.</strong> Change <code>due</code> on the project note and the date in the Gantt chart stays as it was. You have to keep two places in step by hand.</p>
+      <p>Keeping two places in step by hand is something you will definitely stop doing. Three weeks later you have <strong>a wrong Gantt chart</strong>, which is worse than none. People believe it.</p>
+    </div>
+
+    <p>The fix is <strong>not to write it by hand</strong>. Let the scheduled task you built in Chapter 14 regenerate this code every week.</p>
+
+    <pre><code>[Task name] Weekly dashboard refresh
+[Frequency] Every Monday 08:00 (KST)
+[Approval mode] Automatic
+[Folder] Solbit Tech Wiki
+[Prompt]
+
+Read every note in Sources/20-Projects/ and rebuild _moc/000-dashboard.md.
+
+1. Read start, due, status, and stage from the frontmatter.
+2. Generate a Mermaid gantt code block.
+   - status: 진행  → active tag
+   - status: 완료  → done tag
+   - due within 21 days  → crit tag
+   - leave out notes with no start or no due, and list them separately under the table as "no dates recorded"
+   - split the sections by class value
+3. Below that, build a table of counts by status.
+4. Below that, write "change since last week" in three lines or fewer.
+   (compare with the last line of _reports/dashboard-history.csv)
+5. At the very top of the file, put the generation time and this sentence:
+   "This file is generated. Edit it by hand and your edit disappears next Monday."
+
+Never do this:
+- do not edit notes under Sources/
+- do not infer a date. If it is missing, say it is missing</code></pre>
+
+    <p>Item 5 matters. If a person writes something by hand into a generated file, <strong>it disappears the following week and that person stops trusting the system.</strong> Nail the warning inside the file.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">The "no dates recorded" list turns out to be the most useful part</p>
+      <p>Show the items that did not make it into the Gantt and <strong>the gaps in your records surface on their own.</strong> "Three of our eight projects have no deadline" is a fact nobody knows without a dashboard.</p>
+      <p>The first use of visualization is not a pretty picture. It is <strong>making the empty boxes visible</strong>.</p>
+    </div>
+
+    <h2>Step 3 · Finding bottlenecks with a relation map</h2>
+
+    <p>A Gantt chart shows time. But the question you need more often at work is <strong>"why is this not moving?"</strong> You see that through relations.</p>
+
+    <pre><code>```mermaid
+flowchart LR
+    PRJ["PRJ-2025 Smart logistics<br/>stage 3/5"] --> CAP["CAP-Object recognition<br/>TRL 6"]
+    CAP --> PRD1["Warebot<br/>운영"]
+    CAP --> PRD2["Pickview<br/>개발"]
+    OPP["OPP-2026 City call<br/>proposal drafting"] -.used as evidence.-> PRD1
+    OPP -.used as evidence.-> CAP
+    PRD2 --- BLK["no pilot data<br/>unverified"]
+
+    style BLK fill:#FAEADF,stroke:#C2703C,stroke-width:2px
+    style OPP fill:#EAF6F4,stroke:#0F766E,stroke-width:2px
+```</code></pre>
+
+    <p>Look at what this one picture tells you. <strong>The city call proposal leans on Warebot and object recognition as evidence, and Pickview cannot be used as evidence because there is no pilot data.</strong> Say that out loud in a meeting and it takes ten minutes; see it as a picture and it takes five seconds.</p>
+
+    <p>You do not write this code by hand either. <strong>The links in your notes already carry the relations</strong>, so you say "read the pdm_uses and blocked_by links under Sources/ and draw me a flowchart."</p>
+
+    <div class="callout">
+      <p class="callout-title">How this differs from the Obsidian graph view</p>
+      <p>Obsidian already has a graph view. It shows every link across your notes as dots and lines. It is lovely, and <strong>past a hundred notes it becomes a ball of wool.</strong> Because it shows all the links.</p>
+      <p>Mermaid is the opposite. You can pick out <strong>"only what relates to this proposal"</strong> and draw that. The graph view is for exploring, Mermaid is for explaining. For meeting material, the second wins easily.</p>
+    </div>
+
+    <h2>Step 4 · Tables and kanban with Bases</h2>
+
+    <p>Obsidian's <strong>Bases</strong> is a <strong>core feature that reads note frontmatter and shows it as a table, cards, or a list</strong>. It is core, so there is nothing to install. The data stays in the markdown, and only <strong>the way you look at it</strong> goes into a <code>.base</code> file.</p>
+
+    <p>You build <code>_moc/project-status.base</code> like this.</p>
+
+    <pre><code>filters:
+  and:
+    - file.inFolder("Sources/20-Projects")
+    - status != "완료"
+views:
+  - type: table
+    name: By due date
+    order:
+      - due
+    columns: [file.name, status, stage, owner, due]
+  - type: cards
+    name: By owner
+    groupBy: owner</code></pre>
+
+    <p>Change a value in the table and <strong>the note's frontmatter changes right away.</strong> That is what makes Bases good in daily use. You update states in one pass instead of opening notes one at a time. "Update all the project states on Friday" finishes inside two minutes.</p>
+
+    <p>A kanban board works the same way. Use <code>status</code> as the columns. As of July 2026 the kanban and calendar views for Bases are on the official roadmap, and until then a community plugin (Kanban Bases View) does the same job.</p>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">A second look at the plugin principle</p>
+      <p>Chapter 4 said "we do not use plugins." Put precisely, it is <strong>"we do not use plugins that let AI create or edit notes."</strong> They leave you managing the quality of your knowledge in two places.</p>
+      <p><strong>A plugin that only changes the view is relatively safe.</strong> Remove it and the notes are still there. Keep one test in mind all the same. <strong>"If this plugin disappears, does my knowledge disappear?"</strong> If not, use it.</p>
+    </div>
+
+    <h2>Step 5 · One weekly dashboard note</h2>
+
+    <p>Now you gather everything so far into a single note, <code>_moc/000-dashboard.md</code>. It becomes the one file your team opens on Monday.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="420" fill="#FFFDF9"/>
+
+        <rect x="40" y="24" width="640" height="372" rx="10" fill="#FFFFFF" stroke="#D8D2C8" stroke-width="1.6"/>
+
+        <!-- header -->
+        <text x="60" y="52" font-size="13" font-weight="bold" fill="#3D2B1F">Solbit Tech Wiki dashboard</text>
+        <text x="60" y="70" font-size="9.5" fill="#C2703C">Generated · 2026-07-27 08:00 · hand edits disappear next Monday</text>
+        <line x1="60" y1="80" x2="660" y2="80" stroke="#E8DDD4" stroke-width="1"/>
+
+        <!-- row 1: four number cards -->
+        <rect x="60" y="94" width="140" height="56" rx="7" fill="#EAF6F4" stroke="#A8D8D0" stroke-width="1.2"/>
+        <text x="130" y="118" text-anchor="middle" font-size="18" font-weight="bold" fill="#0F766E">147</text>
+        <text x="130" y="138" text-anchor="middle" font-size="9.5" fill="#6B5647">notes total  ▲12</text>
+
+        <rect x="212" y="94" width="140" height="56" rx="7" fill="#EAF6F4" stroke="#A8D8D0" stroke-width="1.2"/>
+        <text x="282" y="118" text-anchor="middle" font-size="18" font-weight="bold" fill="#0F766E">81%</text>
+        <text x="282" y="138" text-anchor="middle" font-size="9.5" fill="#6B5647">reviewed  ▲4%p</text>
+
+        <rect x="364" y="94" width="140" height="56" rx="7" fill="#FAEADF" stroke="#E0A57E" stroke-width="1.2"/>
+        <text x="434" y="118" text-anchor="middle" font-size="18" font-weight="bold" fill="#C2703C">3</text>
+        <text x="434" y="138" text-anchor="middle" font-size="9.5" fill="#6B5647">due within 21 days</text>
+
+        <rect x="516" y="94" width="144" height="56" rx="7" fill="#FAEADF" stroke="#E0A57E" stroke-width="1.2"/>
+        <text x="588" y="118" text-anchor="middle" font-size="18" font-weight="bold" fill="#C2703C">5</text>
+        <text x="588" y="138" text-anchor="middle" font-size="9.5" fill="#6B5647">stale 30+ days</text>
+
+        <!-- row 2: gantt slot -->
+        <text x="60" y="176" font-size="11" font-weight="bold" fill="#3D2B1F">Schedule</text>
+        <rect x="60" y="184" width="600" height="76" rx="6" fill="#FBFAF7" stroke="#E8DDD4" stroke-width="1"/>
+        <rect x="120" y="196" width="180" height="10" rx="2" fill="#0F766E"/>
+        <rect x="300" y="212" width="90" height="10" rx="2" fill="#A8D8D0"/>
+        <rect x="430" y="228" width="30" height="10" rx="2" fill="#C2703C"/>
+        <rect x="140" y="244" width="60" height="10" rx="2" fill="#0F766E"/>
+        <line x1="322" y1="190" x2="322" y2="256" stroke="#C2703C" stroke-width="1.6" stroke-dasharray="3 2"/>
+        <text x="70" y="203" font-size="8.5" fill="#6B5647">R&amp;D</text>
+        <text x="70" y="219" font-size="8.5" fill="#6B5647">Test</text>
+        <text x="70" y="235" font-size="8.5" fill="#6B5647">Report</text>
+        <text x="70" y="251" font-size="8.5" fill="#6B5647">Call</text>
+
+        <!-- row 3: split -->
+        <text x="60" y="286" font-size="11" font-weight="bold" fill="#3D2B1F">By status</text>
+        <rect x="60" y="294" width="290" height="86" rx="6" fill="#FBFAF7" stroke="#E8DDD4" stroke-width="1"/>
+        <text x="76" y="314" font-size="10" fill="#3D2B1F">기획 2  ·  진행 5  ·  검토 1  ·  완료 9  ·  보류 1</text>
+        <rect x="76" y="326" width="24" height="12" fill="#D8D2C8"/>
+        <rect x="102" y="326" width="60" height="12" fill="#0F766E"/>
+        <rect x="164" y="326" width="12" height="12" fill="#A8D8D0"/>
+        <rect x="178" y="326" width="108" height="12" fill="#8FBF8F"/>
+        <rect x="288" y="326" width="12" height="12" fill="#C2703C"/>
+        <text x="76" y="360" font-size="9.5" fill="#6B5647">3 with no dates → fill them to appear in the Gantt</text>
+
+        <text x="370" y="286" font-size="11" font-weight="bold" fill="#3D2B1F">This week's actions</text>
+        <rect x="370" y="294" width="290" height="86" rx="6" fill="#FBFAF7" stroke="#E8DDD4" stroke-width="1"/>
+        <text x="386" y="314" font-size="9.5" fill="#3D2B1F">· City call submission — 8/8 (D-12) · Kim</text>
+        <text x="386" y="334" font-size="9.5" fill="#3D2B1F">· WareTwin pilot data — not started</text>
+        <text x="386" y="354" font-size="9.5" fill="#3D2B1F">· Fix 3 ERRORs — _reports/check-0724</text>
+        <text x="386" y="372" font-size="9" fill="#6B5647">Source: [[OPP-2026-CityCall]] and 2 more</text>
+      </svg>
+      <figcaption>One screen. No scrolling. Four numbers, two pictures, three lines of work</figcaption>
+    </figure>
+
+    <p>This layout follows rules.</p>
+
+    <ol class="steps">
+      <li><strong>It never goes past one screen</strong>
+        <p>Once there is scrolling, the lower half goes unseen. If it looks like overflowing, cutting items is the right move.</p>
+      </li>
+      <li><strong>Every number carries its change</strong>
+        <p>"147" is not information; "147 ▲12" is. Direction matters more than the absolute value.</p>
+      </li>
+      <li><strong>Every red number carries an action</strong>
+        <p>"5 stale" on its own and nobody acts. Wire it up as "5 stale → see the list."</p>
+      </li>
+      <li><strong>It leaves source links</strong>
+        <p>When a dashboard number is wrong, you have to be able to tell which note to look at. Without that, people stop trusting the dashboard.</p>
+      </li>
+    </ol>
+
+    <h2>Step 6 · Keep the trend</h2>
+
+    <p>A dashboard shows "now." But the question your CEO asks in month three is <strong>"is this getting better?"</strong> Answering that takes a trend.</p>
+
+    <p>In Chapter 14 you had the Python script append one line to <code>validate-history.csv</code>. Now you draw it. Mermaid has a simple chart too.</p>
+
+    <pre><code>```mermaid
+xychart-beta
+    title "Reviewed notes (%)"
+    x-axis [Apr, May, Jun, Jul]
+    y-axis "Percent" 0 --> 100
+    line [42, 58, 74, 81]
+```</code></pre>
+
+    <p>This one line <strong>persuades better than a page of rollout report.</strong> When it bends, you go and find out what happened that month. That is the raw material for the retrospective in Chapter 18.</p>
+
+    <h3>When you have to show it to someone who does not use Obsidian</h3>
+
+    <p>Your CEO may not have installed Obsidian. Then you build <strong>a single HTML file</strong> and put it in Teams. Have the Python script generate it every week.</p>
+
+    <pre><code># _ops/scripts/dashboard.py — the core part only
+# read the frontmatter and render one HTML file. No external libraries.
+
+import re, datetime
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+rows = []
+for md in (ROOT / "Sources" / "20-Projects").glob("*.md"):
+    text = md.read_text(encoding="utf-8")
+    fm = re.match(r"---\n(.*?)\n---", text, re.S)
+    if not fm:
+        continue
+    meta = dict(
+        re.findall(r"^(\w+):\s*\"?([^\"\n]+)\"?$", fm.group(1), re.M)
+    )
+    rows.append((md.stem, meta.get("status", "unset"),
+                  meta.get("due", ""), meta.get("owner", "")))
+
+rows.sort(key=lambda r: r[2] or "9999")
+today = datetime.date.today().isoformat()
+
+html = [f"&lt;h1&gt;Project status &lt;small&gt;{today}&lt;/small&gt;&lt;/h1&gt;&lt;table&gt;"]
+for name, status, due, owner in rows:
+    d_day = ""
+    if due:
+        left = (datetime.date.fromisoformat(due) - datetime.date.today()).days
+        d_day = f"D{left:+d}"
+    cls = "urgent" if d_day and left &lt; 21 else ""
+    html.append(f"&lt;tr class='{cls}'&gt;&lt;td&gt;{name}&lt;/td&gt;&lt;td&gt;{status}&lt;/td&gt;"
+                f"&lt;td&gt;{due} {d_day}&lt;/td&gt;&lt;td&gt;{owner}&lt;/td&gt;&lt;/tr&gt;")
+html.append("&lt;/table&gt;")
+
+(ROOT / "_reports" / "dashboard.html").write_text(
+    "&lt;style&gt;.urgent{background:#FAEADF}&lt;/style&gt;" + "\n".join(html),
+    encoding="utf-8")</code></pre>
+
+    <p>Put that file in the Teams shared folder and it opens in one click. Then the Power Automate flow from Chapter 14 posts the link to the channel every Monday. <strong>People who know nothing about Obsidian see what this system produces.</strong> That matters more than it sounds. As the number of people who see the output grows, recording earns its keep.</p>
+
+    <h2>What you must never measure</h2>
+
+    <p>Read this far and a thought arrives. <strong>"We could just count how many notes each person wrote."</strong></p>
+
+    <p>Don't.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">Rank people by note count and the system dies</p>
+      <p>Here is exactly what happens. Note counts spike in week one. And those notes <strong>have nothing in them.</strong> One-line logs like "development proceeded today" pile up. Filling the number became the goal.</p>
+      <p>The worse part comes next. <strong>Empty notes drag down the quality of AI answers.</strong> People arrive at "we tried this and it wasn't much good." One metric kills the project.</p>
+    </div>
+
+    <p>Measure <strong>the system</strong> instead. Not the people.</p>
+
+    <table>
+      <thead>
+        <tr><th>Measure this</th><th>Not this</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>share of reviewed notes</td><td>notes written per person</td><td>quality against volume. Volume is easy to game</td></tr>
+        <tr><td>trend in rule violations (ERROR)</td><td>violations per person</td><td>what needs fixing is the rule or the template</td></tr>
+        <tr><td>notes untouched for 30 days or more</td><td>a staleness ranking by owner</td><td>stale usually means the owner is busy, not lazy</td></tr>
+        <tr><td>time it takes to write a proposal</td><td>nothing here</td><td>the actual point of this system. Shrinking means success</td></tr>
+        <tr><td>share of "no record" answers</td><td>nothing here</td><td>falling means the vault is filling up</td></tr>
+        <tr><td>number of people who opened the dashboard</td><td>nothing here</td><td>zero means this chapter's work was wasted</td></tr>
+      </tbody>
+    </table>
+
+    <p>Watch that last metric. <strong>If nobody opens the dashboard, fix the dashboard.</strong> People are not lazy; that screen just isn't helping them.</p>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice: what the dashboard actually changed</p>
+      <p>For the two months before the dashboard, Solbit Tech's work log completion sat <strong>near 40%</strong>. Told to write, people wrote; left alone, they didn't.</p>
+      <p>They added one item to the dashboard. <strong>"Decisions this week."</strong> It was a box that gathered whatever the work logs had marked as a decision.</p>
+      <p>Three weeks later completion was <strong>78%</strong>. Nobody chased anyone.</p>
+      <p>The reason came out later, in a retrospective. Park, who handles sales, put it this way. <em>"What I wrote turned up on the screen the CEO looks at on Monday. So I started writing."</em></p>
+      <p><strong>When the benefit of recording is visible, people record.</strong> No chasing was needed. What was needed was seeing where what you wrote gets used.</p>
+      <p>There was a failure alongside it. The first dashboard they built had <strong>14 items</strong>. It took three scrolls, and nobody looked at the bottom. It has 8 now.</p>
+    </div>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: build the smallest dashboard</p>
+      <p>Do not aim at a finished dashboard. Start with <strong>two numbers</strong>.</p>
+      <ol>
+        <li>Count the notes in your vault. Then count the ones with <code>confidence: reviewed</code>. Write those two numbers into <code>_moc/000-dashboard.md</code>. <strong>By hand is fine.</strong> For today.</li>
+        <li>Open your project and opportunity notes and check whether <code>start</code> and <code>due</code> are there. <strong>Mostly they will not be.</strong> Count how many are empty and write it on the dashboard as "no dates recorded: N".</li>
+        <li>Copy the gantt example from this chapter and put in <strong>three of your own projects</strong>, no more. Check that Obsidian renders it.</li>
+        <li>Now write a prompt that produces those three things and <strong>have Cowork do it once.</strong> Compare it with the one you made by hand. If they differ, work out which one is wrong. Usually the cause is an empty field in the vault.</li>
+        <li>Once it comes out well, use the method from Chapter 14 to <strong>schedule it for Monday at 08:00.</strong> Get that far and this chapter is done.</li>
+        <li>Two weeks later, ask yourself: <strong>"Did I open this file on Monday?"</strong> If you didn't, cut the items in half.</li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li>A report made of prose goes unread after three weeks. <strong>People record when the benefit is visible</strong></li>
+        <li><strong>A vault that will not visualize is not short of tools; its field names are all different.</strong> A controlled vocabulary is the precondition</li>
+        <li>Nine fields carry the charts. <code>status · owner · start · due · stage · priority · blocked_by · updated · confidence</code></li>
+        <li>Write progress as a <strong>stage, not a percentage</strong>. "Stage 3/5" can be verified; "70%" cannot be checked</li>
+        <li>Draw Gantt charts and relation maps <strong>with Mermaid and no plugins</strong>. It is built into Obsidian</li>
+        <li>Maintain Mermaid by hand and in three weeks you have a wrong picture. <strong>Let a scheduled task regenerate it every week</strong></li>
+        <li>The first use of visualization is not a pretty picture but <strong>making the empty boxes visible</strong>. Like "no dates recorded: 3"</li>
+        <li>Four rules for a dashboard. <strong>One screen · show the change · an action on every red number · source links</strong></li>
+        <li>Nail <strong>"edit this by hand and it disappears"</strong> into any generated file</li>
+        <li><strong>Do not measure notes written per person.</strong> Measure the system. Measure people and empty notes pile up</li>
+        <li>If nobody opens the dashboard, <strong>fix the dashboard, not the people</strong></li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>Coming up</h3>
+      <p>Every ingredient is now in place. Vault, ontology, rules, skills, schedule, dashboard. The next chapter is <strong>twelve working recipes that combine them</strong>. Structuring meeting notes, proposal drafts, onboarding packs, watching contract expiry. The first recipe is written so you can follow it <strong>all the way from start to finish</strong>. Input, prompt, output, verification, and what to do when it fails.</p>
+    </div>
+  </article>

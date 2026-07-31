@@ -1,0 +1,326 @@
+<!--META {
+  "file": "ch02.en.html",
+  "num": "2",
+  "title": "A wiki, not RAG",
+  "subtitle": "Dumping whole documents in versus structuring knowledge up front",
+  "desc": "How RAG works, where it breaks down for a small team, what an LLM Wiki does instead, and how to decide which one you need.",
+  "minutes": "14",
+  "prev_href": "ch01.en.html",
+  "prev_label": "Previous: Where our knowledge actually lives",
+  "next_href": "ch03.en.html",
+  "next_label": "Next: Ontology is not the wiki"
+} -->
+  <article>
+    <p>After Chapter 1, a thought like this may come up.</p>
+
+    <p><strong>"Can't we just make all our company documents searchable by an AI? I hear that's called RAG."</strong></p>
+
+    <p>Good question. It's half right, in fact. But these two solve <strong>the same problem at different layers</strong>, and for a small organization like ours one side has the clear advantage. Here's why.</p>
+
+    <h2>What RAG does</h2>
+
+    <p>RAG is short for <strong>Retrieval-Augmented Generation</strong>. Spelled out, it means "search, attach what you found, then write the answer."</p>
+
+    <p>The name is a mouthful, but the work is simple.</p>
+
+    <ol class="steps">
+      <li><strong>Slice it up (chunking)</strong>
+        <p>Company documents get split paragraph by paragraph. One 100-page report becomes 500 pieces.</p>
+      </li>
+      <li><strong>Turn it into numbers (embedding)</strong>
+        <p>Each piece becomes a list of numbers that stands for its meaning. Sentences with similar meaning get similar numbers.</p>
+      </li>
+      <li><strong>Put it in a special store (vector DB)</strong>
+        <p>Those numbers go into a special store called a vector database.</p>
+      </li>
+      <li><strong>Pull out the similar pieces when a question arrives</strong>
+        <p>Ask "what's our revenue?" and it fetches the 5 to 10 pieces closest in meaning to that question.</p>
+      </li>
+      <li><strong>Hand those pieces to the AI and let it write the answer</strong>
+        <p>It passes them along with "answer using this material."</p>
+      </li>
+    </ol>
+
+    <p>It genuinely works. At a large company with thousands of documents, this is close to the only option. Nobody can structure thousands of documents by hand.</p>
+
+    <h2>Where it catches on a small team</h2>
+
+    <h3>Problem 1. A fragment doesn't know its context</h3>
+
+    <p>RAG cuts documents up to use them. A cut fragment doesn't know where it came from or what was said either side of it.</p>
+
+    <div class="prompt-example">
+      <p><span class="label bad-label">The fragment cut out of the document</span></p>
+      <p class="bad">"It is currently at prototype stage and has no field validation to date."</p>
+      <p><span class="label good-label">The original sentence</span></p>
+      <p class="good">"Competitor B's warehouse twin product is currently at prototype stage and has no field validation to date."</p>
+    </div>
+
+    <p>See the difference? From the fragment alone <strong>you can't tell whether this is about our product or a competitor's.</strong> The AI can take that fragment and answer "our product is at prototype stage."</p>
+
+    <p>This isn't a far-fetched example. Company documents are littered with sentences like it. Market research, competitor analysis, options you considered and dropped, assumptions and scenarios. RAG <strong>can't tell any of it apart from fact.</strong></p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">An incident that really happens</p>
+      <p>While a proposal was being written, the AI produced "we received the 2024 Smart Logistics Award." Checked it: <strong>no such award.</strong> A memo inside one of the documents reading "consider applying to the Smart Logistics Award call" had been sliced into a fragment and pulled in.</p>
+      <p>The sentence read smoothly, so review let it through. A sentence like that in an external document turns into a trust problem.</p>
+    </div>
+
+    <h3>Problem 2. Relationships can't be expressed</h3>
+
+    <p>RAG fetches "similar content." It can't fetch "what's connected." That difference decides everything.</p>
+
+    <p>Take the question "which of the technologies in Warebot came out of a government project?" To answer it you have to <strong>follow two links</strong>.</p>
+
+    <div class="file-tree">Warebot (product)
+   └─ uses →  Object recognition (capability)
+                └─ produced by →  2025 Smart Logistics R&amp;D project</div>
+
+    <p>RAG brings back fragments similar in meaning to "Warebot" and fragments similar to "government project," separately. But <strong>the line between the two isn't anywhere.</strong> So the AI has no choice but to guess.</p>
+
+    <h3>Problem 3. Contradictions sit there quietly</h3>
+
+    <p>Last year's document says "TRL 4," this year's says "TRL 6." RAG brings both. The AI picks a side at random. <strong>It has nothing to judge which one is current.</strong></p>
+
+    <p>Worse, no person knows the contradiction exists either. An answer came out, after all.</p>
+
+    <h3>Problem 4. Upkeep cost</h3>
+
+    <p>You have to keep a vector DB running. Embedding API calls cost money. When a document changes you re-embed it. In a five-person company, who manages that?</p>
+
+    <h2>What an LLM Wiki does</h2>
+
+    <p>A different approach. <strong>Instead of trying to search well, you organize up front.</strong></p>
+
+    <p>The core idea goes like this.</p>
+
+    <div class="callout">
+      <p class="callout-title">The core of an LLM Wiki</p>
+      <p>Rather than leaving the sources as they are and searching them, you read the sources and build <strong>notes organized in advance into "things" and "relationships between things."</strong> The AI reads finished notes, not cut fragments.</p>
+    </div>
+
+    <p>Let me pin down the scope of the name <strong>LLM Wiki</strong> here. It doesn't point at the pile of notes alone.</p>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">This book's terminology, in one sentence</p>
+      <p><strong>LLM Wiki is the name of the whole system.</strong> The notes, the links between notes, the rules you give the AI, the check scripts, the scheduled jobs, and the team habits that keep it alive: all of it together.</p>
+      <p><strong>Ontology</strong>, which shows up often from here on, is only <strong>one layer</strong> inside that system. It is not another name for LLM Wiki. "We built an ontology" and "we built an LLM Wiki" are entirely different sentences.</p>
+    </div>
+
+    <p>When one set of meeting minutes comes in, it gets handled like this.</p>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="400" fill="#FFFDF9"/>
+        <defs>
+          <marker id="ar2" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+            <path d="M0,0 L10,4 L0,8 z" fill="#0F766E"/>
+          </marker>
+        </defs>
+        <!-- source -->
+        <rect x="20" y="30" width="180" height="90" rx="10" fill="#FAEADF" stroke="#C2703C" stroke-width="2"/>
+        <text x="110" y="58" text-anchor="middle" font-size="13" font-weight="bold" fill="#C2703C">Source</text>
+        <text x="110" y="80" text-anchor="middle" font-size="11" fill="#3D2B1F">2026-07-15 weekly minutes</text>
+        <text x="110" y="100" text-anchor="middle" font-size="11" fill="#6B5647">(left unchanged)</text>
+
+        <line x1="205" y1="75" x2="250" y2="75" stroke="#0F766E" stroke-width="2.5" marker-end="url(#ar2)"/>
+        <text x="228" y="65" text-anchor="middle" font-size="10" fill="#0F766E">read</text>
+
+        <!-- structured notes -->
+        <rect x="255" y="20" width="185" height="52" rx="8" fill="#D7F2EE" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="347" y="40" text-anchor="middle" font-size="11" font-weight="bold" fill="#0F766E">Project note</text>
+        <text x="347" y="58" text-anchor="middle" font-size="10" fill="#3D2B1F">PRJ-2026-01 Smart Logistics</text>
+
+        <rect x="255" y="80" width="185" height="52" rx="8" fill="#D7F2EE" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="347" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#0F766E">Organization note</text>
+        <text x="347" y="118" text-anchor="middle" font-size="10" fill="#3D2B1F">ORG-Daesung Logistics (client)</text>
+
+        <rect x="255" y="140" width="185" height="52" rx="8" fill="#D7F2EE" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="347" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#0F766E">Meeting note</text>
+        <text x="347" y="178" text-anchor="middle" font-size="10" fill="#3D2B1F">2 decisions · 3 actions</text>
+
+        <rect x="255" y="200" width="185" height="52" rx="8" fill="#D7F2EE" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="347" y="220" text-anchor="middle" font-size="11" font-weight="bold" fill="#0F766E">Capability note</text>
+        <text x="347" y="238" text-anchor="middle" font-size="10" fill="#3D2B1F">CAP-ObjectRecognition</text>
+
+        <!-- relationship lines -->
+        <line x1="440" y1="46" x2="480" y2="46" stroke="#C2703C" stroke-width="1.5"/>
+        <line x1="440" y1="106" x2="480" y2="106" stroke="#C2703C" stroke-width="1.5"/>
+        <line x1="440" y1="166" x2="480" y2="166" stroke="#C2703C" stroke-width="1.5"/>
+        <line x1="440" y1="226" x2="480" y2="226" stroke="#C2703C" stroke-width="1.5"/>
+        <path d="M480,46 L500,46 L500,226 L480,226" fill="none" stroke="#C2703C" stroke-width="1.5"/>
+        <line x1="480" y1="106" x2="500" y2="106" stroke="#C2703C" stroke-width="1.5"/>
+        <line x1="480" y1="166" x2="500" y2="166" stroke="#C2703C" stroke-width="1.5"/>
+        <text x="530" y="120" font-size="11" font-weight="bold" fill="#C2703C">Linked to</text>
+        <text x="530" y="138" font-size="11" font-weight="bold" fill="#C2703C">one another</text>
+        <text x="530" y="160" font-size="10" fill="#6B5647">client / capability /</text>
+        <text x="530" y="176" font-size="10" fill="#6B5647">owner / evidence</text>
+
+        <!-- caption panel -->
+        <rect x="20" y="290" width="680" height="80" rx="10" fill="#FFF8F0" stroke="#E8DDD4" stroke-width="1.5"/>
+        <text x="360" y="316" text-anchor="middle" font-size="13" font-weight="bold" fill="#3D2B1F">The AI reads finished notes and the links between them, not cut fragments</text>
+        <text x="360" y="340" text-anchor="middle" font-size="11" fill="#6B5647">"Which tech in Warebot came out of a government project?" → follow the links to the answer</text>
+        <text x="360" y="358" text-anchor="middle" font-size="11" fill="#6B5647">Where there is no evidence the note says Unverified, so the AI has nothing to invent</text>
+      </svg>
+      <figcaption>The source stays as it is, and you build structured notes from reading it</figcaption>
+    </figure>
+
+    <h3>Three differences that decide it</h3>
+
+    <p><strong>First, the context lives inside the note.</strong> "Competitor B's product is at prototype stage" goes into the competitor note. Our product note holds our product information only. They can't mix.</p>
+
+    <p><strong>Second, relationships are written into the note directly.</strong> "Warebot uses object recognition" is written down in the note. The AI reads it instead of guessing.</p>
+
+    <p><strong>Third, what nobody knows says "we don't know."</strong> This turns out to matter most. If the note says <code>확인 필요</code>, the AI reports exactly that. It doesn't fill the blank from imagination.</p>
+
+    <div class="case-box">
+      <p class="case-title">Solbit Tech in practice</p>
+      <p>Solbit Tech's <strong>WareTwin</strong> note has a section called "Known limits." It reads like this.</p>
+      <p><em>"No field validation on a real site yet. Variation in conversion accuracy by drawing quality has not been quantified."</em></p>
+      <p>When a proposal is being written, the AI reads this note and does not describe WareTwin as "validated." It tells the person instead: "you need a validation case and there isn't one in the vault."</p>
+      <p><strong>A limit written down honestly becomes the thing that prevents the accident.</strong> That is hard to do with RAG, because there is no "product note" to write the limit into in the first place.</p>
+    </div>
+
+    <h2>Side by side</h2>
+
+    <table>
+      <thead>
+        <tr><th>Item</th><th>RAG</th><th>LLM Wiki</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Preparation</td>
+          <td>Just put the documents in (automatic)</td>
+          <td>A person has to set the note format and the relationship rules first</td>
+        </tr>
+        <tr>
+          <td>Adding a document</td>
+          <td>Re-embed. May need a full reindex</td>
+          <td>Add the new note only. Existing notes stay as they are</td>
+        </tr>
+        <tr>
+          <td>Keeping context</td>
+          <td>Cut into fragments, so context breaks</td>
+          <td>Context holds at the note level</td>
+        </tr>
+        <tr>
+          <td>Expressing relationships</td>
+          <td>Not possible (similarity only)</td>
+          <td>Expressed as explicit links</td>
+        </tr>
+        <tr>
+          <td>Handling contradictions</td>
+          <td>Brings both and the AI picks a side</td>
+          <td>Records the contradiction in its own section. A person judges</td>
+        </tr>
+        <tr>
+          <td>Saying "we don't know"</td>
+          <td>Not possible. Fills the blank with a guess</td>
+          <td>Can be marked Unverified</td>
+        </tr>
+        <tr>
+          <td>Infrastructure needed</td>
+          <td>Vector DB, embedding API</td>
+          <td>None. A folder and text files</td>
+        </tr>
+        <tr>
+          <td>People reading it directly</td>
+          <td>Hard (fragments and numbers)</td>
+          <td>Easy (just documents)</td>
+        </tr>
+        <tr>
+          <td>Scale it suits</td>
+          <td>Thousands to tens of thousands of documents</td>
+          <td>Dozens to hundreds of documents</td>
+        </tr>
+        <tr>
+          <td>Effort</td>
+          <td>Low at first, and quality is hard to improve</td>
+          <td>High at first, and better as it accumulates</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>So when do you use which</h2>
+
+    <p>This book is about the LLM Wiki, but it isn't saying RAG is bad. Here is how to decide.</p>
+
+    <h3>RAG fits when</h3>
+    <ul>
+      <li>You have thousands of documents or more and the pile keeps growing</li>
+      <li>The content is already polished (laws, manuals, papers, product documentation)</li>
+      <li>Your goal is mostly "find it" ("where is that rule?")</li>
+      <li>There is nobody to do the structuring</li>
+    </ul>
+
+    <h3>An LLM Wiki fits when</h3>
+    <ul>
+      <li>You have dozens to hundreds of documents</li>
+      <li>The content is not polished (minutes, memos, chat screenshots, drafts)</li>
+      <li>Your goal is mostly "synthesize" ("pull our capabilities together")</li>
+      <li><strong>Accuracy matters.</strong> This material goes into proposals, contracts, external documents</li>
+      <li>The knowledge is in people's heads, so a person has to pull it out either way</li>
+    </ul>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">The call that matters</p>
+      <p>If company knowledge is <strong>already all written in documents</strong>, look at RAG.<br>
+      If company knowledge is <strong>in people's heads</strong>, it's an LLM Wiki. A person has to pull it out and write it down anyway, and while writing it, giving it structure is the better move.</p>
+      <p>A company of 5 to 50 people is almost always the second case.</p>
+    </div>
+
+    <h3>You can also run both</h3>
+
+    <p>In practice this is the most realistic. Bulk documents such as laws and reference material through RAG, knowledge unique to the company in the wiki. In this book's folder structure, <code>90-Reference/</code> is where that sits.</p>
+
+    <h2>A pile of words that all look alike</h2>
+
+    <p>Search this topic and out come ontology, knowledge graph, taxonomy, semantic layer, one after another. The trouble is that most writing uses these words <strong>as if they were interchangeable</strong>. So you finish reading more confused than before.</p>
+
+    <p>Two things to settle here in advance.</p>
+
+    <p><strong>First, ontology is not a synonym for LLM Wiki.</strong> Exactly as the terminology note above says. The moment you mix the two, the design work in Part 3 stops being a job you can define. This is in fact the common way an adoption goes off the rails: <strong>a beautiful design document with empty notes.</strong> The ontology is finished and the wiki hasn't started.</p>
+
+    <p><strong>Second, a knowledge graph is nothing grand.</strong> One line in a note does it.</p>
+
+    <div class="file-tree">Write this inside Warebot.md
+    pdm_uses: "[[Object recognition]]"
+
+and it means this
+    Warebot --uses--> Object recognition
+
+That one line is one edge of a knowledge graph.</div>
+
+    <p>A graph forms without a dedicated database. Obsidian reads these links and actually draws the graph for you. You see it for yourself in Chapter 5.</p>
+
+    <p>Which layer each of these words sits on is <strong>the next chapter's whole job</strong>. It's the shortest chapter in the book, and skipping it guarantees you get stuck in Part 3.</p>
+
+    <div class="exercise-box">
+      <p class="exercise-title">Try it: which side is our knowledge on</p>
+      <ol>
+        <li>Roughly gauge the ratio between <strong>"already written down"</strong> and <strong>"only in someone's head"</strong> across everything your company knows. If the second is over half, an LLM Wiki is right for you.</li>
+        <li>If you gave an AI some company material last month and asked it to do something, <strong>go back and check whether the result held wrong information.</strong> If it did, write down what kind of error it was. (invented fact / mixed-up context / stale information)</li>
+        <li>Count how many links you have to follow to answer the question below.<br>
+          <em>"Among the technologies in our main product, which ones were developed with government project funding?"</em></li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>Quick recap</h3>
+      <ul>
+        <li><strong>RAG</strong> cuts documents up, turns them into numbers, stores them, then finds the pieces similar to your question and hands them to the AI</li>
+        <li>RAG's weak spots on a small team: <strong>fragments don't know their context, relationships can't be expressed, contradictions sit there quietly, and it costs upkeep</strong></li>
+        <li>An <strong>LLM Wiki</strong> reads the sources and builds notes organized in advance into "things" and "relationships"</li>
+        <li>The differences that decide it: context is kept, relationships are explicit, <strong>and you can write down "we don't know"</strong></li>
+        <li>A limit written down honestly becomes the guard against hallucination</li>
+        <li>Knowledge <strong>in documents means RAG</strong>, knowledge <strong>in people's heads means a wiki</strong></li>
+        <li><strong>LLM Wiki is the name of the whole system, and ontology is one layer inside it.</strong> They are not synonyms</li>
+        <li>A knowledge graph is nothing grand. One link written in a note is one edge of the graph</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>Coming up</h3>
+      <p>Next we separate the two words this book sees confused most often. <strong>Ontology and LLM Wiki are not the same thing.</strong> One four-layer model sorts them out, and we fix eight wrong sentences you actually see in the wild. It's short. Skip it, though, and you lose your way in Part 3.</p>
+    </div>
+  </article>
