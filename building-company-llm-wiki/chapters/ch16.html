@@ -58,7 +58,7 @@
       <li class="nav-part">제7부: AX로 확장</li>
       <li><a href="ch19.html" class="nav-link">19장 위키에서 AX로</a></li>
       <li class="nav-part">부록</li>
-      <li><a href="coming-soon.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
       <li><a href="coming-soon.html" class="nav-link">부록 B: 복붙용 자산</a></li>
       <li><a href="coming-soon.html" class="nav-link">부록 C: 트러블슈팅</a></li>
     </ul>
@@ -79,7 +79,7 @@
   </header>
 
 <article>
-    <p>여기까지 만든 것을 다 모으면 이런 재료가 있습니다. 볼트(2부), 온톨로지(3부), 규칙과 템플릿과 스킬(4부), 스케줄과 대시보드(14·15장).</p>
+    <p>여기까지 만든 것을 다 모으면 이런 재료가 있습니다. <a href="appendix-a.html#vault" class="term-link">볼트</a>(2부), <a href="appendix-a.html#ontology" class="term-link">온톨로지</a>(3부), 규칙과 템플릿과 스킬(4부), 스케줄과 대시보드(14·15장).</p>
 
     <p>이 장은 그 재료로 만드는 <strong>요리 열두 개</strong>입니다. 그중 첫 번째 요리는 <strong>전 과정을 하나도 빼지 않고</strong> 보여드립니다. 입력으로 넣은 지저분한 회의록, 프롬프트 전문, 나온 결과물 전문, 검증 방법, <strong>처음에 AI가 틀렸던 것과 프롬프트를 어떻게 고쳤는지</strong>까지요.</p>
 
@@ -114,7 +114,7 @@
   - 일단 홀드. 실증 없이는 영업 못 함
   - TRL 4 정도로 보는게 맞다 (기존 자료엔 6이라고 써있는데 그건 과장)</code></pre>
 
-    <p>이 메모에는 <strong>여섯 종류의 정보</strong>가 섞여 있습니다. 고객 정보, 결정 사항, 액션 아이템, 제품 상태 변경, 기술 재사용 관계, <strong>기존 기록의 정정</strong>. 마지막 줄이 특히 중요합니다. 「TRL 6이라고 쓴 건 과장」이라는 정정이 여기에만 있습니다. 이 메모가 개인 폴더에 남으면 그 정정은 사라지고, 다음 제안서에 또 TRL 6이 들어갑니다.</p>
+    <p>이 메모에는 <strong>여섯 종류의 정보</strong>가 섞여 있습니다. 고객 정보, 결정 사항, 액션 아이템, 제품 상태 변경, 기술 재사용 관계, <strong>기존 기록의 정정</strong>. 마지막 줄이 특히 중요합니다. 「<a href="appendix-a.html#trl" class="term-link">TRL</a> 6이라고 쓴 건 과장」이라는 정정이 여기에만 있습니다. 이 메모가 개인 폴더에 남으면 그 정정은 사라지고, 다음 제안서에 또 TRL 6이 들어갑니다.</p>
 
     <h3>ⓑ 프롬프트: 복사해서 쓰세요</h3>
 
@@ -170,7 +170,7 @@
 
     <h4>모순을 잡아냈습니다</h4>
 
-    <p>기존 노트에 TRL 6, 회의록에 TRL 4. AI가 <strong>아무 쪽도 고치지 않고 사람에게 물었습니다.</strong> 2장에서 RAG의 문제로 지적한 「모순이 조용히 남는다」가 여기서 반대로 작동합니다.</p>
+    <p>기존 노트에 TRL 6, 회의록에 TRL 4. AI가 <strong>아무 쪽도 고치지 않고 사람에게 물었습니다.</strong> 2장에서 <a href="appendix-a.html#rag" class="term-link">RAG</a>의 문제로 지적한 「모순이 조용히 남는다」가 여기서 반대로 작동합니다.</p>
 
     <p>이게 왜 중요한지 계산해 보겠습니다. TRL 6으로 낸 제안서가 심사에서 걸리면 그 과제는 끝입니다. <strong>이 정정은 회의에서 말로 지나갔고, 아무도 기록하지 않았을 것</strong>입니다. 실제로 그렇게 사고가 납니다.</p>
 
@@ -292,7 +292,7 @@ updated: 2026-07-15
     <div class="callout callout-tip">
       <p class="callout-title">이게 왜 RAG로는 안 되는가: 3장을 다시</p>
       <p>회의록을 벡터 DB에 넣어두면 「대성물류 미팅 어땠어?」에는 답합니다. 그런데 <strong>모순은 못 잡습니다.</strong> TRL 4와 TRL 6이 각각 다른 조각으로 저장되고, 둘 사이에 아무 관계가 없기 때문입니다.</p>
-      <p>여기서는 <strong>2층(지식 그래프)에 「웨어트윈」이라는 노트가 하나뿐이라서</strong> 새 정보가 들어올 때 반드시 부딪힙니다. 부딪히니까 발견됩니다. <strong>온톨로지가 개체를 하나로 모아둔 덕입니다.</strong></p>
+      <p>여기서는 <strong>2층(<a href="appendix-a.html#knowledge-graph" class="term-link">지식 그래프</a>)에 「웨어트윈」이라는 노트가 하나뿐이라서</strong> 새 정보가 들어올 때 반드시 부딪힙니다. 부딪히니까 발견됩니다. <strong>온톨로지가 개체를 하나로 모아둔 덕입니다.</strong></p>
     </div>
 
     <h2>레시피 2 · 제안서 초안: 1장의 금요일 오후를 다시</h2>
@@ -496,7 +496,7 @@ updated: 2026-07-15
     <div class="callout callout-warning">
       <p class="callout-title">「AI에게 판단을 맡기지 않는다」가 12번의 핵심</p>
       <p>AI는 요구사항 20개 중 어느 것이 비었는지 찾는 일을 사람보다 빠르고 정확하게 합니다. 그런데 <strong>「그래서 참여할 가치가 있나」는 회사의 전략·인력·현금흐름 판단</strong>입니다. 볼트에 없는 정보로 결정하는 일이고, AI는 그걸 모릅니다.</p>
-      <p>이 경계선을 지키는 것이 19장 AX의 핵심 원칙입니다. <strong>AI에게 판단을 위임하는 게 아니라, 판단에 필요한 재료를 완전하게 만드는 것</strong>이 목표입니다.</p>
+      <p>이 경계선을 지키는 것이 19장 <a href="appendix-a.html#ax" class="term-link">AX</a>의 핵심 원칙입니다. <strong>AI에게 판단을 위임하는 게 아니라, 판단에 필요한 재료를 완전하게 만드는 것</strong>이 목표입니다.</p>
     </div>
 
     <h2>레시피를 스킬로 굳히는 시점</h2>
@@ -564,7 +564,7 @@ updated: 2026-07-15
         <li>실행하고 <strong>표까지만 받으세요.</strong> 파일은 아직 만들지 않습니다.</li>
         <li>표를 원문과 대조하세요. <strong>원문에 없는 문장이 있는지 찾아보세요.</strong> 있으면 그게 앞으로 추가해야 할 금지 규칙입니다.</li>
         <li>「확인 필요」가 몇 개 나왔는지 세어보세요. <strong>0개면 프롬프트가 너무 관대합니다.</strong> 실제 회의록에는 항상 모호한 부분이 있습니다.</li>
-        <li>승인하고 노트를 만든 뒤, <strong>옵시디언 그래프 뷰를 열어보세요.</strong> 회색 노드(아직 없는 노트)가 보일 겁니다. 그게 다음에 채울 것들입니다.</li>
+        <li>승인하고 노트를 만든 뒤, <strong><a href="appendix-a.html#obsidian" class="term-link">옵시디언</a> 그래프 뷰를 열어보세요.</strong> 회색 노드(아직 없는 노트)가 보일 겁니다. 그게 다음에 채울 것들입니다.</li>
         <li>마지막으로 이 질문에 답해보세요. <strong>「이 회의록이 개인 폴더에만 남았다면, 6개월 뒤에 사라졌을 정보는 무엇인가?」</strong></li>
       </ol>
     </div>

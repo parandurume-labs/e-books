@@ -58,7 +58,7 @@
       <li class="nav-part">제7부: AX로 확장</li>
       <li><a href="ch19.html" class="nav-link">19장 위키에서 AX로</a></li>
       <li class="nav-part">부록</li>
-      <li><a href="coming-soon.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
       <li><a href="coming-soon.html" class="nav-link">부록 B: 복붙용 자산</a></li>
       <li><a href="coming-soon.html" class="nav-link">부록 C: 트러블슈팅</a></li>
     </ul>
@@ -83,14 +83,14 @@
 
     <div class="prompt-example">
       <p><span class="label bad-label">대표</span></p>
-      <p class="bad">"온톨로지 다 만들었다고 했잖아요. 그럼 이제 AI한테 우리 실적 물어보면 되는 거죠?"</p>
+      <p class="bad">"<a href="appendix-a.html#ontology" class="term-link">온톨로지</a> 다 만들었다고 했잖아요. 그럼 이제 AI한테 우리 실적 물어보면 되는 거죠?"</p>
       <p><span class="label good-label">담당자</span></p>
       <p class="good">"아니요... 아직 물어볼 게 아무것도 없어요."</p>
     </div>
 
     <p>둘 다 거짓말을 하고 있는 게 아닙니다. <strong>같은 단어를 다른 뜻으로 쓰고 있을 뿐입니다.</strong> 대표는 「온톨로지」를 <em>완성된 회사 지식베이스</em>로 이해했고, 담당자는 <em>노트를 어떤 서식으로 쓸지 정한 규칙 문서</em>를 가리켰습니다.</p>
 
-    <p>이 혼동은 사소해 보이지만 프로젝트를 통째로 망칩니다. 대표는 이미 다 됐다고 생각해서 다음 일로 넘어가고, 담당자는 「그럼 이제 노트를 채워야 한다」는 말을 꺼내기 어려워집니다. 3개월 뒤에 남는 건 <strong>설계서 한 장뿐인 볼트</strong>입니다.</p>
+    <p>이 혼동은 사소해 보이지만 프로젝트를 통째로 망칩니다. 대표는 이미 다 됐다고 생각해서 다음 일로 넘어가고, 담당자는 「그럼 이제 노트를 채워야 한다」는 말을 꺼내기 어려워집니다. 3개월 뒤에 남는 건 <strong>설계서 한 장뿐인 <a href="appendix-a.html#vault" class="term-link">볼트</a></strong>입니다.</p>
 
     <p>이 혼동 때문에 이 장을 따로 뒀습니다. 이 책에서 가장 짧은 장이고, 새로 배울 도구도 없습니다. 대신 여기서 정리한 네 개의 층을 이후 모든 장에서 계속 씁니다.</p>
 
@@ -176,14 +176,14 @@
         </tr>
         <tr>
           <td><strong>2</strong></td>
-          <td>지식 그래프<br><span class="jargon">knowledge graph</span></td>
+          <td><a href="appendix-a.html#knowledge-graph" class="term-link">지식 그래프</a><br><span class="jargon">knowledge graph</span></td>
           <td>1층 서식을 <strong>실제 회사 사실로 채운 것.</strong> 노트 본문과 링크</td>
           <td>노트 수백 개</td>
           <td>매일</td>
         </tr>
         <tr>
           <td><strong>3</strong></td>
-          <td>LLM Wiki</td>
+          <td><a href="appendix-a.html#llm-wiki" class="term-link">LLM Wiki</a></td>
           <td>0~2층 + AI 규칙 + 스킬·예약작업 + 점검 + 팀 습관을 합친 <strong>돌아가는 시스템</strong></td>
           <td>볼트 폴더 전체</td>
           <td>계속 손봄</td>
@@ -224,7 +224,7 @@
 | 제품     | PRD-   | 외부에 판매·납품하는 단위          | status, owner, since         |
 | 기술역량 | CAP-   | 재사용 가능한 기술 묶음            | trl, evidence                |
 | 과제     | PRJ-   | 계약 또는 예산이 붙어 있는 것      | period, funder, budget       |
-| 기회     | OPP-   | 계약·예산이 아직 없는 것           | stage, deadline              |
+| 기회     | OPP-   | 계약·예산이 아직 없는 것           | stage, due                   |
 
 ## 관계 술어
 
@@ -242,7 +242,7 @@
 
     <div class="callout callout-warning">
       <p class="callout-title">여기서 확인하세요</p>
-      <p>위 문서에 <strong>창고봇이라는 단어가 한 번도 안 나옵니다.</strong> 매출도, 담당자 이름도, TRL 숫자도 없습니다. 온톨로지는 <strong>회사에 대해 아무것도 모릅니다.</strong> 「제품이라는 것이 있고, 제품은 이런 필드를 갖는다」까지만 압니다.</p>
+      <p>위 문서에 <strong>창고봇이라는 단어가 한 번도 안 나옵니다.</strong> 매출도, 담당자 이름도, <a href="appendix-a.html#trl" class="term-link">TRL</a> 숫자도 없습니다. 온톨로지는 <strong>회사에 대해 아무것도 모릅니다.</strong> 「제품이라는 것이 있고, 제품은 이런 필드를 갖는다」까지만 압니다.</p>
       <p>온톨로지에게 "우리 실적 정리해줘"라고 물으면 아무 답도 나오지 않습니다. 물어볼 대상이 아니기 때문입니다.</p>
     </div>
 
@@ -295,7 +295,7 @@ confidence: reviewed
         <tr><td><code>CLAUDE.md</code> · AI 작업 규칙</td><td>AI가 매번 다른 서식으로 노트를 만든다. 없는 사실을 채운다</td><td>11장</td></tr>
         <tr><td>템플릿 7종</td><td>사람마다 다른 서식으로 쓴다</td><td>12장</td></tr>
         <tr><td>스킬 3종</td><td>같은 작업을 매번 프롬프트로 설명한다</td><td>13장</td></tr>
-        <tr><td>예약 작업</td><td>주간 점검을 아무도 기억하지 않는다</td><td>14장</td></tr>
+        <tr><td><a href="appendix-a.html#scheduled-task" class="term-link">예약 작업</a></td><td>주간 점검을 아무도 기억하지 않는다</td><td>14장</td></tr>
         <tr><td>대시보드</td><td>기록의 이득이 눈에 보이지 않아 아무도 안 쓴다</td><td>15장</td></tr>
         <tr><td>점검 스크립트</td><td>규칙 위반이 조용히 쌓인다</td><td>17장</td></tr>
       </tbody>
@@ -412,7 +412,7 @@ confidence: reviewed
 
     <h2>그러면 RAG는 몇 층인가</h2>
 
-    <p>2장에서 비교한 RAG를 이 그림에 얹으면 이렇게 됩니다.</p>
+    <p>2장에서 비교한 <a href="appendix-a.html#rag" class="term-link">RAG</a>를 이 그림에 얹으면 이렇게 됩니다.</p>
 
     <table>
       <thead>
@@ -458,7 +458,7 @@ confidence: reviewed
 
     <p>층위를 나누는 게 학술 취향처럼 보일지도 모릅니다. 그렇지 않습니다. <strong>회사에 AI를 제대로 들이는 일이 여기서 갈립니다.</strong></p>
 
-    <p>요즘 <strong>AX</strong>(AI Transformation, AI 전환)라는 말을 자주 들으실 겁니다. 「AI를 도입해서 회사가 일하는 방식을 바꾸는 것」인데, 대부분의 회사가 <strong>같은 곳에서 멈춥니다.</strong> 구성원 각자가 AI로 메일 초안이나 요약을 쓰는 단계까지는 잘 갑니다. 거기서 더는 안 갑니다.</p>
+    <p>요즘 <strong><a href="appendix-a.html#ax" class="term-link">AX</a></strong>(AI Transformation, AI 전환)라는 말을 자주 들으실 겁니다. 「AI를 도입해서 회사가 일하는 방식을 바꾸는 것」인데, 대부분의 회사가 <strong>같은 곳에서 멈춥니다.</strong> 구성원 각자가 AI로 메일 초안이나 요약을 쓰는 단계까지는 잘 갑니다. 거기서 더는 안 갑니다.</p>
 
     <p>왜 그런지 이제 층위로 설명해 보겠습니다.</p>
 
@@ -525,7 +525,7 @@ confidence: reviewed
       <ol>
         <li>우리 회사에서 <strong>제안서에 자주 쓰는 사실 한 문장</strong>을 고르세요. (예: "당사 A제품은 B기술을 적용해 C사에 납품 중이다")</li>
         <li>그 문장에서 <strong>명사를 동그라미 치세요.</strong> 각 명사가 어떤 <strong>종류</strong>인지 적어보세요. 제품인가, 기술인가, 고객인가. 이게 1층의 클래스 후보입니다.</li>
-        <li>명사 사이의 <strong>동사를 적어보세요.</strong> 「적용해」, 「납품 중」. 이게 1층의 관계 술어 후보입니다.</li>
+        <li>명사 사이의 <strong>동사를 적어보세요.</strong> 「적용해」, 「납품 중」. 이게 1층의 <a href="appendix-a.html#relation" class="term-link">관계 술어</a> 후보입니다.</li>
         <li>이제 그 문장을 <strong>노트 세 개로 쪼개서</strong> 적어보세요. 각 노트에 어떤 값이 들어가는지. 이게 2층입니다.</li>
         <li>마지막으로 자문해 보세요. <strong>"이 노트 세 개를 6개월 뒤에도 최신으로 유지하려면 무엇이 필요한가?"</strong> 여기서 나오는 답이 전부 3층입니다.</li>
       </ol>

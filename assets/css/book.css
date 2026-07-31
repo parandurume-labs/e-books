@@ -997,6 +997,75 @@ blockquote {
   font-size: var(--fs-xs); color: var(--ink-4);
 }
 
+/* ---------- 용어 사전 ----------
+   책 두 권(gstack 입문, LLM Wiki)이 같은 부록 구조를 쓴다.
+   예전엔 이 클래스들이 어느 스타일시트에도 없어서 아무 스타일도 안 먹었다. */
+.glossary-nav {
+  display: flex; flex-wrap: wrap; gap: var(--s2);
+  margin: var(--s5) 0 var(--s6);
+  padding: 0; list-style: none;
+}
+.glossary-nav a {
+  display: inline-block;
+  padding: var(--s2) var(--s3);
+  font-size: var(--fs-sm); font-weight: 600;
+  color: var(--ink-2);
+  background: var(--surface-2);
+  border: 1px solid var(--line-2); border-radius: 999px;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.glossary-nav a:hover {
+  background: var(--accent-tint); color: var(--accent-ink);
+  border-color: var(--accent-line);
+}
+.glossary-grid { display: grid; gap: var(--s4); margin: var(--s5) 0; }
+.glossary-item {
+  padding: var(--s4) var(--s5);
+  background: var(--surface-2);
+  border: 1px solid var(--line-2);
+  border-left: 3px solid var(--accent-line);
+  border-radius: var(--radius);
+  scroll-margin-top: var(--s7);
+}
+.glossary-item > h3 {
+  margin: 0 0 var(--s2);
+  font-size: var(--fs-base); line-height: 1.35;
+}
+.glossary-item > h3 .term-en {
+  font-weight: 400; color: var(--ink-3);
+}
+.glossary-item > p { margin-bottom: var(--s3); }
+.glossary-item > p:last-child { margin-bottom: 0; }
+/* 「어디서 쓰나」 줄. 본문으로 되돌아가는 길을 만들어 준다. */
+.glossary-item .term-where {
+  font-size: var(--fs-sm); color: var(--ink-3);
+}
+/* 본문에서 용어 사전으로 나가는 링크 */
+.term-link {
+  border-bottom: 1px dotted var(--accent-line);
+  color: var(--accent-ink);
+}
+.term-link:hover { border-bottom-style: solid; }
+
+/* ---------- 난이도 배지 ----------
+   ch07 스킬 표에서 쓴다. 예전엔 인라인 스타일로 밝은 색을 박아 놔서
+   다크 모드에서 흰 배경에 흰 글씨가 됐다. */
+.lv {
+  display: inline-block; white-space: nowrap;
+  padding: 1px var(--s2); border-radius: 4px;
+  font-size: var(--fs-xs); font-weight: 700;
+  border: 1px solid transparent;
+}
+/* 배지 색은 책 팔레트(--accent/--warn)를 쓰지 않는다.
+   gstack 입문서는 둘 다 주황 계열이라 중급과 고급이 구별되지 않았다.
+   난이도는 초록 → 노랑 → 빨강으로 읽혀야 하므로 여기서 직접 정한다. */
+.lv-1 { background: #E7F1E4; color: #2F5D2F; border-color: #BCD9B8; }
+.lv-2 { background: #FBF0D5; color: #7A5A12; border-color: #E6D19B; }
+.lv-3 { background: #FAE3DD; color: #8C3A22; border-color: #E8BCAE; }
+[data-theme="dark"] .lv-1 { background: #1A2418; color: #8FBF8F; border-color: #2F4A2C; }
+[data-theme="dark"] .lv-2 { background: #2E2510; color: #D9B65E; border-color: #4A3D1C; }
+[data-theme="dark"] .lv-3 { background: #331A14; color: #E8977A; border-color: #4E2A1F; }
+
 /* ---------- 우측 레일 라벨 정리 ---------- */
 @media (min-width: 1280px) {
   .rail li a {

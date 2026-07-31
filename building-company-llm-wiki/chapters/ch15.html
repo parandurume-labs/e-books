@@ -58,7 +58,7 @@
       <li class="nav-part">제7부: AX로 확장</li>
       <li><a href="ch19.html" class="nav-link">19장 위키에서 AX로</a></li>
       <li class="nav-part">부록</li>
-      <li><a href="coming-soon.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
       <li><a href="coming-soon.html" class="nav-link">부록 B: 복붙용 자산</a></li>
       <li><a href="coming-soon.html" class="nav-link">부록 C: 트러블슈팅</a></li>
     </ul>
@@ -95,7 +95,7 @@
 
     <p>보통 「대시보드를 만들자」고 하면 새로운 도구를 도입하고, 데이터를 옮기고, 연동을 붙입니다. 여기서는 그럴 필요가 없습니다.</p>
 
-    <p>왜냐하면 3부에서 <strong>1층(온톨로지)을 설계할 때 이미 시각화의 재료를 다 만들어뒀기 때문</strong>입니다.</p>
+    <p>왜냐하면 3부에서 <strong>1층(<a href="appendix-a.html#ontology" class="term-link">온톨로지</a>)을 설계할 때 이미 시각화의 재료를 다 만들어뒀기 때문</strong>입니다.</p>
 
     <figure class="illustration">
       <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
@@ -170,7 +170,7 @@
     </table>
 
     <div class="callout callout-warning">
-      <p class="callout-title">여기서 반드시 지켜야 할 통제 어휘</p>
+      <p class="callout-title">여기서 반드시 지켜야 할 <a href="appendix-a.html#controlled-vocab" class="term-link">통제 어휘</a></p>
       <p><strong>과제·기회의</strong> <code>status</code>는 <strong>다섯 개 중 하나여야 합니다.</strong> (제품은 3장 설계서의 <code>기획 / 개발 / 운영 / 중단</code>을 씁니다.) 「진행중」, 「진행 중」, 「진행」, 「in progress」가 섞이면 칸반에 열이 네 개 생깁니다. 그림이 망가지는 것으로 끝나지 않고, <strong>「진행 중인 과제 몇 개야?」에 AI가 틀린 답을 합니다.</strong></p>
       <p>그래서 1층 설계서에 이렇게 못 박습니다. <code>status ∈ {기획, 진행, 검토, 완료, 보류}</code>. 17장의 검증 스크립트가 이걸 매주 확인합니다. <strong>통제 어휘는 시각화의 전제 조건입니다.</strong></p>
     </div>
@@ -348,7 +348,7 @@ flowchart LR
     <p>이 코드도 손으로 쓰지 않습니다. <strong>노트의 링크가 이미 관계를 담고 있으므로</strong>, "Sources/ 의 pdm_uses·blocked_by 링크를 읽어서 flowchart를 그려줘"라고 하면 됩니다.</p>
 
     <div class="callout">
-      <p class="callout-title">옵시디언 그래프 뷰와 무엇이 다른가</p>
+      <p class="callout-title"><a href="appendix-a.html#obsidian" class="term-link">옵시디언</a> 그래프 뷰와 무엇이 다른가</p>
       <p>옵시디언에는 이미 그래프 뷰가 있습니다. 노트 전체의 링크를 점과 선으로 보여줍니다. 훌륭하지만 <strong>노트가 100개를 넘으면 털뭉치가 됩니다.</strong> 모든 링크를 다 보여주기 때문입니다.</p>
       <p>Mermaid는 반대입니다. <strong>「이번 제안서와 관련된 것만」</strong> 골라서 그릴 수 있습니다. 그래프 뷰는 탐색용, Mermaid는 설명용입니다. 회의 자료로는 후자가 훨씬 낫습니다.</p>
     </div>
@@ -597,7 +597,7 @@ html.append("&lt;/table&gt;")
 
     <div class="next-teaser">
       <h3>다음 장에서는...</h3>
-      <p>이제 재료가 다 모였습니다. 볼트, 온톨로지, 규칙, 스킬, 스케줄, 대시보드. 다음 장은 <strong>이것들을 조합한 실무 레시피 12개</strong>입니다. 회의록 구조화부터 제안서 초안, 온보딩 팩, 계약 만료 감시까지 다룹니다. 첫 번째 레시피는 <strong>처음부터 끝까지 전부</strong> 따라갈 수 있게 적었습니다. 입력, 프롬프트, 결과물, 검증, 실패했을 때까지 전부요.</p>
+      <p>이제 재료가 다 모였습니다. <a href="appendix-a.html#vault" class="term-link">볼트</a>, 온톨로지, 규칙, 스킬, 스케줄, 대시보드. 다음 장은 <strong>이것들을 조합한 실무 레시피 12개</strong>입니다. 회의록 구조화부터 제안서 초안, 온보딩 팩, 계약 만료 감시까지 다룹니다. 첫 번째 레시피는 <strong>처음부터 끝까지 전부</strong> 따라갈 수 있게 적었습니다. 입력, 프롬프트, 결과물, 검증, 실패했을 때까지 전부요.</p>
     </div>
   </article>
 

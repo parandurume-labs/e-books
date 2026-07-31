@@ -57,7 +57,7 @@
       <li class="nav-part">제7부: AX로 확장</li>
       <li><a href="ch19.html" class="nav-link">19장 위키에서 AX로</a></li>
       <li class="nav-part">부록</li>
-      <li><a href="coming-soon.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
       <li><a href="coming-soon.html" class="nav-link">부록 B: 복붙용 자산</a></li>
       <li><a href="coming-soon.html" class="nav-link">부록 C: 트러블슈팅</a></li>
     </ul>
@@ -80,7 +80,7 @@
   <article>
     <p>1장을 읽고 나면 이런 생각이 들 수 있습니다.</p>
 
-    <p><strong>"그거 그냥 회사 문서 전부 AI한테 검색되게 만들면 되는 거 아니에요? RAG라고 하던데."</strong></p>
+    <p><strong>"그거 그냥 회사 문서 전부 AI한테 검색되게 만들면 되는 거 아니에요? <a href="appendix-a.html#rag" class="term-link">RAG</a>라고 하던데."</strong></p>
 
     <p>좋은 질문입니다. 실은 반쯤 맞습니다. 다만 이 둘은 <strong>같은 문제를 다른 층위에서 푸는</strong> 방법이고, 우리 같은 소규모 조직에는 한쪽이 확실히 유리합니다. 왜 그런지 보겠습니다.</p>
 
@@ -147,13 +147,13 @@
 
     <h3>문제 3. 모순이 조용히 남는다</h3>
 
-    <p>작년 문서에는 "TRL 4", 올해 문서에는 "TRL 6"이라고 되어 있습니다. RAG는 둘 다 가져옵니다. AI는 아무 쪽이나 골라서 답합니다. <strong>어느 쪽이 최신인지 판단할 근거가 없습니다.</strong></p>
+    <p>작년 문서에는 "<a href="appendix-a.html#trl" class="term-link">TRL</a> 4", 올해 문서에는 "TRL 6"이라고 되어 있습니다. RAG는 둘 다 가져옵니다. AI는 아무 쪽이나 골라서 답합니다. <strong>어느 쪽이 최신인지 판단할 근거가 없습니다.</strong></p>
 
     <p>더 나쁜 건, 사람도 이 모순의 존재를 모른다는 점입니다. 답이 나왔으니까요.</p>
 
     <h3>문제 4. 관리 비용</h3>
 
-    <p>벡터 DB를 돌려야 합니다. 임베딩 API 비용이 듭니다. 문서가 바뀌면 다시 임베딩해야 합니다. 5인 회사에서 이걸 관리할 사람이 있나요?</p>
+    <p>벡터 DB를 돌려야 합니다. <a href="appendix-a.html#embedding" class="term-link">임베딩</a> API 비용이 듭니다. 문서가 바뀌면 다시 임베딩해야 합니다. 5인 회사에서 이걸 관리할 사람이 있나요?</p>
 
     <h2>LLM Wiki가 하는 일</h2>
 
@@ -162,7 +162,7 @@
     <p>핵심 아이디어는 이렇습니다.</p>
 
     <div class="callout">
-      <p class="callout-title">LLM Wiki의 핵심</p>
+      <p class="callout-title"><a href="appendix-a.html#llm-wiki" class="term-link">LLM Wiki</a>의 핵심</p>
       <p>원문을 그대로 두고 검색하는 게 아니라, 원문을 읽어서 <strong>「무엇」과 「무엇의 관계」로 미리 정리한 노트</strong>를 만들어둡니다. AI는 잘린 조각이 아니라 완성된 노트를 읽습니다.</p>
     </div>
 
@@ -170,8 +170,8 @@
 
     <div class="callout callout-warning">
       <p class="callout-title">이 책의 용어 규약: 딱 한 문장</p>
-      <p><strong>LLM Wiki는 시스템 전체의 이름입니다.</strong> 노트, 노트 사이의 링크, AI에게 주는 규칙, 점검 스크립트, 예약 작업, 그리고 그것을 유지하는 팀의 습관까지 전부 합쳐 부르는 말입니다.</p>
-      <p>곧 자주 등장하는 <strong>온톨로지</strong>는 그 시스템 안의 <strong>한 층</strong>일 뿐입니다. LLM Wiki의 다른 이름이 아닙니다. 「온톨로지를 만들었다」와 「LLM Wiki를 만들었다」는 전혀 다른 문장입니다.</p>
+      <p><strong>LLM Wiki는 시스템 전체의 이름입니다.</strong> 노트, 노트 사이의 링크, AI에게 주는 규칙, 점검 스크립트, <a href="appendix-a.html#scheduled-task" class="term-link">예약 작업</a>, 그리고 그것을 유지하는 팀의 습관까지 전부 합쳐 부르는 말입니다.</p>
+      <p>곧 자주 등장하는 <strong><a href="appendix-a.html#ontology" class="term-link">온톨로지</a></strong>는 그 시스템 안의 <strong>한 층</strong>일 뿐입니다. LLM Wiki의 다른 이름이 아닙니다. 「온톨로지를 만들었다」와 「LLM Wiki를 만들었다」는 전혀 다른 문장입니다.</p>
     </div>
 
     <p>회의록 하나가 들어오면 이렇게 처리합니다.</p>
@@ -342,7 +342,7 @@
 
     <h2>비슷해 보이는 단어들이 우르르 나올 텐데</h2>
 
-    <p>이 주제를 검색하면 온톨로지, 지식 그래프, 택소노미, 시맨틱 레이어 같은 말이 줄줄이 나옵니다. 문제는 대부분의 글이 이 단어들을 <strong>서로 바꿔 써도 되는 말처럼</strong> 쓴다는 점입니다. 그래서 읽고 나면 더 헷갈립니다.</p>
+    <p>이 주제를 검색하면 온톨로지, <a href="appendix-a.html#knowledge-graph" class="term-link">지식 그래프</a>, 택소노미, 시맨틱 레이어 같은 말이 줄줄이 나옵니다. 문제는 대부분의 글이 이 단어들을 <strong>서로 바꿔 써도 되는 말처럼</strong> 쓴다는 점입니다. 그래서 읽고 나면 더 헷갈립니다.</p>
 
     <p>여기서는 두 가지만 미리 짚고 갑니다.</p>
 

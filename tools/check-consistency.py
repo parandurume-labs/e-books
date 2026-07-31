@@ -24,6 +24,7 @@ import json
 import re
 import sys
 from collections import Counter
+from html import unescape
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -89,13 +90,39 @@ def check_forbidden_aliases(f: Path, html: str) -> None:
     """정본이 아닌 필드명이 정본처럼 쓰이면 안 된다.
     나쁜 예로 인용하는 맥락에는 허용 표지가 함께 있어야 한다."""
     cfg = INV["forbidden_field_aliases"]
-    text = visible(html) + " " + " ".join(re.findall(r"<pre>.*?</pre>", html, flags=re.S))
+    blocks = re.findall(r"<pre>.*?</pre>", html, flags=re.S)
+    text = visible(html) + " " + " ".join(blocks)
     for alias in cfg["aliases"]:
         for m in re.finditer(re.escape(alias) + r"\s*(?:필드|field)", text):
             window = text[max(0, m.start() - 220): m.end() + 220]
             if not any(k in window for k in cfg["allowed_context_markers"]):
                 add("ERROR", rel(f),
                     f"비정본 필드명 「{alias}」을 정본처럼 씀 (나쁜 예 표지 없음): …{window[180:300].strip()}…")
+
+    # 「필드」라는 말이 옆에 붙어 있을 때만 잡으면 표 셀과 프론트매터를 통째로 놓친다.
+    # ch03 의 「| 기회 | OPP- | ... | stage, deadline |」 이 그렇게 빠져나갔다.
+    # 그래서 코드 블록 안도 본다. 다만 판정은 판본에 따라 다르다.
+    #
+    # 한국어판: 코드 블록 안의 홀로 선 영단어는 필드명으로 봐도 된다.
+    #   한국어 산문은 deadline 을 보통명사로 쓰지 않는다.
+    # 영어판: 같은 규칙을 쓰면 전부 오탐이다. 실제로 3건 전부 오탐이었다
+    #   (간트 막대 이름 "Submission deadline", 회의록 원문 "deadline 8/8",
+    #    산문 "anything with an owner and a deadline").
+    #   그래서 영어판은 YAML 키(`deadline:`)처럼 뜻이 하나뿐인 자리만 잡는다.
+    is_en = f.name.endswith(".en.html")
+    for blk in blocks:
+        body = unescape(re.sub(r"<[^>]+>", "", blk))
+        for alias in cfg["aliases"]:
+            pat = (r"^\s*-?\s*" + re.escape(alias) + r"\s*:" if is_en
+                   else r"(?<![\w-])" + re.escape(alias) + r"(?![\w-])")
+            for m in re.finditer(pat, body, flags=re.M if is_en else 0):
+                window = body[max(0, m.start() - 220): m.end() + 220]
+                if any(k in window for k in cfg["allowed_context_markers"]):
+                    continue
+                nl = body.find("\n", m.end())
+                line = body[body.rfind("\n", 0, m.start()) + 1: nl if nl >= 0 else len(body)]
+                add("ERROR", rel(f),
+                    f"예제 코드에서 비정본 필드명 「{alias}」 사용: {line.strip()[:110]}")
 
 
 def check_automation_write_policy(f: Path, html: str) -> None:

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>부록 A: 용어 사전 · 회사용 LLM Wiki 만들기</title>
+  <meta name="description" content="온톨로지·지식 그래프·LLM Wiki·RAG·프론트매터 등 이 책에서 쓰는 용어를 4층 모델에 맞춰 쉽게 풀어 씁니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../assets/css/book.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  <script>try{var t=localStorage.getItem('pdm-ebook-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="mobile-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="목차 열기"><span></span><span></span><span></span></button>
+  <span class="mobile-title">회사용 LLM Wiki 만들기</span>
+  <button class="search-trigger" type="button" aria-label="목차 검색"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>검색</span><kbd>⌘K</kbd></button>
+  <button class="dark-mode-toggle" id="darkModeToggleHeader" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg></button>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="목차">
+  <div class="sidebar-header">
+    <span class="sidebar-logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 13a3.5 3.5 0 0 0 0 7h.5a2 2 0 0 0 2-2V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v14"/><path d="M8.5 13a3.5 3.5 0 0 1 0 7H8a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3 3 3 0 0 1 3 3"/></svg></span>
+    <span class="sidebar-title">목차</span>
+    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="목차 닫기">&times;</button>
+  </div>
+  <div class="sidebar-content">
+    <ul class="nav-list">
+      <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
+      <li class="nav-part">제1부: 왜 필요한가</li>
+      <li><a href="ch01.html" class="nav-link">1장 우리 지식은 어디에</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 RAG가 아니라 위키다</a></li>
+      <li><a href="ch03.html" class="nav-link">3장 온톨로지와 위키의 구분</a></li>
+      <li><a href="ch04.html" class="nav-link">4장 도구 세 개의 역할</a></li>
+      <li class="nav-part">제2부: 준비 · 30분 셋업</li>
+      <li><a href="coming-soon.html" class="nav-link">5장 옵시디언과 볼트</a></li>
+      <li><a href="coming-soon.html" class="nav-link">6장 Teams로 팀 연결</a></li>
+      <li><a href="coming-soon.html" class="nav-link">7장 Cowork에 볼트 연결</a></li>
+      <li class="nav-part">제3부: 온톨로지 설계</li>
+      <li><a href="coming-soon.html" class="nav-link">8장 설계 원칙 여섯 개</a></li>
+      <li><a href="coming-soon.html" class="nav-link">9장 클래스 정하기</a></li>
+      <li><a href="coming-soon.html" class="nav-link">10장 관계와 필드 설계</a></li>
+      <li class="nav-part">제4부: 운영</li>
+      <li><a href="coming-soon.html" class="nav-link">11장 CLAUDE.md</a></li>
+      <li><a href="coming-soon.html" class="nav-link">12장 템플릿과 첫 노트</a></li>
+      <li><a href="coming-soon.html" class="nav-link">13장 스킬로 자동화</a></li>
+      <li class="nav-part">제5부: 자동화와 시각화</li>
+      <li><a href="ch14.html" class="nav-link">14장 스케줄링</a></li>
+      <li><a href="ch15.html" class="nav-link">15장 업무 진행 시각화</a></li>
+      <li><a href="ch16.html" class="nav-link">16장 자동화 레시피 12선</a></li>
+      <li class="nav-part">제6부: 지속</li>
+      <li><a href="coming-soon.html" class="nav-link">17장 품질을 코드로</a></li>
+      <li><a href="coming-soon.html" class="nav-link">18장 의도와 실행의 대조</a></li>
+      <li class="nav-part">제7부: AX로 확장</li>
+      <li><a href="ch19.html" class="nav-link">19장 위키에서 AX로</a></li>
+      <li class="nav-part">부록</li>
+      <li><a href="appendix-a.html" class="nav-link">부록 A: 용어 사전</a></li>
+      <li><a href="coming-soon.html" class="nav-link">부록 B: 복붙용 자산</a></li>
+      <li><a href="coming-soon.html" class="nav-link">부록 C: 트러블슈팅</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <button class="dark-mode-toggle" id="darkModeToggleSidebar" type="button" aria-label="다크모드 전환"><svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg><span class="toggle-label">다크모드</span></button>
+  </div>
+</nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main class="main-content" id="main">
+  <div class="chapter-shell">
+<div class="chapter-content">
+  <header class="chapter-header">
+    <span class="chapter-number">APPENDIX A</span>
+    <h1>용어 사전</h1>
+    <p class="chapter-subtitle">모르는 단어가 나오면 여기로 오세요</p>
+    <span class="reading-time"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>훑어보기 약 12분</span>
+  </header>
+
+<article>
+    <p>읽다가 막히는 단어가 나오면 여기로 오세요. 이 책에서 실제로 쓰는 말만 담았고, 설명은 전부 <strong>이 책의 4층 모델에 맞춰</strong> 적었습니다. 다른 자료의 정의와 조금 다를 수 있는데, 그건 이 책이 틀려서가 아니라 층을 나누는 방식이 자료마다 다르기 때문입니다.</p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">단어 세 개만 기억한다면</p>
+      <p><a href="#ontology" class="term-link">온톨로지</a>는 <strong>규칙</strong>이고, <a href="#knowledge-graph" class="term-link">지식 그래프</a>는 <strong>사실</strong>이고, <a href="#llm-wiki" class="term-link">LLM Wiki</a>는 <strong>그게 계속 굴러가게 하는 전체 장치</strong>입니다. 이 셋을 섞어 부르는 순간 대화가 어긋납니다.</p>
+    </div>
+    <h2 id="jump">묶음으로 건너뛰기</h2>
+    <ul class="glossary-nav">
+      <li><a href="#layers">네 개의 층 (4)</a></li>
+      <li><a href="#ontology-parts">온톨로지를 이루는 것들 (7)</a></li>
+      <li><a href="#graph">그래프를 다루는 말 (5)</a></li>
+      <li><a href="#tools">도구와 파일 (8)</a></li>
+      <li><a href="#ai">AI 쪽 용어 (8)</a></li>
+      <li><a href="#org">조직과 전략 (3)</a></li>
+    </ul>
+    <p>모두 35개입니다. 본문 곳곳에서 점선 밑줄이 그어진 낱말을 누르면 해당 항목으로 옵니다.</p>
+
+    <h2 id="layers">네 개의 층</h2>
+    <p>이 책 전체가 이 네 층 위에서 돌아갑니다. 셋을 뭉뚱그려 부르면 대화가 어긋납니다.</p>
+    <div class="glossary-grid">
+      <div class="glossary-item" id="taxonomy">
+        <h3>분류 체계 <span class="term-en">(Taxonomy)</span></h3>
+        <p>노트를 <strong>어느 서랍에 넣을지</strong> 정해 둔 규칙입니다. 폴더 구조가 곧 분류 체계입니다. 이 책에서는 <code>Sources/10-Products/</code> 같은 폴더가 그 역할을 합니다. 서랍은 한 번에 하나뿐이라 한계가 뚜렷합니다. 창고봇은 제품이면서 동시에 정부 과제의 산출물인데, 폴더는 둘 중 하나만 고르게 합니다. 이 한계를 메우는 것이 1층과 2층입니다.</p>
+        <p class="term-where">어디서 쓰나 · 0층 · 3장</p>
+      </div>
+      <div class="glossary-item" id="ontology">
+        <h3>온톨로지 <span class="term-en">(Ontology)</span></h3>
+        <p><strong>노트를 어떻게 쓸지 정한 규칙 문서</strong>입니다. 어떤 종류(클래스)가 있고, 종류마다 어떤 필드를 반드시 갖고, 어떤 관계로 이어질 수 있는지를 적습니다. 가장 중요한 특징은 따로 있습니다. <strong>온톨로지는 회사에 대해 아무것도 모릅니다.</strong> 설계서에는 「제품이라는 것이 있고, 제품은 status·owner·since를 갖는다」까지만 적혀 있습니다. 창고봇이라는 단어도, 매출 숫자도 없습니다. 그래서 온톨로지에게 「우리 실적 정리해줘」라고 물으면 아무 답도 나오지 않습니다. 물어볼 대상이 아니기 때문입니다. 답은 2층에서 나옵니다.</p>
+        <p class="term-where">어디서 쓰나 · 1층 · 3장, 8~10장</p>
+      </div>
+      <div class="glossary-item" id="knowledge-graph">
+        <h3>지식 그래프 <span class="term-en">(Knowledge Graph)</span></h3>
+        <p>온톨로지가 정해둔 서식에 <strong>실제 회사 사실을 채워 넣은 결과</strong>입니다. 노트 하나하나가 점이고, 노트끼리 건 링크가 선입니다. 질문의 답이 실제로 나오는 곳이 여기입니다. 「창고봇에 쓰인 기술 중 정부 과제에서 나온 게 뭐야?」에 답하려면 창고봇 → 객체인식 → 2025 스마트물류로 선을 두 번 따라가면 됩니다. 이걸 그래프 순회라고 부릅니다.</p>
+        <p class="term-where">어디서 쓰나 · 2층 · 3장</p>
+      </div>
+      <div class="glossary-item" id="llm-wiki">
+        <h3>LLM Wiki <span class="term-en">(LLM Wiki)</span></h3>
+        <p>위 셋에 <strong>사람이 손 대지 않아도 계속 돌아가게 하는 장치</strong>를 더한 전체 시스템입니다. AI 작업 규칙(<code>CLAUDE.md</code>), 템플릿, 스킬, 예약 작업, 대시보드, 점검 스크립트가 그 장치입니다. 이게 없으면 잘 정리된 폴더 하나가 생겼다가 석 달 뒤에 조용히 죽습니다. 온톨로지 설계까지만 하고 끝내면 1층에서 멈춥니다.</p>
+        <p class="term-where">어디서 쓰나 · 3층 · 3장, 11~18장</p>
+      </div>
+    </div>
+
+    <h2 id="ontology-parts">온톨로지를 이루는 것들</h2>
+    <p>1층 설계서에 실제로 적히는 항목들입니다.</p>
+    <div class="glossary-grid">
+      <div class="glossary-item" id="class">
+        <h3>클래스 <span class="term-en">(Class)</span></h3>
+        <p>노트의 <strong>종류</strong>입니다. 이 책은 제품·기술역량·과제·기회처럼 나눕니다. 클래스마다 판정 기준을 하나씩 정해두는 것이 중요합니다. 예를 들어 과제와 기회는 「계약이나 예산이 붙어 있는가」로 가릅니다. 기준이 없으면 사람마다 다르게 넣고, 그러면 집계가 틀립니다.</p>
+        <p class="term-where">어디서 쓰나 · 3장, 9장</p>
+      </div>
+      <div class="glossary-item" id="field">
+        <h3>필드 <span class="term-en">(Field · Property)</span></h3>
+        <p>노트가 갖는 <strong>속성 한 칸</strong>입니다. <code>status</code>, <code>owner</code>, <code>due</code> 같은 것들입니다. 필드 이름은 반드시 하나로 통일해야 합니다. 어제는 <code>due</code>, 오늘은 <code>deadline</code>, 내일은 <code>마감일</code>로 적힌 노트 200개는 어떤 도구로도 간트 차트가 되지 않습니다.</p>
+        <p class="term-where">어디서 쓰나 · 10장, 15장</p>
+      </div>
+      <div class="glossary-item" id="relation">
+        <h3>관계 술어 <span class="term-en">(Relation predicate)</span></h3>
+        <p>노트와 노트를 잇는 <strong>선의 이름</strong>입니다. 이 책은 <code>pdm_uses</code>(제품이 쓰는 기술), <code>pdm_output_of</code>(기술이 나온 과제)처럼 이름을 붙입니다. 앞에 <code>pdm_</code>을 붙인 이유는 우리 회사가 정한 술어라는 표시입니다. 술어 이름이 흔들리면 링크를 따라갈 수 없고, 그러면 2층이 무너집니다.</p>
+        <p class="term-where">어디서 쓰나 · 3장, 10장</p>
+      </div>
+      <div class="glossary-item" id="controlled-vocab">
+        <h3>통제 어휘 <span class="term-en">(Controlled Vocabulary)</span></h3>
+        <p><strong>쓸 수 있는 값을 미리 정해둔 목록</strong>입니다. 예를 들어 제품의 <code>status</code>는 기획·개발·운영·중단 넷 중 하나만 씁니다. 「거의 다 됐음」, 「진행중?」처럼 자유롭게 쓰면 셀 수가 없습니다. 통제 어휘의 목적은 표현을 좁히는 데 있지 않고 <strong>셀 수 있게 만드는 데</strong> 있습니다.</p>
+        <p class="term-where">어디서 쓰나 · 10장, 17장</p>
+      </div>
+      <div class="glossary-item" id="constraint">
+        <h3>제약 <span class="term-en">(Constraint)</span></h3>
+        <p>「모든 노트는 <code>class</code>, <code>id</code>, <code>updated</code>를 반드시 갖는다」처럼 <strong>어겨서는 안 되는 규칙</strong>입니다. 사람이 지키기를 기대하지 말고 점검 스크립트로 확인하는 편이 낫습니다.</p>
+        <p class="term-where">어디서 쓰나 · 10장, 17장</p>
+      </div>
+      <div class="glossary-item" id="identifier">
+        <h3>식별자 <span class="term-en">(ID)</span></h3>
+        <p>노트에 붙이는 <strong>변하지 않는 이름표</strong>입니다. 이 책은 <code>PRD-001</code>, <code>CAP-객체인식</code>처럼 클래스별 접두어를 붙입니다. 제목은 바뀔 수 있어도 식별자는 그대로 둡니다. 「스마트팩토리봇」으로 이름을 바꿔도 <code>PRD-001</code>이 그대로면 링크가 끊기지 않습니다.</p>
+        <p class="term-where">어디서 쓰나 · 9장</p>
+      </div>
+      <div class="glossary-item" id="ssot">
+        <h3>단일 진실 공급원 <span class="term-en">(SSOT · Single Source of Truth)</span></h3>
+        <p>같은 사실이 <strong>여러 곳에 서로 다르게 적혀 있지 않은 상태</strong>입니다. 매출 숫자가 노트에도 있고 보고서에도 있고 슬라이드에도 있으면, 셋이 달라지는 것은 시간 문제입니다. 한 곳에만 적고 나머지는 그곳을 가리키게 합니다.</p>
+        <p class="term-where">어디서 쓰나 · 10장, 17장</p>
+      </div>
+    </div>
+
+    <h2 id="graph">그래프를 다루는 말</h2>
+    <p>2층에서 답이 나오는 원리에 붙은 이름들입니다.</p>
+    <div class="glossary-grid">
+      <div class="glossary-item" id="node-edge">
+        <h3>노드와 변 <span class="term-en">(Node · Edge)</span></h3>
+        <p>그래프에서 <strong>점과 선</strong>입니다. 노트 하나가 노드, 노트에서 노트로 건 링크 하나가 변입니다. 노트를 아무리 많이 써도 링크를 안 걸면 변이 없고, 변이 없으면 그래프가 아니라 그냥 문서 더미입니다.</p>
+        <p class="term-where">어디서 쓰나 · 3장</p>
+      </div>
+      <div class="glossary-item" id="traversal">
+        <h3>그래프 순회 <span class="term-en">(Graph Traversal)</span></h3>
+        <p>링크를 <strong>따라가면서 답을 찾는 방식</strong>입니다. 「창고봇이 쓰는 기술」에서 한 번, 「그 기술이 나온 과제」에서 한 번, 이렇게 두 번 건너뛰면 답이 나옵니다. 사람이 검색으로는 못 찾는 답이 여기서 나옵니다. 두 다리 건너 연결된 사실은 검색어로 표현할 수가 없기 때문입니다.</p>
+        <p class="term-where">어디서 쓰나 · 3장</p>
+      </div>
+      <div class="glossary-item" id="wikilink">
+        <h3>위키링크 <span class="term-en">(Wikilink)</span></h3>
+        <p>대괄호 두 개로 다른 노트를 가리키는 표기입니다. <code>[[창고봇]]</code>처럼 씁니다. 옵시디언에서는 이걸 쓰면 자동으로 연결이 생깁니다. 이 책의 그래프는 전부 이 표기 위에 세워집니다.</p>
+        <p class="term-where">어디서 쓰나 · 5장</p>
+      </div>
+      <div class="glossary-item" id="backlink">
+        <h3>백링크 <span class="term-en">(Backlink)</span></h3>
+        <p><strong>나를 가리키고 있는 노트 목록</strong>입니다. 창고봇 노트를 열면 「창고봇을 언급한 노트들」이 아래에 저절로 뜹니다. 따로 관리하지 않아도 생기는 것이 장점입니다. 링크를 성실히 걸면 그만큼 저절로 돌아옵니다.</p>
+        <p class="term-where">어디서 쓰나 · 5장</p>
+      </div>
+      <div class="glossary-item" id="moc">
+        <h3>MOC · 지도 노트 <span class="term-en">(Map of Content)</span></h3>
+        <p>여러 노트로 들어가는 <strong>입구 역할을 하는 노트</strong>입니다. 「제품 전체 보기」 같은 노트가 그렇습니다. 폴더가 서랍이라면 MOC는 목차입니다. 하나의 노트가 여러 MOC에 동시에 등장할 수 있어서 폴더의 한계를 메웁니다.</p>
+        <p class="term-where">어디서 쓰나 · 12장, 15장</p>
+      </div>
+    </div>
+
+    <h2 id="tools">도구와 파일</h2>
+    <p>실제로 손으로 만지는 것들입니다.</p>
+    <div class="glossary-grid">
+      <div class="glossary-item" id="vault">
+        <h3>볼트 <span class="term-en">(Vault)</span></h3>
+        <p>옵시디언이 관리하는 <strong>폴더 하나</strong>입니다. 이 책에서 「볼트」라고 하면 회사 지식이 들어 있는 그 폴더를 뜻합니다. 특별한 형식이 아니라 그냥 마크다운 파일이 들어 있는 보통 폴더입니다. 그래서 옵시디언을 그만 써도 파일은 남습니다.</p>
+        <p class="term-where">어디서 쓰나 · 5장</p>
+      </div>
+      <div class="glossary-item" id="frontmatter">
+        <h3>프론트매터 <span class="term-en">(Front matter)</span></h3>
+        <p>마크다운 파일 <strong>맨 위에 <code>---</code> 세 줄로 감싼 부분</strong>입니다. 여기에 <code>class</code>, <code>status</code>, <code>owner</code> 같은 필드를 적습니다. 본문은 사람이 읽는 곳이고, 프론트매터는 <strong>기계가 읽는 곳</strong>입니다. 대시보드와 자동화는 전부 이 부분만 봅니다.</p>
+        <p class="term-where">어디서 쓰나 · 12장, 15장</p>
+      </div>
+      <div class="glossary-item" id="obsidian">
+        <h3>옵시디언 <span class="term-en">(Obsidian)</span></h3>
+        <p>마크다운 파일을 위키처럼 다루는 프로그램입니다. 링크와 백링크, 그래프 보기를 제공합니다. 중요한 점은 <strong>파일을 자기 형식으로 가두지 않는다</strong>는 데 있습니다. 볼트는 그냥 폴더입니다.</p>
+        <p class="term-where">어디서 쓰나 · 4장, 5장</p>
+      </div>
+      <div class="glossary-item" id="teams">
+        <h3>Teams <span class="term-en">(Microsoft Teams)</span></h3>
+        <p>이 책에서는 <strong>사람이 모이는 자리</strong>로 씁니다. 대화가 오가고 결정이 내려지는 곳입니다. 다만 대화는 흘러가 버리므로, 결정된 것은 볼트로 옮겨 적어야 합니다. 그 옮기는 일을 자동화하는 것이 이 책의 목표 중 하나입니다.</p>
+        <p class="term-where">어디서 쓰나 · 6장</p>
+      </div>
+      <div class="glossary-item" id="cowork">
+        <h3>Claude Cowork <span class="term-en">(Claude Cowork)</span></h3>
+        <p>볼트를 읽고 쓰는 <strong>AI 쪽 손</strong>입니다. 노트를 만들고, 고치고, 예약해 둔 작업을 정해진 시각에 돌립니다.</p>
+        <p class="term-where">어디서 쓰나 · 4장, 7장, 14장</p>
+      </div>
+      <div class="glossary-item" id="skill">
+        <h3>스킬 <span class="term-en">(Skill)</span></h3>
+        <p><strong>반복하는 작업을 적어 둔 문서</strong>입니다. 「주간 보고서 만들기」를 매번 프롬프트로 설명하는 대신 한 번 적어두고 이름으로 부릅니다. 사람으로 치면 업무 매뉴얼에 가깝습니다.</p>
+        <p class="term-where">어디서 쓰나 · 13장</p>
+      </div>
+      <div class="glossary-item" id="claude-md">
+        <h3>CLAUDE.md <span class="term-en">(CLAUDE.md)</span></h3>
+        <p>AI가 이 볼트에서 <strong>지켜야 할 규칙을 적어 둔 파일</strong>입니다. 「없는 사실을 채우지 않는다」, 「근거 없는 수치는 「확인 필요」로 적는다」 같은 것들입니다. 이 파일이 없으면 AI가 매번 다른 서식으로 노트를 만들고, 빈칸을 그럴듯하게 메웁니다.</p>
+        <p class="term-where">어디서 쓰나 · 11장</p>
+      </div>
+      <div class="glossary-item" id="scheduled-task">
+        <h3>예약 작업 <span class="term-en">(Scheduled task)</span></h3>
+        <p>정해진 시각에 <strong>사람 없이 저절로 도는 일</strong>입니다. 매주 월요일 아침에 나오는 점검 보고서가 그런 예입니다. 한 가지 함정이 있습니다. 원격에서 도는 예약 작업은 <strong>내 컴퓨터의 폴더에 닿지 못합니다.</strong> 볼트 파일을 건드려야 하는 일은 로컬에서 돌려야 합니다.</p>
+        <p class="term-where">어디서 쓰나 · 14장</p>
+      </div>
+    </div>
+
+    <h2 id="ai">AI 쪽 용어</h2>
+    <p>「이거 그냥 RAG 아닌가요?」에 답하려면 알아야 하는 말들입니다.</p>
+    <div class="glossary-grid">
+      <div class="glossary-item" id="llm">
+        <h3>LLM · 대규모 언어 모델 <span class="term-en">(Large Language Model)</span></h3>
+        <p>다음에 올 말을 예측하도록 훈련된 모델입니다. 그 예측이 아주 잘 맞아서 사람처럼 글을 씁니다. 핵심은 <strong>배운 적 없는 것은 모른다</strong>는 점입니다. 우리 회사 사실은 배운 적이 없으므로 따로 넣어줘야 합니다.</p>
+        <p class="term-where">어디서 쓰나 · 2장</p>
+      </div>
+      <div class="glossary-item" id="rag">
+        <h3>RAG · 검색 증강 생성 <span class="term-en">(Retrieval-Augmented Generation)</span></h3>
+        <p>질문이 들어오면 <strong>관련 문서를 먼저 찾아서 AI에게 같이 건네주는 방식</strong>입니다. 이 책의 4층 모델에서 RAG는 <strong>2층에서 답을 꺼내오는 방법 중 하나</strong>이지 별도의 층이 아닙니다. 그리고 RAG만으로는 부족합니다. 검색은 비슷한 문서를 찾아줄 뿐, 두 다리 건너 연결된 사실은 찾지 못합니다. 그건 링크를 따라가야 나옵니다.</p>
+        <p class="term-where">어디서 쓰나 · 2장, 3장</p>
+      </div>
+      <div class="glossary-item" id="embedding">
+        <h3>임베딩 · 벡터 검색 <span class="term-en">(Embedding · Vector search)</span></h3>
+        <p>글을 <strong>숫자 목록으로 바꿔서 뜻이 비슷한 것끼리 가깝게 두는 방법</strong>입니다. 덕분에 「매출」로 검색해도 「수익」이 적힌 문서를 찾아냅니다. 다만 비슷한 것을 찾을 뿐이라 <strong>정확한 관계</strong>는 모릅니다. 「이 기술이 어느 과제에서 나왔는가」는 비슷함으로 풀리지 않습니다.</p>
+        <p class="term-where">어디서 쓰나 · 2장</p>
+      </div>
+      <div class="glossary-item" id="hallucination">
+        <h3>환각 <span class="term-en">(Hallucination)</span></h3>
+        <p>AI가 <strong>없는 사실을 그럴듯하게 지어내는 현상</strong>입니다. 빈칸을 만나면 메우려 하기 때문에 생깁니다. 그래서 이 책은 「모르면 「확인 필요」라고 쓴다」를 규칙으로 못 박습니다. 빈칸을 빈칸으로 남기는 것이 훨씬 낫습니다.</p>
+        <p class="term-where">어디서 쓰나 · 11장</p>
+      </div>
+      <div class="glossary-item" id="provenance">
+        <h3>근거 · 출처 <span class="term-en">(Provenance)</span></h3>
+        <p>어떤 사실이 <strong>어디서 나왔는지</strong>를 같이 적어두는 일입니다. 근거가 붙지 않은 답은 검토할 수가 없습니다. 맞는지 틀리는지 확인할 방법이 없기 때문입니다. AX 성숙도에서 1단계와 3단계 사이가 끊기는 이유가 여기 있습니다.</p>
+        <p class="term-where">어디서 쓰나 · 11장, 19장</p>
+      </div>
+      <div class="glossary-item" id="confidence">
+        <h3>confidence 필드 <span class="term-en">(confidence)</span></h3>
+        <p>이 노트를 <strong>얼마나 믿어도 되는지</strong> 적는 칸입니다. 사람이 확인한 것과 AI가 초벌로 적어둔 것을 구분합니다. 이 칸이 없으면 검토받은 사실과 아직 안 받은 사실이 섞여서, 결국 전부 못 믿게 됩니다.</p>
+        <p class="term-where">어디서 쓰나 · 11장, 17장</p>
+      </div>
+      <div class="glossary-item" id="context-window">
+        <h3>컨텍스트 윈도우 <span class="term-en">(Context window)</span></h3>
+        <p>AI가 <strong>한 번에 볼 수 있는 분량</strong>입니다. 볼트 전체를 통째로 넣을 수는 없습니다. 그래서 필요한 노트만 골라서 넣는 일이 중요해지고, 잘 붙은 링크와 필드가 그 고르는 일을 쉽게 만듭니다.</p>
+        <p class="term-where">어디서 쓰나 · 2장</p>
+      </div>
+      <div class="glossary-item" id="agent">
+        <h3>에이전트 <span class="term-en">(Agent)</span></h3>
+        <p>질문에 답만 하는 것이 아니라 <strong>스스로 순서를 정해 도구를 쓰고 일을 끝내는 AI</strong>입니다. AX 성숙도의 마지막 단계에 나옵니다. 여기까지 가려면 앞 단계에서 근거와 규칙이 갖춰져 있어야 합니다.</p>
+        <p class="term-where">어디서 쓰나 · 19장</p>
+      </div>
+    </div>
+
+    <h2 id="org">조직과 전략</h2>
+    <p>이 시스템을 왜 만드는지에 붙은 말들입니다.</p>
+    <div class="glossary-grid">
+      <div class="glossary-item" id="ax">
+        <h3>AX · AI 전환 <span class="term-en">(AI Transformation)</span></h3>
+        <p>AI 도구를 <strong>도입하는 것</strong>과 회사가 <strong>실제로 다르게 일하게 되는 것</strong>은 다른 일입니다. 뒤쪽이 AX입니다. 도구를 사는 것으로는 일어나지 않고, 일하는 방식과 기록하는 방식이 같이 바뀌어야 합니다.</p>
+        <p class="term-where">어디서 쓰나 · 19장</p>
+      </div>
+      <div class="glossary-item" id="ax-maturity">
+        <h3>AX 성숙도 5단계 <span class="term-en">(AX maturity)</span></h3>
+        <p>0단계 각자 알아서 → 1단계 개인 생산성 → 2단계 공용 지식 → 3단계 업무 흐름에 편입 → 4단계 에이전트. 1단계에서 3단계로 <strong>건너뛰면 실패합니다.</strong> 근거가 붙지 않은 결과물은 검토할 수가 없어서, 결국 아무도 결재하지 않기 때문입니다.</p>
+        <p class="term-where">어디서 쓰나 · 19장</p>
+      </div>
+      <div class="glossary-item" id="trl">
+        <h3>TRL · 기술 성숙도 <span class="term-en">(Technology Readiness Level)</span></h3>
+        <p>기술이 <strong>연구실 수준인지 실제 납품 가능한 수준인지</strong>를 1~9로 나타낸 척도입니다. 정부 과제 문서에 자주 나옵니다. 이 책에서는 기술역량 노트의 필드로 씁니다.</p>
+        <p class="term-where">어디서 쓰나 · 9장</p>
+      </div>
+    </div>
+
+    <h2 id="confusions">자주 섞이는 짝</h2>
+
+    <p>두 단어를 나란히 놓고 보면 차이가 분명해집니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>이것</th><th>과 이것</th><th>무엇이 다른가</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>온톨로지</td><td>지식 그래프</td><td>규칙이냐 사실이냐. 온톨로지에는 회사 이름이 한 번도 안 나옵니다</td></tr>
+        <tr><td>분류 체계</td><td>온톨로지</td><td>어디에 넣을지냐, 어떻게 이어질지냐. 폴더는 한 자리만 주고 관계는 여러 개를 줍니다</td></tr>
+        <tr><td>지식 그래프</td><td>LLM Wiki</td><td>답이 나오는 곳이냐, 그게 안 죽게 하는 장치까지 포함하냐</td></tr>
+        <tr><td>RAG</td><td>그래프 순회</td><td>비슷한 문서를 찾아오느냐, 링크를 따라가느냐. 두 다리 건넌 사실은 뒤쪽으로만 나옵니다</td></tr>
+        <tr><td>폴더</td><td>MOC</td><td>서랍이냐 목차냐. 노트 하나는 서랍 하나에만 들어가지만 목차에는 여러 번 실릴 수 있습니다</td></tr>
+        <tr><td>본문</td><td>프론트매터</td><td>사람이 읽는 곳이냐, 기계가 읽는 곳이냐. 대시보드는 프론트매터만 봅니다</td></tr>
+        <tr><td>AI 도입</td><td>AX</td><td>도구를 샀느냐, 일하는 방식이 바뀌었느냐</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">필드 이름은 하나로</p>
+      <p>이 책은 마감 날짜를 <code>due</code> 하나로만 씁니다. <code>deadline</code>이나 <code>마감일</code>은 쓰지 않습니다. 뜻이 같아도 이름이 갈리면 셀 수 없기 때문입니다. 정본 필드 목록은 10장에 있습니다.</p>
+    </div>
+  </article>
+
+
+  <nav class="chapter-nav">
+    <a href="ch19.html" class="back-to-toc">← 이전: LLM Wiki에서 시작하는 AX</a>
+    <a href="coming-soon.html" class="next">다음: 부록 B 복붙용 자산 →</a>
+  </nav>
+</div>
+    <aside class="rail" id="rail" aria-label="이 장에서"></aside>
+  </div>
+</main>
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="목차 검색">
+  <div class="palette-box">
+    <input class="palette-input" type="text" placeholder="장 제목으로 찾기" aria-label="검색어">
+    <ul class="palette-results"></ul>
+  </div>
+</div>
+<script src="../../assets/js/book.js"></script>
+</body>
+</html>
