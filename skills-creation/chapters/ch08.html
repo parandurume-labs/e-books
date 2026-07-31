@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="첫 번째 스킬 만들기 — Hello World! 가장 간단한 AI 스킬을 직접 만들어봅니다">
+  <meta name="description" content="첫 번째 스킬 만들기. Hello World! 가장 간단한 AI 스킬을 직접 만들어봅니다">
   <meta name="author" content="나만의 AI 스킬을 만들자">
-  <title>Chapter 8: 첫 번째 스킬: "인사하기" — 나만의 AI 스킬을 만들자</title>
+  <title>Chapter 8: 첫 번째 스킬: "인사하기" · 나만의 AI 스킬을 만들자</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -31,23 +31,23 @@
   <div class="sidebar-content">
     <ul class="nav-list">
       <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
-      <li class="nav-part">제1부: 왜 — 스킬이 필요한 세상</li>
+      <li class="nav-part">제1부: 왜 · 스킬이 필요한 세상</li>
       <li><a href="ch01.html" class="nav-link">1장 AI와 대화한다는 것</a></li>
-      <li><a href="ch02.html" class="nav-link">2장 반복은 지겹다 — 자동화의 본능</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 반복은 지겹다: 자동화의 본능</a></li>
       <li><a href="ch03.html" class="nav-link">3장 내가 만든 도구를 나눠준다</a></li>
-      <li class="nav-part">제2부: 뭘 — 스킬 패키지 해부학</li>
+      <li class="nav-part">제2부: 뭘 · 스킬 패키지 해부학</li>
       <li><a href="ch04.html" class="nav-link">4장 스킬 패키지란?</a></li>
       <li><a href="ch05.html" class="nav-link">5장 뼈대 살펴보기</a></li>
       <li><a href="ch06.html" class="nav-link">6장 프론트매터: 스킬의 신분증</a></li>
-      <li><a href="ch07.html" class="nav-link">7장 references/ — 스킬의 참고서 폴더</a></li>
-      <li class="nav-part">제3부: 어떻게 — 나만의 스킬 만들기</li>
+      <li><a href="ch07.html" class="nav-link">7장 references/ · 스킬의 참고서 폴더</a></li>
+      <li class="nav-part">제3부: 어떻게 · 나만의 스킬 만들기</li>
       <li><a href="ch08.html" class="nav-link">8장 첫 번째 스킬: "인사하기"</a></li>
       <li><a href="ch09.html" class="nav-link">9장 프롬프트 엔지니어링 기초</a></li>
       <li><a href="ch10.html" class="nav-link">10장 도구 연결하기</a></li>
       <li><a href="ch11.html" class="nav-link">11장 references로 지식 확장하기</a></li>
       <li><a href="ch12.html" class="nav-link">12장 템플릿과 변수</a></li>
       <li><a href="ch13.html" class="nav-link">13장 테스트하고 다듬기</a></li>
-      <li class="nav-part">제4부: 더 멀리 — 성장하는 스킬</li>
+      <li class="nav-part">제4부: 더 멀리 · 성장하는 스킬</li>
       <li><a href="ch14.html" class="nav-link">14장 여러 스킬을 하나로</a></li>
       <li><a href="ch15.html" class="nav-link">15장 팀과 함께 쓰는 스킬</a></li>
       <li><a href="ch16.html" class="nav-link">16장 커뮤니티에 기여하기</a></li>
@@ -82,7 +82,7 @@
 
     <!-- ====== Opening Hook ====== -->
     <section>
-      <h2>지금부터 여러분은 만드는 사람(Maker)입니다</h2>
+      <h2>지금부터는 만드는 사람(Maker)입니다</h2>
 
       <p>여기까지 오신 분들, 진심으로 축하드려요.</p>
 
@@ -91,7 +91,7 @@
       <p>이제 달라집니다.</p>
 
       <div class="scenario-box">
-        지금부터 여러분은 <strong>구경하는 사람</strong>이 아니라 <strong>만드는 사람</strong>이에요. 코드를 읽는 사람이 아니라 코드를 쓰는 사람. 스킬을 쓰는 사람이 아니라 스킬을 만드는 사람.
+        지금부터는 <strong>구경하는 사람</strong>이 아니라 <strong>만드는 사람</strong>이에요. 코드를 읽는 사람이 아니라 코드를 쓰는 사람. 스킬을 쓰는 사람이 아니라 스킬을 만드는 사람.
       </div>
 
       <p>긴장되시나요? 괜찮아요. 프로그래밍의 오랜 전통이 하나 있거든요.</p>
@@ -228,7 +228,7 @@ description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
 
       <p><strong>4. 톤과 스타일</strong></p>
 
-      <p>"어떤 느낌으로 해"라는 스타일 가이드예요. "친구처럼 편하지만 예의 바르게" — 이 한 줄이 AI의 응답 분위기를 결정해요.</p>
+      <p>"어떤 느낌으로 해"라는 스타일 가이드예요. "친구처럼 편하지만 예의 바르게", 이 한 줄이 AI의 응답 분위기를 결정해요.</p>
 
       <p><strong>5. 예시 응답</strong></p>
 
@@ -236,7 +236,7 @@ description: "사용자에게 따뜻한 한국어 인사를 해주는 스킬"
 
       <div class="fun-box">
         <p class="fun-box-title">놀라운 사실</p>
-        <p>방금 여러분이 한 건 <strong>프로그래밍이 아니에요</strong>. 한국어로 글을 쓴 거예요. "이렇게 인사해줘"를 체계적으로 정리한 것뿐이에요. 그런데 이게 AI를 움직이는 스킬이 됩니다. 이게 2020년대의 마법이에요.</p>
+        <p>방금 한 건 <strong>프로그래밍이 아니에요</strong>. 한국어로 글을 쓴 거예요. "이렇게 인사해줘"를 체계적으로 정리한 것뿐이에요. 그런데 이게 AI를 움직이는 스킬이 됩니다. 이게 2020년대의 마법이에요.</p>
       </div>
     </section>
 
@@ -288,9 +288,9 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
 
       <p><strong>작동합니다!</strong></p>
 
-      <p>여러분이 방금 만든 스킬이, AI의 응답 방식을 바꿨어요. 그냥 "안녕하세요"라고만 대답하던 AI가, 재미있는 사실과 응원 메시지까지 전해주는 친구가 됐어요.</p>
+      <p>방금 만든 스킬이, AI의 응답 방식을 바꿨어요. 그냥 "안녕하세요"라고만 대답하던 AI가, 재미있는 사실과 응원 메시지까지 전해주는 친구가 됐어요.</p>
 
-      <p>축하합니다! 여러분은 방금 <strong>첫 번째 AI 스킬을 만들었어요!</strong></p>
+      <p>축하합니다! 방금 <strong>첫 번째 AI 스킬을 만든 거예요!</strong></p>
     </section>
 
     <!-- ====== What Just Happened ====== -->
@@ -299,22 +299,22 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
 
       <p>"그래, 작동은 하는데... 도대체 어떻게 되는 거야?"</p>
 
-      <p>좋은 질문이에요. 여러분이 "안녕!"이라고 입력한 순간부터 응답이 나올 때까지, 뒤에서 일어나는 일을 순서대로 볼게요:</p>
+      <p>좋은 질문이에요. "안녕!"이라고 입력한 순간부터 응답이 나올 때까지, 뒤에서 일어나는 일을 순서대로 볼게요:</p>
 
       <ol>
-        <li><strong>사용자 입력:</strong> 여러분이 "안녕!"이라고 타이핑</li>
+        <li><strong>사용자 입력:</strong> "안녕!"이라고 타이핑</li>
         <li><strong>스킬 탐색:</strong> Claude Code가 설치된 스킬들의 <code>description</code>을 훑어봄</li>
-        <li><strong>매칭:</strong> "사용자에게 따뜻한 한국어 인사를 해주는 스킬" — 오, 이게 딱이네!</li>
+        <li><strong>매칭:</strong> "사용자에게 따뜻한 한국어 인사를 해주는 스킬". 오, 이게 딱이네!</li>
         <li><strong>스킬 로드:</strong> <code>SKILL.md</code>의 내용을 읽어서 AI의 지시사항에 추가</li>
         <li><strong>응답 생성:</strong> AI가 스킬의 지시를 따라 인사 + 재미있는 사실 + 응원 메시지를 생성</li>
         <li><strong>출력:</strong> 완성된 응답이 화면에 표시!</li>
       </ol>
 
-      <p>핵심은 3번과 4번이에요. Claude Code가 <strong>자동으로</strong> 적절한 스킬을 찾아서 적용하는 거예요. 여러분이 "/인사하기"라고 명시적으로 스킬을 호출하지 않아도, AI가 문맥을 보고 "아, 이 상황에서는 이 스킬이 맞겠다"고 판단하는 거죠.</p>
+      <p>핵심은 3번과 4번이에요. Claude Code가 <strong>자동으로</strong> 적절한 스킬을 찾아서 적용하는 거예요. "/인사하기"라고 직접 스킬을 부르지 않아도, AI가 문맥을 보고 "아, 이 상황에서는 이 스킬이 맞겠다"고 판단하는 거죠.</p>
 
       <div class="fun-box">
         <p class="fun-box-title">레스토랑 비유로 다시 보면</p>
-        <p>여러분 = 손님 ("안녕!")<br>
+        <p>나 = 손님 ("안녕!")<br>
         Claude Code = 웨이터 (어떤 레시피를 쓸지 판단)<br>
         SKILL.md = 레시피 (인사 전문가처럼 응답하라)<br>
         AI = 셰프 (레시피대로 응답 만들기)<br>
@@ -377,7 +377,7 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
 
       <p><strong>"스킬이 적용되는 것 같지 않아요"</strong></p>
       <ul>
-        <li><code>description</code> 필드가 있는지 확인 — 이게 없으면 Claude Code가 스킬을 찾을 수 없어요</li>
+        <li><code>description</code> 필드가 있는지 확인. 이게 없으면 Claude Code가 스킬을 찾지 못해요</li>
         <li>프론트매터의 <code>---</code>가 정확히 두 줄 있는지 확인</li>
       </ul>
 
@@ -405,7 +405,7 @@ cp -r hello-skill ~/.claude/skills/</code></pre>
       <h3>다음 챕터에서는...</h3>
       <p>스킬이 작동하긴 하는데, 응답이 좀... 아쉬울 때가 있죠?<br>
       "요약해줘"라고 하면 어떤 때는 3줄, 어떤 때는 30줄로 요약하는 AI.<br>
-      다음 챕터에서는 <strong>프롬프트 엔지니어링</strong> — AI에게 정확히 원하는 결과를 뽑아내는 기술을 배워요.<br>
+      다음 챕터에서는 <strong>프롬프트 엔지니어링</strong>, AI에게 정확히 원하는 결과를 뽑아내는 기술을 배워요.<br>
       영화 감독이 배우에게 연기 지도하듯, AI에게 "역할 부여"하는 비법을 알려드릴게요!</p>
     </div>
 

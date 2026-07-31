@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="프론트매터: 스킬의 신분증 — YAML 헤더로 스킬의 정체를 알려주는 방법">
+  <meta name="description" content="프론트매터: 스킬의 신분증. YAML 헤더로 스킬의 정체를 알려주는 방법">
   <meta name="author" content="나만의 AI 스킬을 만들자">
-  <title>Chapter 6: 프론트매터: 스킬의 신분증 — 나만의 AI 스킬을 만들자</title>
+  <title>Chapter 6: 프론트매터: 스킬의 신분증 · 나만의 AI 스킬을 만들자</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -31,23 +31,23 @@
   <div class="sidebar-content">
     <ul class="nav-list">
       <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
-      <li class="nav-part">제1부: 왜 — 스킬이 필요한 세상</li>
+      <li class="nav-part">제1부: 왜 · 스킬이 필요한 세상</li>
       <li><a href="ch01.html" class="nav-link">1장 AI와 대화한다는 것</a></li>
-      <li><a href="ch02.html" class="nav-link">2장 반복은 지겹다 — 자동화의 본능</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 반복은 지겹다: 자동화의 본능</a></li>
       <li><a href="ch03.html" class="nav-link">3장 내가 만든 도구를 나눠준다</a></li>
-      <li class="nav-part">제2부: 뭘 — 스킬 패키지 해부학</li>
+      <li class="nav-part">제2부: 뭘 · 스킬 패키지 해부학</li>
       <li><a href="ch04.html" class="nav-link">4장 스킬 패키지란?</a></li>
       <li><a href="ch05.html" class="nav-link">5장 뼈대 살펴보기</a></li>
       <li><a href="ch06.html" class="nav-link">6장 프론트매터: 스킬의 신분증</a></li>
-      <li><a href="ch07.html" class="nav-link">7장 references/ — 스킬의 참고서 폴더</a></li>
-      <li class="nav-part">제3부: 어떻게 — 나만의 스킬 만들기</li>
+      <li><a href="ch07.html" class="nav-link">7장 references/ · 스킬의 참고서 폴더</a></li>
+      <li class="nav-part">제3부: 어떻게 · 나만의 스킬 만들기</li>
       <li><a href="ch08.html" class="nav-link">8장 첫 번째 스킬: "인사하기"</a></li>
       <li><a href="ch09.html" class="nav-link">9장 프롬프트 엔지니어링 기초</a></li>
       <li><a href="ch10.html" class="nav-link">10장 도구 연결하기</a></li>
       <li><a href="ch11.html" class="nav-link">11장 references로 지식 확장하기</a></li>
       <li><a href="ch12.html" class="nav-link">12장 템플릿과 변수</a></li>
       <li><a href="ch13.html" class="nav-link">13장 테스트하고 다듬기</a></li>
-      <li class="nav-part">제4부: 더 멀리 — 성장하는 스킬</li>
+      <li class="nav-part">제4부: 더 멀리 · 성장하는 스킬</li>
       <li><a href="ch14.html" class="nav-link">14장 여러 스킬을 하나로</a></li>
       <li><a href="ch15.html" class="nav-link">15장 팀과 함께 쓰는 스킬</a></li>
       <li><a href="ch16.html" class="nav-link">16장 커뮤니티에 기여하기</a></li>
@@ -71,7 +71,7 @@
   <header class="chapter-header">
     <span class="chapter-number">CHAPTER 6</span>
     <h1>프론트매터: 스킬의 신분증</h1>
-    <p class="chapter-subtitle">이름, 설명, 자격증 — AI에게 "너 누구야?"라고 물으면 보여주는 카드</p>
+    <p class="chapter-subtitle">이름, 설명, 자격증. AI에게 "너 누구야?"라고 물으면 보여주는 카드</p>
   </header>
 
   <figure class="illustration">
@@ -84,7 +84,7 @@
     <section>
       <h2>주민등록증을 떠올려보세요</h2>
 
-      <p>여러분의 주민등록증(또는 운전면허증)을 한번 떠올려보세요.</p>
+      <p>주민등록증(또는 운전면허증)을 한번 떠올려보세요.</p>
 
       <p>거기에 뭐가 적혀있나요?</p>
 
@@ -95,11 +95,11 @@
         <li><strong>사진:</strong> (말 안 할게요... 신분증 사진은 다 못생기게 나오니까)</li>
       </ul>
 
-      <p>이 작은 카드 한 장으로 "이 사람이 누구인지"를 빠르게 알 수 있어요.</p>
+      <p>이 작은 카드 한 장이 "이 사람이 누구인지"를 단숨에 알려줘요.</p>
 
       <p>스킬 패키지에도 이런 "신분증"이 있어요. SKILL.md 파일을 열면 맨 위에 적혀 있는 특별한 영역인데, 이걸 <strong>프론트매터(frontmatter)</strong>라고 불러요.</p>
 
-      <p>오늘은 이 프론트매터를 뜯어볼 거예요. 어렵지 않아요 — 약속!</p>
+      <p>오늘은 이 프론트매터를 뜯어볼 거예요. 어렵지 않아요. 약속!</p>
     </section>
 
     <!-- ====== What is YAML ====== -->
@@ -118,7 +118,7 @@
         그냥 <code>키: 값</code> 형태로 정보를 적는 거예요. 설문조사 응답지처럼요.</p>
       </div>
 
-      <p>예를 들어볼게요. 여러분이 카페에서 주문서를 작성한다고 해봐요:</p>
+      <p>예를 들어볼게요. 카페에서 주문서를 작성한다고 해봐요:</p>
 
       <pre><code>이름: 홍길동
 음료: 아이스 아메리카노
@@ -179,7 +179,7 @@ allowed-tools:
 
       <p>프론트매터의 각 항목을 하나씩 살펴볼게요.</p>
 
-      <h3>1. name — 스킬의 이름</h3>
+      <h3>1. name: 스킬의 이름</h3>
 
       <pre><code>name: weekly-report-writer</code></pre>
 
@@ -204,7 +204,7 @@ allowed-tools:
         <code>asdf</code> (키보드를 발로 친 건가요?)</p>
       </div>
 
-      <h3>2. description — 스킬의 자기소개</h3>
+      <h3>2. description: 스킬의 자기소개</h3>
 
       <pre><code>description: >-
   매주 월요일 주간 현황 보고 이메일을 작성해주는 스킬입니다.
@@ -229,7 +229,7 @@ allowed-tools:
         <img src="../images/illu-6-2.png" alt="일러스트 6-2: AI 스킬 면접장">
       </figure>
 
-      <h3>3. allowed-tools — 스킬의 자격증</h3>
+      <h3>3. allowed-tools: 스킬의 자격증</h3>
 
       <pre><code>allowed-tools:
   - Bash
@@ -257,7 +257,7 @@ allowed-tools:
 
       <h3>4. 그 외 선택 항목들</h3>
 
-      <p>이 세 가지(name, description, allowed-tools)가 핵심이지만, 필요에 따라 더 추가할 수 있어요:</p>
+      <p>이 세 가지(name, description, allowed-tools)가 핵심이지만, 필요하면 더 추가해도 돼요:</p>
 
       <pre><code>---
 name: weekly-report-writer
@@ -380,7 +380,7 @@ name:weekly-report-writer</code></pre>
       <h3>다음 챕터에서는...</h3>
       <p>스킬에 들어있는 <strong>references/ 폴더</strong>를 살펴봅니다.<br>
       SKILL.md가 "메인 교과서"라면, references/는 "참고 도서 모음"이에요.<br>
-      왜 모든 걸 SKILL.md에 넣으면 안 되는지, 어떻게 지식을 나눠서 관리하는지 — <strong>모듈화의 마법</strong>을 알아봐요!</p>
+      왜 모든 걸 SKILL.md에 넣으면 안 되는지, 어떻게 지식을 나눠서 관리하는지, <strong>모듈화의 마법</strong>을 알아봐요!</p>
     </div>
 
   </article>

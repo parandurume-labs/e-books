@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="도구 연결하기 — allowed-tools로 스킬에 초능력을 부여하는 방법">
+  <meta name="description" content="도구 연결하기 · allowed-tools로 스킬에 초능력을 부여하는 방법">
   <meta name="author" content="나만의 AI 스킬을 만들자">
-  <title>Chapter 10: 도구 연결하기 — allowed-tools의 세계 — 나만의 AI 스킬을 만들자</title>
+  <title>Chapter 10: 도구 연결하기 · allowed-tools의 세계 · 나만의 AI 스킬을 만들자</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -31,23 +31,23 @@
   <div class="sidebar-content">
     <ul class="nav-list">
       <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
-      <li class="nav-part">제1부: 왜 — 스킬이 필요한 세상</li>
+      <li class="nav-part">제1부: 왜 · 스킬이 필요한 세상</li>
       <li><a href="ch01.html" class="nav-link">1장 AI와 대화한다는 것</a></li>
-      <li><a href="ch02.html" class="nav-link">2장 반복은 지겹다 — 자동화의 본능</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 반복은 지겹다: 자동화의 본능</a></li>
       <li><a href="ch03.html" class="nav-link">3장 내가 만든 도구를 나눠준다</a></li>
-      <li class="nav-part">제2부: 뭘 — 스킬 패키지 해부학</li>
+      <li class="nav-part">제2부: 뭘 · 스킬 패키지 해부학</li>
       <li><a href="ch04.html" class="nav-link">4장 스킬 패키지란?</a></li>
       <li><a href="ch05.html" class="nav-link">5장 뼈대 살펴보기</a></li>
       <li><a href="ch06.html" class="nav-link">6장 프론트매터: 스킬의 신분증</a></li>
-      <li><a href="ch07.html" class="nav-link">7장 references/ — 스킬의 참고서 폴더</a></li>
-      <li class="nav-part">제3부: 어떻게 — 나만의 스킬 만들기</li>
+      <li><a href="ch07.html" class="nav-link">7장 references/ · 스킬의 참고서 폴더</a></li>
+      <li class="nav-part">제3부: 어떻게 · 나만의 스킬 만들기</li>
       <li><a href="ch08.html" class="nav-link">8장 첫 번째 스킬: "인사하기"</a></li>
       <li><a href="ch09.html" class="nav-link">9장 프롬프트 엔지니어링 기초</a></li>
       <li><a href="ch10.html" class="nav-link">10장 도구 연결하기</a></li>
       <li><a href="ch11.html" class="nav-link">11장 references로 지식 확장하기</a></li>
       <li><a href="ch12.html" class="nav-link">12장 템플릿과 변수</a></li>
       <li><a href="ch13.html" class="nav-link">13장 테스트하고 다듬기</a></li>
-      <li class="nav-part">제4부: 더 멀리 — 성장하는 스킬</li>
+      <li class="nav-part">제4부: 더 멀리 · 성장하는 스킬</li>
       <li><a href="ch14.html" class="nav-link">14장 여러 스킬을 하나로</a></li>
       <li><a href="ch15.html" class="nav-link">15장 팀과 함께 쓰는 스킬</a></li>
       <li><a href="ch16.html" class="nav-link">16장 커뮤니티에 기여하기</a></li>
@@ -70,7 +70,7 @@
   <!-- ====== Chapter Header ====== -->
   <header class="chapter-header">
     <span class="chapter-number">CHAPTER 10</span>
-    <h1>도구 연결하기 — allowed-tools의 세계</h1>
+    <h1>도구 연결하기: allowed-tools의 세계</h1>
     <p class="chapter-subtitle">샌드위치 셰프에서 풀코스 셰프로 업그레이드</p>
   </header>
 
@@ -96,11 +96,11 @@
 
       <p>지금까지 우리가 만든 스킬이 바로 이 상태예요.</p>
 
-      <p>챕터 8의 인사하기 스킬, 챕터 9의 요약 스킬 — 다 좋아요. 근데 이 스킬들은 <strong>"텍스트를 받아서 텍스트를 내보내는 것"</strong>밖에 못 해요. 파일을 읽지 못하고, 명령어를 실행하지 못하고, 코드를 검색하지 못해요.</p>
+      <p>챕터 8의 인사하기 스킬도, 챕터 9의 요약 스킬도 다 좋아요. 근데 이 스킬들은 <strong>"텍스트를 받아서 텍스트를 내보내는 것"</strong>밖에 못 해요. 파일을 읽지 못하고, 명령어를 실행하지 못하고, 코드를 검색하지 못해요.</p>
 
       <p>셰프에게 주방 도구를 주면 요리의 차원이 달라지듯, 스킬에 <strong>도구(tools)</strong>를 연결하면 스킬의 차원이 달라져요.</p>
 
-      <p>이번 챕터에서 배울 것: <strong>allowed-tools</strong> — 스킬에게 초능력을 부여하는 열쇠.</p>
+      <p>이번 챕터에서 배울 건 <strong>allowed-tools</strong>예요. 스킬에게 초능력을 부여하는 열쇠죠.</p>
     </section>
 
     <!-- ====== What are Tools ====== -->
@@ -109,16 +109,16 @@
 
       <p>"도구"가 정확히 뭘 말하는 걸까요?</p>
 
-      <p>Claude Code에는 AI가 사용할 수 있는 여러 가지 <strong>내장 도구(built-in tools)</strong>가 있어요. 각각 다른 능력을 가지고 있죠.</p>
+      <p>Claude Code에는 AI가 쓰는 <strong>내장 도구(built-in tools)</strong>가 여러 가지 있어요. 각각 능력이 다르죠.</p>
 
       <div class="fun-box">
         <p class="fun-box-title">Claude Code의 도구 목록</p>
-        <p><strong>Read</strong> — 파일 읽기. 어떤 파일이든 내용을 볼 수 있어요.<br>
-        <strong>Write</strong> — 파일 쓰기. 새 파일을 만들거나 덮어쓰기.<br>
-        <strong>Edit</strong> — 파일 수정. 기존 파일의 특정 부분만 바꾸기.<br>
-        <strong>Bash</strong> — 터미널 명령어 실행. <code>ls</code>, <code>git</code>, <code>npm</code> 등 뭐든!<br>
-        <strong>Glob</strong> — 파일 찾기. 패턴으로 파일을 검색.<br>
-        <strong>Grep</strong> — 내용 검색. 파일 안에서 특정 텍스트 찾기.</p>
+        <p><strong>Read</strong>: 파일 읽기. 어떤 파일이든 내용을 들여다봐요.<br>
+        <strong>Write</strong>: 파일 쓰기. 새 파일을 만들거나 덮어쓰기.<br>
+        <strong>Edit</strong>: 파일 수정. 기존 파일의 특정 부분만 바꾸기.<br>
+        <strong>Bash</strong>: 터미널 명령어 실행. <code>ls</code>, <code>git</code>, <code>npm</code> 등 뭐든!<br>
+        <strong>Glob</strong>: 파일 찾기. 패턴으로 파일을 검색.<br>
+        <strong>Grep</strong>: 내용 검색. 파일 안에서 특정 텍스트 찾기.</p>
       </div>
 
       <p>이걸 주방 도구에 비유하면:</p>
@@ -139,7 +139,7 @@
 
       <p>자, 여기서 중요한 포인트. AI가 이 도구들을 <strong>아무 때나 막 쓸 수 있는 게 아니에요</strong>.</p>
 
-      <p>스킬을 만들 때, <strong>"이 스킬은 이 도구들만 쓸 수 있어"</strong>라고 명시적으로 허가해줘야 해요. 그게 바로 <code>allowed-tools</code> 필드예요.</p>
+      <p>스킬을 만들 때 <strong>"이 스킬은 이 도구들만 쓸 수 있어"</strong>라고 직접 허가해줘야 해요. 그게 바로 <code>allowed-tools</code> 필드예요.</p>
 
 <pre><code>---
 description: "프로젝트의 코드 줄 수를 세는 스킬"
@@ -184,7 +184,7 @@ allowed-tools: ["Bash", "Glob"]
 
 <pre><code>allowed-tools: ["Read", "Write", "Edit", "Bash", "Glob", "Grep"]</code></pre>
 
-      <p>모든 도구를 사용할 수 있어요. 강력하지만, 그만큼 <strong>신중하게</strong> 만들어야 해요.</p>
+      <p>모든 도구를 써요. 강력한 만큼 <strong>신중하게</strong> 만들어야 해요.</p>
 
       <p>비유하면: 집주인. 뭐든 할 수 있지만, 책임도 커요.</p>
 
@@ -271,7 +271,7 @@ allowed-tools: ["Bash", "Glob", "Grep"]
 
       <p><strong><code>allowed-tools: ["Bash", "Glob", "Grep"]</code></strong></p>
 
-      <p>이 스킬은 <code>Bash</code>(줄 수를 세는 명령어 실행), <code>Glob</code>(파일 찾기), <code>Grep</code>(내용 검색)만 사용해요. <code>Write</code>나 <code>Edit</code>은 없어요 — 이 스킬은 분석만 하지, 파일을 건드리지 않으니까!</p>
+      <p>이 스킬은 <code>Bash</code>(줄 수를 세는 명령어 실행), <code>Glob</code>(파일 찾기), <code>Grep</code>(내용 검색)만 사용해요. <code>Write</code>나 <code>Edit</code>은 없어요. 이 스킬은 분석만 하지, 파일을 건드리지 않으니까!</p>
 
       <p>이렇게 만들고, 이전 챕터에서 배운 대로 설치한 뒤, Claude Code에서 이렇게 말해보세요:</p>
 
@@ -309,16 +309,16 @@ allowed-tools: ["Bash", "Glob", "Grep"]
       <h3>잠깐, 정리!</h3>
       <ul>
         <li>Claude Code에는 <strong>Read, Write, Edit, Bash, Glob, Grep</strong> 등의 내장 도구가 있어요</li>
-        <li><code>allowed-tools</code> 필드로 스킬이 사용할 수 있는 도구를 <strong>명시적으로 허가</strong>해요</li>
+        <li><code>allowed-tools</code> 필드로 스킬이 쓸 도구를 <strong>하나하나 허가</strong>해요</li>
         <li>자주 쓰는 조합:
           <ul>
-            <li><strong>읽기 전용:</strong> Read, Glob, Grep — 분석/리뷰용</li>
-            <li><strong>빌더:</strong> Read, Write, Edit, Bash — 생성/수정용</li>
-            <li><strong>풀 파워:</strong> 전부 — 신중하게!</li>
+            <li><strong>읽기 전용:</strong> Read, Glob, Grep · 분석/리뷰용</li>
+            <li><strong>빌더:</strong> Read, Write, Edit, Bash · 생성/수정용</li>
+            <li><strong>풀 파워:</strong> 전부. 대신 신중하게!</li>
           </ul>
         </li>
-        <li><strong>최소 권한의 원칙</strong> — 필요한 도구만 딱 그만큼만 허가하세요</li>
-        <li>도구를 연결하면 스킬이 <strong>실제 작업</strong>(파일 분석, 명령어 실행)을 할 수 있어요</li>
+        <li><strong>최소 권한의 원칙</strong>: 필요한 도구만 딱 그만큼만 허가하세요</li>
+        <li>도구를 연결하면 스킬이 <strong>실제 작업</strong>(파일 분석, 명령어 실행)까지 해내요</li>
       </ul>
     </aside>
 
@@ -327,7 +327,7 @@ allowed-tools: ["Bash", "Glob", "Grep"]
       <h3>다음 챕터에서는...</h3>
       <p>스킬이 점점 강력해지고 있죠? 근데 SKILL.md 하나에 모든 걸 담으려니 점점 길어져요.<br>
       요리 레시피가 100페이지가 되면 읽기 힘들듯이, 스킬도 정리가 필요해요.<br>
-      다음 챕터에서는 <strong>references/</strong> — 스킬의 지식을 깔끔하게 분리하는 방법을 배워요.<br>
+      다음 챕터에서는 <strong>references/</strong>로 스킬의 지식을 깔끔하게 분리하는 방법을 배워요.<br>
       요리책의 부록처럼, 자주 참고하는 지식을 따로 정리하는 기술이에요!</p>
     </div>
 

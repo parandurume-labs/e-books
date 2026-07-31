@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="여러 스킬을 하나로 — 모노레포 패턴으로 관련 스킬들을 체계적으로 관리하는 방법">
+  <meta name="description" content="여러 스킬을 하나로 · 모노레포 패턴으로 관련 스킬들을 체계적으로 관리하는 방법">
   <meta name="author" content="나만의 AI 스킬을 만들자">
-  <title>Chapter 14: 여러 스킬을 하나로 — 모노레포 패턴 — 나만의 AI 스킬을 만들자</title>
+  <title>Chapter 14: 여러 스킬을 하나로 · 모노레포 패턴 · 나만의 AI 스킬을 만들자</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -31,23 +31,23 @@
   <div class="sidebar-content">
     <ul class="nav-list">
       <li><a href="../index.html" class="nav-link">표지와 목차</a></li>
-      <li class="nav-part">제1부: 왜 — 스킬이 필요한 세상</li>
+      <li class="nav-part">제1부: 왜 · 스킬이 필요한 세상</li>
       <li><a href="ch01.html" class="nav-link">1장 AI와 대화한다는 것</a></li>
-      <li><a href="ch02.html" class="nav-link">2장 반복은 지겹다 — 자동화의 본능</a></li>
+      <li><a href="ch02.html" class="nav-link">2장 반복은 지겹다: 자동화의 본능</a></li>
       <li><a href="ch03.html" class="nav-link">3장 내가 만든 도구를 나눠준다</a></li>
-      <li class="nav-part">제2부: 뭘 — 스킬 패키지 해부학</li>
+      <li class="nav-part">제2부: 뭘 · 스킬 패키지 해부학</li>
       <li><a href="ch04.html" class="nav-link">4장 스킬 패키지란?</a></li>
       <li><a href="ch05.html" class="nav-link">5장 뼈대 살펴보기</a></li>
       <li><a href="ch06.html" class="nav-link">6장 프론트매터: 스킬의 신분증</a></li>
-      <li><a href="ch07.html" class="nav-link">7장 references/ — 스킬의 참고서 폴더</a></li>
-      <li class="nav-part">제3부: 어떻게 — 나만의 스킬 만들기</li>
+      <li><a href="ch07.html" class="nav-link">7장 references/ · 스킬의 참고서 폴더</a></li>
+      <li class="nav-part">제3부: 어떻게 · 나만의 스킬 만들기</li>
       <li><a href="ch08.html" class="nav-link">8장 첫 번째 스킬: "인사하기"</a></li>
       <li><a href="ch09.html" class="nav-link">9장 프롬프트 엔지니어링 기초</a></li>
       <li><a href="ch10.html" class="nav-link">10장 도구 연결하기</a></li>
       <li><a href="ch11.html" class="nav-link">11장 references로 지식 확장하기</a></li>
       <li><a href="ch12.html" class="nav-link">12장 템플릿과 변수</a></li>
       <li><a href="ch13.html" class="nav-link">13장 테스트하고 다듬기</a></li>
-      <li class="nav-part">제4부: 더 멀리 — 성장하는 스킬</li>
+      <li class="nav-part">제4부: 더 멀리 · 성장하는 스킬</li>
       <li><a href="ch14.html" class="nav-link">14장 여러 스킬을 하나로</a></li>
       <li><a href="ch15.html" class="nav-link">15장 팀과 함께 쓰는 스킬</a></li>
       <li><a href="ch16.html" class="nav-link">16장 커뮤니티에 기여하기</a></li>
@@ -70,7 +70,7 @@
   <!-- ====== Chapter Header ====== -->
   <header class="chapter-header">
     <span class="chapter-number">CHAPTER 14</span>
-    <h1>여러 스킬을 하나로 — 모노레포 패턴</h1>
+    <h1>여러 스킬을 하나로: 모노레포 패턴</h1>
     <p class="chapter-subtitle">한 지붕 아래, 여러 주방이 돌아가는 푸드코트의 비밀</p>
   </header>
 
@@ -84,7 +84,7 @@
     <section>
       <h2>식당 하나 vs 푸드코트</h2>
 
-      <p>여러분, 동네 맛집 하나를 상상해보세요. 김치찌개 하나만 파는 작은 식당이에요. 메뉴도 간단하고, 주방도 하나, 셰프도 한 명. 깔끔하죠?</p>
+      <p>동네 맛집 하나를 상상해보세요. 김치찌개 하나만 파는 작은 식당이에요. 메뉴도 간단하고, 주방도 하나, 셰프도 한 명. 깔끔하죠?</p>
 
       <p>근데 시간이 지나면서 이 셰프가 재능이 넘치는 거예요. 김치찌개만 하기엔 아까워서, 된장찌개도 만들고, 비빔밥도 만들고, 냉면도 만들어요.</p>
 
@@ -131,10 +131,10 @@
       <p>모든 상황에 모노레포가 좋은 건 아니에요. <strong>이럴 때</strong> 쓰면 좋아요:</p>
 
       <ul>
-        <li><strong>관련된 스킬이 3개 이상일 때</strong> — 혼자 사는 것보다 함께 사는 게 효율적인 수준</li>
-        <li><strong>스킬들이 공통 참조 파일을 공유할 때</strong> — 같은 코딩 컨벤션, 같은 회사 규칙 등</li>
-        <li><strong>스킬들이 하나의 워크플로우에 속할 때</strong> — 리뷰 → 배포 → 모니터링처럼 연결되는 경우</li>
-        <li><strong>같은 팀이 여러 스킬을 관리할 때</strong> — 버전 관리와 업데이트를 일괄 처리하고 싶을 때</li>
+        <li><strong>관련된 스킬이 3개 이상일 때</strong>: 혼자 사는 것보다 함께 사는 게 효율적인 수준</li>
+        <li><strong>스킬들이 공통 참조 파일을 공유할 때</strong>: 같은 코딩 컨벤션, 같은 회사 규칙 등</li>
+        <li><strong>스킬들이 하나의 워크플로우에 속할 때</strong>: 리뷰 → 배포 → 모니터링처럼 연결되는 경우</li>
+        <li><strong>같은 팀이 여러 스킬을 관리할 때</strong>: 버전 관리와 업데이트를 일괄 처리하고 싶을 때</li>
       </ul>
 
       <p>반대로, <strong>이럴 때는 굳이 모노레포를 안 써도 돼요:</strong></p>
@@ -184,9 +184,9 @@
       <p>예를 들어:</p>
 
       <ul>
-        <li><code>SHARED-PREAMBLE.md</code> — "우리 팀은 이런 코딩 스타일을 씁니다"라는 공통 규칙</li>
-        <li><code>coding-standards.md</code> — 변수명 규칙, 들여쓰기 규칙 등</li>
-        <li><code>team-conventions.md</code> — 팀 내 약속들 (커밋 메시지 형식, 브랜치 전략 등)</li>
+        <li><code>SHARED-PREAMBLE.md</code>: "우리 팀은 이런 코딩 스타일을 씁니다"라는 공통 규칙</li>
+        <li><code>coding-standards.md</code>: 변수명 규칙, 들여쓰기 규칙 등</li>
+        <li><code>team-conventions.md</code>: 팀 내 약속들 (커밋 메시지 형식, 브랜치 전략 등)</li>
       </ul>
 
       <p>이 파일들이 변경되면, 모든 스킬에 자동으로 반영돼요. <strong>한 번 고치면, 전부 업데이트.</strong> 이걸 폴리레포로 하면? 저장소 3개에 같은 수정을 3번 해야 하죠. 끔찍해요.</p>
@@ -211,12 +211,12 @@
       <p>이 책에서 여러 번 언급한 <strong>gstack</strong> 기억하시죠? gstack은 여러 스킬이 하나의 모노레포에 들어있어요.</p>
 
       <ul>
-        <li><strong>/browse</strong> — 웹 브라우저로 사이트를 탐색하고 테스트</li>
-        <li><strong>/benchmark</strong> — 성능을 측정하고 비교</li>
-        <li><strong>/canary</strong> — 배포 후 모니터링</li>
-        <li><strong>/review</strong> — 코드 리뷰</li>
-        <li><strong>/qa</strong> — QA 테스트</li>
-        <li><strong>/design-review</strong> — 디자인 검토</li>
+        <li><strong>/browse</strong>: 웹 브라우저로 사이트를 탐색하고 테스트</li>
+        <li><strong>/benchmark</strong>: 성능을 측정하고 비교</li>
+        <li><strong>/canary</strong>: 배포 후 모니터링</li>
+        <li><strong>/review</strong>: 코드 리뷰</li>
+        <li><strong>/qa</strong>: QA 테스트</li>
+        <li><strong>/design-review</strong>: 디자인 검토</li>
       </ul>
 
       <p>이 스킬들이 왜 모노레포에 있을까요?</p>
@@ -225,13 +225,13 @@
 
       <p><strong>둘째, 공통 인프라를 공유해요.</strong> browse 스킬이 사용하는 브라우저 도구를, benchmark나 canary도 같이 써요. 공유 자원이 있으니 모노레포가 효율적이죠.</p>
 
-      <p><strong>셋째, 같은 팀이 관리해요.</strong> 업데이트할 때 한 번에 모든 스킬을 확인하고 수정할 수 있어요.</p>
+      <p><strong>셋째, 같은 팀이 관리해요.</strong> 업데이트할 때 한 번에 모든 스킬을 확인하고 수정하죠.</p>
 
       <div class="callout">
         <p class="callout-title">실전 팁: 이름 짓기</p>
         <p>모노레포 안의 각 스킬 폴더 이름은 <strong>일관된 규칙</strong>을 따르는 게 좋아요.<br><br>
-        예시: <code>skill-review</code>, <code>skill-deploy</code>, <code>skill-monitor</code> — 접두어 <code>skill-</code>을 통일.<br>
-        또는: <code>review/</code>, <code>deploy/</code>, <code>monitor/</code> — 더 간결하게.<br><br>
+        예시: <code>skill-review</code>, <code>skill-deploy</code>, <code>skill-monitor</code>처럼 접두어 <code>skill-</code>을 통일.<br>
+        또는: <code>review/</code>, <code>deploy/</code>, <code>monitor/</code>처럼 더 간결하게.<br><br>
         아무 규칙이나 괜찮은데, <strong>통일하는 게 중요</strong>합니다.</p>
       </div>
     </section>
@@ -242,19 +242,19 @@
 
       <p>지금까지 이야기한 장점을 깔끔하게 정리해볼게요.</p>
 
-      <p><strong>1. 공유 참조 파일 — "한 번 쓰고 여러 번 쓰기"</strong></p>
+      <p><strong>1. 공유 참조 파일: "한 번 쓰고 여러 번 쓰기"</strong></p>
 
       <p>팀의 코딩 규칙이 바뀌었다고 해봐요. 모노레포라면? <code>shared-references/coding-standards.md</code> 하나만 수정하면 끝. 폴리레포라면? 스킬 10개의 저장소를 하나하나 열어서 똑같은 수정을 10번 해야 해요.</p>
 
-      <p><strong>2. 일관된 버전 관리 — "다 같이 업데이트"</strong></p>
+      <p><strong>2. 일관된 버전 관리: "다 같이 업데이트"</strong></p>
 
-      <p>Git에서 커밋(변경 기록) 하나로 여러 스킬을 동시에 업데이트할 수 있어요. "이번 변경은 리뷰 스킬과 배포 스킬 모두에 영향을 줘" — 이런 수정을 하나의 커밋으로 깔끔하게 기록할 수 있죠.</p>
+      <p>Git에서 커밋(변경 기록) 하나로 여러 스킬을 동시에 업데이트해요. "이번 변경은 리뷰 스킬과 배포 스킬 모두에 영향을 줘". 이런 수정을 하나의 커밋으로 깔끔하게 기록하죠.</p>
 
-      <p><strong>3. 쉬운 테스트 — "한 자리에서 전부 확인"</strong></p>
+      <p><strong>3. 쉬운 테스트: "한 자리에서 전부 확인"</strong></p>
 
       <p>모든 스킬이 한 곳에 있으니, 전체를 한 번에 테스트하기가 쉬워요. "리뷰 스킬 고쳤는데, 배포 스킬에 영향 없나?" 같은 걸 바로 확인할 수 있죠.</p>
 
-      <p><strong>4. 발견 가능성 — "아, 이런 스킬도 있었어?"</strong></p>
+      <p><strong>4. 발견 가능성: "아, 이런 스킬도 있었어?"</strong></p>
 
       <p>팀원이 모노레포를 둘러보다가 "오, 모니터링 스킬도 있네? 이거 몰랐는데!" 하고 발견할 수 있어요. 각각 다른 저장소에 흩어져 있었다면, 존재 자체를 모를 수도 있었을 거예요.</p>
 
@@ -279,7 +279,7 @@
 
       <p>자, 이론은 충분해요. 직접 만들어봅시다!</p>
 
-      <p>여러분이 마케팅 팀에서 일한다고 가정하고, 마케팅 관련 스킬 3개를 모노레포로 만들어볼게요.</p>
+      <p>마케팅 팀에서 일한다고 가정하고, 마케팅 관련 스킬 3개를 모노레포로 만들어볼게요.</p>
 
       <h3>1단계: 최상위 폴더 만들기</h3>
 
@@ -348,7 +348,7 @@ mkdir -p skill-report/references</code></pre>
 
       <p><strong>실수 1: 관련 없는 스킬 몰아넣기</strong></p>
 
-      <p>"모노레포가 좋다니까, 내 모든 스킬을 다 하나에 넣자!" — 이러면 안 돼요. 요리 스킬과 코드 리뷰 스킬은 관련이 없잖아요. 관련 없는 스킬을 억지로 모으면, 오히려 복잡해져요.</p>
+      <p>"모노레포가 좋다니까, 내 모든 스킬을 다 하나에 넣자!" 이러면 안 돼요. 요리 스킬과 코드 리뷰 스킬은 관련이 없잖아요. 관련 없는 스킬을 억지로 모으면, 오히려 복잡해져요.</p>
 
       <p><strong>실수 2: shared-references를 너무 크게 만들기</strong></p>
 
