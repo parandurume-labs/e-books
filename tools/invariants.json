@@ -91,8 +91,10 @@
   ],
   "automation_write_policy": {
     "_comment": [
-      "14장이 「_reports/ 에만 쓴다」고 하고 15장 대시보드는 _moc/ 에 쓴다. 문자적 충돌이었다.",
-      "취지는 「Sources/ 는 사람의 영역」이므로 허용 목록을 둘로 넓혔다."
+      "자동화가 파일을 만들어도 되는 폴더. allowed 가 둘 이상이면",
+      "「_reports/ 에만」 같은 한 곳만 적는 표현은 거짓이 된다.",
+      "패턴을 문자 그대로 뒀다가 ch14 의 「<code>_reports/</code>에만 쓴다」를 놓쳤다.",
+      "띄어쓰기와 「폴더」 유무가 달랐을 뿐이다. 그래서 정규식으로 바꿨다."
     ],
     "allowed": [
       "_reports/",
@@ -101,10 +103,9 @@
     "forbidden": [
       "Sources/"
     ],
-    "exclusive_claim_patterns": [
-      "_reports/</code> 폴더에만",
-      "only in <code>_reports/</code>",
-      "only to <code>_reports/</code>"
+    "exclusive_claim_regex": [
+      "_reports/</code>\\s*(?:폴더)?\\s*에만",
+      "only\\s+(?:in|to)\\s+<code>_reports/</code>"
     ]
   },
   "structure": {
@@ -306,5 +307,72 @@
       "수 있습니다": 6
     },
     "budget_min_chars": 3000
+  },
+  "required_fields": {
+    "_comment": [
+      "클래스별 필수 필드의 정본. ch03 설계서 발췌와 ch17 의 REQUIRED 딕셔너리가 근거다.",
+      "9장과 10장이 같은 설계서를 이어 쓰면서 공통 필수를 서로 다르게 확정했다.",
+      "9장은 confidence 를 공통으로 올리고, 10장은 owner 를 공통으로 올렸다. 둘 다 틀렸다."
+    ],
+    "common": [
+      "class",
+      "id",
+      "updated"
+    ],
+    "by_class": {
+      "제품": [
+        "status",
+        "owner",
+        "since"
+      ],
+      "기술역량": [
+        "trl",
+        "evidence"
+      ],
+      "과제": [
+        "period",
+        "funder",
+        "budget"
+      ],
+      "기회": [
+        "stage",
+        "due"
+      ]
+    },
+    "optional": [
+      "start",
+      "priority",
+      "blocked_by",
+      "confidential",
+      "confidence"
+    ]
+  },
+  "classes": {
+    "_comment": [
+      "솔빛테크가 쓰는 클래스 일곱. 9장이 19개 후보에서 줄여 확정했다.",
+      "업무로그와 회의록은 클래스가 아니라 40-Worklog 의 노트 종류다.",
+      "12장이 「업무로그와 회의록에는 접두어가 없다」고 못 박았다."
+    ],
+    "backbone": [
+      "제품",
+      "기술역량",
+      "과제",
+      "기회"
+    ],
+    "support": [
+      "조직",
+      "사람",
+      "결정"
+    ],
+    "not_classes": [
+      "업무로그",
+      "회의록"
+    ]
+  },
+  "id_formats": {
+    "_comment": "같은 클래스 ID 가 네 가지 모양으로 나왔다. 9장 형식이 정본이다.",
+    "결정": "DEC-YYYY-MMDD-짧은이름",
+    "업무로그": "YYYY-MM-DD-사람이름 (접두어 없음)",
+    "회의록": "YYYY-MM-DD-회의이름 (접두어 없음)"
   }
 }

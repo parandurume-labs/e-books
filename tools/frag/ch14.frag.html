@@ -5,7 +5,7 @@
   "subtitle": "예약 작업 하나가 주간 점검 습관보다 오래 삽니다",
   "desc": "Claude Cowork 예약 작업, Windows 작업 스케줄러, Power Automate를 조합해 LLM Wiki를 자동으로 돌립니다. 원격 실행이 로컬 폴더에 닿지 못하는 핵심 제약과 네 가지 우회 설계를 다룹니다.",
   "minutes": "17",
-  "prev_href": "coming-soon.html",
+  "prev_href": "ch13.html",
   "prev_label": "이전: 스킬로 반복 작업 자동화하기",
   "next_href": "ch15.html",
   "next_label": "다음: 업무 진행을 눈에 보이게"
@@ -365,7 +365,7 @@ Sources/40-Worklog/ 에서 오늘 날짜(KST)로 작성된 업무로그 노트�
       </thead>
       <tbody>
         <tr><td>읽고 요약만 (브리핑·알림)</td><td>자동</td><td>되돌릴 게 없다. 확인을 걸면 실행이 멈춰 있게 된다</td></tr>
-        <tr><td><code>_reports/</code> 에만 새 파일 생성</td><td>자동</td><td>기존 지식을 건드리지 않는다</td></tr>
+        <tr><td><code>_reports/</code>, <code>_moc/</code> 에만 새 파일 생성</td><td>자동</td><td>기존 지식을 건드리지 않는다</td></tr>
         <tr><td><code>Sources/</code> 의 노트 수정</td><td>확인 필요</td><td>사람이 검증한 지식을 고치는 일이다</td></tr>
         <tr><td>파일 삭제·이동</td><td>확인 필요 (또는 아예 금지)</td><td>동기화 충돌과 링크 깨짐이 함께 온다</td></tr>
       </tbody>
@@ -410,14 +410,15 @@ Sources/40-Worklog/ 에서 오늘 날짜(KST)로 작성된 업무로그 노트�
     <pre><code># _ops/scripts/validate.py 의 마지막 부분
 # 결과를 사람이 아니라 다음 자동화가 읽게 남긴다
 
-report = ROOT / "_reports" / f"validate-{today}.md"
+report = ROOT / "_reports" / f"점검-{today}.md"
 report.write_text(rendered, encoding="utf-8")
 
 # 예약 작업이 「증감」을 계산할 수 있게 요약 한 줄을 따로 누적한다
+# 열: 날짜, ERROR, WARN, INFO, 전체 노트 수, 검증된 노트 비율(%)
 with (ROOT / "_reports" / "validate-history.csv").open("a", encoding="utf-8") as f:
-    f.write(f"{today},{n_error},{n_warn},{n_notes}\n")</code></pre>
+    f.write(f"{today},{n_error},{n_warn},{n_info},{n_notes},{reviewed_pct}\n")</code></pre>
 
-    <p>마지막 두 줄이 15장의 추이 그래프 재료가 됩니다.</p>
+    <p>마지막 두 줄이 15장의 추이 그래프 재료가 됩니다. 15장이 그리는 선은 <strong>마지막 열</strong>입니다. 스크립트 전문과 각 값을 만드는 코드는 17장에 있습니다.</p>
 
     <h2>경로 D: Power Automate로 Teams에 올리기</h2>
 
@@ -546,7 +547,7 @@ generated_by: schedule/주간-브리핑   # 어느 자동화가 만들었는지<
         <li>고르는 순서: <strong>AI 판단이 필요한가 → 볼트에 써야 하나 → PC를 켜둘 수 있나</strong></li>
         <li>예약 프롬프트에는 여섯 개를 반드시 쓴다. 산출 위치, <strong>빈 결과일 때의 행동</strong>, 금지 목록, 근거 표기, 이전 회차 비교, 길이 상한</li>
         <li>자동화가 죽는 방식은 멈춤이 아니라 <strong>소음</strong>이다. 변화가 없으면 말하지 않게 만든다</li>
-        <li><strong>자동화는 <code>_reports/</code>에만 쓴다.</strong> <code>Sources/</code>는 사람의 영역이다</li>
+        <li><strong>자동화는 <code>_reports/</code> 와 <code>_moc/</code> 에만 쓴다.</strong> <code>Sources/</code>는 사람의 영역이다</li>
         <li>AI 생성물에는 <code>confidence: draft</code>와 <code>generated_by</code>를 남긴다. 검증 안 된 것이 대외 문서로 새는 것을 막는다</li>
         <li>실패는 조용하다. <strong>하나는 반드시 매주 오게</strong> 만들어 생존 신호로 쓴다</li>
         <li>목적을 달성한 자동화는 <strong>지운다.</strong> 폐기는 실패가 아니다</li>

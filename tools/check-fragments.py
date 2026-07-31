@@ -194,9 +194,10 @@ def check(path: Path) -> None:
     # 배타적 주장
     pol = INV["automation_write_policy"]
     if len(pol["allowed"]) > 1:
-        for pat in pol["exclusive_claim_patterns"]:
-            if pat in body:
-                add("ERROR", where, f"배타적 주장 「{pat}」. 허용 폴더는 {pol['allowed']}")
+        for pat in pol["exclusive_claim_regex"]:
+            m = re.search(pat, body)
+            if m:
+                add("ERROR", where, f"배타적 주장 「{m.group(0)}」. 허용 폴더는 {pol['allowed']}")
 
     # 이모지. ✅❌★ 는 이미 출간된 장의 비교표에서 쓰는 기호라 허용한다.
     # 막으려는 것은 글을 꾸미려고 넣는 그림 문자다.

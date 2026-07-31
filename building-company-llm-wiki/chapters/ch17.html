@@ -165,7 +165,7 @@
 
     <p>파이썬만 있으면 됩니다. 외부 라이브러리를 하나도 쓰지 않았습니다. 볼트의 <code>_ops/scripts/validate.py</code>로 저장하시면 됩니다. 14장의 결정 트리로 보면 이건 경로 C, 판단이 아니라 계산이라 AI를 부르지 않는 쪽입니다.</p>
 
-    <p>코드를 옮겨 적기 전에 어디를 봐야 하는지 짚어 두겠습니다. 이 스크립트에서 정말 중요한 부분은 <code>re</code>도 <code>pathlib</code>도 아니라 맨 위의 <code>REQUIRED</code>와 <code>STATUS_ENUM</code> 두 묶음입니다. 그 둘은 1층 설계서를 그대로 옮겨 적은 것이고, 나머지 코드는 그걸 노트에 대조하는 기계일 뿐입니다. <strong>설계서가 바뀌면 그 두 곳만 고칩니다.</strong> 규칙이 코드 여기저기에 흩어지면 반년 뒤에 아무도 못 고칩니다.</p>
+    <p>코드를 옮겨 적기 전에 어디를 봐야 하는지 짚어 두겠습니다. 이 스크립트에서 정말 중요한 부분은 <code>re</code>도 <code>pathlib</code>도 아니라 맨 위의 <code>REQUIRED</code>와 <code>STATUS_ENUM</code>과 <code>FORBIDDEN</code> 세 묶음입니다. 그 셋은 1층 설계서를 그대로 옮겨 적은 것이고, 나머지 코드는 그걸 노트에 대조하는 기계일 뿐입니다. <strong>설계서가 바뀌면 그 세 곳만 고칩니다.</strong> 규칙이 코드 여기저기에 흩어지면 반년 뒤에 아무도 못 고칩니다.</p>
 
     <p>먼저 설정과 프론트매터 읽기입니다.</p>
 
@@ -180,11 +180,21 @@ TODAY = datetime.date.today()
 STALE_DAYS = 30
 
 # 클래스별 필수 필드. 1층 설계서와 이 표가 어긋나면 설계서가 정본이다.
+# 공통 필수는 class·id·updated 셋이고, 그 뒤가 클래스마다 다른 부분이다.
 REQUIRED = {
+    # 9장의 뼈대 클래스 넷
     "제품":     ["class", "id", "updated", "status", "owner", "since"],
     "기술역량": ["class", "id", "updated", "trl", "evidence"],
     "과제":     ["class", "id", "updated", "period", "funder", "budget"],
     "기회":     ["class", "id", "updated", "stage", "due"],
+    # 9장의 보조 클래스 셋
+    "조직":     ["class", "id", "updated"],
+    "사람":     ["class", "id", "updated"],
+    "결정":     ["class", "id", "updated", "date"],
+    # 클래스가 아니라 40-Worklog 의 노트 종류다. 12장 참조.
+    # 빠지면 「class 값이 설계서 목록 밖」 ERROR 가 쏟아지므로 여기 함께 적는다.
+    "회의록":   ["class", "id", "updated", "date"],
+    "업무로그": ["class", "id", "updated", "owner"],
 }
 
 # status 어휘는 클래스마다 다르다. 전역 한 벌로 두면 오탐이 쏟아진다.
@@ -200,6 +210,7 @@ FORBIDDEN = {"deadline": "due", "마감일": "due",
              "사용기술": "pdm_uses"}
 
 findings = []
+metas = []                                   # 뒤의 지표 계산이 이 목록을 쓴다
 def add(level, where, msg):
     findings.append((level, where, msg))
 
@@ -235,6 +246,8 @@ for stem, path in sorted(notes.items()):
         add("ERROR", where, "프론트매터 없음")
         continue
 
+    metas.append(meta)                             # 지표용. 여기서 모아 둔다
+
     cls = meta.get("class")
     if cls not in REQUIRED:
         add("ERROR", where, f"class 값이 설계서 목록 밖: {cls!r}")
@@ -267,7 +280,7 @@ for stem, path in sorted(notes.items()):
     if meta.get("confidence") == "draft":
         add("INFO", where, "사람 검토 대기")</code></pre>
 
-    <p>마지막이 저장입니다. 결과를 사람이 아니라 <strong>다음 자동화가 읽게</strong> 남기는 것이 핵심입니다.</p>
+    <p>마지막이 저장입니다. 결과를 사람이 아니라 <strong>다음 자동화가 읽게</strong> 남기는 것이 핵심입니다. 한 가지만 미리 말씀드립니다. 아래 코드는 이 장 마지막 절에서 만드는 <strong>지표 두 줄(<code>total</code>·<code>reviewed</code>)을 씁니다.</strong> 파일로 옮겨 적으실 때는 그 절의 코드를 이 저장 코드 <strong>앞에</strong> 두세요.</p>
 
     <pre><code>order = {"ERROR": 0, "WARN": 1, "INFO": 2}
 findings.sort(key=lambda f: (order[f[0]], f[1]))
@@ -289,9 +302,12 @@ for lv in ("ERROR", "WARN", "INFO"):
     "\n".join(lines), encoding="utf-8")
 
 # 15장의 추이 그래프 재료. 한 줄씩 누적한다.
+# 열: 날짜, ERROR, WARN, INFO, 전체 노트 수, 검증된 노트 비율(%)
+# 마지막 열이 15장이 그리는 선이다. 이 열이 없으면 그래프를 못 그린다.
 with (ROOT / "_reports" / "validate-history.csv").open(
         "a", encoding="utf-8") as f:
-    f.write(f"{TODAY},{n['ERROR']},{n['WARN']},{n['INFO']},{len(notes)}\n")
+    f.write(f"{TODAY},{n['ERROR']},{n['WARN']},{n['INFO']},"
+            f"{len(notes)},{reviewed * 100 // total}\n")
 
 sys.exit(1 if n["ERROR"] else 0)</code></pre>
 
@@ -448,7 +464,7 @@ sys.exit(1 if n["ERROR"] else 0)</code></pre>
 
     <h2>주 1회, 사람이 잊어도 돌게</h2>
 
-    <p>스크립트를 만들어놓고 손으로 돌리면 셋째 주부터 안 돌립니다. 14장에 이미 자리를 마련해 뒀습니다. 세 번째 예약 작업 「금요일 저녁 품질 점검」이 첫 줄에서 이 스크립트를 실행합니다. 전체 흐름은 이렇게 이어집니다.</p>
+    <p>스크립트를 만들어놓고 손으로 돌리면 셋째 주부터 안 돌립니다. 14장에 이미 자리를 마련해 뒀습니다. 세 번째 예약 작업 「금요일 저녁 품질 점검」이 첫 줄에서 이 스크립트를 실행합니다. 주기를 왜 주 1회로 잡는지 먼저 보고, 전체 흐름 네 단계를 그다음에 잇겠습니다.</p>
 
     <h3>왜 매일이 아니라 주 1회인가</h3>
 
@@ -549,12 +565,24 @@ sys.exit(1 if n["ERROR"] else 0)</code></pre>
 
     <p>첫 번째 지표를 눈여겨보세요. <strong>노트 수가 아니라 근거가 붙은 노트의 비율</strong>입니다. 분모가 늘면 비율이 떨어지므로, 빈 노트를 쏟아부으면 지표가 나빠집니다. 좋은 지표는 이렇게 생겼습니다. <strong>지름길이 막혀 있고, 정직한 길만 열려 있습니다.</strong></p>
 
-    <p>스크립트에 붙이는 데는 몇 줄이면 됩니다.</p>
+    <p>스크립트에 붙이는 데는 몇 줄이면 됩니다. <strong>검사 본체 뒤, 저장 코드 앞에</strong> 넣습니다. 저장 코드가 여기서 만든 <code>total</code>과 <code>reviewed</code>를 쓰기 때문입니다.</p>
 
     <pre><code># 지표는 개수가 아니라 비율로 남긴다
+
+def gr_body(text):                    # 프론트매터를 뺀 본문
+    m = FM.match(text)
+    return text[m.end():] if m else text
+
 total = len(notes)
-grounded = sum(1 for p in notes.values()
-               if LINK.search(p.read_text(encoding="utf-8")))
+if not total:                                  # 도입 첫날 빈 볼트에서 0 으로 나누지 않게
+    add("INFO", "_", "노트가 없습니다. 지표는 노트가 생긴 뒤부터 셉니다")
+    total = 1
+grounded = 0
+for p in notes.values():
+    t = p.read_text(encoding="utf-8")
+    # 정의 그대로: 본문에 위키링크가 있거나 evidence 가 채워진 노트
+    if LINK.search(gr_body(t)) or (frontmatter(t) or {}).get("evidence"):
+        grounded += 1
 reviewed = sum(1 for m in metas if m.get("confidence") == "reviewed")
 
 add("INFO", "_", f"근거 있는 노트 {grounded}/{total}"
@@ -562,7 +590,9 @@ add("INFO", "_", f"근거 있는 노트 {grounded}/{total}"
 add("INFO", "_", f"검증된 노트 {reviewed}/{total}"
                  f" ({reviewed * 100 // total}%)")</code></pre>
 
-    <p>계산한 비율은 리포트 첫머리에 INFO 두 줄로 붙습니다. 사람은 매주 그 두 줄만 봐도 볼트가 어느 방향으로 가고 있는지 압니다.</p>
+    <p><code>gr_body</code>가 있어야 하는 이유가 있습니다. 프론트매터까지 훑으면 <code>owner: "[[김대표]]"</code> 한 줄만 있어도 근거가 붙은 노트로 세어집니다. 그건 담당자 표기이지 근거가 아닙니다. <strong>지표의 정의와 세는 코드가 어긋나면 그 지표는 아무것도 재지 않습니다.</strong></p>
+
+    <p>계산한 비율은 리포트의 요약 줄 다음에 오는 INFO 절에 두 줄로 붙습니다. <code>order</code>가 ERROR·WARN·INFO 순이라 INFO 절은 목록의 맨 아래입니다. 사람은 매주 그 두 줄만 봐도 볼트가 어느 방향으로 가고 있는지 압니다.</p>
 
     <p>마지막으로 시작 시점 이야기를 하겠습니다. <strong>지표를 다섯 개 한꺼번에 켜지 말고 하나로 시작하세요.</strong> 첫 달에는 「검증된 노트 비율」 하나면 충분합니다. 이 숫자가 오르내리는 것을 보면서 무엇이 이 숫자를 움직이는지 감을 잡고, 그다음에 하나를 더합니다.</p>
 
@@ -583,7 +613,7 @@ add("INFO", "_", f"검증된 노트 {reviewed}/{total}"
       <p class="exercise-title">직접 해보기: 첫 점검 한 번 돌리기</p>
       <p>완벽한 스크립트를 목표로 하지 마세요. <strong>한 번 돌려 보는 것</strong>이 목표입니다.</p>
       <ol>
-        <li>앞의 코드를 복사해 <code>_ops/scripts/validate.py</code>로 저장하고, <code>REQUIRED</code>와 <code>STATUS_ENUM</code>을 우리 회사 클래스로 바꾸세요. 9장에서 정한 그 목록입니다.</li>
+        <li>앞의 코드를 <strong>설정 · 본체 · 지표 · 저장 순서로</strong> 이어 붙여 <code>_ops/scripts/validate.py</code>로 저장하고, <code>REQUIRED</code>와 <code>STATUS_ENUM</code>과 <code>FORBIDDEN</code>을 우리 회사 목록으로 바꾸세요. 9장에서 정한 그 목록입니다.</li>
         <li>한 번 실행하세요. ERROR가 스무 건 넘게 나오는 것이 정상입니다. 놀라지 마세요.</li>
         <li><strong>목록을 원인별로 묶으세요.</strong> 대개 두세 가지 원인이 전체의 대부분을 만듭니다.</li>
         <li>가장 많은 원인 하나를 고르고, 노트가 아니라 <strong>그 원인을 만든 것</strong>을 고치세요. 템플릿이거나 <code>CLAUDE.md</code> 한 줄입니다.</li>

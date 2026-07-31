@@ -7,7 +7,7 @@
   "minutes": "18",
   "prev_href": "ch15.html",
   "prev_label": "이전: 업무 진행을 눈에 보이게",
-  "next_href": "coming-soon.html",
+  "next_href": "ch17.html",
   "next_label": "다음: 품질을 코드로 지키기"
 } -->
   <article>
@@ -87,9 +87,9 @@
         <tr><th>유형</th><th>내용</th><th>대상 노트</th></tr>
       </thead>
       <tbody>
-        <tr><td>결정</td><td>지자체 공모 참여. 실증 근거는 대성물류 대신 창고봇 기존 3개 사이트 사용 <br><em>이유: 대성물류는 계약 전이라 실적으로 쓸 수 없음</em></td><td>신규 <code>40-Worklog/결정-2026-07-15-공모참여.md</code></td></tr>
+        <tr><td>결정</td><td>지자체 공모 참여. 실증 근거는 대성물류 대신 창고봇 기존 3개 사이트 사용 <br><em>이유: 대성물류는 계약 전이라 실적으로 쓸 수 없음</em></td><td>신규 <code>40-Worklog/DEC-2026-0715-공모참여.md</code></td></tr>
         <tr><td>결정</td><td>픽뷰는 객체인식 모듈을 재사용. 신규 개발하지 않음</td><td>기존 <code>10-Products/픽뷰.md</code> 에 <code>pdm_uses</code> 추가</td></tr>
-        <tr><td>결정</td><td>웨어트윈 영업 보류. 실증 확보 전까지</td><td>기존 <code>10-Products/웨어트윈.md</code> · <code>status: 보류</code></td></tr>
+        <tr><td>결정</td><td>웨어트윈 영업 보류. 실증 확보 전까지</td><td>기존 <code>10-Products/웨어트윈.md</code> · <code>status: 기획</code><br><em>제품 어휘에는 「보류」가 없다. 영업 보류라는 사실은 결정 노트에 남긴다</em></td></tr>
         <tr><td>액션</td><td>냉동창고 인식률 자료 준비 (담당 박사업 · 기한 2026-08-15)</td><td>결정 노트 안의 액션 항목</td></tr>
         <tr><td>사실 변경</td><td>픽뷰 베타 목표 9월. 인력 사유로 지연 가능</td><td><code>10-Products/픽뷰.md</code> · <code>due</code>, <code>risk</code></td></tr>
         <tr><td><strong>모순</strong></td><td><strong>웨어트윈 TRL: 기존 노트 6, 회의록 4. 회의에서 「6은 과장」이라고 언급됨</strong></td><td><strong>사람 판단 필요</strong></td></tr>
@@ -120,7 +120,7 @@
 
     <pre><code>---
 class: 결정
-id: DEC-2026-0715-01
+id: DEC-2026-0715-공모참여
 date: 2026-07-15
 source: "[[2026-07-15-주간회의]]"
 participants: ["김대표", "박사업", "이CTO"]
@@ -260,7 +260,7 @@ updated: 2026-07-15
 
 ## 검증 필요 (draft 상태여서 사용하지 않음)
 
-1. 웨어트윈 TRL. 노트에 4/6 모순 있음. DEC-2026-0715 참조</code></pre>
+1. 웨어트윈 TRL. 노트에 4/6 모순 있음. DEC-2026-0715-TRL정정 참조</code></pre>
 
     <div class="callout">
       <p class="callout-title">이 목록이 제안서보다 값어치가 있습니다</p>
@@ -438,7 +438,7 @@ updated: 2026-07-15
     <div class="callout">
       <p class="callout-title">세 번 쓰고 나서 스킬로 만듭니다</p>
       <p>같은 프롬프트를 <strong>세 번</strong> 썼고, 그 세 번 사이에 프롬프트가 거의 안 바뀌었다면 스킬로 굳힐 때입니다. 아직 고치고 있다면 스킬로 만들지 마세요. 스킬을 고치는 일이 프롬프트를 고치는 일보다 번거롭습니다.</p>
-      <p>실제로 스킬이 될 만한 것은 12개 중 <strong>3~4개</strong>입니다. 레시피 1·3·9 정도입니다. 나머지는 프롬프트를 <code>_ops/prompts.md</code>에 모아두고 복사해 쓰는 것으로 충분합니다.</p>
+      <p>실제로 스킬이 될 만한 것은 12개 중 <strong>셋</strong>입니다. 레시피 1·9·11이고, 13장의 <code>wiki-ingest</code>·<code>wiki-audit</code>·<code>wiki-retro</code>가 그 셋을 하나씩 맡습니다. 나머지는 프롬프트를 <code>_ops/prompts.md</code>에 모아두고 복사해 쓰는 것으로 충분합니다.</p>
     </div>
 
     <h2>열두 개를 다 하지 마세요</h2>
@@ -511,7 +511,7 @@ updated: 2026-07-15
         <li>모순을 잡아내는 것은 <strong>2층에 개체가 하나뿐이기 때문</strong>이다. RAG로는 안 되는 일</li>
         <li>제안서 초안의 진짜 산출물은 본문이 아니라 <strong>「볼트에 없는 정보 목록」</strong>이다. 그게 다음 2주의 할 일이 된다</li>
         <li><strong>AI에게 판단을 맡기지 않는다.</strong> 무엇이 충족되고 무엇이 비었는지만 묻는다</li>
-        <li>스킬로 굳히는 시점은 <strong>같은 프롬프트를 세 번 쓴 뒤.</strong> 12개 중 실제로 스킬이 될 만한 것은 3~4개</li>
+        <li>스킬로 굳히는 시점은 <strong>같은 프롬프트를 세 번 쓴 뒤.</strong> 12개 중 실제로 스킬이 될 만한 것은 셋(레시피 1·9·11)</li>
         <li>도입 순서는 <strong>1 → 2·5 → 3·6·대시보드 → 9·10·11.</strong> 순서를 어기면 빈 결과만 보고 실망한다</li>
         <li><strong>레시피의 품질은 프롬프트가 아니라 볼트가 결정한다</strong></li>
       </ul>

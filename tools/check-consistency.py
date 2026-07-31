@@ -151,10 +151,13 @@ def check_automation_write_policy(f: Path, html: str) -> None:
     pol = INV["automation_write_policy"]
     if len(pol["allowed"]) <= 1:
         return
-    for pat in pol["exclusive_claim_patterns"]:
-        if pat in html:
+    # 문자 그대로 비교하다가 ch14 의 「<code>_reports/</code>에만 쓴다」를 놓쳤다.
+    # 등록해 둔 문구는 「_reports/</code> 폴더에만」 이었고 띄어쓰기와 「폴더」 유무만 달랐다.
+    for pat in pol["exclusive_claim_regex"]:
+        m = re.search(pat, html)
+        if m:
             add("ERROR", rel(f),
-                f"배타적 주장 「{pat}」 이 남아 있음. 허용 폴더가 {pol['allowed']} 로 둘 이상임")
+                f"배타적 주장 「{m.group(0)}」 이 남아 있음. 허용 폴더가 {pol['allowed']} 로 둘 이상임")
 
 
 def check_status_enum(f: Path, html: str) -> None:

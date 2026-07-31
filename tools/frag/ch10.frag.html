@@ -50,7 +50,7 @@ tech_used: 객체인식 모듈, 경로최적화</code></pre>
         <tr><td><code>pdm_uses</code></td><td>제품 → 기술역량</td><td>이 제품이 활용하는 기술</td><td>제품 노트</td><td>제안서 근거 찾기, 기술 재사용 확인</td></tr>
         <tr><td><code>pdm_output_of</code></td><td>기술역량 → 과제</td><td>이 기술이 나온 과제</td><td>기술역량 노트</td><td>과제 성과 정리, 지원금 실적</td></tr>
         <tr><td><code>pdm_owner</code></td><td>모든 클래스 → 사람</td><td>이 노트를 책임지는 사람</td><td>모든 노트</td><td>담당자별 부하, 담당자 부재 대비</td></tr>
-        <tr><td><code>pdm_intent_of</code></td><td>업무로그 → 과제·기회</td><td>이 일을 무엇을 위해 했는가</td><td>업무로그 노트</td><td>의도와 실행 대조(18장)</td></tr>
+        <tr><td><code>pdm_intent_of</code></td><td>업무로그 노트 → 과제·기회</td><td>이 일을 무엇을 위해 했는가</td><td>업무로그 노트</td><td>의도와 실행 대조(18장)</td></tr>
       </tbody>
     </table>
 
@@ -123,7 +123,7 @@ tech_used: 객체인식 모듈, 경로최적화</code></pre>
 
     <p>원칙은 <strong>설계서에 적은 술어 이름을 노트에도 그대로 쓰는 것</strong>입니다. <code>pdm_uses</code>라고 정했으면 노트에도 <code>pdm_uses:</code>라고 적습니다.</p>
 
-    <p>예외가 딱 하나 있습니다. 담당자는 노트에 <code>owner</code>로 짧게 적고, 설계서에서 그 선을 부를 때만 <code>pdm_owner</code>라고 부릅니다. 이유는 두 가지입니다. 담당자는 <strong>모든 클래스가 갖는 필수 칸</strong>이라 우리 회사 고유 관계라는 표시를 붙일 실익이 없습니다. 또 15장의 대시보드와 Bases가 이미 <code>owner</code>라는 이름으로 이 칸을 읽습니다.</p>
+    <p>예외가 딱 하나 있습니다. 담당자는 노트에 <code>owner</code>로 짧게 적고, 설계서에서 그 선을 부를 때만 <code>pdm_owner</code>라고 부릅니다. 이유는 두 가지입니다. 담당자는 <strong>어느 클래스에나 두루 붙는 칸</strong>이라 우리 회사 고유 관계라는 표시를 붙일 실익이 없습니다. 또 15장의 대시보드와 Bases가 이미 <code>owner</code>라는 이름으로 이 칸을 읽습니다.</p>
 
     <p>예외는 여기까지입니다. <strong>두 번째 예외를 만드는 순간 규칙이 아니라 취향이 됩니다.</strong></p>
 
@@ -204,7 +204,7 @@ confidence: reviewed
 
     <p>여기가 이 장의 심장입니다. <strong>같은 뜻에 이름 하나.</strong> 어제는 <code>due</code>, 오늘은 <code>deadline</code>, 내일은 <code>마감일</code>로 적으면 노트 200장을 세지 못합니다.</p>
 
-    <p>솔빛테크가 여러 클래스에 걸쳐 쓰는 이름은 스무 개입니다. 여기에 클래스 하나에서만 쓰는 전용 필드가 몇 개 붙습니다.</p>
+    <p>솔빛테크가 설계서에 등록하는 이름은 스무 개입니다. 아래 표가 그 스무 개이고, 기술역량 노트에만 쓰는 전용 필드 두 개가 뒤에 더 붙습니다.</p>
 
     <table>
       <thead>
@@ -215,20 +215,20 @@ confidence: reviewed
         <tr><td><code>pdm_output_of</code></td><td><code>"[[노트]]"</code></td><td>기술역량 노트에</td></tr>
         <tr><td><code>pdm_owner</code></td><td>설계서에서만 쓰는 이름</td><td>노트에는 <code>owner</code></td></tr>
         <tr><td><code>pdm_intent_of</code></td><td><code>"[[노트]]"</code></td><td>업무로그 노트에</td></tr>
-        <tr><td rowspan="5">상태</td><td><code>status</code></td><td>클래스별 어휘 (아래)</td><td>필수</td></tr>
+        <tr><td rowspan="5">상태</td><td><code>status</code></td><td>클래스별 어휘 (아래)</td><td>제품 필수</td></tr>
         <tr><td><code>stage</code></td><td><code>3/5</code> 형태</td><td>단계 정의는 15장</td></tr>
         <tr><td><code>priority</code></td><td>상 / 중 / 하</td><td>권장</td></tr>
         <tr><td><code>blocked_by</code></td><td><code>"[[노트]]"</code></td><td>막힌 이유가 다른 노트일 때</td></tr>
         <tr><td><code>confidence</code></td><td><code>draft</code> / <code>reviewed</code></td><td>11장에서 규칙을 정합니다</td></tr>
         <tr><td rowspan="8">메타</td><td><code>class</code></td><td>클래스 이름</td><td>모든 노트 필수</td></tr>
         <tr><td><code>id</code></td><td><code>PRD-001</code> 형태</td><td>모든 노트 필수</td></tr>
-        <tr><td><code>owner</code></td><td><code>"[[사람]]"</code></td><td>모든 노트 필수</td></tr>
+        <tr><td><code>owner</code></td><td><code>"[[사람]]"</code></td><td>제품 필수</td></tr>
         <tr><td><code>start</code></td><td><code>2026-03-01</code></td><td>시작일</td></tr>
         <tr><td><code>due</code></td><td><code>2026-11-30</code></td><td><strong>마감 날짜는 언제나 이 이름</strong></td></tr>
         <tr><td><code>updated</code></td><td><code>2026-07-30</code></td><td>모든 노트 필수</td></tr>
         <tr><td><code>since</code></td><td><code>2023-04</code></td><td>운영·거래 시작 시점</td></tr>
         <tr><td><code>confidential</code></td><td>공개 / 사내 / 대외비</td><td>아래에서 따로 봅니다</td></tr>
-        <tr><td rowspan="3">과제</td><td><code>period</code></td><td><code>2025-04 ~ 2026-11</code></td><td>과제 필수</td></tr>
+        <tr><td rowspan="3">과제</td><td><code>period</code></td><td><code>2025-04 ~ 2026-03</code></td><td>과제 필수</td></tr>
         <tr><td><code>funder</code></td><td>발주·지원 기관 이름</td><td>과제 필수</td></tr>
         <tr><td><code>budget</code></td><td>금액</td><td>과제 필수</td></tr>
       </tbody>
@@ -269,17 +269,17 @@ confidence: reviewed
 
     <h3>필수 칸을 늘리면 노트가 안 만들어집니다</h3>
 
-    <p>이 이름들 중에 <strong>반드시 채워야 하는 것</strong>은 몇 개일까요. 모든 노트가 공통으로 갖는 넷(<code>class</code>, <code>id</code>, <code>owner</code>, <code>updated</code>)에 클래스마다 두어 개를 더한 정도입니다. 아래 표의 <code>trl</code>과 <code>evidence</code>가 앞에서 말한 전용 필드입니다. 기술역량 노트에만 들어갑니다.</p>
+    <p>이 이름들 중에 <strong>반드시 채워야 하는 것</strong>은 몇 개일까요. 모든 노트가 공통으로 갖는 셋(<code>class</code>, <code>id</code>, <code>updated</code>)에 클래스마다 두세 개를 더한 정도입니다. 아래 표의 <code>trl</code>과 <code>evidence</code>가 앞에서 말한 전용 필드입니다. 기술역량 노트에만 들어갑니다.</p>
 
     <table>
       <thead>
-        <tr><th>클래스</th><th>공통 넷 외에 필수</th><th>비어 있으면 생기는 일</th></tr>
+        <tr><th>클래스</th><th>공통 셋 외에 필수</th><th>비어 있으면 생기는 일</th></tr>
       </thead>
       <tbody>
-        <tr><td>제품</td><td><code>status</code>, <code>since</code></td><td>상태별 집계에서 빠진다</td></tr>
+        <tr><td>제품</td><td><code>status</code>, <code>owner</code>, <code>since</code></td><td>상태별 집계와 담당자별 목록에서 빠진다</td></tr>
         <tr><td>기술역량</td><td><code>trl</code>, <code>evidence</code></td><td>제안서에서 이 기술을 근거로 못 쓴다</td></tr>
-        <tr><td>과제</td><td><code>status</code>, <code>period</code>, <code>funder</code>, <code>budget</code></td><td>실적 집계와 간트에서 빠진다</td></tr>
-        <tr><td>기회</td><td><code>status</code>, <code>stage</code>, <code>due</code></td><td>마감 임박 경고가 안 뜬다</td></tr>
+        <tr><td>과제</td><td><code>period</code>, <code>funder</code>, <code>budget</code></td><td>실적 집계와 간트에서 빠진다</td></tr>
+        <tr><td>기회</td><td><code>stage</code>, <code>due</code></td><td>마감 임박 경고가 안 뜬다</td></tr>
       </tbody>
     </table>
 
@@ -391,11 +391,13 @@ confidence: reviewed
 
     <pre><code>---
 class: 업무로그
-id: LOG-2026-07-15
+id: 2026-07-15-김대표
 owner: "[[김대표]]"
 updated: 2026-07-15
 pdm_intent_of: "[[OPP-2026-지자체공모]]"
 ---</code></pre>
+
+    <p><code>id</code>에 접두어가 없는 것이 눈에 띌 텐데, 일부러 그렇습니다. <strong>업무로그는 클래스가 아니라 <code>40-Worklog/</code>에 쌓이는 노트 종류입니다.</strong> 9장에서 정한 일곱 클래스에 들어가지 않으므로 접두어를 새로 만들지 않고, 날짜와 사람 이름을 그대로 <code>id</code>로 씁니다. 12장의 업무로그 서식이 이 형식을 그대로 씁니다.</p>
 
     <p>이 한 줄이 무엇을 사는지는 18장에서 드러납니다. 회고 때 던지는 질문이 이겁니다. <strong>「이번 분기에 하겠다고 한 것과, 실제로 시간을 쓴 것이 같은가?」</strong></p>
 
@@ -430,18 +432,19 @@ pdm_intent_of: "[[OPP-2026-지자체공모]]"
 | pdm_uses       | 제품 → 기술역량  | 제품        | 이 제품이 쓰는 기술   |
 | pdm_output_of  | 기술역량 → 과제  | 기술역량    | 이 기술이 나온 과제   |
 | pdm_owner      | 모두 → 사람      | 모든 노트   | 담당자 (필드명은 owner) |
-| pdm_intent_of  | 업무로그 → 과제·기회 | 업무로그 | 이 일의 목적          |
+| pdm_intent_of  | 업무로그 노트 → 과제·기회 | 업무로그 노트 | 이 일의 목적 |
 
 반대 방향 필드를 만들지 않는다. 백링크로 본다.
 
 ## 필드
 
-- 모든 노트 필수: class, id, owner, updated
-- 제품: status, since
+- 모든 노트 필수: class, id, updated
+- 제품: status, owner, since
 - 기술역량: trl, evidence
-- 과제: status, period, funder, budget
-- 기회: status, stage, due
+- 과제: period, funder, budget
+- 기회: stage, due
 - 선택: start, priority, blocked_by, confidential, confidence
+- 업무로그·회의록은 클래스가 아니다. 40-Worklog/ 의 노트 종류이고 id 에 접두어가 없다.
 
 마감 날짜는 언제나 due 다. 다른 이름을 만들지 않는다.
 설계서에 없는 필드를 노트에 먼저 쓰지 않는다.
@@ -461,14 +464,14 @@ pdm_intent_of: "[[OPP-2026-지자체공모]]"
     <p>9장의 클래스 표까지 합치면 설계에 들인 시간이 서너 시간입니다. 8장에서 온톨로지 설계에 <strong>3~5시간만 쓰라</strong>고 못 박은 이유가 여기 있습니다. 더 쓴다고 설계가 정교해지지 않습니다. 노트를 채우기 시작한 다음에야 무엇이 부족한지 보이고, 그때 분기에 한 번씩 손보면 충분합니다.</p>
 
     <div class="exercise-box">
-      <p class="exercise-title">직접 해보기: 우리 회사 술어 세 개 뽑기</p>
+      <p class="exercise-title">직접 해보기: 우리 회사 술어 네 개 뽑기</p>
       <p>40분 정도 걸립니다. 혼자 하지 말고 제안서를 실제로 쓰는 사람과 함께 하세요.</p>
       <ol>
         <li>최근 제안서나 회사 소개서에서 <strong>사실을 서술한 문장 다섯 개</strong>를 그대로 옮겨 적습니다. 예: 「당사 A제품은 B기술을 적용하여 C기관 과제에서 개발되었습니다」</li>
         <li>각 문장에서 <strong>동사에 밑줄</strong>을 긋습니다. 「적용하여」, 「개발되었습니다」, 「납품 중입니다」.</li>
         <li>다섯 문장에서 <strong>두 번 이상 나온 동사</strong>를 고릅니다. 그게 술어 후보입니다. 한 번만 나온 것은 버립니다.</li>
         <li>후보마다 <strong>방향</strong>을 정합니다. 「둘 중 어느 노트가 이 사실 때문에 더 자주 바뀌나」로 판단합니다. 자주 바뀌는 쪽에 적습니다.</li>
-        <li>이름을 붙입니다. <code>pdm_</code>을 앞에 붙이고, 영문 소문자와 밑줄만 씁니다. 세 개를 넘기지 마세요.</li>
+        <li>이름을 붙입니다. <code>pdm_</code>을 앞에 붙이고, 영문 소문자와 밑줄만 씁니다. 네 개를 넘기지 마세요.</li>
         <li>설계서에 표로 적고, <strong>실제 노트 세 장에 넣어봅니다.</strong> 옵시디언에서 링크가 파랗게 살아나는지, 백링크가 반대편 노트에 뜨는지 확인합니다.</li>
         <li>마지막으로 자문합니다. <strong>「이 술어로 어떤 질문에 답이 나오나?」</strong> 답할 질문이 떠오르지 않는 술어는 지웁니다. 쓸 일이 없습니다.</li>
       </ol>
