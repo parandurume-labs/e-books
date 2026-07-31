@@ -1,0 +1,501 @@
+<!--META {
+  "file": "ch10.html",
+  "num": "10",
+  "title": "관계와 필드 설계하기",
+  "subtitle": "이름을 하나로 고정하는 데 이 장의 절반을 씁니다",
+  "desc": "관계 술어 네 개, 기계가 읽는 머리말, 정본 필드 이름 한 벌, 통제 어휘, 기밀 등급까지. 노트가 늘어나도 무너지지 않는 1층 설계서를 완성합니다.",
+  "minutes": "20",
+  "prev_href": "ch09.html",
+  "prev_label": "이전: 우리 회사 클래스 정하기",
+  "next_href": "ch11.html",
+  "next_label": "다음: CLAUDE.md로 AI에게 회사 규칙 알려주기"
+} -->
+  <article>
+    <p>9장에서 클래스를 정했습니다. 솔빛테크는 일곱 개로 줄였고, 다음 날부터 노트를 쓰기 시작했습니다. 2주 뒤 볼트에는 노트가 일흔 장 넘게 쌓였습니다. 여기까지는 순조로웠습니다.</p>
+
+    <p>문제는 <strong>「창고봇이 객체인식 기술을 쓴다」는 한 문장</strong>이 세 사람의 노트에 세 가지로 적혀 있었다는 데 있습니다.</p>
+
+    <pre><code># 나쁜 예 · 같은 사실을 세 사람이 세 가지로 적었습니다
+
+# 김대표가 만든 창고봇.md
+uses_tech: 객체인식
+
+# 이CTO가 고친 창고봇.md
+사용기술: "[[CAP-객체인식]]"
+
+# 박사업이 제안서용으로 따로 만든 노트
+tech_used: 객체인식 모듈, 경로최적화</code></pre>
+
+    <p>셋 다 틀린 말이 아닙니다. 사람이 읽으면 다 이해합니다. 그런데 <strong>「객체인식을 쓰는 제품이 몇 개야?」</strong>라고 물으면 답이 하나로 나오지 않습니다. 도구도, AI도, 사람도 셋을 같은 것으로 묶을 근거가 없습니다. 값의 모양까지 제각각입니다. 하나는 링크이고 하나는 그냥 글자이고 하나는 쉼표로 이어 붙인 목록입니다.</p>
+
+    <p>이런 일이 생기는 이유는 단순합니다. <strong>9장은 「무엇이 있는가」까지만 정했기 때문입니다.</strong> 클래스 목록은 노트를 어느 종류로 볼지 알려주지만, 그 종류들이 서로 어떻게 이어지는지와 어떤 칸을 갖는지는 알려주지 않습니다. 그 나머지가 이 장입니다.</p>
+
+    <div class="callout">
+      <p class="callout-title">이 장이 만드는 것</p>
+      <p><a href="appendix-a.html#ontology" class="term-link">온톨로지</a> 설계서(1층)의 나머지 절반입니다. <strong>관계 술어 · 필드 이름 · 값의 어휘 · 기밀 등급</strong> 네 가지를 정하고 나면 1층이 끝납니다. 4부부터는 이 서식을 실제 사실로 채우는 일만 남습니다.</p>
+      <p>층이 헷갈리면 <a href="ch03.html">3장</a>으로 돌아가세요. 여기서 정하는 것은 전부 <strong>규칙</strong>이고, 회사 사실은 한 건도 들어가지 않습니다.</p>
+    </div>
+
+    <h2>관계 술어는 네 개로 시작합니다</h2>
+
+    <p><a href="appendix-a.html#relation" class="term-link">관계 술어</a>는 노트와 노트를 잇는 <strong>선의 이름</strong>입니다. 클래스가 점의 종류라면 술어는 선의 종류입니다. 선에 이름이 없으면 노트끼리 연결은 되어도 그 연결이 무슨 뜻인지 알 방법이 없습니다.</p>
+
+    <p>솔빛테크가 실제로 쓰는 술어는 네 개입니다. 처음부터 네 개면 충분하고, 대부분의 회사는 여기서 하나 빼거나 하나 더하는 선에서 끝납니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>술어</th><th>방향</th><th>뜻</th><th>어느 노트에 적나</th><th>무엇에 쓰이나</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>pdm_uses</code></td><td>제품 → 기술역량</td><td>이 제품이 활용하는 기술</td><td>제품 노트</td><td>제안서 근거 찾기, 기술 재사용 확인</td></tr>
+        <tr><td><code>pdm_output_of</code></td><td>기술역량 → 과제</td><td>이 기술이 나온 과제</td><td>기술역량 노트</td><td>과제 성과 정리, 지원금 실적</td></tr>
+        <tr><td><code>pdm_owner</code></td><td>모든 클래스 → 사람</td><td>이 노트를 책임지는 사람</td><td>모든 노트</td><td>담당자별 부하, 담당자 부재 대비</td></tr>
+        <tr><td><code>pdm_intent_of</code></td><td>업무로그 → 과제·기회</td><td>이 일을 무엇을 위해 했는가</td><td>업무로그 노트</td><td>의도와 실행 대조(18장)</td></tr>
+      </tbody>
+    </table>
+
+    <figure class="illustration">
+      <svg viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+        <rect width="720" height="330" fill="#FFFDF9"/>
+        <defs>
+          <marker id="a10" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <path d="M0,0 L9,3.5 L0,7 z" fill="#C2703C"/>
+          </marker>
+        </defs>
+
+        <text x="360" y="24" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#3D2B1F">술어 네 개가 만드는 선</text>
+        <text x="360" y="44" text-anchor="middle" font-size="11" fill="#6B5647">선에는 방향이 있다. 반대 방향은 백링크가 공짜로 준다</text>
+
+        <rect x="40" y="76" width="160" height="48" rx="9" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.8"/>
+        <text x="120" y="97" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">창고봇</text>
+        <text x="120" y="114" text-anchor="middle" font-size="9.5" fill="#6B5647">제품 · PRD-001</text>
+
+        <rect x="270" y="76" width="180" height="48" rx="9" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.8"/>
+        <text x="360" y="97" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">CAP-객체인식</text>
+        <text x="360" y="114" text-anchor="middle" font-size="9.5" fill="#6B5647">기술역량</text>
+
+        <rect x="520" y="76" width="170" height="48" rx="9" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.8"/>
+        <text x="605" y="97" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">PRJ-2025-스마트물류</text>
+        <text x="605" y="114" text-anchor="middle" font-size="9.5" fill="#6B5647">과제</text>
+
+        <line x1="202" y1="100" x2="266" y2="100" stroke="#C2703C" stroke-width="1.8" marker-end="url(#a10)"/>
+        <text x="234" y="66" text-anchor="middle" font-size="9" font-family="monospace" fill="#C2703C">pdm_uses</text>
+
+        <line x1="452" y1="100" x2="516" y2="100" stroke="#C2703C" stroke-width="1.8" marker-end="url(#a10)"/>
+        <text x="484" y="66" text-anchor="middle" font-size="9" font-family="monospace" fill="#C2703C">pdm_output_of</text>
+
+        <rect x="40" y="212" width="160" height="48" rx="9" fill="#EAF6F4" stroke="#0F766E" stroke-width="1.6"/>
+        <text x="120" y="233" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#0F766E">김대표</text>
+        <text x="120" y="250" text-anchor="middle" font-size="9.5" fill="#6B5647">사람</text>
+
+        <line x1="120" y1="126" x2="120" y2="208" stroke="#C2703C" stroke-width="1.8" marker-end="url(#a10)"/>
+        <text x="130" y="172" font-size="9" font-family="monospace" fill="#C2703C">pdm_owner</text>
+
+        <rect x="520" y="212" width="170" height="48" rx="9" fill="#FAEADF" stroke="#C2703C" stroke-width="1.6"/>
+        <text x="605" y="233" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#C2703C">2026-07-15 업무로그</text>
+        <text x="605" y="250" text-anchor="middle" font-size="9.5" fill="#6B5647">업무로그</text>
+
+        <line x1="605" y1="208" x2="605" y2="128" stroke="#C2703C" stroke-width="1.8" marker-end="url(#a10)"/>
+        <text x="615" y="172" font-size="9" font-family="monospace" fill="#C2703C">pdm_intent_of</text>
+
+        <rect x="40" y="284" width="650" height="32" rx="8" fill="#FAEADF" stroke="#C2703C" stroke-width="1.3"/>
+        <text x="365" y="304" text-anchor="middle" font-size="11" fill="#3D2B1F">이름이 흔들리면 선이 끊긴다. 선이 끊기면 <tspan font-weight="bold">두 다리 건넌 질문</tspan>에 답이 안 나온다</text>
+      </svg>
+      <figcaption>3장에서 본 그래프가 실제로는 이 네 개의 이름 위에 세워집니다</figcaption>
+    </figure>
+
+    <h3>방향을 반드시 정합니다</h3>
+
+    <p>선에는 방향이 있습니다. <code>pdm_uses</code>는 <strong>제품에서 기술역량으로</strong> 갑니다. 반대가 아닙니다. 그래서 이 줄은 창고봇 노트에 적히고, CAP-객체인식 노트에는 적히지 않습니다.</p>
+
+    <p>여기서 거의 모든 팀이 같은 질문을 합니다. <strong>「기술 쪽에서도 어느 제품이 쓰는지 보고 싶은데, 반대 방향 필드를 하나 더 만들면 안 되나요?」</strong></p>
+
+    <p>안 됩니다. 두 곳에 적으면 <strong>두 곳이 반드시 어긋납니다.</strong> 제품 노트에서 기술을 지웠는데 기술 노트에서 안 지우는 일이 한 달 안에 생깁니다. 그리고 그 순간부터 어느 쪽이 맞는지 아무도 모릅니다. <a href="appendix-a.html#ssot" class="term-link">단일 진실 공급원</a>이 깨지는 가장 흔한 경로가 이 「편해 보이는 필드 하나」입니다.</p>
+
+    <p>반대 방향은 만들지 않아도 이미 있습니다. 옵시디언의 <a href="appendix-a.html#backlink" class="term-link">백링크</a>가 CAP-객체인식 노트 아래에 「나를 가리키는 노트」를 저절로 보여줍니다. <strong>한 곳에만 적고, 반대편은 공짜로 받습니다.</strong></p>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">방향을 정하는 요령</p>
+      <p><strong>「둘 중 어느 노트가 이 사실 때문에 더 자주 바뀌나」</strong>를 물으면 됩니다. 창고봇에 기술이 하나 추가되는 일은 자주 있고, 객체인식 기술 자체가 바뀌는 일은 드뭅니다. 자주 바뀌는 쪽에 적습니다.</p>
+    </div>
+
+    <h3>담당자만 예외입니다</h3>
+
+    <p>원칙은 <strong>설계서에 적은 술어 이름을 노트에도 그대로 쓰는 것</strong>입니다. <code>pdm_uses</code>라고 정했으면 노트에도 <code>pdm_uses:</code>라고 적습니다.</p>
+
+    <p>예외가 딱 하나 있습니다. 담당자는 노트에 <code>owner</code>로 짧게 적고, 설계서에서 그 선을 부를 때만 <code>pdm_owner</code>라고 부릅니다. 이유는 두 가지입니다. 담당자는 <strong>모든 클래스가 갖는 필수 칸</strong>이라 우리 회사 고유 관계라는 표시를 붙일 실익이 없고, 15장의 대시보드와 Bases가 이미 <code>owner</code>라는 이름으로 이 칸을 읽습니다.</p>
+
+    <p>예외는 여기까지입니다. <strong>두 번째 예외를 만드는 순간 규칙이 아니라 취향이 됩니다.</strong></p>
+
+    <div class="case-box">
+      <p class="case-title">사례 · 솔빛테크가 뺀 술어 두 개</p>
+      <p>설계 회의에서 처음 나온 후보는 여섯 개였습니다. 위의 넷에 <strong>「납품한다」</strong>(제품 → 고객)와 <strong>「참조한다」</strong>(노트 → 노트)가 더 있었습니다.</p>
+      <p>「납품한다」는 뺐습니다. 계약이 끝난 고객과 아직 협의 중인 고객을 같은 선으로 이으면, 제안서를 쓸 때 계약 전 고객이 실적에 딸려 나옵니다. 이건 선으로 다룰 일이 아니라 등급으로 다룰 일이라고 판단했고, 뒤에 나오는 <code>confidential</code> 필드가 그 자리를 대신했습니다.</p>
+      <p>「참조한다」도 뺐습니다. 뜻이 너무 넓어서 무엇이든 이을 수 있었는데, <strong>무엇이든 이을 수 있는 선은 아무것도 알려주지 않습니다.</strong> 본문에 위키링크를 걸어두면 백링크가 같은 일을 합니다.</p>
+      <p>뺄 때 쓴 질문은 하나였습니다. <strong>「이 선으로 답할 질문이 있나?」</strong> 질문이 안 떠오르면 그 술어는 설계서를 채우는 장식입니다.</p>
+    </div>
+
+    <h2>왜 앞에 <code>pdm_</code>을 붙이나</h2>
+
+    <p>접두어 없이 <code>uses</code>, <code>output_of</code>라고 쓰면 짧아서 좋아 보입니다. 그래도 붙이는 이유가 셋 있습니다.</p>
+
+    <ol class="steps">
+      <li><strong>우리가 정한 관계라는 표시입니다</strong>
+        <p>노트의 머리말에는 우리가 만든 칸만 있는 게 아닙니다. 도구가 넣는 칸, 템플릿이 넣는 칸, 나중에 붙일 칸이 섞입니다. 접두어가 있으면 <strong>「이건 우리 회사 설계서에 정의가 있다」</strong>가 이름만 보고 구분됩니다.</p>
+      </li>
+      <li><strong>한 번에 모아 볼 수 있습니다</strong>
+        <p>검색창에 <code>pdm_</code>만 치면 우리가 정의한 선이 전부 나옵니다. 17장의 점검 스크립트도 이 접두어로 관계 필드를 골라냅니다. 이름 규칙이 곧 필터가 됩니다.</p>
+      </li>
+      <li><strong>이름 충돌을 피합니다</strong>
+        <p>나중에 다른 도구로 옮기거나 다른 팀의 볼트와 합칠 때, <code>status</code>나 <code>uses</code> 같은 흔한 이름은 반드시 부딪힙니다. 접두어가 붙은 이름은 안 부딪힙니다.</p>
+      </li>
+    </ol>
+
+    <p>글자 자체에는 큰 뜻이 없습니다. 회사 이름 약자를 써서 <code>solbit_uses</code>로 해도 똑같이 동작합니다. <strong>중요한 건 하나로 고정하는 것</strong>이고, 이 책은 <code>pdm_</code>으로 통일합니다. 한 번 정하면 바꾸지 마세요. 바꾸는 비용은 잠시 뒤에 나옵니다.</p>
+
+    <h2>무엇을 머리말에 적고 무엇을 본문에 적나</h2>
+
+    <p>5장에서 봤듯이 노트 맨 위 <code>---</code> 사이가 <a href="appendix-a.html#frontmatter" class="term-link">프론트매터</a>, 이 책에서 「머리말」이라고 부르는 기계가 읽는 구역입니다. 설계할 때 실제로 어려운 것은 그 구분이 아니라 <strong>어느 사실을 어느 쪽에 넣을지</strong>입니다.</p>
+
+    <p>기준은 하나면 됩니다. <strong>「이걸로 셀 수 있나?」</strong></p>
+
+    <table>
+      <thead>
+        <tr><th>같은 사실</th><th>머리말에 적을 것</th><th>본문에 적을 것</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>창고봇이 운영 단계다</td><td><code>status: 운영</code></td><td>운영 중이지만 냉동창고는 아직 검증 전</td></tr>
+        <tr><td>객체인식을 쓴다</td><td><code>pdm_uses: "[[CAP-객체인식]]"</code></td><td>2025년 과제 모듈을 그대로 재사용했고 재학습은 안 함</td></tr>
+        <tr><td>11월 말이 마감이다</td><td><code>due: 2026-11-30</code></td><td>최종보고 일정이 앞당겨질 수 있다는 담당관 언급</td></tr>
+        <tr><td>대성물류는 아직 고객이 아니다</td><td><code>confidential: 대외비</code></td><td>계약 전이라 실적으로 못 쓴다는 판단과 그 이유</td></tr>
+      </tbody>
+    </table>
+
+    <p>오른쪽 칸이 훨씬 풍부합니다. 그게 정상입니다. <strong>머리말은 세기 위한 곳이지 설명하는 곳이 아닙니다.</strong> 「좀 불안하다」, 「담당관이 그랬다」 같은 말은 한 글자도 줄이지 말고 본문에 쓰세요. 6개월 뒤에 판단의 이유를 찾는 사람에게는 그쪽이 훨씬 중요합니다.</p>
+
+    <p>규칙이 하나 더 있습니다. <strong>같은 사실을 양쪽에 다 적지 않습니다.</strong> 본문에 「2026년 11월 30일 마감」이라고 또 쓰면, 날짜가 바뀔 때 한 곳만 고쳐지고 다른 한 곳이 낡습니다. 본문에서는 <code>due</code>를 다시 쓰지 말고 그 날짜를 둘러싼 사정만 씁니다.</p>
+
+    <p>솔빛테크의 창고봇 노트를 이 장의 규칙대로 다시 쓰면 이렇게 됩니다.</p>
+
+    <pre><code>---
+class: 제품
+id: PRD-001
+status: 운영
+owner: "[[김대표]]"
+since: 2023-04
+pdm_uses:
+  - "[[CAP-객체인식]]"
+  - "[[CAP-경로최적화]]"
+confidential: 사내
+updated: 2026-07-15
+confidence: reviewed
+---
+
+# 창고봇
+
+물류창고 입출고 자동화 소프트웨어. 2023년 4월부터 운영 중.
+
+## 알려진 한계
+- 냉동창고 환경의 인식률 자료가 없음. 확인 필요</code></pre>
+
+    <p>머리말 열한 줄, 본문 네 줄입니다. 노트 대부분이 이 언저리면 잘 굴러가고 있습니다. 다만 <strong>머리말 필드가 열다섯 개를 넘기 시작하면 클래스가 잘못 나뉜 신호</strong>입니다. 한 노트에 여러 종류의 것을 욱여넣고 있을 확률이 높습니다.</p>
+
+    <h2>정본 필드 이름 한 벌</h2>
+
+    <p>여기가 이 장의 심장입니다. <strong>같은 뜻에 이름 하나.</strong> 어제는 <code>due</code>, 오늘은 <code>deadline</code>, 내일은 <code>마감일</code>로 적으면 노트 200장을 세지 못합니다.</p>
+
+    <p>솔빛테크가 여러 클래스에 걸쳐 쓰는 이름은 스무 개입니다. 여기에 클래스 하나에서만 쓰는 전용 필드가 몇 개 붙습니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>묶음</th><th>필드</th><th>값의 모양</th><th>비고</th></tr>
+      </thead>
+      <tbody>
+        <tr><td rowspan="4">관계</td><td><code>pdm_uses</code></td><td><code>"[[노트]]"</code> 목록</td><td>제품 노트에</td></tr>
+        <tr><td><code>pdm_output_of</code></td><td><code>"[[노트]]"</code></td><td>기술역량 노트에</td></tr>
+        <tr><td><code>pdm_owner</code></td><td>설계서에서만 쓰는 이름</td><td>노트에는 <code>owner</code></td></tr>
+        <tr><td><code>pdm_intent_of</code></td><td><code>"[[노트]]"</code></td><td>업무로그 노트에</td></tr>
+        <tr><td rowspan="5">상태</td><td><code>status</code></td><td>클래스별 어휘 (아래)</td><td>필수</td></tr>
+        <tr><td><code>stage</code></td><td><code>3/5</code> 형태</td><td>단계 정의는 15장</td></tr>
+        <tr><td><code>priority</code></td><td>상 / 중 / 하</td><td>권장</td></tr>
+        <tr><td><code>blocked_by</code></td><td><code>"[[노트]]"</code></td><td>막힌 이유가 다른 노트일 때</td></tr>
+        <tr><td><code>confidence</code></td><td><code>draft</code> / <code>reviewed</code></td><td>11장에서 규칙을 정합니다</td></tr>
+        <tr><td rowspan="8">메타</td><td><code>class</code></td><td>클래스 이름</td><td>모든 노트 필수</td></tr>
+        <tr><td><code>id</code></td><td><code>PRD-001</code> 형태</td><td>모든 노트 필수</td></tr>
+        <tr><td><code>owner</code></td><td><code>"[[사람]]"</code></td><td>모든 노트 필수</td></tr>
+        <tr><td><code>start</code></td><td><code>2026-03-01</code></td><td>시작일</td></tr>
+        <tr><td><code>due</code></td><td><code>2026-11-30</code></td><td><strong>마감 날짜는 언제나 이 이름</strong></td></tr>
+        <tr><td><code>updated</code></td><td><code>2026-07-30</code></td><td>모든 노트 필수</td></tr>
+        <tr><td><code>since</code></td><td><code>2023-04</code></td><td>운영·거래 시작 시점</td></tr>
+        <tr><td><code>confidential</code></td><td>공개 / 사내 / 대외비</td><td>아래에서 따로 봅니다</td></tr>
+        <tr><td rowspan="3">과제</td><td><code>period</code></td><td><code>2025-04 ~ 2026-11</code></td><td>과제 필수</td></tr>
+        <tr><td><code>funder</code></td><td>발주·지원 기관 이름</td><td>과제 필수</td></tr>
+        <tr><td><code>budget</code></td><td>금액</td><td>과제 필수</td></tr>
+      </tbody>
+    </table>
+
+    <p>그리고 <strong>쓰지 않기로 한 이름</strong>이 있습니다. 뜻이 같은데 이름이 갈리는 것들입니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>나쁜 예 · 쓰지 않는 이름</th><th>정본</th><th>왜 갈렸나</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>deadline</code>, <code>마감일</code></td><td><code>due</code></td><td>영어와 한글을 섞어 쓰다가 갈립니다</td></tr>
+        <tr><td><code>uses_tech</code>, <code>tech_used</code>, <code>사용기술</code></td><td><code>pdm_uses</code></td><td>사람마다 자기 방식으로 짓습니다</td></tr>
+      </tbody>
+    </table>
+
+    <p>필드 이름을 새로 지을 때 지킬 규칙은 넷입니다.</p>
+
+    <div class="checklist">
+      <p class="checklist-title">필드 이름 짓는 규칙</p>
+      <ul>
+        <li><strong>영문 소문자와 밑줄만 씁니다.</strong> 한글 필드명은 스크립트와 도구 설정에서 자주 걸립니다. 값은 한글로 써도 됩니다</li>
+        <li><strong>관계에는 <code>pdm_</code>을 붙이고 나머지에는 안 붙입니다.</strong> 규칙이 반반이면 헷갈리지 않습니다</li>
+        <li><strong>뜻이 겹치는 이름을 동시에 두지 않습니다.</strong> <code>due</code>가 있으면 <code>end_date</code>를 만들지 않습니다</li>
+        <li><strong>새 필드는 설계서에 먼저 적고 나서 노트에 씁니다.</strong> 순서가 바뀌면 설계서가 현실을 못 따라가고, 그때부터 아무도 설계서를 안 봅니다</li>
+      </ul>
+    </div>
+
+    <h3>값의 모양도 하나로 정합니다</h3>
+
+    <p>이름을 통일해도 값의 모양이 갈리면 절반만 통일된 셈입니다. 이 장을 연 나쁜 예에서 셋 중 하나는 링크였고 하나는 그냥 글자였고 하나는 쉼표로 이어 붙인 목록이었습니다. 두 가지만 정하면 됩니다.</p>
+
+    <ul>
+      <li><strong>관계 필드의 값은 언제나 위키링크로 적습니다.</strong> <code>pdm_uses: 객체인식</code>처럼 글자로 적으면 연결이 안 생기고, 연결이 없으면 그래프에 선이 없습니다. 가리킬 노트가 아직 없어도 링크로 적으세요. 옵시디언에서 빈 링크는 흐리게 표시되고, 그 흐린 링크 목록이 곧 <strong>「아직 안 만든 노트」 할 일 목록</strong>이 됩니다.</li>
+      <li><strong>여러 개를 적을 때는 쉼표가 아니라 줄을 나눕니다.</strong> <code>pdm_uses: 객체인식, 경로최적화</code>는 값 하나로 셉니다. 항목마다 줄을 나눠서 목록으로 적어야 둘로 셉니다. 위의 창고봇 노트가 그 모양입니다.</li>
+    </ul>
+
+    <h3>필수 칸을 늘리면 노트가 안 만들어집니다</h3>
+
+    <p>이 이름들 중에 <strong>반드시 채워야 하는 것</strong>은 몇 개일까요. 모든 노트가 공통으로 갖는 넷(<code>class</code>, <code>id</code>, <code>owner</code>, <code>updated</code>)에 클래스마다 두어 개를 더한 정도입니다. 아래 표의 <code>trl</code>과 <code>evidence</code>가 앞에서 말한 전용 필드입니다. 기술역량 노트에만 들어갑니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>클래스</th><th>공통 넷 외에 필수</th><th>비어 있으면 생기는 일</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>제품</td><td><code>status</code>, <code>since</code></td><td>상태별 집계에서 빠진다</td></tr>
+        <tr><td>기술역량</td><td><code>trl</code>, <code>evidence</code></td><td>제안서에서 이 기술을 근거로 못 쓴다</td></tr>
+        <tr><td>과제</td><td><code>status</code>, <code>period</code>, <code>funder</code>, <code>budget</code></td><td>실적 집계와 간트에서 빠진다</td></tr>
+        <tr><td>기회</td><td><code>status</code>, <code>stage</code>, <code>due</code></td><td>마감 임박 경고가 안 뜬다</td></tr>
+      </tbody>
+    </table>
+
+    <p>세 번째 열이 필수를 판정하는 기준입니다. <strong>「비어 있으면 무슨 일이 생기나」에 답이 안 나오면 그 필드는 선택입니다.</strong></p>
+
+    <p>3장에서 클래스를 19개에서 7개로 줄인 이야기와 같은 원리입니다. 필수 칸이 늘면 노트 한 장 쓰는 비용이 오르고, 비용이 오르면 노트가 안 생기고, 노트가 없으면 2층이 비어 있습니다. <strong>선택 필드는 비어 있는 게 정상입니다.</strong> 17장의 점검 스크립트도 필수 칸만 봅니다. 빈칸을 전부 경고하면 경고를 아무도 안 봅니다.</p>
+
+    <div class="pitfall">
+      <p class="pitfall-title">이름을 나중에 바꾸는 비용은 생각보다 큽니다</p>
+      <p>노트 30장일 때는 일괄 치환으로 5분이면 끝납니다. 200장이 되면 이야기가 달라집니다. 치환은 여전히 5분이지만, <strong>치환이 반쯤만 된 상태</strong>가 문제입니다.</p>
+      <p>OneDrive로 동기화되는 볼트에서는 다른 사람이 그 순간 노트를 열어두고 있을 수 있습니다. 내가 치환하는 동안 그 사람이 저장하면 옛 이름이 되살아납니다. 그러면 노트 200장 중 몇 장이 옛 이름인지 아무도 모르는 상태가 되고, <strong>대시보드 숫자가 조용히 틀립니다.</strong></p>
+      <p>바꿔야 한다면 방법은 하나입니다. 팀에 공지하고, 모두 옵시디언을 닫고, 한 사람이 치환하고, 17장의 점검 스크립트로 옛 이름이 0건인지 확인합니다. 이 절차가 귀찮아서라도 <strong>처음에 이름을 신중하게 정하는 편이 낫습니다.</strong></p>
+    </div>
+
+    <h2>통제 어휘: 좁히려는 게 아니라 세려는 것입니다</h2>
+
+    <p>이름을 통일해도 값이 제각각이면 똑같이 못 셉니다. 솔빛테크의 <code>status</code> 칸에 실제로 적혀 있던 값들입니다.</p>
+
+    <pre><code># 나쁜 예 · 노트 열두 장의 status 칸에 적혀 있던 값
+
+진행중
+진행 중
+거의 다 됐음
+90%
+개발(내부검토)
+운영중?
+대기
+홀드</code></pre>
+
+    <p>여기서 <strong>진행 중인 것이 몇 개인가요?</strong> 답할 수 없습니다. 「거의 다 됐음」은 진행인가 검토인가, 「대기」와 「홀드」는 같은 것인가. 사람이 하나씩 열어보고 판단해야 하는데, 그럴 거면 애초에 이 칸이 필요 없습니다.</p>
+
+    <p>그래서 값을 미리 정해둡니다. 이걸 <a href="appendix-a.html#controlled-vocab" class="term-link">통제 어휘</a>라고 부릅니다. 목적을 오해하기 쉬운데, <strong>표현을 좁히려는 게 아니라 셀 수 있게 만들려는 것</strong>입니다. 미묘한 사정은 본문에 얼마든지 길게 쓰면 됩니다. 머리말의 칸 하나만 정해둔 목록 안의 값으로 고정합니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>클래스</th><th><code>status</code>에 쓸 수 있는 값</th><th>개수</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>제품</td><td>기획 / 개발 / 운영 / 중단</td><td>4</td></tr>
+        <tr><td>과제 · 기회</td><td>기획 / 진행 / 검토 / 완료 / 보류</td><td>5</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>같은 필드 이름인데 어휘가 클래스마다 다릅니다.</strong> 일부러 그렇게 뒀습니다. 제품에는 「검토」 단계가 없고, 과제에는 「운영」이라는 상태가 없습니다. 억지로 한 벌로 합치면 양쪽 다 안 맞는 값이 생기고, 안 맞는 값은 아무도 안 씁니다.</p>
+
+    <p>대신 <strong>클래스마다 다르다는 사실을 설계서에 못 박습니다.</strong> 이걸 적어두지 않으면 6개월 뒤에 과제 노트에 「운영」이 적히기 시작합니다.</p>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">「거의 다 됐음」이 왜 안 되나</p>
+      <p>세 가지가 동시에 무너집니다.</p>
+      <p><strong>첫째, 세지 못합니다.</strong> 「진행 중인 과제 몇 개야?」에 AI가 틀린 답을 합니다. 통제 어휘 밖의 값은 어느 칸에도 안 들어가고 조용히 빠집니다.</p>
+      <p><strong>둘째, 시간이 지나면 거짓말이 됩니다.</strong> 「거의 다 됐음」은 적은 날에는 맞았습니다. 넉 달 뒤에도 그대로 적혀 있고, 아무도 고치지 않습니다. 「개발」은 넉 달 뒤에도 대체로 맞습니다.</p>
+      <p><strong>셋째, 사람마다 다르게 읽습니다.</strong> 대표가 읽는 「거의」와 개발자가 읽는 「거의」는 두 달 차이가 납니다.</p>
+    </div>
+
+    <h3>값을 하나 더 넣고 싶어질 때</h3>
+
+    <p>반드시 옵니다. 「기획과 개발 사이에 「출시예정」을 하나 넣으면 딱 맞을 것 같은데요.」</p>
+
+    <p>이때 쓰는 기준이 있습니다. <strong>새 값을 넣으려면 설계서를 고치고, 기존 노트를 전부 다시 보고, 17장의 점검 규칙을 고쳐야 합니다.</strong> 그 비용을 치를 만큼 자주 쓰이는 값인지 물어보세요. 한 노트에만 필요하다면 그건 본문에 한 줄 적을 일이지 어휘를 늘릴 일이 아닙니다.</p>
+
+    <p>솔빛테크는 이 질문을 설계 회의에서 두 번 했고, 두 번 다 안 늘렸습니다. 대신 본문에 「9월 베타 목표」라고 적었습니다. 필요한 정보는 다 남았고, 세는 일은 여전히 됩니다.</p>
+
+    <h2>기밀 등급: 볼트에 넣으면 안 되는 것</h2>
+
+    <p>볼트는 Teams 공유 폴더에 있고, 팀 전원이 같은 파일을 봅니다(6장). 그래서 <strong>「이 노트를 누구까지 봐도 되나」가 아니라 「이 내용을 어디까지 옮겨 써도 되나」를 관리합니다.</strong> 이 구분이 중요합니다. 폴더 권한은 회사 계정이 이미 하고 있고, 우리가 정할 것은 그다음입니다.</p>
+
+    <p><code>confidential</code> 필드 하나로 세 등급을 씁니다.</p>
+
+    <table>
+      <thead>
+        <tr><th>값</th><th>뜻</th><th>솔빛테크의 예</th><th>AI에게 시킬 때</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>공개</td><td>이미 회사 밖에 나간 내용</td><td>창고봇 제품 소개, 홈페이지 문구</td><td>제한 없음</td></tr>
+        <tr><td>사내</td><td>회사 안에서만 보는 것</td><td>과제 예산, 내부 일정, 기술 한계</td><td>대외 문서에 그대로 옮기지 않는다</td></tr>
+        <tr><td>대외비</td><td>새어 나가면 관계가 상하는 것</td><td>계약 전 고객, 미공개 가격</td><td>이름을 쓰지 않고 「국내 물류기업」처럼 가린다</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>값이 없으면 「사내」로 봅니다.</strong> 기본값을 안전한 쪽으로 기울여 두는 이유는 단순합니다. 사람은 칸을 빠뜨립니다. 빠뜨렸을 때 가장 느슨한 등급이 되면 사고가 납니다.</p>
+
+    <p>그리고 등급으로 다룰 수 없는 것이 따로 있습니다. <strong>볼트에 아예 넣지 않는 것들</strong>입니다.</p>
+
+    <div class="callout callout-warning">
+      <p class="callout-title">이건 등급을 붙일 게 아니라 넣지 마세요</p>
+      <p>주민등록번호와 계좌번호, 계정 비밀번호와 접속 키, 인사 평가와 급여 자료, 고객사에서 대외비로 받은 원본 문서. 네 가지는 <code>confidential: 대외비</code>를 붙여도 볼트에 두면 안 됩니다.</p>
+      <p>이유는 하나입니다. <strong>볼트의 권한은 폴더 단위입니다.</strong> 한 사람만 봐야 하는 자료는 팀 전원이 동기화하는 폴더에 둘 자리가 없습니다. 노트에 「인사 자료는 별도 시스템에 있음」이라고 적고 링크만 남기면 충분합니다.</p>
+    </div>
+
+    <div class="pitfall">
+      <p class="pitfall-title">대외비 폴더를 따로 만들면 될까요</p>
+      <p>안 됩니다. 폴더는 0층이고, 한 노트는 한 폴더에만 들어갑니다. 대성물류 노트를 <code>대외비/</code>로 옮기면 <code>30-Partners/</code>에서 사라지고, 고객 목록을 뽑는 모든 작업에서 빠집니다. <strong>존재 자체가 안 보이게 되는 것이 더 위험합니다.</strong></p>
+      <p>필드로 두면 노트는 제자리에 있고 등급만 붙습니다. 16장의 제안서 작성 프롬프트가 <code>confidential</code>을 읽어서 이름만 가립니다. 노트는 세어지고, 이름은 안 나갑니다.</p>
+    </div>
+
+    <div class="case-box">
+      <p class="case-title">사례 · 솔빛테크가 이 필드를 만든 계기</p>
+      <p>대성물류와 미팅을 한 다음 주, 제안서 초안에 <strong>「대성물류 납품 사례」</strong>라는 문장이 들어갔습니다. 계약은 아직 없었습니다. 초안을 쓴 사람은 미팅이 잘 됐다는 이야기만 들었고, 계약 전이라는 사실은 다른 사람 머릿속에만 있었습니다.</p>
+      <p>다행히 김대표가 검토에서 잡았습니다. 다만 그때 나온 말이 이랬습니다. <em>"이번엔 내가 봤으니까 잡았는데, 다음에도 내가 볼까?"</em></p>
+      <p>그래서 <code>confidential: 대외비</code>를 대성물류 노트에 붙였습니다. 이제 이 판단은 사람의 기억이 아니라 <strong>노트의 한 칸</strong>에 있습니다. 16장의 제안서 프롬프트와 11장의 규칙이 이 칸을 읽습니다.</p>
+    </div>
+
+    <h2>의도와 실행을 잇는 선</h2>
+
+    <p>마지막 술어 하나가 남았습니다. <code>pdm_intent_of</code>는 앞의 셋과 성격이 다릅니다. 나머지는 <strong>무엇이 무엇과 이어지는가</strong>를 적지만, 이건 <strong>이 일을 왜 했는가</strong>를 적습니다.</p>
+
+    <p>업무로그 노트의 머리말에 한 줄 들어갑니다.</p>
+
+    <pre><code>---
+class: 업무로그
+id: LOG-2026-07-15
+owner: "[[김대표]]"
+updated: 2026-07-15
+pdm_intent_of: "[[OPP-2026-지자체공모]]"
+---</code></pre>
+
+    <p>이 한 줄이 무엇을 사는지는 18장에서 드러납니다. 회고 때 던지는 질문이 이겁니다. <strong>「이번 분기에 하겠다고 한 것과, 실제로 시간을 쓴 것이 같은가?」</strong></p>
+
+    <p>이 질문에 답하려면 로그 한 줄 한 줄이 어느 목표에 붙는지 적혀 있어야 합니다. 안 적혀 있으면 6개월 치 로그를 사람이 다시 읽으면서 하나씩 분류해야 하는데, <strong>그 일은 아무도 안 합니다.</strong> 그래서 지금 필드만 만들어 둡니다. 소급해서 붙일 수 없는 종류의 정보라서 그렇습니다.</p>
+
+    <p>설계할 때 정할 것이 둘 있습니다.</p>
+
+    <ul>
+      <li><strong>값은 하나만 적습니다.</strong> 한 로그가 두 목표에 걸쳐 있으면 로그를 둘로 나눕니다. 여러 개를 허용하면 나중에 시간을 나눠 셀 방법이 없습니다.</li>
+      <li><strong>붙일 목표가 없으면 비워 둡니다.</strong> 억지로 아무 데나 붙이지 않습니다. 어디에도 안 붙는 일이 얼마나 되는지가 그 자체로 중요한 정보이고, 18장이 그 비율을 봅니다.</li>
+    </ul>
+
+    <div class="pitfall">
+      <p class="pitfall-title">이 칸을 AI가 채우게 두면 대조가 무의미해집니다</p>
+      <p>업무로그를 AI에게 구조화시키면 <code>pdm_intent_of</code>도 추론해서 채우려고 합니다. 그럴듯한 값이 나옵니다. 그런데 18장이 던지는 질문은 「하겠다고 한 것과 실제로 한 것이 같은가」이고, 그 답을 추측으로 채우면 <strong>대조할 대상 자체가 사라집니다.</strong> 계획과 실행이 언제나 일치하는 결과가 나옵니다.</p>
+      <p>이 칸은 그 일을 한 사람이 적습니다. 판단이 안 서면 비워 둡니다. 11장의 <code>CLAUDE.md</code>에 한 줄로 못 박아 둘 항목입니다.</p>
+    </div>
+
+    <div class="callout callout-tip">
+      <p class="callout-title">두 번째 항목이 이 필드의 진짜 값어치입니다</p>
+      <p>계획에 없던 일이 30%라는 사실은 나쁜 소식이 아닙니다. <strong>고객 요청과 급한 대응은 원래 계획에 없습니다.</strong> 다만 그게 60%라면 분기 계획을 다시 세워야 한다는 신호이고, 이 신호는 로그에 이 칸이 있어야만 보입니다.</p>
+    </div>
+
+    <h2>설계서에 옮겨 적기</h2>
+
+    <p>정한 것을 <code>_ops/01-온톨로지-설계서.md</code>에 이어 붙입니다. 9장에서 클래스 표까지 적어뒀으니 그 아래에 세 절을 더합니다.</p>
+
+    <pre><code>## 관계 술어
+
+| 술어           | 방향             | 적는 노트   | 뜻                    |
+|----------------|------------------|-------------|-----------------------|
+| pdm_uses       | 제품 → 기술역량  | 제품        | 이 제품이 쓰는 기술   |
+| pdm_output_of  | 기술역량 → 과제  | 기술역량    | 이 기술이 나온 과제   |
+| pdm_owner      | 모두 → 사람      | 모든 노트   | 담당자 (필드명은 owner) |
+| pdm_intent_of  | 업무로그 → 과제·기회 | 업무로그 | 이 일의 목적          |
+
+반대 방향 필드를 만들지 않는다. 백링크로 본다.
+
+## 필드
+
+- 모든 노트 필수: class, id, owner, updated
+- 제품: status, since
+- 기술역량: trl, evidence
+- 과제: status, period, funder, budget
+- 기회: status, stage, due
+- 선택: start, priority, blocked_by, confidential, confidence
+
+마감 날짜는 언제나 due 다. 다른 이름을 만들지 않는다.
+설계서에 없는 필드를 노트에 먼저 쓰지 않는다.
+
+## 어휘
+
+- status (제품): 기획 / 개발 / 운영 / 중단
+- status (과제·기회): 기획 / 진행 / 검토 / 완료 / 보류
+- priority: 상 / 중 / 하
+- confidence: draft / reviewed
+- confidential: 공개 / 사내 / 대외비 (값이 없으면 사내로 본다)
+
+목록 밖의 값을 쓰지 않는다. 사정은 본문에 문장으로 적는다.</code></pre>
+
+    <p>A4 한 장이 채 안 됩니다. <strong>1층은 이 정도면 됩니다.</strong> 3장에서 봤듯이 1층의 품질은 정교함이 아니라 2층이 얼마나 잘 채워지는지로 측정합니다.</p>
+
+    <p>9장의 클래스 표까지 합치면 설계에 들인 시간이 서너 시간입니다. 8장에서 온톨로지 설계에 <strong>3~5시간만 쓰라</strong>고 못 박은 이유가 여기 있습니다. 더 쓴다고 설계가 정교해지지 않습니다. 노트를 채우기 시작한 다음에야 무엇이 부족한지 보이고, 그때 분기에 한 번씩 손보면 충분합니다.</p>
+
+    <div class="exercise-box">
+      <p class="exercise-title">직접 해보기: 우리 회사 술어 세 개 뽑기</p>
+      <p>40분 정도 걸립니다. 혼자 하지 말고 제안서를 실제로 쓰는 사람과 함께 하세요.</p>
+      <ol>
+        <li>최근 제안서나 회사 소개서에서 <strong>사실을 서술한 문장 다섯 개</strong>를 그대로 옮겨 적습니다. 예: 「당사 A제품은 B기술을 적용하여 C기관 과제에서 개발되었습니다」</li>
+        <li>각 문장에서 <strong>동사에 밑줄</strong>을 긋습니다. 「적용하여」, 「개발되었습니다」, 「납품 중입니다」.</li>
+        <li>다섯 문장에서 <strong>두 번 이상 나온 동사</strong>를 고릅니다. 그게 술어 후보입니다. 한 번만 나온 것은 버립니다.</li>
+        <li>후보마다 <strong>방향</strong>을 정합니다. 「둘 중 어느 노트가 이 사실 때문에 더 자주 바뀌나」로 판단합니다. 자주 바뀌는 쪽에 적습니다.</li>
+        <li>이름을 붙입니다. <code>pdm_</code>을 앞에 붙이고, 영문 소문자와 밑줄만 씁니다. 세 개를 넘기지 마세요.</li>
+        <li>설계서에 표로 적고, <strong>실제 노트 세 장에 넣어봅니다.</strong> 옵시디언에서 링크가 파랗게 살아나는지, 백링크가 반대편 노트에 뜨는지 확인합니다.</li>
+        <li>마지막으로 자문합니다. <strong>「이 술어로 어떤 질문에 답이 나오나?」</strong> 답할 질문이 떠오르지 않는 술어는 지웁니다. 쓸 일이 없습니다.</li>
+      </ol>
+    </div>
+
+    <aside class="recap-box">
+      <h3>잠깐, 정리!</h3>
+      <ul>
+        <li>클래스가 점의 종류라면 <strong>관계 술어는 선의 종류</strong>다. 넷으로 시작한다 <code>pdm_uses · pdm_output_of · pdm_owner · pdm_intent_of</code></li>
+        <li><strong>선에는 방향이 있다.</strong> 반대 방향 필드를 만들지 않는다. 두 곳에 적으면 두 곳이 어긋나고, 반대편은 백링크가 공짜로 준다</li>
+        <li><code>pdm_</code> 접두어는 <strong>우리가 정의한 관계라는 표시</strong>다. 모아 보기 쉽고 이름이 안 부딪힌다. 글자 자체보다 하나로 고정하는 것이 중요하다</li>
+        <li>노트는 두 부분이다. <strong>머리말은 기계가, 본문은 사람이</strong> 읽는다. 머리말에는 셀 수 있는 것만 넣는다</li>
+        <li>같은 사실을 머리말과 본문 양쪽에 적지 않는다. <strong>한 곳이 반드시 낡는다</strong></li>
+        <li><strong>마감 날짜는 언제나 <code>due</code>다.</strong> 뜻이 같아도 이름이 갈리면 세지 못한다</li>
+        <li>통제 어휘의 목적은 표현을 좁히는 게 아니라 <strong>셀 수 있게 만드는 것</strong>이다. 미묘한 사정은 본문에 문장으로 쓴다</li>
+        <li><code>status</code>의 어휘는 <strong>클래스마다 다르다.</strong> 제품은 넷, 과제·기회는 다섯. 억지로 합치지 않는다</li>
+        <li>「거의 다 됐음」은 세지 못하고, 넉 달 뒤에 거짓말이 되고, 사람마다 다르게 읽힌다</li>
+        <li><code>confidential</code>은 <strong>「누가 보나」가 아니라 「어디까지 옮겨 써도 되나」</strong>를 관리한다. 값이 없으면 사내로 본다</li>
+        <li>개인정보·계정·급여·고객사 원본 문서는 <strong>등급을 붙일 게 아니라 볼트에 넣지 않는다</strong></li>
+        <li>대외비를 폴더로 나누지 않는다. 폴더는 0층이라 노트가 목록에서 통째로 사라진다</li>
+        <li><code>pdm_intent_of</code>는 지금 만들어 두고 18장에서 쓴다. <strong>소급해서 붙일 수 없는 정보</strong>라서 그렇다</li>
+      </ul>
+    </aside>
+
+    <div class="next-teaser">
+      <h3>다음 장에서는...</h3>
+      <p>1층이 끝났습니다. 그런데 여기까지 정한 규칙을 <strong>AI는 아직 한 글자도 모릅니다.</strong> 설계서는 사람이 읽으라고 만든 문서이고, 대화를 시작할 때마다 규칙을 다시 설명할 수는 없습니다.</p>
+      <p>다음 장은 파일 한 장으로 그 문제를 끝냅니다. <code>CLAUDE.md</code>에 <strong>절대 규칙</strong>과 <strong>우리 회사에서 자주 틀리는 사실 목록</strong>을 적어 두면, 팀 전원의 AI가 같은 규칙으로 움직입니다. 복사해서 바로 쓸 수 있는 전문을 통째로 실었습니다.</p>
+    </div>
+  </article>

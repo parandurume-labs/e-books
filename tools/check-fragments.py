@@ -116,6 +116,10 @@ def check(path: Path) -> None:
     # 도입부 세 장(ch01·02·04)이 짧은 축이라 하한을 그 아래로 둔다.
     # 미작성 장은 설계·템플릿·스크립트가 많아 더 길어지는 게 자연스럽다.
     floor, thin, hi = (3000, 5000, 14000)
+    if where.startswith("appendix"):
+        # 부록은 처음부터 끝까지 읽는 글이 아니라 필요한 항목만 찾아 쓰는 글이다.
+        # 자산을 덜 싣는 것보다 긴 편이 낫다.
+        thin, hi = (3000, 24000)
     if chars < floor:
         add("ERROR", where, f"본문 {chars}자. 장이라기엔 너무 짧다 (최소 {floor})")
     elif chars < thin:
@@ -144,6 +148,18 @@ def check(path: Path) -> None:
         n = prose.count(needle)
         if n > limit:
             add("ERROR", where, f"{tok} {n}개 (허용 {limit})")
+
+    # SVG 안의 글자도 독자가 읽는다. 산문 지표에서는 빼지만 무관용 규칙은 적용한다.
+    # 이걸 안 봐서 그림 레이블에 em dash 27개가 숨어 있었다.
+    svg_text = " ".join(
+        t for svg in re.findall(r"<svg.*?</svg>", body, flags=re.S)
+        for t in re.findall(r"<(?:text|tspan)[^>]*>([^<>]*)</(?:text|tspan)>", svg)
+    )
+    for tok, limit in INV["prose_rules"]["zero_tolerance"].items():
+        needle = "—" if tok == "em_dash" else tok
+        n = svg_text.count(needle)
+        if n > limit:
+            add("ERROR", where, f"그림 레이블에 {tok} {n}개 (허용 {limit})")
 
     # 비율 예산
     if chars >= INV["prose_rules"]["budget_min_chars"]:
@@ -188,10 +204,11 @@ def check(path: Path) -> None:
     if emoji:
         add("ERROR", where, f"이모지 {len(emoji)}개: {''.join(sorted(set(emoji))[:6])}")
 
-    # 장 마무리 관례
-    for cls, label in (("recap-box", "정리 상자"), ("next-teaser", "다음 장 예고")):
-        if cls not in body:
-            add("WARN", where, f"{label}({cls})가 없다")
+    # 장 마무리 관례. 부록은 읽는 글이 아니라 찾아보는 글이라 해당 없다.
+    if not where.startswith("appendix"):
+        for cls, label in (("recap-box", "정리 상자"), ("next-teaser", "다음 장 예고")):
+            if cls not in body:
+                add("WARN", where, f"{label}({cls})가 없다")
 
 
 def main() -> int:

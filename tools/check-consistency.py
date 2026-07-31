@@ -86,6 +86,22 @@ def check_prose_metrics(f: Path, html: str) -> None:
             add("WARN", rel(f), f"{tok} {n}회 · 1만자당 {rate:.1f} (예산 {per10k})")
 
 
+def check_svg_labels(f: Path, html: str) -> None:
+    """그림 안의 글자도 독자가 읽는다.
+
+    산문 지표는 SVG 를 빼고 세지만 em dash 는 조판 규칙이라 그림에도 적용된다.
+    이걸 안 봐서 여덟 파일의 레이블에 em dash 27개가 숨어 있었다.
+    영어판도 본다. 조판 규칙은 언어를 가리지 않는다.
+    """
+    labels = " ".join(
+        t for svg in re.findall(r"<svg.*?</svg>", html, flags=re.S)
+        for t in re.findall(r"<(?:text|tspan)[^>]*>([^<>]*)</(?:text|tspan)>", svg)
+    )
+    n = labels.count(EM)
+    if n:
+        add("ERROR", rel(f), f"그림 레이블에 em dash {n}개")
+
+
 def check_forbidden_aliases(f: Path, html: str) -> None:
     """정본이 아닌 필드명이 정본처럼 쓰이면 안 된다.
     나쁜 예로 인용하는 맥락에는 허용 표지가 함께 있어야 한다."""
@@ -286,7 +302,7 @@ def main() -> int:
         for f in sorted(book.rglob("*.html")):
             html = f.read_text(encoding="utf-8")
             files += 1
-            for fn in (check_prose_metrics, check_forbidden_aliases, check_automation_write_policy,
+            for fn in (check_prose_metrics, check_svg_labels, check_forbidden_aliases, check_automation_write_policy,
                        check_status_enum, check_en_korean_leftovers, check_en_paths,
                        check_broken_negation, check_constants):
                 fn(f, html)
